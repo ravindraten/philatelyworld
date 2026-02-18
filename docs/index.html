@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Philatelic Elite | Curated Stamps</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+    <div class="header-top-bar">
+        <span>Global Shipping Available</span>
+        <span>•</span>
+        <span>Expertly Authenticated</span>
+    </div>
+    <div class="header-main">
+        <div class="logo-wrapper">
+            <img src="images/logo.jpg" alt="Logo" class="logo">
+        </div>
+        <div class="brand-info">
+            <h1>PHILATELIC <span class="highlight">World</span></h1>
+            <p>ESTABLISHED 2017 • PREMIUM STAMP CURATION</p>
+        </div>
+        <div class="header-actions">
+            <a href="https://wa.me/31633467712" class="contact-pill">Chat with Me</a>
+            <a href="https://www.instagram.com/philatelyworld10" target="_blank" class="social-icon" title="Follow us on Instagram">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                    <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                </svg>
+            </a>
+            <div class="currency-nav">
+                <button onclick="setCurrency('INR')" id="btnINR" class="curr-btn active">₹ INR</button>
+                <button onclick="setCurrency('EUR')" id="btnEUR" class="curr-btn">€ EUR</button>
+            </div>
+        </div>
+    </div>
+</header>
+
+<div class="container">
+    <div class="search-container">
+        <input type="text" id="stampSearch" onkeyup="filterStamps()" placeholder="Search by theme, country, or year...">
+    </div>
+    <div class="stamp-grid" id="stampGrid"></div>
+</div>
+
+<div id="myModal" class="modal">
+    <span class="close" onclick="closeModal()">&times;</span>
+    <a class="prev" onclick="changeSlide(-1)">&#10094;</a>
+    <img class="modal-content" id="img01">
+    <a class="next" onclick="changeSlide(1)">&#10095;</a>
+    <div id="caption"></div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
