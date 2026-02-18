@@ -12,15 +12,15 @@ const stamps = [
         desc: "RN4057: Thick stockbook with stamp collection various.Check the photos. What you see is what you get.(+ shipping Inside India in April 2026).Thick album for free" 
     },
     { 
-        name: "Penny Black", 
-        country: "UK", 
-        year: "1840", 
-        priceINR: 45000, 
+        name: "Dutch Antilles and Suriname FDC's", 
+        country: "Dutch Antilles and Suriname", 
+        year: "1965+", 
+        priceINR: 17500, 
         isSoldOut: true,
-        folder: "penny-black",
-        imageCount: 2,
+        folder: "FDC",
+        imageCount: 23,
         //images: ["https://picsum.photos/400/300?random=3"],
-        desc: "The world's first adhesive postage stamp. Features Queen Victoria." 
+        desc: "RN4059:3 Luxureous Importa albums in excellent condition with collection about 350 FDC covers Dutch Antilles and Suriname. Check the photos to see a small part, but there is a lot more than you can see here.Price: Rs.50 per cover(Total will be 17500/-). Three albums for free + shipping inside India in April 2026" 
     }
 ];
 
