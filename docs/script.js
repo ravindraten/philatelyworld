@@ -124,3 +124,17 @@ document.addEventListener('keydown', function(event) {
         }
     }
 });
+
+function updateFooter() {
+    const footerElement = document.getElementById('lastUpdated');
+    if (footerElement) {
+        const today = new Date();
+        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+        const formattedDate = today.toLocaleDateString('en-US', options);
+        
+        footerElement.innerHTML = `Catalog Updated: ${formattedDate} • ${stamps.length} Exclusive Listings`;
+    }
+}
+
+// Call this at the very end of your script
+updateFooter();
