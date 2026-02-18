@@ -54,5 +54,71 @@ const stamps = [
         imageCount: 4,
         //images: ["https://picsum.photos/400/300?random=3"],
         desc: "RN4056: Used stamps from around the world. ( Free letter post shipping worldwide from Netherlands)"
+    },
+    { 
+        name: "Indipex 73' India International Philatelic Exhibition", 
+        country: "India", 
+        year: "1973", 
+        priceINR: 999, 
+        isSoldOut: false,
+        folder: "001",
+        imageCount: 1,
+        //images: ["https://picsum.photos/400/300?random=3"],
+        desc: "RN4060: MNH MS from India( Free letter post shipping worldwide from Netherlands)"
+    },
+    { 
+        name: "Indian Masks Series", 
+        country: "India", 
+        year: "1975", 
+        priceINR: 999, 
+        isSoldOut: false,
+        folder: "002",
+        imageCount: 1,
+        //images: ["https://picsum.photos/400/300?random=3"],
+        desc: "RN4061: MNH MS from India( Free letter post shipping worldwide from Netherlands)"
+    },
+    { 
+        name: "UPU Centenary", 
+        country: "India", 
+        year: "1974", 
+        priceINR: 1820, 
+        isSoldOut: false,
+        folder: "003",
+        imageCount: 1,
+        //images: ["https://picsum.photos/400/300?random=3"],
+        desc: "RN4062: MNH MS from India( Free letter post shipping worldwide from Netherlands)"
+    },
+    { 
+        name: "India 89' world philatelic exhibition", 
+        country: "India", 
+        year: "1989", 
+        priceINR: 270, 
+        isSoldOut: false,
+        folder: "004",
+        imageCount: 1,
+        //images: ["https://picsum.photos/400/300?random=3"],
+        desc: "RN4063: MNH MS from India( Free letter post shipping worldwide from Netherlands)"
+    },
+    { 
+        name: "India 89' world philatelic exhibition MS2", 
+        country: "India", 
+        year: "1989", 
+        priceINR: 270, 
+        isSoldOut: false,
+        folder: "005",
+        imageCount: 1,
+        //images: ["https://picsum.photos/400/300?random=3"],
+        desc: "RN4064: MNH MS from India( Free letter post shipping worldwide from Netherlands)"
+    },
+    { 
+        name: "Mahatma Gandhi South Africa joint issue", 
+        country: "India", 
+        year: "1995", 
+        priceINR: 270, 
+        isSoldOut: false,
+        folder: "006",
+        imageCount: 1,
+        //images: ["https://picsum.photos/400/300?random=3"],
+        desc: "RN4065: MNH MS from India( Free letter post shipping worldwide from Netherlands)"
     }
 ];
