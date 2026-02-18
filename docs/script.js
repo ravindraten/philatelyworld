@@ -21,6 +21,39 @@ const stamps = [
         imageCount: 23,
         //images: ["https://picsum.photos/400/300?random=3"],
         desc: "RN4059:3 Luxureous Importa albums in excellent condition with collection about 350 FDC covers Dutch Antilles and Suriname. Check the photos to see a small part, but there is a lot more than you can see here.Price: Rs.50 per cover(Total will be 17500/-). Three albums for free + shipping inside India in April 2026" 
+    },
+    { 
+        name: "TinTin FDC and MS", 
+        country: "Netherlands", 
+        year: "1999", 
+        priceINR: 899, 
+        isSoldOut: true,
+        folder: "RN4043",
+        imageCount: 1,
+        //images: ["https://picsum.photos/400/300?random=3"],
+        desc: "RN4043: FDC and miniature sheet from Netherlands.(Free letter post shipping worldwide)"
+    },
+    { 
+        name: "60 FDC's", 
+        country: "Switzerland", 
+        year: "various", 
+        priceINR: 3000, 
+        isSoldOut: true,
+        folder: "RN4051",
+        imageCount: 1,
+        //images: ["https://picsum.photos/400/300?random=3"],
+        desc: "RN4051: 60 different FDC from Switzerland. (+ shipping inside India in April 2026)"
+    },
+    { 
+        name: "USED stamps lot", 
+        country: "Different countries", 
+        year: "various", 
+        priceINR: 899, 
+        isSoldOut: true,
+        folder: "RN4056",
+        imageCount: 1,
+        //images: ["https://picsum.photos/400/300?random=3"],
+        desc: "RN4056: Used stamps from around the world. ( Free letter post shipping worldwide from Netherlands)"
     }
 ];
 
@@ -55,7 +88,7 @@ function displayStamps(data) {
         // This ensures the Lightbox opens the correct folder even after filtering
         const originalIndex = stamps.findIndex(s => s.name === stamp.name);
         
-        let displayPrice = currentCurrency === 'INR' 
+        let displayPrice = currentCurrency === 'EUR' 
             ? `€${(stamp.priceINR * exchangeRate).toFixed(2)}`
             : `₹${stamp.priceINR.toLocaleString('en-IN')}`;
 
