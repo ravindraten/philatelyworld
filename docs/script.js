@@ -71,13 +71,19 @@ function displayStamps(data) {
                 <div class="photo-badge">${stamp.imageCount} Photos</div>
             </div>
             <div class="details" style="padding:20px;">
-                <div class="meta" style="font-size:0.8rem; color:var(--accent); font-weight:600;">${stamp.country} • ${stamp.year}</div>
-                <h3 style="margin:5px 0;">${stamp.name}</h3>
+            <h3 style="margin: 0 0 10px 0; font-size: 1.4rem; font-weight: 700; color: var(--primary);">${stamp.name}</h3>
+            
+            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 12px;">
+                <span class="stamp-year">Year:${stamp.year}</span>
+                <span class="meta-location" style="margin:0;">${stamp.country}</span>
+            </div>
+
                 <p class="stamp-desc">${stamp.desc}</p>
-                <div class="price-row" style="display:flex; justify-content:space-between; align-items:center;">
+                
+                <div class="price-row">
                     <span class="price">${displayPrice}</span>
-                    <a href="https://wa.me/${phoneNumber}?text=Interested in: ${stamp.name}" class="buy-btn" style="background:var(--whatsapp); color:white; padding:8px 15px; border-radius:8px; text-decoration:none; font-size:0.8rem;">
-                        ${stamp.isSoldOut ? 'Sold' : 'Buy'}
+                    <a href="https://wa.me/${phoneNumber}?text=Interested in: ${stamp.name}" class="buy-btn">
+                        ${stamp.isSoldOut ? 'Sold' : 'WhatsApp'}
                     </a>
                 </div>
             </div>

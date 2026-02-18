@@ -357,3 +357,23 @@ font-feature-settings: "tnum"; /* Ensures numbers align perfectly */
 .img-container {
     position: relative;
 }
+
+.stamp-year {
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: 700;
+    font-size: 0.7rem; /* Slightly smaller */
+    color: var(--accent);
+    background: rgba(217, 119, 6, 0.08);
+    padding: 1px 6px;
+    border-radius: 4px;
+    letter-spacing: 0.5px;
+    border: 0.5px solid rgba(217, 119, 6, 0.2);
+}
+
+.meta-location {
+    font-size: 0.75rem;
+    color: var(--text-light);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
