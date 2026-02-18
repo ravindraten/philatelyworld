@@ -50,20 +50,24 @@ function displayStamps(data) {
     const grid = document.getElementById('stampGrid');
     grid.innerHTML = ''; 
 
-    data.forEach((stamp, index) => {
+    data.forEach((stamp) => {
+        // Find the ORIGINAL index of this stamp in the master 'stamps' array
+        // This ensures the Lightbox opens the correct folder even after filtering
+        const originalIndex = stamps.findIndex(s => s.name === stamp.name);
+        
         let displayPrice = currentCurrency === 'INR' 
-            ? `₹${stamp.priceINR.toLocaleString('en-IN')}` 
-            : `€${(stamp.priceINR * exchangeRate).toFixed(2)}`;
+            ? `€${(stamp.priceINR * exchangeRate).toFixed(2)}`
+            : `₹${stamp.priceINR.toLocaleString('en-IN')}`;
 
-        // We use getImagePath with '1' to show the first image as the thumbnail
-        const thumbUrl = getImagePath(index, 1);
+        const thumbUrl = `images/${stamp.folder}/1.jpg`;
 
         const card = document.createElement('div');
         card.className = `stamp-card ${stamp.isSoldOut ? 'sold-out' : ''}`;
+        
         card.innerHTML = `
             <div class="img-container">
                 ${stamp.isSoldOut ? '<div class="sold-out-badge">Sold Out</div>' : ''}
-                <img src="${thumbUrl}" alt="${stamp.name}" onclick="openLightbox(${index})" style="width:100%; cursor:zoom-in;">
+                <img src="${thumbUrl}" alt="${stamp.name}" onclick="openLightbox(${originalIndex})">
                 <div class="photo-badge">${stamp.imageCount} Photos</div>
             </div>
             <div class="details" style="padding:20px;">
@@ -82,11 +86,16 @@ function displayStamps(data) {
     });
 }
 
+// 1. Updated Filter Function
 function filterStamps() {
     let term = document.getElementById('stampSearch').value.toLowerCase();
+    
+    // Filter the original 'stamps' array
     let filtered = stamps.filter(s => 
         `${s.name} ${s.country} ${s.year} ${s.desc}`.toLowerCase().includes(term)
     );
+    
+    // Re-render only the filtered results
     displayStamps(filtered);
 }
 
