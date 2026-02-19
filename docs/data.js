@@ -23,10 +23,10 @@ const stamps = [
         desc: "RN4067: On January 5, 2026, PostNL will release Experience Nature - Birds of Saba, a sheet of 10 stamps in 10 different designs + shipping inside India in April 2026)"
     },
     { 
-        name: "Bundle - Crypto Stamp Heroes of Mythology", 
-        country: "Portugal, Austria, Luxembourg, Belgium, Netherlands", 
+        name: "New Dutch Design – Terugkerende Herinneringen (Returning Memories)", 
+        country: "Netherlands", 
         year: "2026", 
-        priceINR: 999, 
+        priceINR: 990, 
         isSoldOut: false,
         folder: "D1",
         imageCount: 3,
