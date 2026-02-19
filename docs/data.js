@@ -1,6 +1,39 @@
 // 1. STAMP DATABASE
 const stamps = [
     { 
+        name: "The Bull stamp sheet", 
+        country: "Netherlands", 
+        year: "2026", 
+        priceINR: 770, 
+        isSoldOut: false,
+        folder: "D3",
+        imageCount: 6,
+        //images: ["https://picsum.photos/400/300?random=3"],
+        desc: "RN4066: On January 15, 2026, PostNL will issue the The Bull stamp sheet featuring the eponymous painting by Paulus Potter. + shipping inside India in April 2026)"
+    },
+    { 
+        name: "Experience nature - birds Saba", 
+        country: "Netherlands", 
+        year: "2026", 
+        priceINR: 1640, 
+        isSoldOut: false,
+        folder: "D2",
+        imageCount: 1,
+        //images: ["https://picsum.photos/400/300?random=3"],
+        desc: "RN4067: On January 5, 2026, PostNL will release Experience Nature - Birds of Saba, a sheet of 10 stamps in 10 different designs + shipping inside India in April 2026)"
+    },
+    { 
+        name: "Bundle - Crypto Stamp Heroes of Mythology", 
+        country: "Portugal, Austria, Luxembourg, Belgium, Netherlands", 
+        year: "2026", 
+        priceINR: 999, 
+        isSoldOut: false,
+        folder: "D1",
+        imageCount: 3,
+        //images: ["https://picsum.photos/400/300?random=3"],
+        desc: "RN4068: On February 16, 2026, PostNL will issue the New Dutch Design – Terugkerende Herinneringen (Returning Memories) stamps, the first sheet of this year's New Dutch Design series.(+ shipping inside India in April 2026)"
+    },
+    { 
         name: "Bundle - Crypto Stamp Heroes of Mythology", 
         country: "Portugal, Austria, Luxembourg, Belgium, Netherlands", 
         year: "2025", 
