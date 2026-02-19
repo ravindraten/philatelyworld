@@ -1,7 +1,7 @@
 // 1. STAMP DATABASE
 const stamps = [
     { 
-        name: "Complete set of 11 MS from Imdia", 
+        name: "Complete set of 11 MS from India 2025", 
         country: "India", 
         year: "2025", 
         priceINR: 2150, 
