@@ -1,6 +1,17 @@
 // 1. STAMP DATABASE
 const stamps = [
     { 
+        name: "Complete set of 11 MS from Imdia", 
+        country: "India", 
+        year: "2025", 
+        priceINR: 2150, 
+        isSoldOut: false,
+        folder: "D7",
+        imageCount: 11,
+        //images: ["https://picsum.photos/400/300?random=3"],
+        desc: "RN4072: Complete set of MS from India + Free letter post shipping worldwide"
+    },
+    { 
         name: "Experience Nature - Butterflies of Sint Eustatius", 
         country: "Netherlands", 
         year: "2025", 
