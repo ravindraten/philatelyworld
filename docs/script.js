@@ -132,6 +132,7 @@ function updateFooter() {
         const options = { year: 'numeric', month: 'long', day: 'numeric' };
         const formattedDate = today.toLocaleDateString('en-US', options);
         
+        // This will now display right under your search bar
         footerElement.innerHTML = `Catalog Updated: ${formattedDate} • ${stamps.length} Exclusive Listings`;
     }
 }
