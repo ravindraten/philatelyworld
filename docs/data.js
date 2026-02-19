@@ -9,7 +9,7 @@ const stamps = [
         folder: "D4",
         imageCount: 2,
         //images: ["https://picsum.photos/400/300?random=3"],
-        desc: "RN4066: Designer Frank Janse is commemorating this Dutch motorcycle classic with a silver stamp, presented in a luxurious mat. + shipping inside India in April 2026)"
+        desc: "RN4066:Designer Frank Janse is commemorating this Dutch motorcycle classic with a silver stamp, presented in a luxurious mat. + shipping inside India in April 2026)"
     },
     { 
         name: "The Bull stamp sheet", 
