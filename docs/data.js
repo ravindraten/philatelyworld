@@ -1,6 +1,28 @@
 // 1. STAMP DATABASE
 const stamps = [
     { 
+        name: "Experience Nature - Butterflies of Sint Eustatius", 
+        country: "Netherlands", 
+        year: "2025", 
+        priceINR: 1640, 
+        isSoldOut: false,
+        folder: "D6",
+        imageCount: 1,
+        //images: ["https://picsum.photos/400/300?random=3"],
+        desc: "RN4071:On March 31, 2025, PostNL will release Experience Nature - Butterflies of Sint Eustatius, a sheet of 10 stamps in 10 different designs. + shipping inside India in April 2026)"
+    },
+    { 
+        name: "Experience Nature - Birds Sint Eustatius", 
+        country: "Netherlands", 
+        year: "2025", 
+        priceINR: 1640, 
+        isSoldOut: false,
+        folder: "D5",
+        imageCount: 1,
+        //images: ["https://picsum.photos/400/300?random=3"],
+        desc: "RN4070:On January 2, 2025, PostNL will release Experience Nature - Birds Sint Eustatius, a sheet of 10 stamps in 10 different designs. + shipping inside India in April 2026)"
+    },
+    { 
         name: "Silver stamp – Dutch motorcycle brands – Eysink 1953", 
         country: "Netherlands", 
         year: "2025", 
