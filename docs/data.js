@@ -7,7 +7,7 @@ const stamps = [
         priceINR: 2150, 
         isSoldOut: false,
         folder: "D7",
-        imageCount: 11,
+        imageCount: 7,
         //images: ["https://picsum.photos/400/300?random=3"],
         desc: "RN4072: Complete set of MS from India + Free letter post shipping worldwide"
     },
