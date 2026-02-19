@@ -57,8 +57,8 @@ function displayStamps(data) {
                 
                 <div class="price-row">
                     <span class="price">${displayPrice}</span>
-                    <a href="https://wa.me/${phoneNumber}?text=Interested in: ${stamp.desc}" class="buy-btn">
-                        ${stamp.isSoldOut ? 'Sold' : 'WhatsApp'}
+                    <a href="https://wa.me/${phoneNumber}?text=Interested in buying: ${stamp.desc}" class="buy-btn">
+                        ${stamp.isSoldOut ? 'Sold' : 'Buy Now'}
                     </a>
                 </div>
             </div>
