@@ -1,6 +1,17 @@
 // 1. STAMP DATABASE
 const stamps = [
     { 
+        name: "Bundle - Crypto Stamp Heroes of Mythology", 
+        country: "Portugal, Austria, Luxembourg, Belgium, Netherlands", 
+        year: "2025", 
+        priceINR: 9999, 
+        isSoldOut: false,
+        folder: "crypto",
+        imageCount: 1,
+        //images: ["https://picsum.photos/400/300?random=3"],
+        desc: "RN4002: Bundle - Crypto Stamp Heroes of Mythology Portugal, Austria Post, Post Luxembourg, bpost (Belgium) and PostNL (Netherlands).(Free shipping inside India in April 2026)"
+    },
+    { 
         name: "World stamps", 
         country: "worldwide", 
         year: "1970 onwards", 
