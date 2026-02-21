@@ -1,422 +1,468 @@
 :root {
     --bg: #f8fafc;
     --card-bg: #ffffff;
-    --primary: #1e293b; /* Deep Navy */
-    --accent: #d97706;  /* Sophisticated Amber */
+    --primary: #1e293b;
+    --accent: #d97706;
     --whatsapp: #25D366;
+    --instgram: #f381dc;
     --text-main: #334155;
     --text-light: #64748b;
+    --border: rgba(0, 0, 0, 0.08);
 }
 
+html { scroll-behavior: smooth; }
 * { box-sizing: border-box; font-family: 'Inter', sans-serif; }
-body { background-color: var(--bg); color: var(--text-main); margin: 0; padding-bottom: 50px; }
+body { font-family: 'Inter', sans-serif; background-color: var(--bg); color: var(--text-main); margin: 0; line-height: 1.6; }
 
-/* Modern Header with Glassmorphism */
+/* --- Glassmorphism / Lightbox Scroll Effect --- */
+/* --- Header & Glassmorphism Logic --- */
 header {
-    background: rgba(255, 255, 255, 0.8);
-    backdrop-filter: blur(15px);
-    -webkit-backdrop-filter: blur(15px);
-    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    background: white; /* Default solid background for mobile */
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: -160px; 
+    z-index: 1000;
+    transition: background 0.3s ease, box-shadow 0.3s ease;
+}
+
+.search-sticky-container {
     position: sticky;
     top: 0;
-    z-index: 1000;
-    padding-bottom: 10px; /* Adds space inside the header below the search bar */
+    background: white; /* Default solid background for mobile */
+    padding: 10px 0;
+    z-index: 1001;
+    border-bottom: 1px solid var(--border);
 }
 
-.header-content {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 25px;
-    max-width: 1200px;
-    margin: auto;
+/* --- Enable Glassmorphism ONLY on Desktop --- */
+@media (min-width: 801px) {
+    header {
+        background: rgba(255, 255, 255, 0.5); /* Semi-transparent */
+        -webkit-backdrop-filter: blur(15px) saturate(160%);
+        backdrop-filter: blur(15px) saturate(160%);
+    }
+
+    .search-sticky-container {
+        background: rgba(255, 255, 255, 0.5); /* Semi-transparent */
+        -webkit-backdrop-filter: blur(10px);
+        backdrop-filter: blur(10px);
+    }
+
+    header.is-pinned {
+        background: rgba(255, 255, 255, 0.85);
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+    }
 }
 
-
-h1 { margin: 0; font-size: 1.8rem; letter-spacing: -0.5px; }
-header p { margin: 5px 0 0; opacity: 0.8; font-weight: 300; }
-
-.container { 
-    max-width: 1200px; 
-    margin: 40px auto; /* Increase this if you want more space before the grid starts */
-    padding: 0 20px; 
+/* Mobile specific overrides */
+@media (max-width: 800px) {
+    header { 
+        top: -220px; 
+        background: white !important; /* Forces solid white */
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+    }
+    
+    .search-sticky-container {
+        background: white !important;
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+    }
 }
 
-/* Modern Search Bar */
-.search-container {
-    margin-bottom: 5px; /* Increased from 0 to create breathing room */
-    display: flex;
-    justify-content: center;
-    padding: 0 20px;
-    max-width: 1300px;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-#stampSearch {
-    width: 100%;
-    max-width: 500px;
-    padding: 10px 20px;
-    border-radius: 50px;
-    /* Updated to a solid black border */
-    border: 2px solid #000000; 
-    font-size: 0.9rem;
-    background: white;
-    outline: none;
-    transition: all 0.3s ease;
-}
-
-/* Update focus state to keep it black or slightly bolder */
-#stampSearch:focus { 
-    border-color: #000000; 
-    box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1); 
-}
-/* Modern Grid (4 Columns) */
-.stamp-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 30px;
-}
-
-.stamp-card {
-    background: var(--card-bg);
-    border-radius: 20px;
-    overflow: hidden;
-    border: 1px solid rgba(0,0,0,0.05);
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    display: flex;
-    flex-direction: column;
-    position: relative;
-}
-
-.stamp-card:hover { transform: translateY(-10px); box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1); }
-
-.img-container {
-    width: 100%;
-    height: 220px;
-    background: #f1f5f9;
-    overflow: hidden;
-    position: relative;
-}
-
-.stamp-card img {
-    width: 100%; height: 100%;
-    object-fit: cover;
-    cursor: zoom-in;
-    transition: transform 0.5s ease;
-}
-
-.stamp-card:hover img { transform: scale(1.1); }
-
-.photo-badge {
-    position: absolute; bottom: 10px; right: 10px;
-    background: rgba(0,0,0,0.6); color: white;
-    padding: 4px 10px; border-radius: 20px; font-size: 0.7rem;
-}
-
-.details { padding: 20px; display: flex; flex-direction: column; flex-grow: 1; }
-
-.details h3 { margin: 0; font-size: 1.1rem; color: var(--primary); }
-.meta { font-size: 0.85rem; color: var(--accent); font-weight: 600; margin: 5px 0; text-transform: uppercase; }
-.stamp-desc { font-size: 0.9rem; color: var(--text-light); line-height: 1.5; margin: 10px 0; flex-grow: 1; }
-
-.price-row {
-    display: flex; align-items: center; justify-content: space-between;
-    margin-top: 15px; padding-top: 15px; border-top: 1px solid #f1f5f9;
-}
-
-.price { font-size: 1.3rem; font-weight: 700; color: var(--primary); }
-
-.buy-btn {
-    background: var(--whatsapp); color: white; text-decoration: none;
-    padding: 10px 15px; border-radius: 12px; font-weight: 600; font-size: 0.9rem;
-    display: flex; align-items: center; gap: 8px; transition: opacity 0.2s;
-}
-
-.buy-btn:hover { opacity: 0.9; }
-
-/* Lightbox (Modal) */
-.modal {
-    display: none; position: fixed; z-index: 1000; left: 0; top: 0;
-    width: 100%; height: 100%; background: rgba(15, 23, 42, 0.95);
-}
-.modal-content {
-    margin: auto; display: block; max-width: 90%; max-height: 80vh;
-    border-radius: 10px; margin-top: 50px;
-}
-.close { position: absolute; top: 20px; right: 30px; color: white; font-size: 40px; cursor: pointer; }
-.prev, .next {
-    cursor: pointer; position: absolute; top: 50%; width: auto;
-    padding: 20px; color: white; font-weight: bold; font-size: 30px;
-    transition: 0.3s; background: rgba(255,255,255,0.1); border-radius: 50%;
-}
-.next { right: 5%; } .prev { left: 5%; }
-
-@media (max-width: 1024px) { .stamp-grid { grid-template-columns: repeat(2, 1fr); } }
-@media (max-width: 600px) { .stamp-grid { grid-template-columns: 1fr; } .header-content { flex-direction: column; } }
-
-header {
-    background: rgba(255, 255, 255, 0.8);
-    backdrop-filter: blur(15px);
-    -webkit-backdrop-filter: blur(15px);
-    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-    padding: 0;
+@media (max-width: 800px) {
+    header { top: -220px; } /* Adjusted for mobile stacking */
 }
 
 .header-top-bar {
-    background: #e0f2fe; /* Light sky blue */
-    color: var(--primary); /* Deep navy text for contrast */
+    background: #e0f2fe;
+    color: var(--primary);
     font-size: 10px;
     text-transform: uppercase;
     letter-spacing: 2px;
     padding: 8px 0;
     text-align: center;
-    font-weight: 700; /* Made slightly bolder for readability */
+    font-weight: 700;
 }
 
+/* Header Main Alignment */
 .header-main {
-    max-width: 1300px;
-    margin: auto;
-    padding: 25px 20px; /* Increased top/bottom padding slightly */
-    display: grid;
-    grid-template-columns: 1fr auto 1fr;
-    align-items: center;
-}
-
-.logo-wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
     display: flex;
+    align-items: center; /* Vertical center */
+    /* justify-content: center; /* Center the group */
+    /*gap: 20px; This controls the gap between logo and text */
+}
+.logo { width: 85px; height: 85px; border-radius: 50%; object-fit: cover; }
+/* Three-pillar layout for perfect centering */
+.logo-wrapper { 
+    flex: 1.5; 
+    display: flex; 
     justify-content: flex-start;
+    padding-left: 20px;
 }
-/* Updated Logo Styling */
-.logo {
-    width: 85px;         /* Increased from 60px */
-    height: 85px;        /* Increased from 60px */
-    border-radius: 50%; 
-    border: none;        /* Keeping the border removed as requested */
-    padding: 0;         
-    transition: transform 0.3s ease;
-    object-fit: cover;
-    display: block;      /* Ensures proper spacing */
+.brand-info { 
+    flex: 0 1 auto; /* Allows text to take only as much space as it needs */
+    text-align: center; 
+    min-width: 300px;
+}
+@media (min-width: 801px) {
+    .sticky-wrapper {
+        display: flex;
+        align-items: center; /* Vertically centers logo and search bar */
+        justify-content: center;
+        gap: 15px; /* Space between logo and search bar */
+        max-width: 1200px;
+        margin: auto;
+        padding: 5px 20px; /* Vertical padding for the sticky strip */
+    }
+
+    /* 1. Hide the sticky logo by default when at the top */
+    .sticky-logo {
+        width: 45px;
+        height: 45px;
+        border-radius: 50%;
+        object-fit: cover;
+        flex-shrink: 0; /* Prevents the logo from getting squashed */
+        display: none; /* Hidden at top via JS/Pinned class */
+        border: 1px solid var(--border);
+    }
+
+    /* 2. When NOT scrolling: Show the MAIN logo clearly */
+    header .logo-wrapper .logo {
+        opacity: 1;
+        visibility: visible;
+        transition: opacity 0.3s ease;
+    }
+
+    /* 3. When SCROLLING (Pinned): Hide the MAIN logo */
+    header.is-pinned .logo-wrapper .logo {
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+    }
+
+    /* 4. When SCROLLING (Pinned): Show the STICKY logo */
+    header.is-pinned .sticky-logo {
+        display: block;
+    }
+    /* Darken the header slightly when pinned to increase contrast against the grid */
+    header.is-pinned {
+        background: rgba(255, 255, 255, 0.85);
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+    }
+
+    /* Remove the default padding when inside the sticky wrapper */
+    .sticky-wrapper .search-container {
+        flex: 1; /* Makes search bar take up available space */
+        max-width: 600px;
+        padding: 0; /* Removes the 10px 20px padding from the default .search-container */
+        margin: 0;
+    }
+    /* Ensure the search input fills its container */
+    #stampSearch {
+        width: 100%;
+        margin: 0;
+    }
 }
 
-.logo:hover { 
-    transform: rotate(10deg); 
+/* Mobile: Ensure sticky logo NEVER appears and main logo stays visible */
+@media (max-width: 800px) {
+    .sticky-logo {
+        display: none !important;
+    }
+    header.is-pinned .logo-wrapper .logo {
+        opacity: 1 !important;
+        visibility: visible !important;
+    }
 }
-
-
-.brand-info {
-    text-align: center;
-}
-
+/* Enforcing Large H1 */
 .brand-info h1 {
-    font-size: 2.2rem;    /* Increased from 1.5rem */
-    font-weight: 800;
-    letter-spacing: 4px;
-    color: var(--primary); 
+    font-family: 'Inter', sans-serif; /* Modern sans-serif */
+    font-size: 3.2rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;        /* Tighter tracking for modern look */
     margin: 0;
     text-transform: uppercase;
+    color: var(--primary);
+    line-height: 1;
 }
-
-/* .highlight {
-    color: var(--accent);
-    font-weight: 300;
-} */
 
 .brand-info p {
-    font-size: 11px;
-    letter-spacing: 3px;
-    color: var(--text-light);
-    margin-top: 5px;
-}
-
-.header-actions {
-    display: flex;
-    justify-content: flex-end;
-}
-
-/* WhatsApp-styled Contact Button */
-.contact-pill {
-    background: var(--whatsapp); /* Uses the #25D366 from your :root */
-    border: none;
-    color: white;
-    text-decoration: none;
-    padding: 10px 22px;
-    border-radius: 50px;
-    font-size: 12px;
-    font-weight: 700;
-    text-transform: uppercase;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 10px rgba(37, 211, 102, 0.2);
-}
-
-.contact-pill:hover {
-    background: #20ba5a; /* Slightly darker green on hover */
-    transform: translateY(-2px);
-    color: white;
-}
-@media (max-width: 800px) {
-    .brand-info h1 {
-        font-size: 1.6rem; /* Scales down on mobile so it doesn't break the layout */
-        letter-spacing: 2px;
-    }
-}
-/* Mobile Adjustments */
-@media (max-width: 800px) {
-    .header-main {
-        grid-template-columns: 1fr;
-        gap: 15px;
-        padding: 15px;
-    }
-    .header-actions, .logo-wrapper { justify-content: center; }
-}
-
-.header-actions {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    gap: 20px; /* Space between Instagram and WhatsApp button */
-}
-
-/* Instagram Gradient Icon */
-.social-icon {
-    display: flex;
-    align-items: center;
-    transition: transform 0.3s ease;
-}
-
-.social-icon svg {
-    /* Applying a CSS filter to mimic the Instagram brand colors */
-    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
-    stroke: url(#insta-gradient); /* Links to the SVG gradient we'll add in HTML */
-}
-
-.social-icon:hover {
-    transform: scale(1.1) rotate(5deg);
-}
-
-/* Ensure the icon scales well on small screens */
-@media (max-width: 800px) {
-    .header-actions {
-        margin-top: 10px;
-    }
-}
-.currency-nav {
-    display: flex;
-    background: #f1f5f9;
-    padding: 4px;
-    border-radius: 50px;
-    margin-right: 10px;
-}
-
-.curr-btn {
-    border: none;
-    background: none;
-    padding: 6px 15px;
-    border-radius: 50px;
-    cursor: pointer;
-    font-size: 11px;
-    font-weight: 700;
-    color: var(--text-light);
-    transition: all 0.3s ease;
-}
-
-.curr-btn.active {
-    background: white;
-    color: var(--primary);
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-}
-
-/* Update the price display to look more elegant */
-.price {
-font-size: 1rem; /* Reduced from 1.3rem */
-font-weight: 600;
-color: var(--primary);
-letter-spacing: 0; /* Cleaner look for smaller text */
-font-feature-settings: "tnum"; /* Ensures numbers align perfectly */
-}
-
-.price-row {
-    display: flex; 
-    align-items: center; 
-    justify-content: space-between;
-    margin-top: 12px; 
-    padding-top: 12px; 
-    border-top: 1px solid #f1f5f9;
-}
-
-/* Optional: Make the WhatsApp button slightly smaller to match */
-.buy-btn {
-    padding: 8px 12px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    opacity: 0.8;
+    letter-spacing: 0.1em;           /* Spaced out for the "established" subline */
     font-size: 0.8rem;
-    border-radius: 8px;
+    color: var(--text-light);
+    margin-top: 4px;
 }
 
-/* Sold Out Styling */
-.stamp-card.sold-out {
-    filter: grayscale(1); /* Greys out the whole card */
-    opacity: 0.7;
-    pointer-events: none; /* Disables clicking/WhatsApp */
+/* Forces actions into a single line */
+.header-actions { 
+    flex: 1.5; 
+    display: flex; 
+    justify-content: flex-end; 
+    align-items: center; 
+    gap: 15px;
+    white-space: nowrap; 
+}
+/* Specific color for WhatsApp icon */
+.social-icon.whatsapp-icon {
+    color: #25D366; /* Official WhatsApp Green */
+}
+.social-icon.instagram-icon {
+    color: #f381dc; /* Official WhatsApp Green */
+}
+.social-icon {
+    color: var(--primary);
+    display: flex;
+    align-items: center;
+    transition: color 0.3s ease, transform 0.2s ease;
+}
+.social-icon:hover {
+    color: inherit;
+    transform: translateY(-2px); /* Subtle lift on hover */
+    text-decoration: none;
+}
+/* Ensure the icons don't shrink on small screens */
+.social-icon svg {
+    flex-shrink: 0;
+}
+/* Search Bar Alignment */
+.search-container {
+    max-width: 1200px; /* Matches header-main width */
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    justify-content: center;
 }
 
-.sold-out-badge {
-    position: absolute;
-    top: 15px;
-    left: 15px;
-    background: #475569; /* Dark grey-slate */
-    color: white;
-    padding: 5px 12px;
-    border-radius: 4px;
-    font-size: 10px;
-    font-weight: 800;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    z-index: 10;
+#stampSearch {
+    width: 100%;
+    max-width: 600px; /* Slightly wider for better visual balance */
+    padding: 12px 25px;
+    border-radius: 50px;
+    border: 2px solid #000000; /* Maintained the black border requested */
+    font-size: 0.95rem;
+    outline: none;
 }
 
-/* Ensure the image container can hold the badge */
-.img-container {
+.header-status { text-align: center; font-size: 0.7rem; color: var(--text-light); margin: 0 0 10px; }
+
+/* Grid & Restored Stamp Cards */
+.container { max-width: 1450px; margin: 20px auto; padding: 0 20px; }
+main.container {
+    position: relative;
+    z-index: 1; /* Lower than header */
+    padding-top: 20px;
+}
+.stamp-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 25px; perspective: 1000px; }
+
+.stamp-card {
+    background: var(--card-bg);
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    transition: 0.3s ease;
+    display: flex;
+    flex-direction: column;
     position: relative;
 }
 
-.stamp-year {
-    font-family: 'Courier New', Courier, monospace;
-    font-weight: 700;
-    font-size: 0.7rem; /* Slightly smaller */
-    color: var(--accent);
-    background: rgba(217, 119, 6, 0.08);
-    padding: 1px 6px;
-    border-radius: 4px;
-    letter-spacing: 0.5px;
-    border: 0.5px solid rgba(217, 119, 6, 0.2);
+.stamp-card.sold-out { filter: grayscale(0.8); opacity: 0.8; }
+
+.stamp-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    cursor: zoom-in; /* Changes cursor to a magnifying glass */
+    transition: transform 0.3s ease;
+}
+.stamp-card img:hover {
+    transform: scale(1.05); /* Slight zoom effect on hover */
+}
+.sold-out-badge {
+    position: absolute; top: 15px; left: 15px; background: #475569;
+    color: white; padding: 5px 12px; border-radius: 4px; font-size: 10px;
+    font-weight: 800; text-transform: uppercase; z-index: 10;
+}
+/* --- Photo Badge Styling --- */
+.photo-badge {
+    position: absolute;
+    bottom: 12px;
+    right: 12px;
+    background: rgba(30, 41, 59, 0.8); /* Matches var(--primary) with transparency */
+    color: white;
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    backdrop-filter: blur(4px);
+    pointer-events: none; /* Allows clicks to pass through to the image */
+    z-index: 5;
+    border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
-.meta-location {
-    font-size: 0.75rem;
-    color: var(--text-light);
-    font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
+/* Ensure container handles absolute positioning */
+.img-container {
+    position: relative;
+    height: 240px;
+    background: #f1f5f9;
+    overflow: hidden;
 }
-/* Ensure the grid doesn't jump under the sticky header */
-.container { 
-    max-width: 1200px; 
-    margin: 40px auto; /* Increase this if you want more space before the grid starts */
-    padding: 0 20px; 
+.stamp-card img { width: 100%; height: 100%; object-fit: cover; cursor: zoom-in; }
+
+.details { padding: 20px; flex-grow: 1; display: flex; flex-direction: column; }
+.details h3 { margin: 0 0 8px; font-size: 1.1rem; color: var(--primary); }
+.stamp-desc { font-size: 0.85rem; color: var(--text-light); margin: 12px 0; line-height: 1.5; }
+
+.price-row {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-top: auto; padding-top: 15px; border-top: 1px solid #f1f5f9;
+}
+.price { font-size: 1.1rem; font-weight: 700; }
+
+.contact-pill { background: var(--whatsapp); color: white; text-decoration: none; padding: 6px 16px; border-radius: 50px; font-size: 0.8rem; font-weight: 700; display: flex; align-items: center; gap: 5px; }
+.curr-btn { border: none; background: #f1f5f9; padding: 6px 12px; border-radius: 50px; cursor: pointer; font-size: 0.8rem; font-weight: 600; }
+.curr-btn.active {
+    background-color: #a4c8f6; /* Light grey */
+    color: var(--primary);     /* Dark text for contrast */
+    border-color: #cbd5e1;     /* Slightly darker border to define the shape */
+    font-weight: 600;
+}
+/* Optional: Add a slight hover effect for the inactive buttons */
+.curr-btn:not(.active):hover {
+    background-color: #f8fafc;
+    border-color: #cbd5e1;
 }
 
-.header-status {
-    text-align: center;
-    font-size: 0.65rem; /* Smaller font size */
-    font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: 1px;
+.buy-btn { background: #d5e5fb;; color: var(--primary) text-decoration: none; padding: 8px 16px; border-radius: 8px; font-size: 0.85rem; font-weight: 700; }
+.buy-btn.disabled { background: #cbd5e1; cursor: not-allowed; }
+
+/* Back to Top */
+#backToTop { position: fixed; bottom: 20px; right: 20px; width: 45px; height: 45px; border-radius: 50%; background: var(--primary); color: white; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; opacity: 0; visibility: hidden; transition: 0.3s; z-index: 1001; }
+#backToTop.visible { opacity: 1; visibility: visible; }
+
+/* Modal */
+.modal {
+    display: none; 
+    position: fixed; 
+    z-index: 2000; 
+    left: 0; 
+    top: 0; 
+    width: 100%; 
+    height: 100%; 
+    background: rgba(0, 0, 0, 0.95);
+    align-items: center; 
+    justify-content: center;
+}
+/* Container for the image to keep buttons relative to it */
+.modal-image-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 90%;
+    height: 80vh;
+}
+.modal-content { max-width: 90%; max-height: 80vh; }
+.nav-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%); /* Perfectly centers vertically */
+    background: rgba(255, 255, 255, 0.15);
+    border: none;
+    color: white;
+    padding: 25px 20px;
+    cursor: pointer;
+    border-radius: 8px; /* Slightly rounded edges for a modern look */
+    font-size: 24px;
+    transition: background 0.3s ease;
+    z-index: 2030;
+}
+.nav-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+/* Align to the far edges of the screen/wrapper */
+.prev {
+    left: 30px;
+}
+
+.next {
+    right: 30px;
+}
+/* Mobile adjustments to ensure buttons don't overlap small images */
+@media (max-width: 600px) {
+    .nav-btn {
+        padding: 15px 10px;
+        background: rgba(0, 0, 0, 0.5); /* Higher contrast for mobile */
+    }
+    .prev { left: 10px; }
+    .next { right: 10px; }
+}
+
+.close { position: absolute; top: 15px; right: 20px; color: white; font-size: 35px; cursor: pointer; }
+
+/* Mobile Alignment Fix */
+@media (max-width: 800px) {
+    .header-main {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+    }
+    
+    .logo-wrapper, .header-actions {
+        justify-content: center;
+        flex: none;
+    }
+
+    .search-container {
+        padding: 0 15px;
+    }
+    .brand-info h1 { font-size: 1.8rem; }
+}
+
+/* Desktop Caption Styling */
+@media (min-width: 801px) {
+    #caption {
+        position: absolute;
+        bottom: 20px; /* Moves it to the bottom of the screen */
+        left: 50%;
+        transform: translateX(-50%); /* Perfectly centers it */
+        width: auto;
+        max-width: 80%;
+        padding: 10px 25px;
+        background: rgba(0, 0, 0, 0.6); /* Dark semi-transparent background */
+        color: white;
+        border-radius: 30px; /* Pill shape */
+        font-size: 0.9rem;
+        font-weight: 500;
+        text-align: center;
+        z-index: 2020; /* Ensures it stays above other elements but below buttons if needed */
+        border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+}
+/* Hide modal captions on mobile devices */
+@media (max-width: 800px) {
+    #caption {
+        display: none !important;
+    }
+    .modal-content {
+        max-height: 90vh; /* Allows the image to be taller since the caption is gone */
+    }
+}
+
+/* Center-align the main footer */
+.main-footer {
+    text-align: center; /* Centers the text */
+    padding: 40px 20px;
     color: var(--text-light);
-    margin: 8px 0 15px 0; /* Space above and below the text */
-    opacity: 0.8;
+    border-top: 1px solid var(--border);
+    margin-top: 50px;
+    display: flex;
+    justify-content: center; /* Ensures flex children are centered */
+    align-items: center;
 }

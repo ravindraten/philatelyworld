@@ -1,141 +1,195 @@
+/**
+ * Philately World - Restored & Optimized Engine
+ */
 
-// Helper function to build the image path
-// This assumes your images are named 1.jpg, 2.jpg, etc.
-function getImagePath(stampIndex, imgNum) {
-    const stamp = stamps[stampIndex];
-    return `images/${stamp.folder}/${imgNum}.jpg`;
+const CONFIG = {
+    whatsappNumber: "31633467712",
+    eurRate: 0.011,
+    baseImgPath: "images"
+};
+
+let state = {
+    currency: 'INR',
+    currentStampIdx: 0,
+    currentImgIdx: 1
+};
+
+document.addEventListener('DOMContentLoaded', () => {
+    initGallery();
+    initEventListeners();
+    updateStatusLine();
+});
+
+function initGallery() {
+    renderGallery(stamps);
 }
 
-// 2. CONFIGURATION
-const phoneNumber = "31633467712"; 
-const exchangeRate = 0.011; 
-let currentCurrency = 'INR';
-let currentStampIndex = 0;
-let currentImageIndex = 0;
+function initEventListeners() {
+    const searchInput = document.getElementById('stampSearch');
+    searchInput.addEventListener('input', (e) => filterStamps(e.target.value));
 
-// 3. CORE FUNCTIONS
-function setCurrency(type) {
-    currentCurrency = type;
-    document.getElementById('btnINR').classList.toggle('active', type === 'INR');
-    document.getElementById('btnEUR').classList.toggle('active', type === 'EUR');
-    filterStamps();
-}
-
-function displayStamps(data) {
-    const grid = document.getElementById('stampGrid');
-    grid.innerHTML = ''; 
-
-    data.forEach((stamp) => {
-        // Find the ORIGINAL index of this stamp in the master 'stamps' array
-        // This ensures the Lightbox opens the correct folder even after filtering
-        const originalIndex = stamps.findIndex(s => s.name === stamp.name);
-        
-        let displayPrice = currentCurrency === 'EUR' 
-            ? `€${(stamp.priceINR * exchangeRate).toFixed(2)}`
-            : `₹${stamp.priceINR.toLocaleString('en-IN')}`;
-
-        const thumbUrl = `images/${stamp.folder}/1.jpg`;
-
-        const card = document.createElement('div');
-        card.className = `stamp-card ${stamp.isSoldOut ? 'sold-out' : ''}`;
-        
-        card.innerHTML = `
-            <div class="img-container">
-                ${stamp.isSoldOut ? '<div class="sold-out-badge">Sold Out</div>' : ''}
-                <img src="${thumbUrl}" alt="${stamp.name}" onclick="openLightbox(${originalIndex})">
-                <div class="photo-badge">${stamp.imageCount} Photos</div>
-            </div>
-            <div class="details" style="padding:20px;">
-            <h3 style="margin: 0 0 10px 0; font-size: 1.4rem; font-weight: 700; color: var(--primary);">${stamp.name}</h3>
-            
-            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 12px;">
-                <span class="stamp-year">Year:${stamp.year}</span>
-                <span class="meta-location" style="margin:0;">${stamp.country}</span>
-            </div>
-
-                <p class="stamp-desc">${stamp.desc}</p>
-                
-                <div class="price-row">
-                    <span class="price">${displayPrice}</span>
-                    <a href="https://wa.me/${phoneNumber}?text=Interested in buying: ${stamp.desc}" class="buy-btn">
-                        ${stamp.isSoldOut ? 'Sold' : 'Buy Now'}
-                    </a>
-                </div>
-            </div>
-        `;
-        grid.appendChild(card);
+    const backToTopBtn = document.getElementById('backToTop');
+    window.addEventListener('scroll', () => {
+        const header = document.querySelector('header');
+        const backToTopBtn = document.getElementById('backToTop');
+    
+        // 1. Handle Logo Swap (is-pinned)
+        if (window.scrollY > 50) {
+            header.classList.add('is-pinned');
+        } else {
+            header.classList.remove('is-pinned');
+        }
+    
+        // 2. Handle Back to Top Button Visibility
+        if (window.scrollY > 400) {
+            backToTopBtn.classList.add('visible');
+        } else {
+            backToTopBtn.classList.remove('visible');
+        }
     });
-}
 
-// 1. Updated Filter Function
-function filterStamps() {
-    let term = document.getElementById('stampSearch').value.toLowerCase();
+    backToTopBtn.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    document.getElementById('closeModal').onclick = closeModal;
+    document.getElementById('prevBtn').onclick = () => changeSlide(-1);
+    document.getElementById('nextBtn').onclick = () => changeSlide(1);
     
-    // Filter the original 'stamps' array
-    let filtered = stamps.filter(s => 
-        `${s.name} ${s.country} ${s.year} ${s.desc}`.toLowerCase().includes(term)
+    window.onclick = (event) => {
+        const modal = document.getElementById("myModal");
+        if (event.target === modal) closeModal();
+    };
+}
+document.addEventListener('keydown', (e) => {
+    const modal = document.getElementById("myModal");
+    if (modal.style.display === "flex") {
+        const stamp = stamps[state.currentStampIdx];
+        
+        // Only allow sliding if there is more than 1 image
+        if (stamp.imageCount > 1) {
+            if (e.key === "ArrowLeft") changeSlide(-1);
+            if (e.key === "ArrowRight") changeSlide(1);
+        }
+        
+        if (e.key === "Escape") closeModal();
+    }
+});
+function setCurrency(type) {
+    state.currency = type;
+    document.querySelectorAll('.curr-btn').forEach(btn => 
+        btn.classList.toggle('active', btn.id === `btn${type}`)
     );
-    
-    // Re-render only the filtered results
-    displayStamps(filtered);
+    const searchTerm = document.getElementById('stampSearch').value;
+    filterStamps(searchTerm);
 }
 
-// 4. LIGHTBOX
-function openLightbox(stampIdx) {
-    currentStampIndex = stampIdx;
-    currentImageIndex = 0;
+function renderGallery(data) {
+    const grid = document.getElementById('stampGrid');
+    if (!data.length) {
+        grid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; padding: 40px;">No stamps found.</p>';
+        return;
+    }
+
+    grid.innerHTML = data.map(stamp => {
+        const originalIdx = stamps.findIndex(s => s.name === stamp.name);
+        const priceDisplay = state.currency === 'EUR' 
+            ? `€${(stamp.priceINR * CONFIG.eurRate).toFixed(2)}`
+            : `₹${stamp.priceINR.toLocaleString('en-IN')}`;
+        // Restore Sold Out logic
+        const soldOutClass = stamp.isSoldOut ? 'sold-out' : '';
+        const soldOutBadge = stamp.isSoldOut ? '<div class="sold-out-badge">Sold Out</div>' : '';
+        const btnLabel = stamp.isSoldOut ? 'Sold Out' : 'Buy Now';
+        const btnLink = stamp.isSoldOut ? 'javascript:void(0)' : `https://wa.me/${CONFIG.whatsappNumber}?text=Interested in: ${encodeURIComponent(stamp.name)}`;
+
+        return `
+            <article class="stamp-card ${soldOutClass}">
+                ${soldOutBadge}
+                <div class="img-container">
+                    ${stamp.isSoldOut ? '<div class="sold-out-badge">Sold Out</div>' : ''}
+                    <img src="${CONFIG.baseImgPath}/${stamp.folder}/1.jpg" 
+                         alt="${stamp.name}" 
+                         loading="lazy"
+                         style="cursor: zoom-in;" 
+                         onclick="openLightbox(${originalIdx})">
+                    <div class="photo-badge">${stamp.imageCount} Photos</div>
+                </div>
+                <div class="details">
+                    <h3>${stamp.name}</h3>
+                    <div style="display: flex; gap: 8px; align-items: center;">
+                        <span class="stamp-year">${stamp.year}</span>
+                        <small style="color: #64748b">${stamp.country}</small>
+                    </div>
+                    <p class="stamp-desc">${stamp.desc}</p>
+                    <div class="price-row">
+                        <span class="price">${priceDisplay}</span>
+                        <a href="${btnLink}" 
+                           class="buy-btn ${stamp.isSoldOut ? 'disabled' : ''}" 
+                           target="${stamp.isSoldOut ? '_self' : '_blank'}">
+                           ${btnLabel}
+                        </a>
+                    </div>
+                </div>
+            </article>`;
+    }).join('');
+}
+
+function filterStamps(term) {
+    const cleanTerm = term.toLowerCase().trim();
+    const filtered = stamps.filter(s => 
+        `${s.name} ${s.country} ${s.year}`.toLowerCase().includes(cleanTerm)
+    );
+    renderGallery(filtered);
+}
+
+function openLightbox(idx) {
+    state.currentStampIdx = idx;
+    state.currentImgIdx = 1;
     updateLightbox();
-    document.getElementById("myModal").style.display = "block";
+    const modal = document.getElementById("myModal");
+    modal.style.display = "flex"; // Shows the lightbox
+    document.body.style.overflow = "hidden"; // Prevents background scrolling
 }
 
 function updateLightbox() {
-    const stamp = stamps[currentStampIndex];
-    // We use the currentImageIndex + 1 because images are named 1.jpg, 2.jpg...
-    document.getElementById("img01").src = getImagePath(currentStampIndex, currentImageIndex + 1);
-    document.getElementById("caption").innerHTML = `${stamp.name} (${currentImageIndex + 1}/${stamp.imageCount})`;
+    const stamp = stamps[state.currentStampIdx];
+    const modalImg = document.getElementById("img01");
+    const prevBtn = document.getElementById("prevBtn");
+    const nextBtn = document.getElementById("nextBtn");
+
+    // Set the image source
+    modalImg.src = `${CONFIG.baseImgPath}/${stamp.folder}/${state.currentImgIdx}.jpg`;
+    
+    // Update caption text
+    document.getElementById("caption").textContent = `${stamp.name} (${state.currentImgIdx}/${stamp.imageCount})`;
+
+    // Hide or Show navigation arrows based on image count
+    if (stamp.imageCount <= 1) {
+        prevBtn.style.display = "none";
+        nextBtn.style.display = "none";
+    } else {
+        prevBtn.style.display = "block";
+        nextBtn.style.display = "block";
+    }
 }
 
 function changeSlide(n) {
-    const stamp = stamps[currentStampIndex];
-    currentImageIndex = (currentImageIndex + n + stamp.imageCount) % stamp.imageCount;
+    const stamp = stamps[state.currentStampIdx];
+    state.currentImgIdx += n;
+    if (state.currentImgIdx > stamp.imageCount) state.currentImgIdx = 1;
+    if (state.currentImgIdx < 1) state.currentImgIdx = stamp.imageCount;
     updateLightbox();
 }
 
-function closeModal() { document.getElementById("myModal").style.display = "none"; }
-
-// Initialize
-displayStamps(stamps);
-
-// Listen for Keyboard Events
-document.addEventListener('keydown', function(event) {
-    // Only trigger if the Lightbox is currently visible
-    const modal = document.getElementById("myModal");
-    if (modal.style.display === "block") {
-        
-        if (event.key === "ArrowLeft") {
-            // Left Arrow - Previous Image
-            changeSlide(-1);
-        } else if (event.key === "ArrowRight") {
-            // Right Arrow - Next Image
-            changeSlide(1);
-        } else if (event.key === "Escape") {
-            // Escape Key - Close Lightbox
-            closeModal();
-        }
-    }
-});
-
-function updateFooter() {
-    const footerElement = document.getElementById('lastUpdated');
-    if (footerElement) {
-        const today = new Date();
-        const options = { year: 'numeric', month: 'long', day: 'numeric' };
-        const formattedDate = today.toLocaleDateString('en-US', options);
-        
-        // This will now display right under your search bar
-        footerElement.innerHTML = `Catalog Updated: ${formattedDate} • ${stamps.length} Exclusive Listings`;
-    }
+function closeModal() {
+    document.getElementById("myModal").style.display = "none";
+    document.body.style.overflow = "auto";
 }
 
-// Call this at the very end of your script
-updateFooter();
+function updateStatusLine() {
+    const el = document.getElementById('lastUpdated');
+    if (el) {
+        const date = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+        el.textContent = `Catalog Updated: ${date} • ${stamps.length} Unique Pieces`;
+    }
+}
