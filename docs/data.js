@@ -3,7 +3,7 @@ const stamps = [
     { 
         name: "Germany 1946-2003 stamp collection in album", 
         country: "Netherlands", 
-        year: "1965 - 1999", 
+        year: "<b>Year</b>: 1946-2003", 
         priceINR: 22000,
         isSoldOut: false,
         folder: "D9",
@@ -14,7 +14,7 @@ const stamps = [
     { 
         name: "Around 550 FDC's from Netherlands", 
         country: "Netherlands", 
-        year: "1965 - 1999", 
+        year: "<b>Year</b>: 1965 - 1999", 
         priceINR: 22000,
         isSoldOut: false,
         folder: "D8",
@@ -29,7 +29,7 @@ const stamps = [
     { 
         name: "Complete set of 11 MS from India 2025", 
         country: "India", 
-        year: "2025", 
+        year: "<b>Year</b>: 2025", 
         priceINR: 2150, 
         isSoldOut: false,
         folder: "D7",
@@ -40,7 +40,7 @@ const stamps = [
     { 
         name: "Experience Nature - Butterflies of Sint Eustatius", 
         country: "Netherlands", 
-        year: "2025", 
+        year: "<b>Year</b>: 2025", 
         priceINR: 1640, 
         isSoldOut: false,
         folder: "D6",
@@ -52,7 +52,7 @@ const stamps = [
     { 
         name: "Experience Nature - Birds Sint Eustatius", 
         country: "Netherlands", 
-        year: "2025", 
+        year: "<b>Year</b>: 2025", 
         priceINR: 1640, 
         isSoldOut: false,
         folder: "D5",
@@ -64,7 +64,7 @@ const stamps = [
     { 
         name: "Silver stamp – Dutch motorcycle brands – Eysink 1953", 
         country: "Netherlands", 
-        year: "2025", 
+        year: "<b>Year</b>: 2025", 
         priceINR: 2770, 
         isSoldOut: false,
         folder: "D4",
@@ -76,7 +76,7 @@ const stamps = [
     { 
         name: "The Bull stamp sheet", 
         country: "Netherlands", 
-        year: "2026", 
+        year: "<b>Year</b>: 2026", 
         priceINR: 770, 
         isSoldOut: false,
         folder: "D3",
@@ -88,7 +88,7 @@ const stamps = [
     { 
         name: "Experience nature - birds Saba", 
         country: "Netherlands", 
-        year: "2026", 
+        year: "<b>Year</b>: 2026", 
         priceINR: 1640, 
         isSoldOut: false,
         folder: "D2",
@@ -100,7 +100,7 @@ const stamps = [
     { 
         name: "New Dutch Design – Terugkerende Herinneringen (Returning Memories)", 
         country: "Netherlands", 
-        year: "2026", 
+        year: "<b>Year</b>: 2026", 
         priceINR: 990, 
         isSoldOut: false,
         folder: "D1",
@@ -113,7 +113,7 @@ const stamps = [
     { 
         name: "Bundle - Crypto Stamp Heroes of Mythology", 
         country: "Portugal, Austria, Luxembourg, Belgium, Netherlands", 
-        year: "2025", 
+        year: "<b>Year</b>: 2025", 
         priceINR: 9999, 
         isSoldOut: false,
         folder: "crypto",
@@ -125,7 +125,7 @@ const stamps = [
     { 
         name: "World stamps", 
         country: "worldwide", 
-        year: "1970 onwards", 
+        year: "<b>Year</b>: 1970 onwards", 
         priceINR: 8999, 
         isSoldOut: false,
         folder: "world-stamps",
@@ -137,7 +137,7 @@ const stamps = [
     { 
         name: "350 different Dutch Antilles and Suriname FDC's", 
         country: "Dutch Antilles and Suriname", 
-        year: "1965+", 
+        year: "<b>Year</b>: 1965+", 
         priceINR: 17500, 
         isSoldOut: true,
         folder: "FDC",
@@ -149,7 +149,7 @@ const stamps = [
     { 
         name: "TinTin FDC and MS", 
         country: "Netherlands", 
-        year: "1999", 
+        year: "<b>Year</b>: 1999", 
         priceINR: 899, 
         isSoldOut: false,
         folder: "RN4043",
@@ -160,7 +160,7 @@ const stamps = [
     { 
         name: "60 FDC's from Switzerland", 
         country: "Switzerland", 
-        year: "various", 
+        year: "<b>Year</b>: various", 
         priceINR: 3000, 
         isSoldOut: false,
         folder: "RN4051",
@@ -171,7 +171,7 @@ const stamps = [
     { 
         name: "Used stamps lot", 
         country: "Different countries", 
-        year: "various", 
+        year: "<b>Year</b>: various", 
         priceINR: 899, 
         isSoldOut: false,
         folder: "RN4056",
@@ -182,7 +182,7 @@ const stamps = [
     { 
         name: "Indipex 73' India International Philatelic Exhibition", 
         country: "India", 
-        year: "1973", 
+        year: "<b>Year</b>: 1973", 
         priceINR: 999, 
         isSoldOut: false,
         folder: "001",
@@ -193,7 +193,7 @@ const stamps = [
     { 
         name: "Indian Masks Series", 
         country: "India", 
-        year: "1975", 
+        year: "<b>Year</b>: 1975", 
         priceINR: 999, 
         isSoldOut: false,
         folder: "002",
@@ -204,7 +204,7 @@ const stamps = [
     { 
         name: "UPU Centenary", 
         country: "India", 
-        year: "1974", 
+        year: "<b>Year</b>: 1974", 
         priceINR: 1820, 
         isSoldOut: false,
         folder: "003",
@@ -215,7 +215,7 @@ const stamps = [
     { 
         name: "India 89' world philatelic exhibition", 
         country: "India", 
-        year: "1989", 
+        year: "<b>Year</b>: 1989", 
         priceINR: 270, 
         isSoldOut: false,
         folder: "004",
@@ -226,7 +226,7 @@ const stamps = [
     { 
         name: "India 89' world philatelic exhibition MS2", 
         country: "India", 
-        year: "1989", 
+        year: "<b>Year</b>: 1989", 
         priceINR: 270, 
         isSoldOut: false,
         folder: "005",
@@ -237,7 +237,7 @@ const stamps = [
     { 
         name: "Mahatma Gandhi South Africa joint issue", 
         country: "India", 
-        year: "1995", 
+        year: "<b>Year</b>: 1995", 
         priceINR: 270, 
         isSoldOut: false,
         folder: "006",
