@@ -1,6 +1,21 @@
 // 1. STAMP DATABASE
 const stamps = [
     { 
+        name: "Around 550 FDC's from Netherlands", 
+        country: "Netherlands", 
+        year: "1965 - 1999", 
+        priceINR: 22000,
+        isSoldOut: false,
+        folder: "D8",
+        imageCount: 3,
+        //images: ["https://picsum.photos/400/300?random=3"],
+        desc: "RN802: Around 550 FDCs from Netherlands Each FDC is atleast with 2 stamps on it.. \
+        many are with whole miniature sheets. \
+        Price: <b>Rs.40</b> per FDC. \
+        Total will be <b>Rs.22000</b> \
+        ( Free shipping worldwide with Track and Trace)"
+    },
+    { 
         name: "Complete set of 11 MS from India 2025", 
         country: "India", 
         year: "2025", 
@@ -20,7 +35,8 @@ const stamps = [
         folder: "D6",
         imageCount: 1,
         //images: ["https://picsum.photos/400/300?random=3"],
-        desc: "RN4071:On March 31, 2025, PostNL will release Experience Nature - Butterflies of Sint Eustatius, a sheet of 10 stamps in 10 different designs. + shipping inside India in April 2026)"
+        desc: "RN4071:On March 31, 2025, PostNL will release Experience Nature - Butterflies of Sint Eustatius, \
+        a sheet of 10 stamps in 10 different designs. + shipping inside India in April 2026)"
     },
     { 
         name: "Experience Nature - Birds Sint Eustatius", 
@@ -31,7 +47,8 @@ const stamps = [
         folder: "D5",
         imageCount: 1,
         //images: ["https://picsum.photos/400/300?random=3"],
-        desc: "RN4070:On January 2, 2025, PostNL will release Experience Nature - Birds Sint Eustatius, a sheet of 10 stamps in 10 different designs. + shipping inside India in April 2026)"
+        desc: "RN4070:On January 2, 2025, PostNL will release Experience Nature - Birds Sint Eustatius, \
+        a sheet of 10 stamps in 10 different designs. + shipping inside India in April 2026)"
     },
     { 
         name: "Silver stamp – Dutch motorcycle brands – Eysink 1953", 
@@ -42,7 +59,8 @@ const stamps = [
         folder: "D4",
         imageCount: 2,
         //images: ["https://picsum.photos/400/300?random=3"],
-        desc: "RN4069:Designer Frank Janse is commemorating this Dutch motorcycle classic with a silver stamp, presented in a luxurious mat. + shipping inside India in April 2026)"
+        desc: "RN4069:Designer Frank Janse is commemorating this Dutch motorcycle classic with a silver stamp, \
+        presented in a luxurious mat. + shipping inside India in April 2026)"
     },
     { 
         name: "The Bull stamp sheet", 
@@ -53,7 +71,8 @@ const stamps = [
         folder: "D3",
         imageCount: 6,
         //images: ["https://picsum.photos/400/300?random=3"],
-        desc: "RN4066: On January 15, 2026, PostNL will issue the The Bull stamp sheet featuring the eponymous painting by Paulus Potter. + shipping inside India in April 2026)"
+        desc: "RN4066: On January 15, 2026, PostNL will issue the The Bull stamp sheet featuring \
+        the eponymous painting by Paulus Potter. + shipping inside India in April 2026)"
     },
     { 
         name: "Experience nature - birds Saba", 
@@ -64,7 +83,8 @@ const stamps = [
         folder: "D2",
         imageCount: 1,
         //images: ["https://picsum.photos/400/300?random=3"],
-        desc: "RN4067: On January 5, 2026, PostNL will release Experience Nature - Birds of Saba, a sheet of 10 stamps in 10 different designs + shipping inside India in April 2026)"
+        desc: "RN4067: On January 5, 2026, PostNL will release Experience Nature - Birds of Saba, \
+        a sheet of 10 stamps in 10 different designs + shipping inside India in April 2026)"
     },
     { 
         name: "New Dutch Design – Terugkerende Herinneringen (Returning Memories)", 
@@ -75,7 +95,9 @@ const stamps = [
         folder: "D1",
         imageCount: 3,
         //images: ["https://picsum.photos/400/300?random=3"],
-        desc: "RN4068: On February 16, 2026, PostNL will issue the New Dutch Design – Terugkerende Herinneringen (Returning Memories) stamps, the first sheet of this year's New Dutch Design series.(+ shipping inside India in April 2026)"
+        desc: "RN4068: On February 16, 2026, PostNL will issue the New Dutch Design – Terugkerende Herinneringen \
+        (Returning Memories) stamps, the first sheet of this year's New Dutch Design series.\
+        (+ shipping inside India in April 2026)"
     },
     { 
         name: "Bundle - Crypto Stamp Heroes of Mythology", 
@@ -86,7 +108,8 @@ const stamps = [
         folder: "crypto",
         imageCount: 1,
         //images: ["https://picsum.photos/400/300?random=3"],
-        desc: "RN4002: Bundle - Crypto Stamp Heroes of Mythology Portugal, Austria Post, Post Luxembourg, bpost (Belgium) and PostNL (Netherlands).(Free shipping inside India in April 2026)"
+        desc: "RN4002: Bundle - Crypto Stamp Heroes of Mythology Portugal, Austria Post, Post Luxembourg, \
+        bpost (Belgium) and PostNL (Netherlands).(Free shipping inside India in April 2026)"
     },
     { 
         name: "World stamps", 
@@ -97,7 +120,8 @@ const stamps = [
         folder: "world-stamps",
         imageCount: 31,
         //images: ["https://picsum.photos/400/300?random=1", "https://picsum.photos/400/300?random=2"],
-        desc: "RN4057: Thick stockbook with stamp collection various.Check the photos. What you see is what you get.(+ shipping Inside India in April 2026).Thick album for free" 
+        desc: "RN4057: Thick stockbook with stamp collection various.Check the photos. \
+        What you see is what you get.(+ shipping Inside India in April 2026).Thick album for free" 
     },
     { 
         name: "350 different Dutch Antilles and Suriname FDC's", 
@@ -108,7 +132,8 @@ const stamps = [
         folder: "FDC",
         imageCount: 23,
         //images: ["https://picsum.photos/400/300?random=3"],
-        desc: "RN4059:3 Luxureous Importa albums in excellent condition with collection about 350 FDC covers Dutch Antilles and Suriname. Check the photos to see a small part, but there is a lot more than you can see here.Three albums for FREE + shipping inside India in April 2026" 
+        desc: "RN4059:3 Luxureous Importa albums in excellent condition with collection about 350 FDC covers Dutch Antilles and Suriname. \
+        Check the photos to see a small part, but there is a lot more than you can see here.Three albums for FREE + shipping inside India in April 2026" 
     },
     { 
         name: "TinTin FDC and MS", 
