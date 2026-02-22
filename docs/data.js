@@ -1,6 +1,17 @@
 // 1. STAMP DATABASE
 const stamps = [
     { 
+        name: "Germany 1946-2003 stamp collection in album", 
+        country: "Netherlands", 
+        year: "1965 - 1999", 
+        priceINR: 22000,
+        isSoldOut: false,
+        folder: "D9",
+        imageCount: 41,
+        desc: "RN4074: Davo album Germany 1946-2003 with very well filled used stamp collection.\
+                Check the photos to see a small part, but there is a lot more than you can see here."
+    },
+    { 
         name: "Around 550 FDC's from Netherlands", 
         country: "Netherlands", 
         year: "1965 - 1999", 
@@ -9,7 +20,7 @@ const stamps = [
         folder: "D8",
         imageCount: 3,
         //images: ["https://picsum.photos/400/300?random=3"],
-        desc: "RN802: Around 550 FDCs from Netherlands Each FDC is atleast with 2 stamps on it.. \
+        desc: "RN4073: Around 550 FDCs from Netherlands Each FDC is atleast with 2 stamps on it.. \
         many are with whole miniature sheets. \
         Price: <b>Rs.40</b> per FDC. \
         Total will be <b>Rs.22000</b> \
