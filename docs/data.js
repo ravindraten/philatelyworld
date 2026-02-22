@@ -1,6 +1,41 @@
 // 1. STAMP DATABASE
 const stamps = [
     { 
+        name: "Germany Bayern postal item collection 2", 
+        country: "Germany Bayern", 
+        year: "<b>Year</b>: 1870-1900", 
+        priceINR: 9000,
+        isSoldOut: false,
+        folder: "D12",
+        imageCount: 10,
+        desc: "RN4077: collection about 90 postal items with many postcards Bayern.\
+            Check the photos. What you see is what you get. Price Per postal item <b>Rs.100</b>.\
+            Total will be <b>Rs.9000</b> + shipping inside India in April 2026"
+    },
+    { 
+        name: "Germany Bayern postal item collection 1", 
+        country: "Germany Bayern", 
+        year: "<b>Year</b>: 1870-1900", 
+        priceINR: 10000,
+        isSoldOut: false,
+        folder: "D11",
+        imageCount: 15,
+        desc: "RN4076: collection over 100 postal items with many postcards Bayern.\
+            Check the photos. What you see is what you get. Price Per postal item <b>Rs.100</b>.\
+            Total will be <b>Rs.10000</b> + shipping inside India in April 2026"
+    },
+    { 
+        name: "Israel MNH stamp collection in stockbook", 
+        country: "Israel", 
+        year: "<b>Year</b>: Various", 
+        priceINR: 6499,
+        isSoldOut: false,
+        folder: "D10",
+        imageCount: 16,
+        desc: "RN4075: Stockbook with stamp collection almost all MNH Israel.\
+            Check the photos. What you see is what you get. Stock Album for free + shipping inside India in April 2026"
+    },
+    { 
         name: "Germany 1946-2003 stamp collection in album", 
         country: "Netherlands", 
         year: "<b>Year</b>: 1946-2003", 
@@ -9,7 +44,8 @@ const stamps = [
         folder: "D9",
         imageCount: 41,
         desc: "RN4074: Davo album Germany 1946-2003 with very well filled used stamp collection.\
-                Check the photos to see a small part, but there is a lot more than you can see here."
+                Check the photos to see a small part, but there is a lot more than you can see here.\
+                Stock Album for free + shipping inside India in April 2026"
     },
     { 
         name: "Around 550 FDC's from Netherlands", 
