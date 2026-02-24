@@ -33,7 +33,7 @@ header {
 /* Desktop Default */
 @media (min-width: 801px) {
     header {
-        top: -160px;
+        top: -190px;
         background: rgba(255, 255, 255, 0.5);
         -webkit-backdrop-filter: blur(15px) saturate(160%);
         backdrop-filter: blur(15px) saturate(160%);
@@ -80,7 +80,7 @@ header {
 .header-main {
     max-width: 1000px;
     margin: 0 auto;
-    padding: 10px 20px;
+    padding: 40px 20px 20px 20px;
     display: flex;
     justify-content: space-between;
 }
@@ -142,7 +142,7 @@ header {
     .header-main { flex-direction: column; align-items: center; gap: 15px; }
     .logo-wrapper { padding-left: 0; justify-content: center; }
     .header-actions { flex-direction: column; align-items: center; margin-top: 10px; }
-    .social-links-wrapper { display: flex; gap: 20px; margin-bottom: 10px; }
+    .social-links-wrapper { display: flex; gap: 10px; margin-bottom: 10px; }
 }
 
 .brand-info h1 {
@@ -169,7 +169,7 @@ header {
     display: flex; 
     justify-content: flex-end; 
     align-items: center; 
-    gap: 15px;
+    gap: 10px;
     white-space: nowrap; 
 }
 
@@ -187,6 +187,7 @@ header {
     width: 100%;
     max-width: 1000px;
     position: relative;
+    padding: 0 15px; /* Adjust this value to control the side gaps */
 }
 
 #stampSearch {
@@ -288,9 +289,24 @@ header {
 .qr-close { position: absolute; right: 15px; top: 10px; font-size: 28px; cursor: pointer; }
 
 @media (min-width: 801px) {
-    .header-actions { display: flex; flex-direction: column; align-items: flex-end; gap: 10px; flex: 1; justify-content: center; }
-    .social-links-wrapper { display: flex; gap: 15px; align-items: center; }
-    .currency-nav { display: flex; gap: 8px; }
+    .header-actions { 
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0px;          /* Reduced from 15px to bring them closer */
+        margin-top: 10px;   /* Reduced from 15px to reduce space from top brand info */
+    }
+    .social-links-wrapper {
+        display: flex;
+        gap: 15px;         /* Optional: adjust horizontal spacing between icons */
+        /* Ensure no bottom margin is pushing the toggle away */
+        margin-bottom: 2px;
+    }
+    .currency-toggle {
+        /* Optional: Scale down slightly to ensure it fits perfectly with icons */
+        transform: scale(0.9);
+        margin-top: 0;     /* Ensure no extra margin is pushing it away */
+    }
 }
 
 /* Currency Toggle Styles */
@@ -330,7 +346,23 @@ header {
 
 /* Adjusting mobile placement */
 @media (max-width: 800px) {
-    .currency-toggle {
-        margin-top: 10px;
+    .header-actions { 
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0px;          /* Reduced from 15px to bring them closer */
+        margin-top: 10px;   /* Reduced from 15px to reduce space from top brand info */
     }
+    .social-links-wrapper {
+        display: flex;
+        gap: 15px;         /* Optional: adjust horizontal spacing between icons */
+        /* Ensure no bottom margin is pushing the toggle away */
+        margin-bottom: 2px;
+    }
+    .currency-toggle {
+        /* Optional: Scale down slightly to ensure it fits perfectly with icons */
+        transform: scale(0.9);
+        margin-top: 0;     /* Ensure no extra margin is pushing it away */
+    }
+    
 }
