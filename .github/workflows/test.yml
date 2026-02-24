@@ -1,0 +1,28 @@
+name: Pre-Merge Web Tests
+on: [pull_request, push]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
+      - name: Install Dependencies
+        run: |
+          pip install pytest selenium webdriver-manager
+
+      - name: Start Local Server
+        # Starts the server on port 5500 in the background
+        run: python -m http.server 5500 & 
+
+      - name: Run Selenium Tests
+        run: |
+          # You would need a step here to start a local server
+          # or point the URL in the test to a staging site.
+          pytest docs/test_philately.py
