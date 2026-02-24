@@ -17,4 +17,4 @@ jobs:
         run: |
           # You would need a step here to start a local server
           # or point the URL in the test to a staging site.
-          pytest test_philately.py
+          pytest docs/test_philately.py
