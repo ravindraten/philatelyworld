@@ -1,6 +1,18 @@
 // 1. STAMP DATABASE
 const stamps = [
     { 
+        name: "Eastern European used stamp collection", 
+        country: "Jugoslavia,Romania,Bulgaria,Poland, Russia", 
+        year: "", 
+        priceINR: 899,
+        isSoldOut: false,
+        folder: "D13",
+        imageCount: 14,
+        desc: "RN4078: Collection of used stamps from different eastern european countries.\
+            Check the photos. What you see is what you get. .\
+            Free letter post shipping from Netherlands in FDC"
+    },
+    { 
         name: "Germany Bayern postal item collection 2", 
         country: "Germany Bayern", 
         year: "<b>Year</b>: 1870-1900", 
@@ -8,7 +20,7 @@ const stamps = [
         isSoldOut: false,
         folder: "D12",
         imageCount: 10,
-        desc: "RN4077: collection about 90 postal items with many postcards Bayern.\
+        desc: "RN4077: Collection about 90 postal items with many postcards Bayern.\
             Check the photos. What you see is what you get. Price Per postal item <b>Rs.100</b>.\
             Total will be <b>Rs.9000</b> + shipping inside India in April 2026"
     },
@@ -20,7 +32,7 @@ const stamps = [
         isSoldOut: false,
         folder: "D11",
         imageCount: 15,
-        desc: "RN4076: collection over 100 postal items with many postcards Bayern.\
+        desc: "RN4076: Collection over 100 postal items with many postcards Bayern.\
             Check the photos. What you see is what you get. Price Per postal item <b>Rs.100</b>.\
             Total will be <b>Rs.10000</b> + shipping inside India in April 2026"
     },
