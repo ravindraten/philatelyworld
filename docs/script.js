@@ -67,6 +67,8 @@ function initEventListeners() {
     });
 
     document.getElementById('closeModal').onclick = closeModal;
+    const closeBtn = document.getElementById("closeModal");
+    const modal = document.getElementById("myModal");
     document.getElementById('prevBtn').onclick = () => changeSlide(-1);
     document.getElementById('nextBtn').onclick = () => changeSlide(1);
     
@@ -74,7 +76,24 @@ function initEventListeners() {
         const modal = document.getElementById("myModal");
         if (event.target === modal) closeModal();
     };
+    // 1. Close on Touch (Instant for mobile)
+    closeBtn.addEventListener('touchstart', closeModal, { passive: false });
+    
+    // 2. Close on Click (Fallback for desktop)
+    closeBtn.addEventListener('click', closeModal);
 
+    // 3. Fast close when clicking/tapping the dark background
+    modal.addEventListener('touchstart', (e) => {
+        if (e.target === modal || e.target.classList.contains('modal-image-wrapper')) {
+            closeModal(e);
+        }
+    }, { passive: false });
+
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal || e.target.classList.contains('modal-image-wrapper')) {
+            closeModal();
+        }
+    });
     // BHIM Modal Controls
     const qrModal = document.getElementById("qrModal");
     const bhimBtn = document.getElementById("bhimTrigger");
@@ -193,8 +212,15 @@ function changeSlide(n) {
     updateLightbox();
 }
 
-function closeModal() {
-    document.getElementById("myModal").style.display = "none";
+// High-performance close logic
+function closeModal(e) {
+    if (e) {
+        e.preventDefault();
+        e.stopPropagation();
+    }
+    
+    const modal = document.getElementById("myModal");
+    modal.style.display = "none";
     document.body.style.overflow = "auto";
 }
 
