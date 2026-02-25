@@ -5,7 +5,7 @@ const stamps = [
         country: "Jugoslavia,Romania,Bulgaria,Poland, Russia", 
         year: "", 
         priceINR: 899,
-        isSoldOut: false,
+        isSoldOut: true,
         folder: "D13",
         imageCount: 14,
         desc: "RN4078: Collection of used stamps from different eastern european countries.\
