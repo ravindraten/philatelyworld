@@ -1,6 +1,30 @@
 // 1. STAMP DATABASE
 const stamps = [
     { 
+        name: "German Reich set of 27 stamps(few repeated)", 
+        country: "German Reich", 
+        year: "1941-1944", 
+        priceINR: 899,
+        isSoldOut: false,
+        folder: "D16",
+        imageCount: 1,
+        desc: "RN4081: German Reich set of 27 stamps(few repeated)\
+                Check the photo. What you see is what you get.. \
+                + Free letter post shipping from Netherlands in FDC"
+    },
+    { 
+        name: "German Reich set of 22 stamps. (All Block of 2)", 
+        country: "German Reich", 
+        year: "1942-1944", 
+        priceINR: 1199,
+        isSoldOut: false,
+        folder: "D15",
+        imageCount: 1,
+        desc: "RN4080: German Reich set of 22 stamps. (All Block of 2)\
+                Check the photo. What you see is what you get.. \
+                + Free letter post shipping from Netherlands in FDC"
+    },
+    { 
         name: "France and territories stamp collection in stockbook", 
         country: "France", 
         year: "", 
