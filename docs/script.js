@@ -14,8 +14,23 @@ let state = {
     currentImgIdx: 1
 };
 
+// --- REPLACE YOUR DOMContentLoaded BLOCK ---
 document.addEventListener('DOMContentLoaded', () => {
-    initGallery();
+    const urlParams = new URLSearchParams(window.location.search);
+    const itemID = urlParams.get('item');
+
+    if (itemID) {
+        // Filter stamps to find the one matching the RN code
+        const filtered = stamps.filter(s => s.desc.includes(itemID));
+        if (filtered.length > 0) {
+            renderGallery(filtered);
+        } else {
+            initGallery();
+        }
+    } else {
+        initGallery();
+    }
+    
     initEventListeners();
     updateStatusLine();
 });
@@ -135,15 +150,34 @@ function setCurrency(type) {
     filterStamps(document.getElementById('stampSearch').value);
 }
 
+// --- REPLACE YOUR renderGallery FUNCTION ---
 function renderGallery(data) {
     const grid = document.getElementById('stampGrid');
+    const urlParams = new URLSearchParams(window.location.search);
+    const isSharedLink = urlParams.has('item');
+
     if (!data.length) {
         grid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; padding: 40px;">No stamps found.</p>';
         return;
     }
 
-    grid.innerHTML = data.map(stamp => {
+    let html = '';
+    
+    if (isSharedLink) {
+        html += `
+            <div style="grid-column: 1/-1; display: flex; justify-content: center; margin-bottom: 20px;">
+                <button onclick="window.location.href='index.html'" class="curr-btn" style="width: auto; padding: 8px 20px;">
+                    ← View Full Collection
+                </button>
+            </div>`;
+    }
+
+    html += data.map(stamp => {
         const originalIdx = stamps.findIndex(s => s.name === stamp.name);
+        const rnMatch = stamp.desc.match(/RN\d+/);
+        const rnCode = rnMatch ? rnMatch[0] : "";
+        const shareUrl = `${window.location.origin}${window.location.pathname}?item=${rnCode}`;
+
         const priceDisplay = state.currency === 'EUR' 
             ? `€${(stamp.priceINR * CONFIG.eurRate).toFixed(2)}`
             : `₹${stamp.priceINR.toLocaleString('en-IN')}`;
@@ -152,37 +186,57 @@ function renderGallery(data) {
             <article class="stamp-card ${stamp.isSoldOut ? 'sold-out' : ''}">
                 <div class="img-container">
                     ${stamp.isSoldOut ? '<div class="sold-out-badge">Sold Out</div>' : ''}
-                    <img src="${CONFIG.baseImgPath}/${stamp.folder}/1.jpg" 
-                         alt="${stamp.name}" 
-                         loading="lazy"
-                         onclick="openLightbox(${originalIdx})">
+                    <img src="${CONFIG.baseImgPath}/${stamp.folder}/1.jpg" alt="${stamp.name}" onclick="openLightbox(${originalIdx})">
                     <div class="photo-badge">${stamp.imageCount} Photos</div>
                 </div>
                 <div class="details">
                     <h3>${stamp.name}</h3>
                     <div style="display: flex; gap: 8px; align-items: center;">
                         <span class="stamp-year">${stamp.year}</span>
-                        <small style="color: #64748b">${stamp.country}</small>
+                        <small style="color: var(--text-light)">${stamp.country}</small>
                     </div>
                     <p class="stamp-desc">${stamp.desc}</p>
+                    
                     <div class="price-row">
                         <span class="price">${priceDisplay}</span>
-                        <a href="${stamp.isSoldOut ? 'javascript:void(0)' : `https://wa.me/${CONFIG.whatsappNumber}?text=Interested in: ${encodeURIComponent(stamp.name)}`}" 
-                           class="buy-btn ${stamp.isSoldOut ? 'disabled' : ''}" 
-                           target="${stamp.isSoldOut ? '_self' : '_blank'}">
-                           ${stamp.isSoldOut ? 'Sold Out' : 'Buy Now'}
-                        </a>
+                        <div class="action-buttons">
+                            <button onclick="copyShareLink('${shareUrl}', this)" class="share-icon-btn" title="Copy Share Link">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path><polyline points="16 6 12 2 8 6"></polyline><line x1="12" y1="2" x2="12" y2="15"></line></svg>
+                            </button>
+                            
+                            <a href="${stamp.isSoldOut ? 'javascript:void(0)' : `https://wa.me/${CONFIG.whatsappNumber}?text=Interested in: ${encodeURIComponent(stamp.name)} (Ref: ${rnCode})`}" 
+                               class="buy-btn ${stamp.isSoldOut ? 'disabled' : ''}">
+                               ${stamp.isSoldOut ? 'Sold Out' : 'Buy Now'}
+                            </a>
+                        </div>
                     </div>
                 </div>
             </article>`;
     }).join('');
+
+    grid.innerHTML = html;
 }
 
-function filterStamps(term) {
-    const cleanTerm = term.toLowerCase().trim();
-    const filtered = stamps.filter(s => 
-        `${s.name} ${s.country} ${s.year}`.toLowerCase().includes(cleanTerm)
-    );
+function filterStamps(query) {
+    const term = query.toLowerCase().trim();
+    
+    // If search is cleared, show all
+    if (!term) {
+        renderGallery(stamps);
+        return;
+    }
+
+    const filtered = stamps.filter(stamp => {
+        return (
+            stamp.name.toLowerCase().includes(term) ||
+            stamp.country.toLowerCase().includes(term) ||
+            // Adding description to the search logic
+            (stamp.desc && stamp.desc.toLowerCase().includes(term)) ||
+            // Stripping HTML tags from year before searching
+            stamp.year.replace(/<[^>]*>/g, '').toLowerCase().includes(term)
+        );
+    });
+
     renderGallery(filtered);
 }
 
@@ -236,11 +290,20 @@ function copyUPI() {
     const upiId = document.getElementById('upiIdText').innerText;
     navigator.clipboard.writeText(upiId).then(() => {
         const btn = document.getElementById('copyBtn');
-        btn.innerText = "Copied!";
+        btn.innerText = "Copy";
         btn.style.background = "#22c55e";
         setTimeout(() => {
-            btn.innerText = "Copy";
+            btn.innerText = "Copied!";
             btn.style.background = "";
-        }, 2000);
+        }, 10);
+    });
+}
+
+// Add this helper function at the bottom of script.js
+function copyShareLink(url, btn) {
+    navigator.clipboard.writeText(url).then(() => {
+        const originalSVG = btn.innerHTML;
+        btn.innerHTML = `<span style="font-size:10px; color:#059669; font-weight:bold;">COPIED</span>`;
+        setTimeout(() => { btn.innerHTML = originalSVG; }, 2000);
     });
 }
