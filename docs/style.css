@@ -208,8 +208,16 @@ header {
 
 /* Grid & Cards */
 .container { max-width: 1450px; margin: 20px auto; padding: 0 20px; }
-.stamp-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 25px; }
-
+/* Ensure the grid centers cards on mobile and desktop */
+.stamp-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+    padding: 20px 0;
+    max-width: 1200px;
+    margin: 0 auto;
+    justify-content: center; /* Critical for centering the shared link view */
+}
 .stamp-card {
     background: var(--card-bg);
     border-radius: 16px;
@@ -243,9 +251,37 @@ header {
 .details h3 { margin: 0 0 8px; font-size: 1.1rem; color: var(--primary); }
 .stamp-desc { font-size: 0.85rem; color: var(--text-light); margin: 12px 0; line-height: 1.5; }
 
+/* Align the Share Icon next to the Buy Button */
 .price-row {
-    display: flex; align-items: center; justify-content: space-between;
-    margin-top: auto; padding-top: 15px; border-top: 1px solid #f1f5f9;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: auto;
+}
+.action-buttons {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.share-icon-btn {
+    background: #f1f5f9;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    width: 38px;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: var(--text-main);
+    transition: all 0.2s ease;
+    padding: 0;
+}
+
+.share-icon-btn:hover {
+    background: #e2e8f0;
+    color: var(--primary);
 }
 .price { font-size: 1.1rem; font-weight: 700; }
 
@@ -253,7 +289,7 @@ header {
 .curr-btn { border: 1px solid transparent; background: #f1f5f9; padding: 6px 12px; border-radius: 50px; cursor: pointer; font-size: 0.8rem; font-weight: 600; }
 .curr-btn.active { background-color: #a4c8f6; color: var(--primary); border-color: #cbd5e1; }
 
-.buy-btn { background: #d5e5fb; color: var(--primary); text-decoration: none; padding: 8px 16px; border-radius: 8px; font-size: 0.85rem; font-weight: 700; }
+.buy-btn { background: #d5e5fb; color: var(--primary); text-decoration: none; padding: 8px 16px; border-radius: 8px; font-size: 0.9rem; font-weight: 700; }
 .buy-btn.disabled { background: #cbd5e1; cursor: not-allowed; }
 
 /* Modals & UI */
