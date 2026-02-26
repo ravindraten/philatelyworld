@@ -20,10 +20,23 @@ document.addEventListener('DOMContentLoaded', () => {
     const itemID = urlParams.get('item');
 
     if (itemID) {
-        // Filter stamps to find the one matching the RN code
-        const filtered = stamps.filter(s => s.desc.includes(itemID));
-        if (filtered.length > 0) {
+        // 1. Find the specific stamp in your data.js array
+        const selectedStamp = stamps.find(s => s.desc.includes(itemID));
+        
+        if (selectedStamp) {
+            // 2. Update Meta Tags for Link Previews
+            updateMetaTags(selectedStamp, itemID);
+            
+            // 3. Filter gallery as usual
+            const filtered = [selectedStamp];
             renderGallery(filtered);
+            
+            // Show the "View Full Collection" button
+            document.getElementById('backToTop').insertAdjacentHTML('beforebegin', 
+                `<div style="text-align:center; margin: 20px 0;">
+                    <button onclick="window.location.href='index.html'" class="toggle-btn active">View Full Collection</button>
+                </div>`
+            );
         } else {
             initGallery();
         }
@@ -306,4 +319,19 @@ function copyShareLink(url, btn) {
         btn.innerHTML = `<span style="font-size:10px; color:#059669; font-weight:bold;">COPIED</span>`;
         setTimeout(() => { btn.innerHTML = originalSVG; }, 2000);
     });
+}
+
+// New function to handle link preview data
+function updateMetaTags(stamp, id) {
+    const title = `Philately World: ${stamp.name}`;
+    const desc = `${stamp.country} | Price: ₹${stamp.priceINR}`;
+    const imgUrl = `https://philatelyworld.in/images/${stamp.folder}/1.jpg`; // Path to first image
+
+    document.title = title;
+    
+    // Update Open Graph tags for social previews
+    document.getElementById('og-title').setAttribute('content', title);
+    document.getElementById('og-desc').setAttribute('content', desc);
+    document.getElementById('og-image').setAttribute('content', imgUrl);
+    document.getElementById('og-url').setAttribute('content', window.location.href);
 }
