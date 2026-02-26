@@ -1,6 +1,18 @@
 // 1. STAMP DATABASE
 const stamps = [
     { 
+        name: "France and territories stamp collection in stockbook", 
+        country: "France", 
+        year: "", 
+        priceINR: 7400,
+        isSoldOut: false,
+        folder: "D14",
+        imageCount: 19,
+        desc: "RN4079: Stockbook with stamp collection France and territories\
+                Check the photos. What you see is what you get.. <b>Stock Album for free</b>\
+                + shipping inside India in April 2026"
+    },
+    { 
         name: "Eastern European used stamp collection", 
         country: "Jugoslavia,Romania,Bulgaria,Poland, Russia", 
         year: "", 
