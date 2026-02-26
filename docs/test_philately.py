@@ -210,3 +210,16 @@ def test_back_to_top_visibility(driver):
     # Check if we are back near the top
     scroll_pos = driver.execute_script("return window.pageYOffset;")
     assert scroll_pos < 100
+
+def test_dynamic_link_preview_meta(driver):
+    """Verify that visiting ?item=RN4078 updates the document title and meta tags."""
+    target_item = "RN4078"
+    driver.get(f"{URL}?item={target_item}")
+    
+    wait = WebDriverWait(driver, 10)
+    # Wait for the JS to update the page title
+    wait.until(EC.title_contains("Eastern European"))
+    
+    # Check if the OG image tag was updated to the correct folder
+    og_image = driver.find_element(By.ID, "og-image").get_attribute("content")
+    assert "D13" in og_image  # RN4078 is in folder D13
