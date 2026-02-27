@@ -5,7 +5,7 @@ const stamps = [
         country: "Mocambique, Tanzania, Guinea-Bissau, Zaire, SouthAfrica, Rwanda, Egypt,Cameroon, Algeria, Kenya", 
         year: "<b>Year</b>:1920 onwards", 
         priceINR: 999,
-        isSoldOut: false,
+        isSoldOut: true,
         folder: "D20",
         imageCount: 16,
         desc: "RN4085: Old used stamps from Africa. Mix of MNH and used.(<b>around 500 stamps</b>)\
