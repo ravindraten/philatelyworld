@@ -223,3 +223,76 @@ def test_dynamic_link_preview_meta(driver):
     # Check if the OG image tag was updated to the correct folder
     og_image = driver.find_element(By.ID, "og-image").get_attribute("content")
     assert "D13" in og_image  # RN4078 is in folder D13
+
+def test_tab_switching_visibility(driver):
+    """Verify that switching to Hub hides gallery and shows hub section."""
+    driver.get(URL)
+    
+    # 1. Click the Hub tab
+    hub_tab = driver.find_element(By.ID, "tabHub")
+    hub_tab.click()
+    time.sleep(0.5) # Wait for transition
+    
+    # 2. Check visibility
+    gallery = driver.find_element(By.ID, "gallerySection")
+    hub = driver.find_element(By.ID, "hubSection")
+    search_container = driver.find_element(By.ID, "searchBarContainer")
+    
+    assert not gallery.is_displayed()
+    assert hub.is_displayed()
+    assert not search_container.is_displayed() # Search should be hidden in Hub
+    assert "active" in hub_tab.get_attribute("class")
+
+def test_hub_content_loading(driver):
+    """Verify that articles from hubData.js are loaded into the sidebar and main area."""
+    driver.get(URL)
+    driver.find_element(By.ID, "tabHub").click()
+    time.sleep(0.5)
+    
+    # Check if the sidebar loaded articles from hubData.js
+    article_links = driver.find_elements(By.CSS_SELECTOR, "#articleList li a")
+    assert len(article_links) > 0
+    
+    # Check if the default first article ("How to Start...") is loaded in main view
+    main_content = driver.find_element(By.ID, "hubActiveContent")
+    assert "How to Start Stamp Collecting" in main_content.text
+
+def test_article_navigation(driver):
+    """Verify that clicking a sidebar article updates the main content area."""
+    driver.get(URL)
+    driver.find_element(By.ID, "tabHub").click()
+    time.sleep(0.5)
+    
+    # Find the "How to Identify Fake Stamps" link (usually the 3rd one based on your hubData.js)
+    # We use a text-based selector to find the specific link
+    fake_stamps_link = driver.find_element(By.LINK_TEXT, "How to Identify Fake Stamps")
+    fake_stamps_link.click()
+    time.sleep(0.3)
+    
+    main_content = driver.find_element(By.ID, "hubActiveContent")
+    assert "How to Identify Fake Stamps" in main_content.text
+    assert "Perforations" in main_content.text # Content from hubData.js
+
+# def test_sticky_nav_stacking(driver):
+#     """Verify that sub-nav becomes sticky at the top when in Hub mode."""
+#     driver.get(URL)
+    
+#     # 1. Switch to Hub Mode
+#     driver.find_element(By.ID, "tabHub").click()
+#     time.sleep(0.5)
+    
+#     # 2. Scroll deep into the page
+#     driver.execute_script("window.scrollTo(0, 1000)")
+#     time.sleep(0.5)
+    
+#     # 3. Get the element's position relative to the VIEWPORT
+#     # getBoundingClientRect().top returns 0 if the element is touching the top of the screen
+#     sticky_top = driver.execute_script(
+#         "return document.getElementById('mainSubNav').getBoundingClientRect().top;"
+#     )
+    
+#     print(f"Sub-nav viewport top: {sticky_top}") # Debugging info
+    
+#     # In Hub mode, search is hidden, so sub-nav should be at 0px
+#     # We allow a small margin for sub-pixel rendering (like 180.46 vs 180)
+#     assert abs(sticky_top) <= 5

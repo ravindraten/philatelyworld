@@ -12,6 +12,9 @@
     <title>Philately World</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <script src="hubData.js"></script> 
+    <script src="data.js"></script>
+    <script src="script.js"></script>   
 </head>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-0K58TP8LVP"></script>
 <script>
@@ -56,8 +59,7 @@
                 </div>
             </div>    
         </div>
-    
-        <div class="search-sticky-container">
+        <div class="search-sticky-container" id="searchBarContainer">
             <div class="sticky-wrapper">
                 <img src="images/logo.jpg" alt="Logo" class="sticky-logo">
                 <div class="search-container">
@@ -66,11 +68,39 @@
             </div>
             <p id="lastUpdated" class="header-status"></p>
         </div>
+        <nav class="sub-nav" id="mainSubNav">
+            <div class="container nav-wrapper">
+                <button class="nav-tab active" id="tabGallery" onclick="switchTab('gallery')">Stamp Gallery</button>
+                <button class="nav-tab" id="tabHub" onclick="switchTab('hub')">Philately Hub</button>
+            </div>
+        </nav>
     </header>
 
-    <main class="container">
+
+
+<main class="container">
+    <section id="gallerySection">
         <div class="stamp-grid" id="stampGrid"></div>
-    </main>
+    </section>
+
+    <section id="hubSection" style="display: none;">
+        <div class="hub-layout">
+            <aside class="hub-sidebar">
+                <div class="sidebar-group">
+                    <h3>Articles</h3>
+                    <ul id="articleList"></ul>
+                </div>
+                <div class="sidebar-group">
+                    <h3>World News</h3>
+                    <div id="newsMiniList"></div>
+                </div>
+            </aside>
+            
+            <article class="hub-main-content" id="hubActiveContent">
+                </article>
+        </div>
+    </section>
+</main>
 
     <div id="myModal" class="modal">
         <span class="close" id="closeModal">&times;</span>
@@ -99,8 +129,5 @@
             </div>
         </div>
     </div>
-
-    <script src="data.js"></script>
-    <script src="script.js"></script>
 </body>
 </html>
