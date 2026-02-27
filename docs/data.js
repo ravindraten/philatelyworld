@@ -1,6 +1,19 @@
 // 1. STAMP DATABASE
 const stamps = [
     { 
+        name: "Germany and Berlin stamp collection in 3 albums", 
+        country: "Germany and Berlin", 
+        year: "1956+", 
+        priceINR: 11499,
+        isSoldOut: false,
+        folder: "D18",
+        imageCount: 64,
+        desc: "RN4082: 2 Davo and 1 Safe album Germany Bund and Berlin with a lot of stamps.\
+                Check the photos to see a small part, but there is a lot more than you can see here\
+                <b>All 3 Albums for free</b>\
+                + shipping inside India in April 2026"
+    },
+    { 
         name: "Asia incl. MNH Bhutan stamp collection", 
         country: "Bhutan, Kazakhstan", 
         year: "1980+", 
