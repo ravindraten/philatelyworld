@@ -1,6 +1,18 @@
 // 1. STAMP DATABASE
 const stamps = [
     { 
+        name: "Old used stamps from Europe. Mix of MNH and used.(around 1000 stamps)", 
+        country: "Germany, German Empire, Indonesia, Poland, Austria", 
+        year: "1930+", 
+        priceINR: 1099,
+        isSoldOut: false,
+        folder: "D19",
+        imageCount: 14,
+        desc: "RN4082: Old used stamps from Europe. Mix of MNH and used.(around 1000 stamps)\
+                Check the photo. What you see is what you get.. \
+                + Free letter post shipping from Netherlands in FDC"
+    },
+    { 
         name: "Germany and Berlin stamp collection in 3 albums", 
         country: "Germany and Berlin", 
         year: "1956+", 
