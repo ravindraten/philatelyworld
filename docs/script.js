@@ -191,6 +191,9 @@ function renderGallery(data) {
         const rnCode = rnMatch ? rnMatch[0] : "";
         const shareUrl = `${window.location.origin}${window.location.pathname}?item=${rnCode}`;
 
+        // SEO Optimized Alt Text: "Stamp Name - Country (RNCode)"
+        const seoAltText = `${stamp.name} - ${stamp.country} Philately ${rnCode}`.replace(/"/g, '&quot;');
+
         const priceDisplay = state.currency === 'EUR' 
             ? `€${(stamp.priceINR * CONFIG.eurRate).toFixed(2)}`
             : `₹${stamp.priceINR.toLocaleString('en-IN')}`;
@@ -199,7 +202,11 @@ function renderGallery(data) {
             <article class="stamp-card ${stamp.isSoldOut ? 'sold-out' : ''}">
                 <div class="img-container">
                     ${stamp.isSoldOut ? '<div class="sold-out-badge">Sold Out</div>' : ''}
-                    <img src="${CONFIG.baseImgPath}/${stamp.folder}/1.jpg" alt="${stamp.name}" onclick="openLightbox(${originalIdx})">
+                    <img 
+                        src="${CONFIG.baseImgPath}/${stamp.folder}/1.jpg" 
+                        alt="${seoAltText}" 
+                        title="${seoAltText}"
+                        onclick="openLightbox(${originalIdx})">
                     <div class="photo-badge">${stamp.imageCount} Photos</div>
                 </div>
                 <div class="details">
@@ -264,8 +271,22 @@ function openLightbox(idx) {
 function updateLightbox() {
     const stamp = stamps[state.currentStampIdx];
     const modalImg = document.getElementById("img01");
+    const rnMatch = stamp.desc.match(/RN\d+/);
+    const rnCode = rnMatch ? rnMatch[0] : "ref";
+    
+    // Create a descriptive filename for the browser/SEO
+    const slug = `${stamp.name}-${stamp.country}-${rnCode}`
+        .toLowerCase()
+        .replace(/[^a-z0-9]/g, '-'); // Turn "India Stamp!" into "india-stamp"
+
     modalImg.src = `${CONFIG.baseImgPath}/${stamp.folder}/${state.currentImgIdx}.jpg`;
+    
+    // SEO Trick: The 'alt' and 'title' are key for dynamic ranking
+    modalImg.alt = `${stamp.name} - Photo ${state.currentImgIdx}`;
+    modalImg.title = `Philately World: ${stamp.name} (${rnCode})`;
+
     document.getElementById("caption").textContent = `${stamp.name} (${state.currentImgIdx}/${stamp.imageCount})`;
+    
     const display = stamp.imageCount <= 1 ? "none" : "block";
     document.getElementById("prevBtn").style.display = display;
     document.getElementById("nextBtn").style.display = display;
