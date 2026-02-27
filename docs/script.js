@@ -11,7 +11,8 @@ const CONFIG = {
 let state = {
     currency: 'INR',
     currentStampIdx: 0,
-    currentImgIdx: 1
+    currentImgIdx: 1,
+    filterSale: false // Added
 };
 
 // --- REPLACE YOUR DOMContentLoaded BLOCK ---
@@ -168,7 +169,8 @@ function renderGallery(data) {
     const grid = document.getElementById('stampGrid');
     const urlParams = new URLSearchParams(window.location.search);
     const isSharedLink = urlParams.has('item');
-
+    // Apply Sale Filter: if active, show only items on sale
+    let displayData = state.filterSale ? data.filter(s => s.onSale) : data;
     if (!data.length) {
         grid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; padding: 40px;">No stamps found.</p>';
         return;
@@ -198,12 +200,14 @@ function renderGallery(data) {
         return `
             <article class="stamp-card ${stamp.isSoldOut ? 'sold-out' : ''}">
                 <div class="img-container">
+                    ${stamp.onSale ? '<div class="sale-badge"><img src="images/sale-icon-card.png" alt="On Sale"></div>' : ''}
                     ${stamp.isSoldOut ? '<div class="sold-out-badge">Sold Out</div>' : ''}
                     <img src="${CONFIG.baseImgPath}/${stamp.folder}/1.jpg" alt="${stamp.name}" onclick="openLightbox(${originalIdx})">
                     <div class="photo-badge">${stamp.imageCount} Photos</div>
                 </div>
                 <div class="details">
                     <h3>${stamp.name}</h3>
+                    
                     <div style="display: flex; gap: 8px; align-items: center;">
                         <span class="stamp-year">${stamp.year}</span>
                         <small style="color: var(--text-light)">${stamp.country}</small>
@@ -212,6 +216,7 @@ function renderGallery(data) {
                     
                     <div class="price-row">
                         <span class="price">${priceDisplay}</span>
+                        
                         <div class="action-buttons">
                             <button onclick="copyShareLink('${shareUrl}', this)" class="share-icon-btn" title="Copy Share Link">
                                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path><polyline points="16 6 12 2 8 6"></polyline><line x1="12" y1="2" x2="12" y2="15"></line></svg>
@@ -231,25 +236,18 @@ function renderGallery(data) {
 }
 
 function filterStamps(query) {
-    const term = query.toLowerCase().trim();
-    
-    // If search is cleared, show all
-    if (!term) {
-        renderGallery(stamps);
-        return;
-    }
-
-    const filtered = stamps.filter(stamp => {
-        return (
-            stamp.name.toLowerCase().includes(term) ||
-            stamp.country.toLowerCase().includes(term) ||
-            // Adding description to the search logic
-            (stamp.desc && stamp.desc.toLowerCase().includes(term)) ||
-            // Stripping HTML tags from year before searching
-            stamp.year.replace(/<[^>]*>/g, '').toLowerCase().includes(term)
-        );
+    const q = query.toLowerCase();
+    const filtered = stamps.filter(s => {
+        const matchesSearch = s.name.toLowerCase().includes(q) || 
+                              s.country.toLowerCase().includes(q) || 
+                              s.year.toLowerCase().includes(q) ||
+                              s.desc.toLowerCase().includes(q);
+        
+        // Combine with Sale Filter logic
+        const matchesSale = state.filterSale ? s.onSale === true : true;
+        
+        return matchesSearch && matchesSale;
     });
-
     renderGallery(filtered);
 }
 
@@ -334,4 +332,14 @@ function updateMetaTags(stamp, id) {
     document.getElementById('og-desc').setAttribute('content', desc);
     document.getElementById('og-image').setAttribute('content', imgUrl);
     document.getElementById('og-url').setAttribute('content', window.location.href);
+}
+
+function toggleSaleFilter() {
+    state.filterSale = !state.filterSale;
+    const saleBtn = document.getElementById('btnSale');
+    if (saleBtn) saleBtn.classList.toggle('active', state.filterSale);
+    
+    // Re-run search logic with current search term to refresh the grid
+    const currentSearch = document.getElementById('stampSearch').value;
+    filterStamps(currentSearch);
 }

@@ -6,6 +6,7 @@ const stamps = [
         year: "1941-1944", 
         priceINR: 899,
         isSoldOut: false,
+        onSale: true, // Item marked on sale
         folder: "D16",
         imageCount: 1,
         desc: "RN4081: German Reich set of 27 stamps(few repeated)\
@@ -30,6 +31,7 @@ const stamps = [
         year: "", 
         priceINR: 7400,
         isSoldOut: false,
+        onSale: true, // Item marked on sale
         folder: "D14",
         imageCount: 19,
         desc: "RN4079: Stockbook with stamp collection France and territories\
@@ -200,6 +202,7 @@ const stamps = [
         year: "<b>Year</b>: 2025", 
         priceINR: 9999, 
         isSoldOut: false,
+        onSale: true, // Item marked on sale
         folder: "crypto",
         imageCount: 1,
         //images: ["https://picsum.photos/400/300?random=3"],

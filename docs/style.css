@@ -184,10 +184,14 @@ header {
 .social-icon:hover { transform: translateY(-2px); text-decoration: none; }
 
 .search-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centers the button horizontally */
+    gap: 10px;           /* Space between search bar and button */
     width: 100%;
-    max-width: 1000px;
-    position: relative;
-    padding: 0 15px; /* Adjust this value to control the side gaps */
+    max-width: 600px;    /* Optional: limits width on desktop */
+    margin: 0 auto;
+    padding: 10px 20px;
 }
 
 #stampSearch {
@@ -484,4 +488,84 @@ header {
         margin-top: 0;     /* Ensure no extra margin is pushing it away */
     }
     
+}
+
+/* Updated Sale Button CSS */
+.sale-toggle {
+    background-color: white;
+    border: 1px solid var(--border);
+    color: var(--text-main);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 16px !important;
+    cursor: pointer;
+    border-radius: 20px;
+    font-weight: 600;
+    transition: all 0.2s ease;
+    width: fit-content; 
+    justify-content: center;
+}
+
+.sale-toggle .btn-icon {
+    height: 14px;
+    width: auto;
+}
+
+.sale-toggle:hover {
+    background-color: #f1f1f1;
+}
+
+.sale-toggle.active {
+    background-color: #fee2e2 !important; /* Pale red */
+    color: #ef4444 !important; /* Sale red */
+    border-color: #ef4444 !important;
+}
+
+.sale-toggle.active:hover {
+    background-color: #ffe5e5;
+}
+
+/* New Sale Badge CSS */
+.sale-badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 10;
+}
+
+.sale-badge img {
+    height: 32px; /* Scale the card icon */
+    width: auto;
+    filter: drop-shadow(0 2px 3px rgba(0,0,0,0.1));
+}
+
+.sold-out-badge {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: var(--bhim);
+    color: white;
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-size: 0.7rem;
+    font-weight: 500;
+}
+
+.sold-out-card {
+    filter: grayscale(1);
+    opacity: 0.7;
+}
+
+/* Adjusting mobile specific header height */
+@media (max-width: 800px) {
+    header {
+        /* You may need to increase this value slightly (e.g., to -220px) 
+           if the header is now taller due to the button moving down */
+        top: -215px; 
+    }
+    
+    .search-sticky-container {
+        padding-bottom: 10px;
+    }
 }

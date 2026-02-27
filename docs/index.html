@@ -58,13 +58,18 @@
         </div>
     
         <div class="search-sticky-container">
+            
             <div class="sticky-wrapper">
                 <img src="images/logo.jpg" alt="Logo" class="sticky-logo">
+                <button onclick="toggleSaleFilter()" id="btnSale" class="toggle-btn sale-toggle" data-tooltip="Show only items on sale">
+                    <img src="images/sale-icon-btn.png" alt="Sale" class="btn-icon"> SALE
+                </button>
                 <div class="search-container">
                     <input type="search" id="stampSearch" placeholder="Search by theme, country, or year...">
                 </div>
             </div>
             <p id="lastUpdated" class="header-status"></p>
+            
         </div>
     </header>
 
