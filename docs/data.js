@@ -17,7 +17,7 @@ const stamps = [
         country: "Germany, German Empire, Indonesia, Poland, Austria", 
         year: "<b>Year</b>:1930 onwards", 
         priceINR: 1099,
-        isSoldOut: false,
+        isSoldOut: true,
         folder: "D19",
         imageCount: 14,
         desc: "RN4084: Old used stamps from Europe. Mix of MNH and used.(<b>around 1000 stamps</b>)\
