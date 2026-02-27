@@ -1,6 +1,18 @@
 // 1. STAMP DATABASE
 const stamps = [
     { 
+        name: "Asia incl. MNH Bhutan stamp collection", 
+        country: "Bhutan, Kazakhstan", 
+        year: "1980+", 
+        priceINR: 1499,
+        isSoldOut: false,
+        folder: "D17",
+        imageCount: 9,
+        desc: "RN4082: Asia incl. MNH Bhutan stamp collection\
+                Check the photo. What you see is what you get.. \
+                + Free letter post shipping from Netherlands in FDC"
+    },
+    { 
         name: "German Reich set of 27 stamps(few repeated)", 
         country: "German Reich", 
         year: "1941-1944", 
