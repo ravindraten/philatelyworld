@@ -1,21 +1,33 @@
 // 1. STAMP DATABASE
 const stamps = [
     { 
+        name: "Old used stamps from Africa. Mix of MNH and used.(around 500 stamps)", 
+        country: "Mocambique, Tanzania, Guinea-Bissau, Zaire, SouthAfrica, Rwanda, Egypt,Cameroon, Algeria, Kenya", 
+        year: "<b>Year</b>:1920 onwards", 
+        priceINR: 999,
+        isSoldOut: false,
+        folder: "D20",
+        imageCount: 16,
+        desc: "RN4083: Old used stamps from Africa. Mix of MNH and used.(<b>around 500 stamps</b>)\
+                Check the photo. What you see is what you get.. \
+                + Free letter post shipping from Netherlands in FDC"
+    },
+    { 
         name: "Old used stamps from Europe. Mix of MNH and used.(around 1000 stamps)", 
         country: "Germany, German Empire, Indonesia, Poland, Austria", 
-        year: "1930+", 
+        year: "<b>Year</b>:1930 onwards", 
         priceINR: 1099,
         isSoldOut: false,
         folder: "D19",
         imageCount: 14,
-        desc: "RN4082: Old used stamps from Europe. Mix of MNH and used.(around 1000 stamps)\
+        desc: "RN4082: Old used stamps from Europe. Mix of MNH and used.(<b>around 1000 stamps</b>)\
                 Check the photo. What you see is what you get.. \
                 + Free letter post shipping from Netherlands in FDC"
     },
     { 
         name: "Germany and Berlin stamp collection in 3 albums", 
         country: "Germany and Berlin", 
-        year: "1956+", 
+        year: "<b>Year</b>:1956 onwards", 
         priceINR: 11499,
         isSoldOut: false,
         folder: "D18",
@@ -28,7 +40,7 @@ const stamps = [
     { 
         name: "Asia incl. MNH Bhutan stamp collection", 
         country: "Bhutan, Kazakhstan", 
-        year: "1980+", 
+        year: "<b>Year</b>:1980 onwards", 
         priceINR: 1499,
         isSoldOut: false,
         folder: "D17",
@@ -40,7 +52,7 @@ const stamps = [
     { 
         name: "German Reich set of 27 stamps(few repeated)", 
         country: "German Reich", 
-        year: "1941-1944", 
+        year: "<b>Year</b>:1941-1944", 
         priceINR: 899,
         isSoldOut: false,
         folder: "D16",
@@ -52,7 +64,7 @@ const stamps = [
     { 
         name: "German Reich set of 22 stamps. (All Block of 2)", 
         country: "German Reich", 
-        year: "1942-1944", 
+        year: "<b>Year</b>:1942-1944", 
         priceINR: 1199,
         isSoldOut: false,
         folder: "D15",
