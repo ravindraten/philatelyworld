@@ -8,7 +8,7 @@ const stamps = [
         isSoldOut: false,
         folder: "D20",
         imageCount: 16,
-        desc: "RN4083: Old used stamps from Africa. Mix of MNH and used.(<b>around 500 stamps</b>)\
+        desc: "RN4085: Old used stamps from Africa. Mix of MNH and used.(<b>around 500 stamps</b>)\
                 Check the photo. What you see is what you get.. \
                 + Free letter post shipping from Netherlands in FDC"
     },
@@ -20,7 +20,7 @@ const stamps = [
         isSoldOut: false,
         folder: "D19",
         imageCount: 14,
-        desc: "RN4082: Old used stamps from Europe. Mix of MNH and used.(<b>around 1000 stamps</b>)\
+        desc: "RN4084: Old used stamps from Europe. Mix of MNH and used.(<b>around 1000 stamps</b>)\
                 Check the photo. What you see is what you get.. \
                 + Free letter post shipping from Netherlands in FDC"
     },
@@ -32,7 +32,7 @@ const stamps = [
         isSoldOut: false,
         folder: "D18",
         imageCount: 64,
-        desc: "RN4082: 2 Davo and 1 Safe album Germany Bund and Berlin with a lot of stamps.\
+        desc: "RN4083: 2 Davo and 1 Safe album Germany Bund and Berlin with a lot of stamps.\
                 Check the photos to see a small part, but there is a lot more than you can see here\
                 <b>All 3 Albums for free</b>\
                 + shipping inside India in April 2026"
