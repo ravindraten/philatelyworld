@@ -1,6 +1,17 @@
 // 1. STAMP DATABASE
 const stamps = [
     { 
+        name: "Huge lot : Extensive mint and used/cancelled thematic Red Cross stamp collection 1917-1980.", 
+        country: "Europa", 
+        year: "<b>Year</b>:1917-1980", 
+        priceINR: 243000,
+        isSoldOut: false,
+        folder: "D24",
+        imageCount: 487,
+        desc: "RN4089: Extensive mint and cancelled thematic stamp collection Red Cross 1917-1980, including covers and first-day covers, imperforate stamps, varieties, etc., in 8 albums. \
+              High catalogue value! + shipping inside India in April 2026. <b> All 8 Albums for FREE</b>"
+    },
+    { 
         name: "Europa CEPT 1956-2000", 
         country: "Europa", 
         year: "<b>Year</b>:1956-2000", 
