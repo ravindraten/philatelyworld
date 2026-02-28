@@ -1,6 +1,19 @@
 // 1. STAMP DATABASE
 const stamps = [
     { 
+        name: "Very well filled, mainly used stamp collection India 1854-1993", 
+        country: "India", 
+        year: "<b>Year</b>:1854-1993", 
+        priceINR: 215200,
+        isSoldOut: false,
+        folder: "D21",
+        imageCount: 105,
+        desc: "RN4086: Very well filled, mainly used stamp collection India 1854-1993, \
+                including good stamps such as (Stanley Gibbons no's): 66, 119-147, 151-191, 247-264, 305-308 Gandhi), \
+                service 72, 102, etc. in 2 blank albums with slipcases.\
+                + shipping inside India in April 2026"
+    },
+    { 
         name: "Old used stamps from Africa. Mix of MNH and used.(around 500 stamps)", 
         country: "Mocambique, Tanzania, Guinea-Bissau, Zaire, SouthAfrica, Rwanda, Egypt,Cameroon, Algeria, Kenya", 
         year: "<b>Year</b>:1920 onwards", 
