@@ -5,7 +5,12 @@
 const CONFIG = {
     whatsappNumber: "31633467712",
     eurRate: 0.00935,
-    baseImgPath: "https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images"
+    baseImgPath: "https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images",
+
+    // 2. CURRENCY CONFIGURATION
+    eurRate: 0.011, // Fallback rate
+    apiURL: "https://open.er-api.com/v6/latest/EUR",
+    wuAdjustment: 1.02 // Adds 2% markup to simulate Western Union spread
 };
 
 let state = {
@@ -16,6 +21,8 @@ let state = {
 
 // --- REPLACE YOUR DOMContentLoaded BLOCK ---
 document.addEventListener('DOMContentLoaded', () => {
+    // First, get the live exchange rate
+    updateLiveExchangeRate();
     const urlParams = new URLSearchParams(window.location.search);
     const itemID = urlParams.get('item');
 
@@ -47,6 +54,33 @@ document.addEventListener('DOMContentLoaded', () => {
     initEventListeners();
     updateStatusLine();
 });
+/**
+ * Fetches Live EUR to INR rate and calculates the WU conversion
+ */
+async function updateLiveExchangeRate() {
+    try {
+        const response = await fetch(CONFIG.apiURL);
+        const data = await response.json();
+        
+        if (data.result === "success") {
+            const marketRateINR = data.rates.INR;
+            // Western Union adjustment: Buyers pay more Rupees per Euro
+            const adjustedRateINR = marketRateINR * CONFIG.wuAdjustment;
+            
+            // Set global rate: 1 INR = X EUR
+            CONFIG.eurRate = 1 / adjustedRateINR; 
+
+            // Update Header Status
+            const statusEl = document.getElementById('lastUpdatedFXRate');
+            if (statusEl) {
+                const date = new Date().toLocaleDateString();
+                statusEl.innerText = `Live WU Rate: 1 INR = ${CONFIG.eurRate.toFixed(4)} EUR (Updated: ${date})`;
+            }
+        }
+    } catch (error) {
+        console.error("FX fetch failed, using fallback.");
+    }
+}
 
 function initGallery() {
     renderGallery(stamps);
