@@ -4,7 +4,7 @@
 
 const CONFIG = {
     whatsappNumber: "31633467712",
-    eurRate: 0.011,
+    eurRate: 0.00935,
     baseImgPath: "images"
 };
 
