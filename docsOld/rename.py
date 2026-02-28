@@ -28,4 +28,4 @@ def rename_files(target_directory):
 
 # Usage: Replace the path below with your folder path
 # Example: "C:/Users/Name/Pictures" or "/Users/Name/Pictures"
-rename_files("/Users/ravindra/workspace/GitHub/philatelyworld/docs/images/D20")
+rename_files("/Users/ravindra/workspace/GitHub/philatelyworld/docs/images/D22")
