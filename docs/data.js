@@ -1,6 +1,29 @@
 // 1. STAMP DATABASE
 const stamps = [
     { 
+        name: "Europa CEPT 1956-2000", 
+        country: "Europa", 
+        year: "<b>Year</b>:1956-2000", 
+        priceINR: 98000,
+        isSoldOut: false,
+        folder: "D23",
+        imageCount: 363,
+        desc: "RN4088: 99% complete, mint (year 1956 stamped) stamp collection Europa CEPT 1956-2000 in 3 Leuchtturm albums.. \
+              High catalogue value! + shipping inside India in April 2026. <b> All 3 Albums for FREE</b>"
+    },
+    { 
+        name: "France Red Cross booklets 1952-2005", 
+        country: "France", 
+        year: "<b>Year</b>:1952-2005", 
+        priceINR: 109000,
+        isSoldOut: false,
+        folder: "D22",
+        imageCount: 73,
+        desc: "RN4087: Beautiful collection of Red Cross stamp booklets from France 1952-2005 in 2 albums, \
+              containing 1952 3x (2x mint, 1x cancelled), 1953 (mint and cancelled), 1954, 1955 (2x mint, 2x cancelled) etc. \
+              High catalogue value! + shipping inside India in April 2026"
+    },
+    { 
         name: "Very well filled, mainly used stamp collection India 1854-1993", 
         country: "India", 
         year: "<b>Year</b>:1854-1993", 
