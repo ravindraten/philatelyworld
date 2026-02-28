@@ -5,7 +5,7 @@
 const CONFIG = {
     whatsappNumber: "31633467712",
     eurRate: 0.00935,
-    baseImgPath: "images"
+    baseImgPath: "https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images"
 };
 
 let state = {
