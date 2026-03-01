@@ -1,8 +1,19 @@
 // 1. STAMP DATABASE
 const stamps = [
     { 
+        name: "Great Britain stamp collection in thick stockbook", 
+        country: "Great Britain", 
+        year: "<b>Year</b>:1890 onwards", 
+        priceINR: 7499,
+        isSoldOut: false,
+        folder: "D25",
+        imageCount: 28,
+        desc: "RN4090: Thick stockbook with stamp collection Great Britain.\
+               Check the photos. What you see is what you get. + shipping inside India in April 2026. <b> Thick Album for FREE</b>"
+    },
+    { 
         name: "Huge lot : Extensive mint and used/cancelled thematic Red Cross stamp collection 1917-1980.", 
-        country: "Europa", 
+        country: "Worldwide", 
         year: "<b>Year</b>:1917-1980", 
         priceINR: 243000,
         isSoldOut: false,
