@@ -26,3 +26,10 @@ jobs:
           # You would need a step here to start a local server
           # or point the URL in the test to a staging site.
           pytest docs/test_philately.py
+
+      - name: Upload Screenshots on Failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-screenshots
+          path: screenshots/
