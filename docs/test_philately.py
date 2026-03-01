@@ -223,3 +223,71 @@ def test_dynamic_link_preview_meta(driver):
     # Check if the OG image tag was updated to the correct folder
     og_image = driver.find_element(By.ID, "og-image").get_attribute("content")
     assert "D13" in og_image  # RN4078 is in folder D13
+
+def test_live_fx_rate_display(driver):
+    """Verify that the live WU exchange rate is fetched and displayed in the header."""
+    driver.get(URL)
+    wait = WebDriverWait(driver, 10)
+    
+    # Wait for the async fetch to update the text
+    status_el = wait.until(EC.presence_of_element_located((By.ID, "lastUpdatedFXRate")))
+    
+    text = status_el.text
+    assert "Live WU Rate" in text
+    assert "EUR" in text
+    # Verify a date is present (Updated: MM/DD/YYYY or similar)
+    assert "Updated:" in text
+
+def test_history_widget_expansion_and_zoom(driver):
+    """Verify history widget toggles and zoom lens appears on hover."""
+    driver.get(URL)
+    wait = WebDriverWait(driver, 10)
+
+    # 1. Check if widget exists and toggle it
+    toggle = driver.find_element(By.ID, "historyToggle")
+    toggle.click()
+    
+    content = driver.find_element(By.ID, "historyCollapsible")
+    wait.until(lambda d: "expanded" in content.get_attribute("class"))
+    
+    # 2. Test the Zoom Lens
+    # Move mouse to the history image to trigger the lens
+    history_img = driver.find_element(By.ID, "historyStampImg1")
+    lens = driver.find_element(By.CSS_SELECTOR, ".zoom-container .zoom-lens")
+    
+    from selenium.webdriver.common.action_chains import ActionChains
+    actions = ActionChains(driver)
+    actions.move_to_element(history_img).perform()
+    
+    # Check if lens becomes visible
+    assert lens.is_displayed()
+
+def test_whatsapp_buy_link(driver):
+    """Verify the WhatsApp link contains the correct Ref code and Item Name."""
+    driver.get(URL)
+    
+    # Find the first available (not sold out) stamp
+    buy_btn = driver.find_element(By.CSS_SELECTOR, ".stamp-card:not(.sold-out) .buy-btn")
+    href = buy_btn.get_attribute("href")
+    
+    assert "wa.me/31633467712" in href
+    assert "Interested%20in%20Buying" in href
+    # Check if it includes the RN reference code
+    assert "RN" in href
+
+def test_history_auto_collapse_on_scroll(driver):
+    """Ensure the history widget collapses when scrolling down."""
+    driver.get(URL)
+    
+    # Expand widget
+    driver.find_element(By.ID, "historyToggle").click()
+    content = driver.find_element(By.ID, "historyCollapsible")
+    assert "expanded" in content.get_attribute("class")
+    
+    # Scroll down 300px (Logic in script.js triggers at 200px)
+    driver.execute_script("window.scrollTo(0, 300)")
+    
+    # Wait for class removal
+    wait = WebDriverWait(driver, 5)
+    wait.until(lambda d: "expanded" not in content.get_attribute("class"))
+    assert "expanded" not in content.get_attribute("class")

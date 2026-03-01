@@ -70,6 +70,38 @@
     </header>
 
     <main class="container">
+        <section id="historyWidget" class="history-section-wrapper" style="display: none;">
+            <div class="history-main-box">
+                <a href="#daily-history" class="history-ribbon" id="historyToggle" style="text-decoration: none;">
+                    <div style="display: flex; align-items: center; gap: 15px; flex: 1;">
+                        <span class="ribbon-icon">📜</span>
+                        <span class="ribbon-text">This Day in Philatelic History</span>
+                    </div>
+                    <span id="expandPrompt" style="font-size: 0.7rem; opacity: 0.8;">Click to View ▾</span>
+                </a>
+
+                <div id="historyCollapsible" class="history-collapsible-content">
+                    <div class="history-flex-container">
+                        <div class="history-gallery">
+                            <div class="history-frame zoom-container">
+                                <img id="historyStampImg1" src="" alt="Stamp View 1">
+                                <div class="zoom-lens"></div>
+                            </div>
+                            <div class="history-frame zoom-container">
+                                <img id="historyStampImg2" src="" alt="Stamp View 2">
+                                <div class="zoom-lens"></div>
+                            </div>
+                        </div>
+
+                        <div class="history-content">
+                            <h2 id="historyTitle" class="history-title"></h2>
+                            <div id="historyDate" class="history-date-label"></div>
+                            <p id="historyDesc" class="history-description"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
         <div class="stamp-grid" id="stampGrid"></div>
     </main>
 
@@ -103,5 +135,6 @@
 
     <script src="data.js"></script>
     <script src="script.js"></script>
+    <script src="historyData.js"></script>
 </body>
 </html>
