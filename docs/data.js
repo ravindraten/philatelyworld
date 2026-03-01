@@ -307,7 +307,7 @@ const stamps = [
         country: "worldwide", 
         year: "<b>Year</b>: 1970 onwards", 
         priceINR: 8999, 
-        isSoldOut: false,
+        isSoldOut: true,
         folder: "world-stamps",
         imageCount: 31,
         //images: ["https://picsum.photos/400/300?random=1", "https://picsum.photos/400/300?random=2"],
