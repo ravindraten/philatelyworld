@@ -173,7 +173,7 @@ const stamps = [
         country: "Israel", 
         year: "<b>Year</b>: Various", 
         priceINR: 6499,
-        isSoldOut: false,
+        isSoldOut: true,
         folder: "D10",
         imageCount: 16,
         desc: "RN4075: Stockbook with stamp collection almost all MNH Israel.\
