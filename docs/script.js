@@ -428,7 +428,7 @@ function initDoubleZoom() {
         const lens = container.querySelector('.zoom-lens');
 
         container.addEventListener('mousemove', (e) => {
-            if (!img.src) return;
+            if (!img.complete || img.naturalWidth === 0) return;
             lens.style.display = 'block';
 
             const rect = img.getBoundingClientRect();
