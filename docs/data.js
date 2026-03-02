@@ -1,6 +1,30 @@
 // 1. STAMP DATABASE
 const stamps = [
     { 
+        name: "Hungary 1871-1980 with collection about 2900 stamps", 
+        country: "Hungary", 
+        year: "<b>Year</b>:Old", 
+        priceINR: 14500,
+        isSoldOut: false,
+        folder: "D27",
+        imageCount: 33,
+        desc: "RN4092: 2 Albums Hungary 1871-1980 with collection about 2900 stamps.\
+                Check the photos to see a small part, but there is a lot more than you can see here.\
+                <b>Rs.5/- per stamp</b>\
+            Check the photos. What you see is what you get. + shipping inside India in April 2026. <b> 2 Thick Album for FREE</b>"
+    },
+    { 
+        name: "2 Albums with collection over 340 FDC covers from Iceland", 
+        country: "Iceland", 
+        year: "<b>Year</b>:1964-1986", 
+        priceINR: 22100,
+        isSoldOut: true,
+        folder: "D26",
+        imageCount: 65,
+        desc: "RN4091: 2 Album with collection over 340 FDC covers Iceland 1964-1971, 1968-1986, various editions and colours.\
+            Check the photos. What you see is what you get. + shipping inside India in April 2026. <b> Thick Album for FREE</b>"
+    },
+    { 
         name: "Great Britain stamp collection in thick stockbook", 
         country: "Great Britain", 
         year: "<b>Year</b>:1890 onwards", 
