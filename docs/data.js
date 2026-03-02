@@ -136,7 +136,7 @@ const stamps = [
         country: "France", 
         year: "", 
         priceINR: 7400,
-        isSoldOut: false,
+        isSoldOut: true,
         folder: "D14",
         imageCount: 19,
         desc: "RN4079: Stockbook with stamp collection France and territories\
