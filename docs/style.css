@@ -485,3 +485,141 @@ header {
     }
     
 }
+
+/* History Widget Box Styling */
+.history-section-wrapper {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto 40px auto;
+    padding: 0 15px;
+}
+
+.history-main-box {
+    background: #ffffff;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+}
+
+.history-ribbon {
+    background: #e0f2fe;
+    color: var(--primary) !important; /* Ensure link color doesn't turn blue */
+    padding: 12px 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 700;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.history-flex-container {
+    display: flex;
+    padding: 25px;
+    gap: 30px;
+    align-items: flex-start;
+}
+
+/* Photo Frames */
+.history-gallery {
+    display: flex;
+    gap: 15px;
+    flex: 0 0 420px; /* Width for two frames */
+}
+
+.history-frame {
+    flex: 1;
+    aspect-ratio: 1 / 1;
+    background: #f8fafc;
+    border: 1px dashed #cbd5e1;
+    border-radius: 6px;
+    position: relative;
+    cursor: crosshair;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.history-frame img {
+    max-width: 90%;
+    max-height: 90%;
+    object-fit: contain;
+}
+
+/* Text Styling */
+.history-content { flex: 1; }
+.history-title { 
+    margin: 0 0 8px 0; 
+    color: var(--primary); 
+    font-size: 1.6rem; 
+}
+.history-date-label {
+    display: inline-block;
+    background: var(--accent);
+    color: white;
+    padding: 3px 10px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    margin-bottom: 15px;
+}
+.history-description {
+    color: var(--text-main);
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+.history-footer-note {
+    font-size: 0.75rem;
+    color: var(--text-light);
+    font-style: italic;
+}
+
+/* Zoom Lens Styling */
+.zoom-lens {
+    position: absolute;
+    border: 2px solid var(--accent);
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    background-repeat: no-repeat;
+    display: none;
+    pointer-events: none;
+    z-index: 10;
+    box-shadow: 0 0 15px rgba(0,0,0,0.2);
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 900px) {
+    .history-flex-container { flex-direction: column; padding: 15px; }
+    .history-gallery { width: 100%; flex: 0 0 auto; }
+    .history-title { font-size: 1.3rem; }
+}
+
+.history-collapsible-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    background: #ffffff;
+}
+
+/* Class to be added via JavaScript */
+.history-collapsible-content.expanded {
+    max-height: 1000px; /* Large enough to accommodate content */
+    border-top: 1px solid var(--border);
+}
+
+.history-ribbon {
+    transition: background 0.3s ease;
+}
+
+.history-ribbon:hover {
+    background: #a9d6f4; /* Slightly lighter than your primary */
+    color: white;
+}

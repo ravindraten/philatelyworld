@@ -7,7 +7,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from webdriver_manager.chrome import ChromeDriverManager
 import time
-
+import os
 # --- Configuration ---
 # Replace with your local dev URL or GitHub Pages URL
 #URL = "http://localhost:5500/docs/index.html" 
@@ -223,3 +223,89 @@ def test_dynamic_link_preview_meta(driver):
     # Check if the OG image tag was updated to the correct folder
     og_image = driver.find_element(By.ID, "og-image").get_attribute("content")
     assert "D13" in og_image  # RN4078 is in folder D13
+
+def test_live_fx_rate_display(driver):
+    """Verify that the live WU exchange rate is fetched and displayed in the header."""
+    driver.get(URL)
+    wait = WebDriverWait(driver, 10)
+    
+    # Wait for the async fetch to update the text
+    status_el = wait.until(EC.presence_of_element_located((By.ID, "lastUpdatedFXRate")))
+    
+    text = status_el.text
+    assert "Live WU Rate" in text
+    assert "EUR" in text
+    # Verify a date is present (Updated: MM/DD/YYYY or similar)
+    assert "Updated:" in text
+
+def test_history_widget_expansion_and_zoom(driver):
+    """Verify history widget toggles and zoom lens appears on hover."""
+    try:
+        driver.get(URL)
+        wait = WebDriverWait(driver, 10)
+
+        # 1. Expand the widget
+        toggle = wait.until(EC.element_to_be_clickable((By.ID, "historyToggle")))
+        toggle.click()
+        
+        content = driver.find_element(By.ID, "historyCollapsible")
+        wait.until(lambda d: "expanded" in content.get_attribute("class"))
+        
+        # 2. Ensure images are loaded before hovering
+        history_img = driver.find_element(By.ID, "historyStampImg1")
+        wait.until(lambda d: driver.execute_script("return arguments[0].complete && arguments[0].naturalWidth > 0", history_img))
+
+        # 3. Trigger Mouse Move via JavaScript (More reliable in Headless CI)
+        driver.execute_script("""
+            var evt = new MouseEvent('mousemove', {
+                bubbles: true,
+                cancelable: true,
+                view: window,
+                clientX: arguments[0].getBoundingClientRect().left + 10,
+                clientY: arguments[0].getBoundingClientRect().top + 10
+            });
+            arguments[0].dispatchEvent(evt);
+        """, history_img)
+        
+        # 4. Check lens visibility with a short wait
+        lens = driver.find_element(By.CSS_SELECTOR, ".zoom-container .zoom-lens")
+        wait.until(lambda d: lens.is_displayed())
+        assert lens.is_displayed()
+    except Exception as e:
+        # Create directory if it doesn't exist
+        if not os.path.exists("screenshots"):
+            os.makedirs("screenshots")
+        
+        # Save screenshot for debugging
+        driver.save_screenshot("screenshots/zoom_failure.png")
+        raise e
+
+def test_whatsapp_buy_link(driver):
+    """Verify the WhatsApp link contains the correct Ref code and Item Name."""
+    driver.get(URL)
+    
+    # Find the first available (not sold out) stamp
+    buy_btn = driver.find_element(By.CSS_SELECTOR, ".stamp-card:not(.sold-out) .buy-btn")
+    href = buy_btn.get_attribute("href")
+    
+    assert "wa.me/31633467712" in href
+    assert "Interested%20in%20Buying" in href
+    # Check if it includes the RN reference code
+    assert "RN" in href
+
+def test_history_auto_collapse_on_scroll(driver):
+    """Ensure the history widget collapses when scrolling down."""
+    driver.get(URL)
+    
+    # Expand widget
+    driver.find_element(By.ID, "historyToggle").click()
+    content = driver.find_element(By.ID, "historyCollapsible")
+    assert "expanded" in content.get_attribute("class")
+    
+    # Scroll down 300px (Logic in script.js triggers at 200px)
+    driver.execute_script("window.scrollTo(0, 300)")
+    
+    # Wait for class removal
+    wait = WebDriverWait(driver, 5)
+    wait.until(lambda d: "expanded" not in content.get_attribute("class"))
+    assert "expanded" not in content.get_attribute("class")

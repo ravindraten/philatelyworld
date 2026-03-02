@@ -21,6 +21,7 @@ let state = {
 
 // --- REPLACE YOUR DOMContentLoaded BLOCK ---
 document.addEventListener('DOMContentLoaded', () => {
+    initHistoryWidget(); // <--- Add this line
     // First, get the live exchange rate
     updateLiveExchangeRate();
     const urlParams = new URLSearchParams(window.location.search);
@@ -390,3 +391,145 @@ function updateMetaTags(stamp, id) {
     document.getElementById('og-image').setAttribute('content', imgUrl);
     document.getElementById('og-url').setAttribute('content', window.location.href);
 }
+
+function initHistoryWidget() {
+    const now = new Date();
+    const key = `${now.getMonth() + 1}-${now.getDate()}`; 
+    const fact = PHILATELY_HISTORY[key];
+
+    const widget = document.getElementById('historyWidget');
+    if (fact && widget) {
+        document.getElementById('historyTitle').innerText = fact.title;
+        document.getElementById('historyDate').innerText = fact.date;
+        document.getElementById('historyDesc').innerText = fact.desc;
+        
+        // Load both images
+        const img1 = document.getElementById('historyStampImg1');
+        const img2 = document.getElementById('historyStampImg2');
+        
+        img1.src = fact.img1;
+        img2.src = fact.img2 || fact.img1; // Fallback to img1 if only one provided
+
+        widget.style.display = 'block';
+        
+        // Wait for images to load then init zoom
+        Promise.all([
+            new Promise(r => img1.onload = r),
+            new Promise(r => img2.onload = r)
+        ]).then(() => initDoubleZoom());
+    }
+}
+
+function initDoubleZoom() {
+    const containers = document.querySelectorAll('.zoom-container');
+
+    containers.forEach(container => {
+        const img = container.querySelector('img');
+        const lens = container.querySelector('.zoom-lens');
+
+        container.addEventListener('mousemove', (e) => {
+            if (!img.complete || img.naturalWidth === 0) return;
+            lens.style.display = 'block';
+
+            const rect = img.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+
+            // Position Lens
+            lens.style.left = (x - lens.offsetWidth / 2) + 'px';
+            lens.style.top = (y - lens.offsetHeight / 2) + 'px';
+
+            // Zoom math
+            const zoomLevel = 3;
+            lens.style.backgroundImage = `url('${img.src}')`;
+            lens.style.backgroundSize = (img.width * zoomLevel) + "px " + (img.height * zoomLevel) + "px";
+            
+            const posX = (x * zoomLevel) - (lens.offsetWidth / 2);
+            const posY = (y * zoomLevel) - (lens.offsetHeight / 2);
+            lens.style.backgroundPosition = `-${posX}px -${posY}px`;
+        });
+
+        container.addEventListener('mouseleave', () => {
+            lens.style.display = 'none';
+        });
+    });
+}
+
+let isWidgetExpanded = false;
+
+function toggleHistoryWidget() {
+    const content = document.getElementById('historyCollapsible');
+    const prompt = document.getElementById('expandPrompt');
+    
+    isWidgetExpanded = !isWidgetExpanded;
+    
+    if (isWidgetExpanded) {
+        content.classList.add('expanded');
+        prompt.innerText = "Click to Close ▴";
+    } else {
+        content.classList.remove('expanded');
+        prompt.innerText = "Click to View ▾";
+    }
+}
+// Global scroll listener to collapse the widget
+window.addEventListener('scroll', () => {
+    if (isWidgetExpanded && window.scrollY > 150) {
+        const content = document.getElementById('historyCollapsible');
+        const prompt = document.getElementById('expandPrompt');
+        
+        isWidgetExpanded = false;
+        content.classList.remove('expanded');
+        prompt.innerText = "Click to View ▾";
+    }
+}, { passive: true });
+
+// 1. Central Toggle Function
+function setHistoryExpansion(expand) {
+    const content = document.getElementById('historyCollapsible');
+    const prompt = document.getElementById('expandPrompt');
+    
+    if (expand) {
+        content.classList.add('expanded');
+        prompt.innerText = "Click to Close ▴";
+        isWidgetExpanded = true;
+    } else {
+        content.classList.remove('expanded');
+        prompt.innerText = "Click to View ▾";
+        isWidgetExpanded = false;
+    }
+}
+
+// 2. Click Handler
+document.getElementById('historyToggle').addEventListener('click', function(e) {
+    // Prevent the default jump behavior if user is already on the page
+    e.preventDefault(); 
+    setHistoryExpansion(!isWidgetExpanded);
+    
+    // Optional: Update URL without jumping
+    if(isWidgetExpanded) {
+        history.pushState(null, null, '#daily-history');
+    } else {
+        history.pushState(null, null, window.location.pathname);
+    }
+});
+
+// 3. Scroll to Collapse logic (as requested before)
+window.addEventListener('scroll', () => {
+    if (isWidgetExpanded && window.scrollY > 200) {
+        setHistoryExpansion(false);
+    }
+}, { passive: true });
+
+// 4. Check URL on Load (The "Shareable" part)
+function checkInitialHash() {
+    if (window.location.hash === '#daily-history') {
+        // Small delay to ensure initialization is complete
+        setTimeout(() => setHistoryExpansion(true), 500);
+    }
+}
+
+// Update your existing DOMContentLoaded
+document.addEventListener('DOMContentLoaded', () => {
+    initHistoryWidget(); // Loads the data
+    checkInitialHash();  // Expands if link was shared
+});
