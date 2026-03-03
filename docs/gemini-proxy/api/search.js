@@ -1,21 +1,19 @@
 import { GoogleGenAI } from "@google/genai";
 
 export default async function handler(req, res) {
+    // Inside your handler in search.js
     const origin = req.headers.origin;
-    const allowedOrigins = [
-        'http://127.0.0.1:5500', 
-        'http://localhost:5500', 
-        'https://philatelyworld.in'
-    ];
-    
-    // If the origin matches, use it. If not (and it's a dev environment), 
-    // you might want to allow it anyway to avoid this exact error.
-    if (allowedOrigins.includes(origin)) {
-        res.setHeader('Access-Control-Allow-Origin', origin);
-    } else if (process.env.NODE_ENV === 'development') {
-        res.setHeader('Access-Control-Allow-Origin', '*');
-    }
 
+    // Check if it's your local dev, your main domain, or ANY Vercel preview URL
+    const isAllowed = 
+        origin === 'http://127.0.0.1:5500' || 
+        origin === 'http://localhost:5500' || 
+        origin === 'https://philatelyworld.in' ||
+        (origin && origin.endsWith('.vercel.app')); // This catches all Vercel previews
+
+    if (isAllowed) {
+        res.setHeader('Access-Control-Allow-Origin', origin);
+    }
     res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
 
