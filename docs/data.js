@@ -1,6 +1,18 @@
 // 1. STAMP DATABASE
 const stamps = [
     { 
+        name: "Modern/Old used stamps from Europe.", 
+        country: "Germany, Sweden", 
+        year: "<b>Year</b>: Various", 
+        priceINR: 799,
+        isSoldOut: false,
+        folder: "D28",
+        imageCount: 7,
+        desc: "RN4093: Modern/Old used stamps from Europe.\
+                Check the photo. What you see is what you get.. \
+                + Free letter post shipping from Netherlands in FDC"
+    },
+    { 
         name: "Hungary 1871-1980 with collection about 2900 stamps", 
         country: "Hungary", 
         year: "<b>Year</b>:Old", 
