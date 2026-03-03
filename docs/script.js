@@ -390,3 +390,69 @@ function updateMetaTags(stamp, id) {
     document.getElementById('og-image').setAttribute('content', imgUrl);
     document.getElementById('og-url').setAttribute('content', window.location.href);
 }
+
+/**
+ * AI Search Integration
+ */
+async function triggerSearch() {
+    const searchInput = document.getElementById('searchInput');
+    const grid = document.getElementById('stampGrid');
+
+    // Check if elements exist before using them
+    if (!searchInput || !grid) {
+        console.error("Search elements not found in HTML");
+        return;
+    }
+
+    const query = searchInput.value.trim();
+    if (!query) return; // Don't search if empty
+
+    // Show loading state
+    grid.innerHTML = `<div class="loading-state">Gemini is searching the catalog...</div>`;
+
+    try {
+        const response = await fetch('https://philatelyworld.vercel.app/api/search', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ 
+                query: query, 
+                stampData: stamps 
+            })
+        });
+
+        if (!response.ok) throw new Error("Backend unreachable");
+
+        const matchingFolders = await response.json();
+
+        // Filter based on the 'folder' property in your data.js
+        const filteredStamps = stamps.filter(s => matchingFolders.includes(s.folder));
+        
+        if (filteredStamps.length === 0) {
+            grid.innerHTML = `<p>No stamps found matching "${query}". Try a different description.</p>`;
+        } else {
+            renderGallery(filteredStamps);
+        }
+
+    } catch (error) {
+        console.error("AI Search Error:", error);
+        grid.innerHTML = `<p>Error: Could not connect to AI search. Please check your internet or Vercel logs.</p>`;
+    }
+}
+
+// Fixed Event Listener (Prevents "reading properties of null" error)
+document.addEventListener('DOMContentLoaded', () => {
+    const searchInput = document.getElementById('searchInput');
+    if (searchInput) {
+        searchInput.addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                triggerSearch();
+            }
+        });
+    }
+});
+// Add this event listener at the bottom of your script.js
+document.getElementById('searchInput').addEventListener('keypress', function (e) {
+    if (e.key === 'Enter') {
+        triggerSearch();
+    }
+});
