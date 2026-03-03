@@ -391,33 +391,37 @@ function updateMetaTags(stamp, id) {
     document.getElementById('og-url').setAttribute('content', window.location.href);
 }
 
-/**
- * AI Search Integration
- */
 async function triggerSearch() {
-    const query = document.getElementById('searchInput').value;
-    
+    const searchInput = document.getElementById('searchInput');
+    if (!searchInput) return;
+
+    const query = searchInput.value.trim();
+    if (!query) return;
+
+    console.log("Searching for:", query);
+
     try {
-        const response = await fetch('https://philatelyworld-lale7cu5r-ravindratens-projects.vercel.app/api/search', {
+        // Updated URL to your latest deployment
+        const response = await fetch('https://philatelyworld-git-geminiintegration-ravindratens-projects.vercel.app/api/search', {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
+            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ 
                 query: query,
-                stampData: stamps // Your data from data.js
+                stampData: stamps 
             })
         });
+
+        if (!response.ok) throw new Error(`Server error: ${response.status}`);
 
         const matchingFolders = await response.json();
         console.log("AI matches:", matchingFolders);
 
-        // Filter and display
         const filtered = stamps.filter(s => matchingFolders.includes(s.folder));
         renderGallery(filtered);
 
     } catch (error) {
         console.error("Connection failed:", error);
+        alert("Search failed. Check console for details.");
     }
 }
 
@@ -430,11 +434,5 @@ document.addEventListener('DOMContentLoaded', () => {
                 triggerSearch();
             }
         });
-    }
-});
-// Add this event listener at the bottom of your script.js
-document.getElementById('searchInput').addEventListener('keypress', function (e) {
-    if (e.key === 'Enter') {
-        triggerSearch();
     }
 });
