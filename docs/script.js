@@ -398,7 +398,7 @@ async function triggerSearch() {
     const query = document.getElementById('searchInput').value;
     
     try {
-        const response = await fetch('https://philatelyworld-he2ml7nkq-ravindratens-projects.vercel.app/api/search', {
+        const response = await fetch('https://philatelyworld-lale7cu5r-ravindratens-projects.vercel.app/api/search', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

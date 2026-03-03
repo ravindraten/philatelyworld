@@ -4,8 +4,8 @@ export default async function handler(req, res) {
     // 1. Get the user's search query from the request
     const { query, stampData } = req.body;
     const allowedOrigins = [
-        'http://127.0.0.1:5500/docs/index.html', 
-        'http://localhost:5500/docs/index.html', 
+        'http://127.0.0.1:5500', 
+        'http://localhost:5500', 
         'https://philatelyworld.in'
     ];
     
