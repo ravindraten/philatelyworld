@@ -5,7 +5,7 @@ const stamps = [
         country: "Great Britain, Ireland", 
         year: "<b>Year</b>: 1900+", 
         priceINR: 1499,
-        isSoldOut: false,
+        isSoldOut: true,
         folder: "D29",
         imageCount: 21,
         desc: "RN4094: Modern/Old used and MNH stamps from Great Britian.\
