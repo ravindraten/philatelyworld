@@ -29,7 +29,7 @@ const stamps = [
         country: "Great Britain", 
         year: "<b>Year</b>:1890 onwards", 
         priceINR: 7499,
-        isSoldOut: false,
+        isSoldOut: true,
         folder: "D25",
         imageCount: 28,
         desc: "RN4090: Thick stockbook with stamp collection Great Britain.\
