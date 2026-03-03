@@ -3,10 +3,23 @@ import { GoogleGenAI } from "@google/genai";
 export default async function handler(req, res) {
     // 1. Get the user's search query from the request
     const { query, stampData } = req.body;
-    const allowedOrigin = req.headers.origin || "*";
-    res.setHeader('Access-Control-Allow-Origin', 'http://http://127.0.0.1:5500');
+    const allowedOrigins = [
+        'http://127.0.0.1:5500/docs/index.html', 
+        'http://localhost:5500/docs/index.html', 
+        'https://philatelyworld.in'
+    ];
+    
+    const origin = req.headers.origin;
+    if (allowedOrigins.includes(origin)) {
+        res.setHeader('Access-Control-Allow-Origin', origin);
+    }
+
     res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+
+    if (req.method === 'OPTIONS') {
+        return res.status(200).end();
+    }
     // 2. Initialize Gemini using the API Key stored in Environment Variables
     const genAI = new GoogleGenAI(process.env.GEMINI_API_KEY);
     const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
