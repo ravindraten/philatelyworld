@@ -7,7 +7,7 @@ const stamps = [
         priceINR: 1499,
         isSoldOut: false,
         folder: "D29",
-        imageCount: 17,
+        imageCount: 21,
         desc: "RN4094: Modern/Old used and MNH stamps from Great Britian.\
                 Check the photo. What you see is what you get.. \
                 + Free letter post shipping from Netherlands in FDC"
