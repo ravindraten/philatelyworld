@@ -1,6 +1,18 @@
 // 1. STAMP DATABASE
 const stamps = [
     { 
+        name: "Modern/Old used and MNH stamps from Great Britian", 
+        country: "Great Britain, Ireland", 
+        year: "<b>Year</b>: 1900+", 
+        priceINR: 1499,
+        isSoldOut: false,
+        folder: "D29",
+        imageCount: 21,
+        desc: "RN4094: Modern/Old used and MNH stamps from Great Britian.\
+                Check the photo. What you see is what you get.. \
+                + Free letter post shipping from Netherlands in FDC"
+    },
+    { 
         name: "Modern/Old used stamps from Europe.", 
         country: "Germany, Sweden", 
         year: "<b>Year</b>: Various", 
