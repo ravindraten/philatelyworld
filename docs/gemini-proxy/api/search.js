@@ -8,24 +8,21 @@ export default async function handler(req, res) {
         'https://philatelyworld.in'
     ];
     
-    // If the origin is in our list, allow it. 
-    // If there is no origin (like a direct server call), we still need to handle the response.
+    // If the origin matches, use it. If not (and it's a dev environment), 
+    // you might want to allow it anyway to avoid this exact error.
     if (allowedOrigins.includes(origin)) {
         res.setHeader('Access-Control-Allow-Origin', origin);
-    } else if (!origin) {
-        // Fallback for tools or internal hits
+    } else if (process.env.NODE_ENV === 'development') {
         res.setHeader('Access-Control-Allow-Origin', '*');
     }
 
     res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
 
-    // 2. HANDLE PREFLIGHT
+    // Handle the "Preflight" handshake
     if (req.method === 'OPTIONS') {
-        // Crucial: Preflight must return 200 or 204 with the headers above
         return res.status(200).end();
     }
-
     // 3. NOW PROCESS THE DATA
     try {
         const { query, stampData } = req.body;
