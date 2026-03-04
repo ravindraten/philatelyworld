@@ -10,7 +10,10 @@ const CONFIG = {
     // 2. CURRENCY CONFIGURATION
     eurRate: 0.011, // Fallback rate
     apiURL: "https://open.er-api.com/v6/latest/EUR",
-    wuAdjustment: 1.02 // Adds 2% markup to simulate Western Union spread
+    wuAdjustment: 1.02, // Adds 2% markup to simulate Western Union spread
+
+    geminiKey: "", 
+    geminiModel: "gemini-2.5-flash"
 };
 
 let state = {
@@ -18,7 +21,81 @@ let state = {
     currentStampIdx: 0,
     currentImgIdx: 1
 };
+// 2. Add the AI Search Function
+async function searchWithGemini(query) {
+    const grid = document.getElementById('stampGrid');
+    
+    // 1. Loading State
+    grid.innerHTML = `
+        <div style="grid-column: 1/-1; text-align: center; padding: 50px; color: var(--text-light);">
+            <div class="loader" style="margin: 0 auto 10px;"></div>
+            <p>🤖 Gemini AI is analyzing the collection for "${query}"...</p>
+        </div>`;
 
+    // 2. Prepare data for the AI (Mapping 'folder' as the ID)
+    const context = stamps.map(s => `ID: ${s.folder}, Name: ${s.name}, Country: ${s.country}, Desc: ${s.desc}`).join("\n");
+
+    const prompt = `You are an expert philately assistant. 
+    Here is the stamp collection data:
+    ${context}
+
+    User Question: "${query}"
+    
+    Instructions: 
+    1. Identify all stamps that match the user's intent.
+    2. Return ONLY the "ID" values (the folder names like D31, 003) separated by commas.
+    3. If nothing matches, return "NONE".
+    4. Do not include any other text or explanation.`;
+
+    try {
+        // UPDATED ENDPOINT: Using 'gemini-1.5-flash' directly
+        // Inside your searchWithGemini function
+        const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${CONFIG.geminiModel}:generateContent?key=${CONFIG.geminiKey}`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                contents: [{ 
+                    parts: [{ text: prompt }] 
+                }]
+            })
+        });
+
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.error?.message || "API Request Failed");
+        }
+
+        const data = await response.json();
+        
+        // Safety check for response structure
+        if (!data.candidates || !data.candidates[0].content) {
+            throw new Error("No response from AI");
+        }
+
+        const aiResponse = data.candidates[0].content.parts[0].text.trim();
+
+        if (aiResponse === "NONE" || aiResponse === "") {
+            grid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; padding: 40px;">No specific AI matches. Showing standard results...</p>';
+            setTimeout(() => filterStamps(query), 1500);
+            return;
+        }
+
+        // 3. Filter using the 'folder' property from data.js
+        const matchedIDs = aiResponse.split(',').map(id => id.trim());
+        const filteredStamps = stamps.filter(s => matchedIDs.includes(s.folder));
+        
+        if (filteredStamps.length > 0) {
+            renderGallery(filteredStamps);
+        } else {
+            filterStamps(query); // Fallback to basic search
+        }
+
+    } catch (error) {
+        console.error("Gemini Error:", error);
+        grid.innerHTML = `<p style="grid-column: 1/-1; text-align: center; padding: 40px; color: var(--accent);">⚠️ AI search unavailable. Using standard search...</p>`;
+        setTimeout(() => filterStamps(query), 2000);
+    }
+}
 // --- REPLACE YOUR DOMContentLoaded BLOCK ---
 document.addEventListener('DOMContentLoaded', () => {
     // First, get the live exchange rate
@@ -91,7 +168,18 @@ function initEventListeners() {
     
     // Filter on input
     searchInput.addEventListener('input', (e) => filterStamps(e.target.value));
-
+    // Add Gemini trigger on Enter
+    searchInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            const query = searchInput.value.trim();
+            if (query.length > 2) {
+                searchWithGemini(query);
+            }
+            scrollToGrid();
+            searchInput.blur(); 
+        }
+    });
     // Reset view when the search bar is selected (tapped/clicked)
     searchInput.addEventListener('focus', () => {
         // Delay slightly to allow the mobile keyboard to appear first
