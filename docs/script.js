@@ -393,46 +393,41 @@ function updateMetaTags(stamp, id) {
 
 // Inside script.js, update your triggerSearch function:
 
+// Replace the triggerSearch function in script.js
 async function triggerSearch() {
-    const searchInput = document.getElementById('stampSearch');
-    if (!searchInput) return;
-
-    const query = searchInput.value.trim();
+    const query = document.getElementById('stampSearch').value;
+    const loader = document.getElementById('searchLoader');
     if (!query) return;
 
-    console.log("Searching for:", query);
+    loader.style.display = 'block';
 
     try {
-        // USE A RELATIVE PATH HERE:
-        // Inside your triggerSearch function in script.js
-        const response = await fetch('/api/search', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ 
-                query: query,
-                // Only send essential text to keep the payload small
-                stampData: stamps.map(s => ({ 
-                    folder: s.folder, 
-                    name: s.name, 
-                    desc: s.desc 
-                }))
-            })
-        });
+        const genAI = new GoogleGenAI("AIzaSyA2miGJJ4MpBqKDGtrtuNSyZc8vq1IZc7E"); // Get from Google AI Studio
+        const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash-latest" });
 
-        if (!response.ok) throw new Error(`Server error: ${response.status}`);
+        // Provide context to the AI
+        const stampContext = stamps.map(s => ({ folder: s.folder, name: s.name, desc: s.desc }));
+        
+        const prompt = `User is looking for: "${query}". 
+        From this list: ${JSON.stringify(stampContext)}, 
+        return only the 'folder' IDs of matches as a JSON array.`;
 
-        const matchingFolders = await response.json();
-        console.log("AI matches:", matchingFolders);
-
+        const result = await model.generateContent(prompt);
+        const responseText = await result.response.text();
+        
+        // Parse the AI response
+        const matchingFolders = JSON.parse(responseText.match(/\[.*\]/s)[0]);
+        
+        // Filter and show results using your existing renderGallery
         const filtered = stamps.filter(s => matchingFolders.includes(s.folder));
         renderGallery(filtered);
 
     } catch (error) {
-        console.error("Connection failed:", error);
-        alert("Search failed. Check console for details.");
+        console.error("AI Search Error:", error);
+    } finally {
+        loader.style.display = 'none';
     }
 }
-
 document.addEventListener('DOMContentLoaded', () => {
     // Change 'searchInput' to 'stampSearch' to match your HTML
     const searchInput = document.getElementById('stampSearch'); 
