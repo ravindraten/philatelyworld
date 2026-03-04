@@ -402,7 +402,7 @@ async function triggerSearch() {
     loader.style.display = 'block';
 
     try {
-        const genAI = new GoogleGenAI("AIzaSyA2miGJJ4MpBqKDGtrtuNSyZc8vq1IZc7E"); // Get from Google AI Studio
+        const genAI = new GoogleGenAI("API-KEY"); // Get from Google AI Studio
         const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash-latest" });
 
         // Provide context to the AI
