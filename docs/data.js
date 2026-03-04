@@ -1,6 +1,18 @@
 // 1. STAMP DATABASE
 const stamps = [
     { 
+        name: "World various stamp collection , Mostly used stamps", 
+        country: "Australia, papa new Guinea", 
+        year: "<b>Year</b>: various", 
+        priceINR: 1099,
+        isSoldOut: false,
+        folder: "D31",
+        imageCount: 8,
+        desc: "RN4096: World various stamp collection , Mostly used stamps.\
+                Check the photos. What you see is what you get.\
+                + Free letter post shipping in FDC"
+    },
+    { 
         name: "World various stamp collection in stockbook, incl. Indonesia, Japan and China.", 
         country: "Indonesia, Japan and China", 
         year: "<b>Year</b>: various", 
