@@ -392,7 +392,7 @@ function updateMetaTags(stamp, id) {
 }
 
 async function triggerSearch() {
-    const searchInput = document.getElementById('searchInput');
+    const searchInput = document.getElementById('stampSearch');
     if (!searchInput) return;
 
     const query = searchInput.value.trim();
