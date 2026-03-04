@@ -27,7 +27,7 @@ export default async function handler(req, res) {
         // 2. THE CRITICAL FIX: Added 'await' to result.response and response.text()
         const result = await model.generateContent(prompt);
         const response = await result.response; 
-        const responseText = response.text(); // This was the missing 'await' area
+        const responseText = await response.text(); // This was the missing 'await' area
 
         // 3. Clean and Parse JSON
         const cleanedJson = responseText.replace(/```json|```/g, "").trim();

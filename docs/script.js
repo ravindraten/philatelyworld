@@ -427,12 +427,13 @@ async function triggerSearch() {
     }
 }
 
-// Fixed Event Listener (Prevents "reading properties of null" error)
 document.addEventListener('DOMContentLoaded', () => {
-    const searchInput = document.getElementById('searchInput');
+    // Change 'searchInput' to 'stampSearch' to match your HTML
+    const searchInput = document.getElementById('stampSearch'); 
     if (searchInput) {
         searchInput.addEventListener('keypress', function (e) {
             if (e.key === 'Enter') {
+                e.preventDefault(); // Prevent page refresh
                 triggerSearch();
             }
         });
