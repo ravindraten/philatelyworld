@@ -391,6 +391,8 @@ function updateMetaTags(stamp, id) {
     document.getElementById('og-url').setAttribute('content', window.location.href);
 }
 
+// Inside script.js, update your triggerSearch function:
+
 async function triggerSearch() {
     const searchInput = document.getElementById('stampSearch');
     if (!searchInput) return;
@@ -401,8 +403,8 @@ async function triggerSearch() {
     console.log("Searching for:", query);
 
     try {
-        // Updated URL to your latest deployment
-        const response = await fetch('https://philatelyworld-git-geminiintegration-ravindratens-projects.vercel.app/api/search', {
+        // USE A RELATIVE PATH HERE:
+        const response = await fetch('/api/search', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ 
