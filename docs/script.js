@@ -404,12 +404,18 @@ async function triggerSearch() {
 
     try {
         // USE A RELATIVE PATH HERE:
+        // Inside your triggerSearch function in script.js
         const response = await fetch('/api/search', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ 
                 query: query,
-                stampData: stamps 
+                // Only send essential text to keep the payload small
+                stampData: stamps.map(s => ({ 
+                    folder: s.folder, 
+                    name: s.name, 
+                    desc: s.desc 
+                }))
             })
         });
 
