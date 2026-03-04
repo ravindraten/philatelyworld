@@ -28,7 +28,7 @@ def rename_files(target_directory):
 
 # Usage: Replace the path below with your folder path
 # Example: "C:/Users/Name/Pictures" or "/Users/Name/Pictures"
-rename_files("/Users/ravindra/workspace/GitHub/images/D29")
+rename_files("/Users/ravindra/workspace/GitHub/images/D31")
 
 # Usage to download files from smitsfilatly
 # wget -nd -r -l 1 -A jpg,jpeg,png,gif https://www.filatelie.net/images/kavels/36200%20kavels/36202/
