@@ -1,6 +1,18 @@
 // 1. STAMP DATABASE
 const stamps = [
     { 
+        name: "World various stamp collection in stockbook, incl. Indonesia, Japan and China.", 
+        country: "Indonesia, Japan and China", 
+        year: "<b>Year</b>: various", 
+        priceINR: 9999,
+        isSoldOut: true,
+        folder: "D30",
+        imageCount: 32,
+        desc: "RN4095: World various stamp collection in stockbook, incl. Indonesia, Japan and China.\
+                Check the photos. What you see is what you get.\
+                + Shipping inside India in April 2026 + <b>Thick album for free</b>"
+    },
+    { 
         name: "Modern/Old used and MNH stamps from Great Britian", 
         country: "Great Britain, Ireland", 
         year: "<b>Year</b>: 1900+", 
