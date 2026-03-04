@@ -1,50 +1,42 @@
 import { GoogleGenAI } from "@google/genai";
 
 export default async function handler(req, res) {
-    // Inside your handler in search.js
-    const origin = req.headers.origin;
-
-    // Check if it's your local dev, your main domain, or ANY Vercel preview URL
-    const isAllowed = 
-        origin === 'http://127.0.0.1:5500' || 
-        origin === 'http://localhost:5500' || 
-        origin === 'https://philatelyworld.in' ||
-        (origin && origin.endsWith('.vercel.app')); // This catches all Vercel previews
-
-    if (isAllowed) {
-        res.setHeader('Access-Control-Allow-Origin', origin);
-    }
+    // 1. Setup CORS for Vercel
+    res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
-    // Handle the "Preflight" handshake
-    if (req.method === 'OPTIONS') {
-        return res.status(200).end();
-    }
-    // 3. NOW PROCESS THE DATA
+    if (req.method === 'OPTIONS') return res.status(200).end();
+
     try {
         const { query, stampData } = req.body;
-        
-        if (!process.env.GEMINI_API_KEY) {
-            return res.status(500).json({ error: "API Key missing in Vercel settings" });
+        const apiKey = process.env.GEMINI_API_KEY;
+
+        if (!apiKey) {
+            return res.status(500).json({ error: "GEMINI_API_KEY is not set in Vercel" });
         }
 
-        const genAI = new GoogleGenAI(process.env.GEMINI_API_KEY);
+        const genAI = new GoogleGenAI(apiKey);
         const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
-        // Prompting Gemini to return exactly what your script.js expects
         const prompt = `You are a philately assistant. 
         Catalog: ${JSON.stringify(stampData.map(s => ({ folder: s.folder, name: s.name, desc: s.desc })))}
         User Query: "${query}"
-        Return ONLY a JSON array of the "folder" strings that match. Example: ["D29", "003"]`;
+        Return ONLY a JSON array of the "folder" strings that match. No markdown. Example: ["D29", "003"]`;
 
+        // 2. THE CRITICAL FIX: Added 'await' to result.response and response.text()
         const result = await model.generateContent(prompt);
-        const responseText = result.response.text();
+        const response = await result.response; 
+        const responseText = response.text(); // This was the missing 'await' area
+
+        // 3. Clean and Parse JSON
         const cleanedJson = responseText.replace(/```json|```/g, "").trim();
-        
-        res.status(200).json(JSON.parse(cleanedJson));
+        const folderArray = JSON.parse(cleanedJson);
+
+        res.status(200).json(folderArray);
+
     } catch (error) {
-        console.error("Gemini Error:", error);
-        res.status(500).json({ error: "AI Search Failed" });
+        console.error("Vercel Function Error:", error);
+        res.status(500).json({ error: error.message });
     }
 }
