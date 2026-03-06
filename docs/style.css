@@ -513,3 +513,57 @@ header {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
 }
+
+.ai-insight-banner {
+    background: #f0f7ff;
+    border-left: 4px solid #3b82f6;
+    padding: 16px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.ai-badge {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #3b82f6;
+    margin-bottom: 4px;
+    letter-spacing: 0.05em;
+}
+
+.ai-insight-banner p {
+    margin: 0;
+    color: #1e293b;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    font-style: italic;
+    animation: none !important; /* Overrides the pulse animation in your CSS */
+}
+
+.ai-insight-container {
+    background: #f0f7ff;
+    border-left: 4px solid #3b82f6;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 25px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.ai-badge {
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: #3b82f6;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 5px;
+}
+
+.ai-insight-text {
+    margin: 0;
+    font-size: 0.95rem;
+    color: #1e293b;
+    line-height: 1.5;
+    font-style: italic;
+    /* Overriding your general 'p' animation in style.css */
+    animation: none !important; 
+    opacity: 1 !important;
+}

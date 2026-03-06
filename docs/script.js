@@ -12,8 +12,8 @@ const CONFIG = {
     apiURL: "https://open.er-api.com/v6/latest/EUR",
     wuAdjustment: 1.02, // Adds 2% markup to simulate Western Union spread
 
-    geminiKey: "", 
-    geminiModel: "gemini-2.5-flash"
+    geminiKey: "AIzaSyA2miGJJ4MpBqKDGtrtuNSyZc8vq1IZc7E", 
+    geminiModel: "gemini-2.5-flash-lite"
 };
 
 let state = {
@@ -29,70 +29,91 @@ async function searchWithGemini(query) {
     grid.innerHTML = `
         <div style="grid-column: 1/-1; text-align: center; padding: 50px; color: var(--text-light);">
             <div class="loader" style="margin: 0 auto 10px;"></div>
-            <p>🤖 Gemini AI is analyzing the collection for "${query}"...</p>
+            <p>🤖 Gemini AI is scanning all images in D1-D31 for "${query}"...</p>
         </div>`;
 
-    // 2. Prepare data for the AI (Mapping 'folder' as the ID)
-    const context = stamps.map(s => `ID: ${s.folder}, Name: ${s.name}, Country: ${s.country}, Desc: ${s.desc}`).join("\n");
+    // 2. Prepare Context (Only sending valid D-series folders from data.js)
+    const validFolders = stamps.filter(s => s.folder.startsWith('D')).map(s => s.folder);
+    const context = stamps
+        .filter(s => s.folder.startsWith('D'))
+        .map(s => `ID: ${s.folder}, Name: ${s.name}, Desc: ${s.desc}, TotalPhotos: ${s.imageCount}`)
+        .join("\n");
 
-    const prompt = `You are an expert philately assistant. 
-    Here is the stamp collection data:
+    const prompt = `You are a philately expert. 
+    STRICT RULE: You can ONLY choose from these IDs: ${validFolders.join(', ')}.
+    
+    Collection Data:
     ${context}
 
     User Question: "${query}"
     
     Instructions: 
-    1. Identify all stamps that match the user's intent.
-    2. Return ONLY the "ID" values (the folder names like D31, 003) separated by commas.
-    3. If nothing matches, return "NONE".
-    4. Do not include any other text or explanation.`;
+    1. Identify all stamps that match the request.
+    2. Return the folder IDs (e.g., D31, D12) separated by commas.
+    3. Provide a 1-sentence expert "INSIGHT" explaining why these specific items and their associated images match.
+    
+    Format:
+    IDS: [Valid IDs]
+    INSIGHT: [1-sentence insight]`;
 
     try {
-        // UPDATED ENDPOINT: Using 'gemini-1.5-flash' directly
-        // Inside your searchWithGemini function
         const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${CONFIG.geminiModel}:generateContent?key=${CONFIG.geminiKey}`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                contents: [{ 
-                    parts: [{ text: prompt }] 
-                }]
-            })
+            body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] })
         });
 
-        if (!response.ok) {
-            const errorData = await response.json();
-            throw new Error(errorData.error?.message || "API Request Failed");
-        }
-
         const data = await response.json();
+        const aiText = data.candidates[0].content.parts[0].text;
+
+        // 3. Parse & Validate
+        const idMatch = aiText.match(/IDS:\s*(.*)/);
+        const insightMatch = aiText.match(/INSIGHT:\s*(.*)/);
         
-        // Safety check for response structure
-        if (!data.candidates || !data.candidates[0].content) {
-            throw new Error("No response from AI");
-        }
+        const rawIDs = idMatch ? idMatch[1].split(',').map(id => id.trim()) : [];
+        const matchedIDs = rawIDs.filter(id => validFolders.includes(id));
+        const insightText = insightMatch ? insightMatch[1].trim() : "Relevant items found in the D-series collection.";
 
-        const aiResponse = data.candidates[0].content.parts[0].text.trim();
-
-        if (aiResponse === "NONE" || aiResponse === "") {
-            grid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; padding: 40px;">No specific AI matches. Showing standard results...</p>';
-            setTimeout(() => filterStamps(query), 1500);
+        if (matchedIDs.length === 0) {
+            grid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; padding: 40px;">No matches found in folders D1-D31.</p>';
             return;
         }
 
-        // 3. Filter using the 'folder' property from data.js
-        const matchedIDs = aiResponse.split(',').map(id => id.trim());
         const filteredStamps = stamps.filter(s => matchedIDs.includes(s.folder));
         
-        if (filteredStamps.length > 0) {
-            renderGallery(filteredStamps);
-        } else {
-            filterStamps(query); // Fallback to basic search
-        }
+        // 4. Build Detailed Insight Banner with EVERY Image Link
+        let insightHtml = `
+            <div class="ai-insight-banner" style="grid-column: 1/-1; background: #f0f7ff; border-left: 4px solid #3b82f6; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
+                <div class="ai-badge">✨ AI EXPERT INSIGHT</div>
+                <p style="margin:0 0 15px 0; font-style: italic; color: #1e293b; animation: none;">${insightText}</p>
+                <div style="font-size: 0.8rem; color: #475569; border-top: 1px solid #d1e2ff; padding-top: 10px;">
+                    <strong>Direct Links to Matched Images:</strong>
+                    <div style="margin-top: 10px; display: flex; flex-direction: column; gap: 8px; max-height: 300px; overflow-y: auto; padding-right: 10px;">
+                        ${filteredStamps.map(s => {
+                            let imgLinks = [];
+                            // Loop through the actual imageCount for this folder
+                            for(let i = 1; i <= s.imageCount; i++) {
+                                const url = `${CONFIG.baseImgPath}/${s.folder}/${i}.jpg`;
+                                imgLinks.push(`
+                                    <a href="${url}" target="_blank" style="color: #3b82f6; text-decoration: none; display: flex; align-items: center; gap: 5px; background: white; padding: 5px 10px; border-radius: 4px; border: 1px solid #e2e8f0;">
+                                        <span>🖼️</span> 
+                                        <span style="word-break: break-all;">${s.folder} / Image ${i}.jpg</span>
+                                    </a>
+                                `);
+                            }
+                            return imgLinks.join('');
+                        }).join('')}
+                    </div>
+                </div>
+            </div>
+        `;
+
+        grid.innerHTML = insightHtml;
+        renderGallery(filteredStamps);
 
     } catch (error) {
         console.error("Gemini Error:", error);
-        grid.innerHTML = `<p style="grid-column: 1/-1; text-align: center; padding: 40px; color: var(--accent);">⚠️ AI search unavailable. Using standard search...</p>`;
+        grid.innerHTML = `<p style="grid-column: 1/-1; text-align: center; padding: 40px;">AI search currently unavailable.</p>`;
         setTimeout(() => filterStamps(query), 2000);
     }
 }
@@ -165,46 +186,45 @@ function initGallery() {
 
 function initEventListeners() {
     const searchInput = document.getElementById('stampSearch');
-    
-    // Filter on input
-    searchInput.addEventListener('input', (e) => filterStamps(e.target.value));
-    // Add Gemini trigger on Enter
-    searchInput.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter') {
-            e.preventDefault();
-            const query = searchInput.value.trim();
-            if (query.length > 2) {
-                searchWithGemini(query);
-            }
-            scrollToGrid();
-            searchInput.blur(); 
-        }
-    });
-    // Reset view when the search bar is selected (tapped/clicked)
-    searchInput.addEventListener('focus', () => {
-        // Delay slightly to allow the mobile keyboard to appear first
-        setTimeout(() => {
-            scrollToGrid();
-        }, 300);
-    });
-
-    // Handle "Enter" key
-    searchInput.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter') {
-            e.preventDefault();
-            scrollToGrid();
-            searchInput.blur(); 
-        }
-    });
-
     const backToTopBtn = document.getElementById('backToTop');
+    
+    // 1. IMPROVED SEARCH LOGIC FOR MOBILE & DESKTOP
+    searchInput.addEventListener('input', (e) => {
+        // Standard live filtering as you type
+        filterStamps(e.target.value);
+    });
+
+    searchInput.addEventListener('keydown', async (e) => {
+        // 'Enter' is the standard trigger for mobile "Search/Go" buttons
+        if (e.key === 'Enter') {
+            e.preventDefault(); 
+            const query = searchInput.value.trim();
+            
+            if (query.length > 2) {
+                // Trigger AI Search
+                await searchWithGemini(query);
+                
+                // CRITICAL FOR MOBILE: 
+                // 1. Remove focus from input to hide the software keyboard
+                searchInput.blur();
+                
+                // 2. Scroll to results so the user sees the "AI is analyzing" loader
+                scrollToGrid();
+            }
+        }
+    });
+
+    // 2. SCROLL & UI BEHAVIOR
     window.addEventListener('scroll', () => {
         const header = document.querySelector('header');
+        // Toggle sticky header states
         if (window.scrollY > 50) {
             header.classList.add('is-pinned');
         } else {
             header.classList.remove('is-pinned');
         }
+        
+        // Show/Hide Back to Top button
         if (window.scrollY > 400) {
             backToTopBtn.classList.add('visible');
         } else {
@@ -216,35 +236,29 @@ function initEventListeners() {
         window.scrollTo({ top: 0, behavior: 'smooth' });
     });
 
-    document.getElementById('closeModal').onclick = closeModal;
-    const closeBtn = document.getElementById("closeModal");
+    // 3. LIGHTBOX CONTROLS (Optimized for Touch)
     const modal = document.getElementById("myModal");
+    const closeBtn = document.getElementById("closeModal");
+
     document.getElementById('prevBtn').onclick = () => changeSlide(-1);
     document.getElementById('nextBtn').onclick = () => changeSlide(1);
     
-    window.onclick = (event) => {
-        const modal = document.getElementById("myModal");
-        if (event.target === modal) closeModal();
+    // Close modal logic
+    const handleClose = (e) => {
+        if (e) e.preventDefault();
+        closeModal();
     };
-    // 1. Close on Touch (Instant for mobile)
-    closeBtn.addEventListener('touchstart', closeModal, { passive: false });
-    
-    // 2. Close on Click (Fallback for desktop)
-    closeBtn.addEventListener('click', closeModal);
 
-    // 3. Fast close when clicking/tapping the dark background
-    modal.addEventListener('touchstart', (e) => {
-        if (e.target === modal || e.target.classList.contains('modal-image-wrapper')) {
-            closeModal(e);
-        }
-    }, { passive: false });
+    closeBtn.addEventListener('click', handleClose);
+    closeBtn.addEventListener('touchstart', handleClose, { passive: false });
 
     modal.addEventListener('click', (e) => {
         if (e.target === modal || e.target.classList.contains('modal-image-wrapper')) {
             closeModal();
         }
     });
-    // BHIM Modal Controls
+
+    // 4. BHIM/PAYMENT MODAL
     const qrModal = document.getElementById("qrModal");
     const bhimBtn = document.getElementById("bhimTrigger");
     const qrClose = document.getElementById("qrClose");
