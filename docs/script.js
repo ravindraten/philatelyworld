@@ -12,7 +12,7 @@ const CONFIG = {
     apiURL: "https://open.er-api.com/v6/latest/EUR",
     wuAdjustment: 1.02, // Adds 2% markup to simulate Western Union spread
 
-    geminiKey: "AIzaSyA2miGJJ4MpBqKDGtrtuNSyZc8vq1IZc7E", 
+    geminiKey: "", 
     geminiModel: "gemini-2.5-flash-lite"
 };
 
