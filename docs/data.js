@@ -1,6 +1,18 @@
 // 1. STAMP DATABASE
 const stamps = [
     { 
+        name: "Several different definitive stamp sheets from India.", 
+        country: "India", 
+        year: "<b>Year</b>: 1980+", 
+        priceINR: 1615,
+        isSoldOut: false,
+        folder: "D32",
+        imageCount: 5,
+        desc: "RN4097: Several different definitive stamp sheets from India.\
+                Check the photos. What you see is what you get.\
+                + Free letter post shipping from Netherlands"
+    },
+    { 
         name: "World various stamp collection , Mostly used stamps", 
         country: "Australia, papa new Guinea", 
         year: "<b>Year</b>: various", 
