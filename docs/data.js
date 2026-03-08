@@ -1,6 +1,17 @@
 // 1. STAMP DATABASE
 const stamps = [
     { 
+        name: "Great-Britain and spaceship themed stamps.", 
+        country: "GB and others", 
+        year: "<b>Year</b>: Various", 
+        priceINR: 849,
+        isSoldOut: false,
+        folder: "D36",
+        imageCount: 8,
+        desc: "RN4101: Used stamps from Great-Britain and spaceship themed stamps.\
+                Check the photos. What you see is what you get.\
+                + Free letter post shipping from Netherlands in FDC."
+    },{ 
         name: "Thick stockbook with stamp collection Italy. Old classic high CV.", 
         country: "Italy", 
         year: "<b>Year</b>: 1900+", 
