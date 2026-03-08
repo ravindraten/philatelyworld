@@ -1,6 +1,18 @@
 // 1. STAMP DATABASE
 const stamps = [
     { 
+        name: "Stockbook with stamp collection Australia.", 
+        country: "Australia", 
+        year: "<b>Year</b>: 1940+", 
+        priceINR: 6499,
+        isSoldOut: true,
+        folder: "D33",
+        imageCount: 25,
+        desc: "RN4098: Stockbook with stamp collection Australia.\
+                Check the photos. What you see is what you get.\
+                + Shipping inside India in April 2026, <b>Album for free</b>"
+    },
+    { 
         name: "Several different definitive stamp sheets from India.", 
         country: "India", 
         year: "<b>Year</b>: 1980+", 
