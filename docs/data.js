@@ -350,7 +350,7 @@ const stamps = [
         country: "Netherlands", 
         year: "<b>Year</b>: 1946-2003", 
         priceINR: 22000,
-        isSoldOut: false,
+        isSoldOut: true,
         folder: "D9",
         imageCount: 41,
         desc: "RN4074: Davo album Germany 1946-2003 with very well filled used stamp collection.\
