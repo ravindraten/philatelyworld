@@ -13,7 +13,7 @@ const stamps = [
                 + Free letter post shipping from Netherlands in FDC."
     },
     { 
-        name: "classic German Reich and DDR used/MH stamp collection.", 
+        name: "Classic German Reich and DDR used/MH stamp collection.", 
         country: "German Reich", 
         year: "<b>Year</b>: 1900+", 
         priceINR: 12500,
@@ -327,7 +327,7 @@ const stamps = [
         country: "Germany Bayern", 
         year: "<b>Year</b>: 1870-1900", 
         priceINR: 10000,
-        isSoldOut: false,
+        isSoldOut: true,
         folder: "D11",
         imageCount: 15,
         desc: "RN4076: Collection over 100 postal items with many postcards Bayern.\
