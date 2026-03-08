@@ -1,6 +1,18 @@
 // 1. STAMP DATABASE
 const stamps = [
     { 
+        name: "Buzin birds collection from Belgium.", 
+        country: "Belgium", 
+        year: "<b>Year</b>: 1980+", 
+        priceINR: 899,
+        isSoldOut: false,
+        folder: "D38",
+        imageCount: 2,
+        desc: "RN4103: MNH stamps from Belgium on theme birds.\
+                Check the photos. What you see is what you get.\
+                + Free letter post shipping from Netherlands in FDC."
+    },
+    { 
         name: "classic German Reich and DDR used/MH stamp collection.", 
         country: "German Reich", 
         year: "<b>Year</b>: 1900+", 
