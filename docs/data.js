@@ -1,6 +1,18 @@
 // 1. STAMP DATABASE
 const stamps = [
     { 
+        name: "classic German Reich and DDR used/MH stamp collection.", 
+        country: "German Reich", 
+        year: "<b>Year</b>: 1900+", 
+        priceINR: 12500,
+        isSoldOut: false,
+        folder: "D37",
+        imageCount: 48,
+        desc: "RN4102: Thick stockbook with classic German Reich and DDR used/MH stamp collection.\
+                Check the photos. What you see is what you get.\
+                + Shipping inside India in April 2026, <b>Album for free</b>"
+    },
+    { 
         name: "Great-Britain and spaceship themed stamps.", 
         country: "GB and others", 
         year: "<b>Year</b>: Various", 
