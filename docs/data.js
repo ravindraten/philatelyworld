@@ -1,6 +1,18 @@
 // 1. STAMP DATABASE
 const stamps = [
     { 
+        name: "Thick stockbook with stamp collection Spain. Old classic high CV.", 
+        country: "Spain", 
+        year: "<b>Year</b>: 1900+", 
+        priceINR: 9999,
+        isSoldOut: false,
+        folder: "D34",
+        imageCount: 29,
+        desc: "RN4099: Thick stockbook with stamp collection Spain.\
+                Check the photos. What you see is what you get.\
+                + Shipping inside India in April 2026, <b>Album for free</b>"
+    },
+    { 
         name: "Stockbook with stamp collection Australia.", 
         country: "Australia", 
         year: "<b>Year</b>: 1940+", 
