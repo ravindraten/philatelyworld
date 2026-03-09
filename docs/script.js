@@ -191,10 +191,28 @@ function scrollToGrid() {
 
 function setCurrency(type) {
     state.currency = type;
+    
+    // Update button UI
     document.querySelectorAll('.toggle-btn').forEach(btn => {
         btn.classList.toggle('active', btn.id === `btn${type}`);
     });
-    filterStamps(document.getElementById('stampSearch').value);
+
+    // Check if we are currently viewing a single item from a shared link
+    const urlParams = new URLSearchParams(window.location.search);
+    const itemID = urlParams.get('item');
+    const searchInput = document.getElementById('stampSearch');
+
+    if (itemID && (!searchInput || !searchInput.value.trim())) {
+        // If viewing a shared item and search is empty, re-run the shared link logic
+        const selectedStamp = stamps.find(s => s.desc.includes(itemID));
+        if (selectedStamp) {
+            renderGallery([selectedStamp]);
+            return;
+        }
+    }
+
+    // Otherwise, proceed with normal filtering/rendering
+    filterStamps(searchInput ? searchInput.value : "");
 }
 
 // --- REPLACE YOUR renderGallery FUNCTION ---
