@@ -1,6 +1,18 @@
 // 1. STAMP DATABASE
 const stamps = [
     { 
+        name: "Shoebox with a lot MNH stamps Netherlands.", 
+        country: "Netherlands", 
+        year: "<b>Year</b>: 1960+", 
+        priceINR: 10500,
+        isSoldOut: false,
+        folder: "D39",
+        imageCount: 14,
+        desc: "RN4104: Shoebox with a lot MNH stamps Netherlands, parts of sheets, etc.\
+                Check the photos to see a small part, but there is a lot more than you can see here..\
+                + Shipping inside India in April 2026."
+    },
+    { 
         name: "Buzin birds collection from Belgium.", 
         country: "Belgium", 
         year: "<b>Year</b>: 1980+", 
