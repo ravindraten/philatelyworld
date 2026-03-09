@@ -408,3 +408,70 @@ function updateMetaTags(stamp, id) {
     document.getElementById('og-image').setAttribute('content', imgUrl);
     document.getElementById('og-url').setAttribute('content', window.location.href);
 }
+
+// --- HUB LOGIC ---
+
+function switchTab(tabName) {
+    const gallery = document.getElementById('gallerySection');
+    const hub = document.getElementById('hubSection');
+    const searchBar = document.querySelector('.search-sticky-container');
+    
+    // Select tabs by ID (make sure these IDs exist in your HTML)
+    const tabGallery = document.getElementById('tabGallery');
+    const tabHub = document.getElementById('tabHub');
+
+    if (tabName === 'gallery') {
+        gallery.style.display = 'block';
+        hub.style.display = 'none';
+        searchBar.style.display = 'block';
+        tabGallery.classList.add('active');
+        tabHub.classList.remove('active');
+    } else {
+        gallery.style.display = 'none';
+        hub.style.display = 'block';
+        searchBar.style.display = 'none'; // Keeps header clean for reading articles
+        tabHub.classList.add('active');
+        tabGallery.classList.remove('active');
+        
+        // Load the hub content if it's the first time
+        if (typeof initHub === "function") initHub();
+    }
+    
+    // Scroll to the top of the content area
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function initHub() {
+    const articleList = document.getElementById('articleList');
+    const newsList = document.getElementById('newsMiniList');
+
+    // Load Article Sidebar
+    articleList.innerHTML = hubContent.articles.map(art => 
+        `<li><a href="javascript:void(0)" onclick="loadArticle('${art.id}')">${art.title}</a></li>`
+    ).join('');
+
+    // Load News Sidebar
+    newsList.innerHTML = hubContent.news.map(n => 
+        `<div class="news-item">
+            <small>${n.date}</small>
+            <h4>${n.headline}</h4>
+        </div>`
+    ).join('');
+
+    // Load first article by default if main area is empty
+    if (!document.getElementById('hubActiveContent').innerHTML.trim()) {
+        loadArticle(hubContent.articles[0].id);
+    }
+}
+
+function loadArticle(id) {
+    const article = hubContent.articles.find(a => a.id === id);
+    const contentArea = document.getElementById('hubActiveContent');
+    if (article) {
+        contentArea.innerHTML = `
+            <h2 class="article-title">${article.title}</h2>
+            <div class="article-body">${article.content}</div>
+        `;
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+}
