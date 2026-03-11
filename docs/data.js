@@ -1,6 +1,20 @@
 // 1. STAMP DATABASE
 const stamps = [
     { 
+        name: "Birds set from Suriname", 
+        country: "Suriname", 
+        year: "<b>Year</b>: 1980", 
+        priceINR: 360,
+        isSoldOut: false,
+        folder: "D42",
+        imageCount: 1,
+        desc: "RN4108: These are postage stamps from Suriname, a country in South America renowned for its \
+            immense biodiversity, specifically featuring its vibrant native bird species. \
+            This particular series is an airmail set (noted by the word 'luchtpost') issued in the early 1980s, \
+            showcasing birds like the Red-billed Toucan and the Paradise Tanager.\
+             + Free letter post shipping worldwide"
+    },
+    { 
         name: "Europa CEPT Great Britain", 
         country: "Netherlands", 
         year: "<b>Year</b>: 1960-61", 
