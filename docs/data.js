@@ -1,6 +1,20 @@
 // 1. STAMP DATABASE
 const stamps = [
     { 
+        name: "Definitive series from Belgian Congo", 
+        country: "Belgian Congo", 
+        year: "<b>Year</b>: 1960", 
+        priceINR: 720,
+        isSoldOut: false,
+        folder: "D43",
+        imageCount: 1,
+        desc: "RN4109: This collection features a colorful 1960 definitive series \
+        from Belgian Congo depicting native flora, which was significantly modified \
+        with a bold 'CONGO' overprint following the countrys independence that year. \
+        These stamps are a perfect example of 'history in your hands'as they physically document \
+        the immediate transition from a colonial territory to a sovereign nation. + Free letter post shipping worldwide"
+    },
+    { 
         name: "Birds set from Suriname", 
         country: "Suriname", 
         year: "<b>Year</b>: 1980", 
