@@ -1,6 +1,31 @@
 // 1. STAMP DATABASE
 const stamps = [
     { 
+        name: "Europa CEPT Great Britain", 
+        country: "Netherlands", 
+        year: "<b>Year</b>: 1960-61", 
+        priceINR: 360,
+        isSoldOut: false,
+        folder: "D41",
+        imageCount: 1,
+        desc: "RN4107:European Posts and Telecommunications (CEPT). Each features the portrait of Queen Elizabeth II \
+                alongside symbolic designs like the 19 doves of 1961 or the stylized wheel of 1960, \
+                representing European unity and communication.\
+                (Free letter post shipping worldwide), <b>4 sets available</b>"
+    },
+    { 
+        name: "Roses set from Hungary", 
+        country: "Netherlands", 
+        year: "<b>Year</b>: 1962", 
+        priceINR: 350,
+        isSoldOut: true,
+        folder: "D40",
+        imageCount: 1,
+        desc: "RN4106:These are beautiful examples of Hungarian philately. You have a nearly complete set (7 out of 8) of the Roses series issued by Magyar Posta (Hungary's postal service) in 1962.\
+                They are highly regarded by collectors for their striking black background aesthetic, which makes the botanical illustrations pop. All MNH.\
+                (Free letter post shipping worldwide)"
+    },
+    { 
         name: "Shoebox with a lot MNH stamps Netherlands.", 
         country: "Netherlands", 
         year: "<b>Year</b>: 1960+", 
