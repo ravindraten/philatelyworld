@@ -256,7 +256,7 @@ function renderGallery(data) {
                     <div class="promo-content">
                         <div class="promo-badge">Featured Announcement</div>
                         <h2>Exclusives</h2>
-                        <p>Receive 150 stamps in your mail box for FREE!</p>
+                        <p>Receive 150 stamps in your mail box for FREE! When you follow our</p>
                         <div class="promo-actions">
                             <a href="https://whatsapp.com/channel/0029VaafwRWAojYq5jzkJJ2u" target="_blank" class="promo-btn">WhatsApp Channel</a>
                         </div>
@@ -264,13 +264,13 @@ function renderGallery(data) {
                             <a href="https://www.instagram.com/philately_world" target="_blank" class="promo-btn">Instagram</a>
                         </div>
                         <div class="promo-actions">
-                            <a href="https://x.com/philately_wrld?s=21&t=QZ8DtcmMWFm0zBxcSOur3w" target="_blank" class="promo-btn">Follow X account</a>
+                            <a href="https://x.com/philately_wrld?s=21&t=QZ8DtcmMWFm0zBxcSOur3w" target="_blank" class="promo-btn">X account</a>
                         </div>
                         <div class="promo-actions">
-                            <a href="https://www.facebook.com/share/1DosA1sNnK/?mibextid=wwXIfr" target="_blank" class="promo-btn">Follow Facebook Page</a>
+                            <a href="https://www.facebook.com/share/1DosA1sNnK/?mibextid=wwXIfr" target="_blank" class="promo-btn">Facebook Page</a>
                         </div>
                         <p>AWESOME!!</p>
-                        <p><a href="https://wa.me/31633467712" target="_blank" class="buy-btn">Share address</a></p>
+                        <p><a href="https://wa.me/31633467712" target="_blank" class="buy-btn">Now share mailing address</a></p>
                     </div>
                 </article>`;
             sidebar.style.display = "block";
@@ -305,8 +305,8 @@ function renderGallery(data) {
                 ${stamp.isSoldOut ? '<div class="sold-out-badge">Sold Out</div>' : ''}
                 <div class="img-container">
                     <img src="${CONFIG.baseImgPath}/${stamp.folder}/1.jpg" 
-                         alt="${stamp.name}" 
-                         onclick="openModal('${stamp.folder}', ${stamp.imageCount})">
+                        alt="${stamp.name}" 
+                        onclick="openLightbox(${stamps.indexOf(stamp)})">
                     <div class="photo-badge">${stamp.imageCount} Photos</div>
                 </div>
                 <div class="details">
@@ -326,7 +326,7 @@ function renderGallery(data) {
                             </button>
                             
                             ${stamp.isSoldOut 
-                                ? `<button class="buy-btn" disabled>Sold Out</button>`
+                                ? `<button class="buy-btn disabled" disabled>Sold Out</button>`
                                 : `<a href="https://wa.me/${CONFIG.whatsappNumber}?text=Hi, I am interested in: ${stamp.name} (${itemID})" 
                                     target="_blank" class="buy-btn">Buy Now</a>`
                             }

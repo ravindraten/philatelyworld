@@ -234,26 +234,6 @@ def test_dynamic_link_preview_meta(driver):
     og_image = driver.find_element(By.ID, "og-image").get_attribute("content")
     assert "D13" in og_image  # RN4078 is in folder D13
 
-def test_hero_collapse_only_on_desktop(driver):
-    """Verify gradual collapse on Desktop and fixed visibility on Mobile."""
-    
-    # Test Desktop (Collapse Expected)
-    driver.set_window_size(1920, 1080)
-    driver.get(URL)
-    driver.execute_script("window.scrollTo(0, 500);")
-    time.sleep(1) # Wait for CSS transition
-    
-    promo = driver.find_element(By.CLASS_NAME, "promo-card")
-    assert promo.size['height'] < 10, "Promo card should collapse on Desktop scroll"
-
-    # Test Mobile (No Collapse Expected)
-    driver.set_window_size(390, 844)
-    driver.get(URL)
-    driver.execute_script("window.scrollTo(0, 500);")
-    time.sleep(1)
-    
-    promo_mobile = driver.find_element(By.CLASS_NAME, "promo-card")
-    assert promo_mobile.size['height'] > 100, "Promo card should NOT collapse on Mobile"
 
 def test_privacy_feature(driver):
     """Verify the Privacy Policy modal opens using a JS click to avoid header interception."""
@@ -283,3 +263,40 @@ def test_privacy_feature(driver):
     # 6. Wait for it to disappear
     wait.until(EC.invisibility_of_element_located((By.ID, "privacyModal")))
     assert not privacy_modal.is_displayed()
+
+@pytest.mark.parametrize("width, height", [
+    (1200, 800),  # Desktop
+    (768, 1024),  # Tablet (Portrait)
+])
+def test_promo_visibility_on_scroll_desktop_tablet(driver, width, height):
+    """
+    Validates that the Sidebar Promo card remains visible on Desktop and Tablet
+    resolutions even after the user scrolls down the page.
+    """
+    # 1. Set the specific viewport size
+    driver.set_window_size(width, height)
+    driver.get(URL)
+    wait = WebDriverWait(driver, 10)
+
+    # 2. Locate the promo card
+    promo_card = wait.until(EC.visibility_of_element_located((By.CLASS_NAME, "promo-card")))
+    
+    # 3. Perform a significant scroll
+    driver.execute_script("window.scrollTo(0, 800);")
+    
+    # 4. Small delay to allow scroll-linked JS or transitions to fire
+    time.sleep(0.5)
+
+    # 5. Assertions for visibility and layout integrity
+    assert promo_card.is_displayed(), f"Promo card hidden at {width}x{height} after scroll"
+    
+    # Check opacity and scale to ensure no 'scrolled-hidden' logic is active
+    opacity = promo_card.value_of_css_property("opacity")
+    transform = promo_card.value_of_css_property("transform")
+    
+    assert float(opacity) > 0.9, f"Promo card is fading out at {width}px width"
+    assert "matrix" not in transform or "1, 0, 0, 1" in transform, "Promo card has scaling/offset transforms applied"
+
+    # 6. Verify it hasn't collapsed to zero height
+    height_val = promo_card.size['height']
+    assert height_val > 100, f"Promo card collapsed to {height_val}px at {width}px width"
