@@ -26,14 +26,14 @@ header {
 /* Mobile Default: Hide top part of header on scroll, but keep search */
 @media (max-width: 800px) {
     header {
-        top: -205px; /* Adjust this to match the height of your top-bar + header-main */
+        top: -245px; /* Adjust this to match the height of your top-bar + header-main */
     }
 }
 
 /* Desktop Default */
 @media (min-width: 801px) {
     header {
-        top: -190px;
+        top: -230px;
         background: rgba(255, 255, 255, 0.5);
         -webkit-backdrop-filter: blur(15px) saturate(160%);
         backdrop-filter: blur(15px) saturate(160%);
@@ -137,12 +137,37 @@ header {
 
 @media (max-width: 800px) {
     .sticky-logo { display: none !important; }
-    .brand-info { min-width: auto; padding: 0; }
+    .brand-info { order: 2; min-width: auto; padding: 0; }
     .brand-info h1 { font-size: 1.8rem !important; }
-    .header-main { flex-direction: column; align-items: center; gap: 15px; }
-    .logo-wrapper { padding-left: 0; justify-content: center; }
-    .header-actions { flex-direction: column; align-items: center; margin-top: 10px; }
+    /* 1. Reset to Default Mobile Layout (Logo -> Brand -> Actions) */
+    .header-main {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+    }
+    .logo-wrapper { order: 1; padding-left: 0; justify-content: center; }
+    .header-actions { 
+        order: 3; 
+        margin-top: 0;
+        margin-bottom: 10px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
     .social-links-wrapper { display: flex; gap: 10px; margin-bottom: 10px; }
+    /* 2. SWAP: Triggered ONLY when scrolling (is-pinned) */
+    header.is-pinned .header-actions {
+        order: -1; /* Jumps to the very top */
+        margin-top: 0;
+        margin-bottom: 5px;
+    }
+    header.is-pinned .brand-info {
+        order: 1;
+    }
+    header.is-pinned .logo-wrapper {
+        order: 2; /* Moves to the bottom */
+    }
 }
 
 .brand-info h1 {
@@ -528,11 +553,11 @@ header {
 
 /* Adjusting the main header sticky offset to account for banner height */
 @media (max-width: 800px) {
-    header { top: -245px; } /* Increased from -205px */
+    header { top: -235px; } /* Increased from -205px */
 }
 
 @media (min-width: 801px) {
-    header { top: -230px; } /* Increased from -190px */
+    header { top: -205px; } /* Increased from -190px */
 }
 
 /* Privacy Modal specific padding */

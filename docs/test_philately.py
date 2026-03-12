@@ -61,15 +61,25 @@ def test_currency_toggle(driver):
 
 def test_lightbox_open_close(driver):
     """Verify lightbox opens on image click and closes on 'X'."""
-    first_stamp_img = driver.find_element(By.CSS_SELECTOR, ".stamp-card img")
+    driver.get(URL) # Ensure fresh state
+    wait = WebDriverWait(driver, 10)
+    
+    # 1. Click the first stamp image
+    first_stamp_img = wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, ".stamp-card img")))
     first_stamp_img.click()
 
-    modal = driver.find_element(By.ID, "myModal")
+    # 2. Verify modal becomes visible
+    modal = wait.until(EC.visibility_of_element_located((By.ID, "myModal")))
     assert modal.is_displayed()
 
+    # 3. Click the close button
     close_btn = driver.find_element(By.ID, "closeModal")
     close_btn.click()
-    time.sleep(0.5)
+
+    # 4. FIX: Wait until the modal is actually hidden from the DOM/View
+    # This replaces time.sleep(0.5)
+    wait.until(EC.invisibility_of_element_located((By.ID, "myModal")))
+    
     assert not modal.is_displayed()
 
 def test_sold_out_logic(driver):
