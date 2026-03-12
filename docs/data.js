@@ -5,7 +5,7 @@ const stamps = [
         country: "Sweden", 
         year: "<b>Year</b>: 1958+", 
         priceINR: 3500,
-        isSoldOut: false,
+        isSoldOut: true,
         folder: "D46",
         imageCount: 1,
         desc: "RN4112: Collection of 100 FDC's from Sweden. <b>Rs.35/- per cover</b>\
