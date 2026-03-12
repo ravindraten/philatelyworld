@@ -275,3 +275,26 @@ def test_privacy_feature(driver):
     # 6. Wait for it to disappear
     wait.until(EC.invisibility_of_element_located((By.ID, "privacyModal")))
     assert not privacy_modal.is_displayed()
+
+def test_feedback_modal_flow(driver):
+    """Verify the feedback modal opens and the form is present."""
+    driver.get(URL)
+    wait = WebDriverWait(driver, 10)
+
+    # 1. Find the 'Leave a Review' button
+    # Using JS click because it's near the bottom
+    review_btn = wait.until(EC.presence_of_element_located((By.XPATH, "//button[contains(text(), 'Leave a Review')]")))
+    driver.execute_script("arguments[0].click();", review_btn)
+
+    # 2. Check if modal is visible
+    modal = wait.until(EC.visibility_of_element_located((By.ID, "feedbackModal")))
+    assert modal.is_displayed()
+
+    # 3. Verify form fields exist
+    assert driver.find_element(By.ID, "reviewerName").is_displayed()
+    assert driver.find_element(By.ID, "reviewerText").is_displayed()
+
+    # 4. Close modal
+    close_btn = driver.find_element(By.CSS_SELECTOR, "#feedbackModal .qr-close")
+    driver.execute_script("arguments[0].click();", close_btn)
+    wait.until(EC.invisibility_of_element_located((By.ID, "feedbackModal")))

@@ -98,7 +98,28 @@
     </div>
 
     <button id="backToTop" title="Go to top">↑</button>
+    <section class="container feedback-section">
+    <div class="section-header">
+        <h2>Customer Feedback</h2>
+        <button class="btn-primary" onclick="openFeedbackModal()">Leave a Review</button>
+    </div>
+    
+    <div id="feedbackGrid" class="feedback-grid">
+        </div>
+    </section>
 
+    <div id="feedbackModal" class="qr-modal">
+        <div class="qr-modal-content" style="max-width: 500px;">
+            <span class="qr-close" onclick="closeFeedbackModal()">&times;</span>
+            <h3>Share Your Experience</h3>
+            <form id="feedbackForm" onsubmit="handleFeedbackSubmit(event)">
+                <input type="text" id="reviewerName" placeholder="Your Name" required style="width:100%; margin-bottom:10px; padding:10px; border:1px solid var(--border); border-radius:8px;">
+                <textarea id="reviewerText" placeholder="How was your experience with Philately World?" required style="width:100%; height:100px; margin-bottom:10px; padding:10px; border:1px solid var(--border); border-radius:8px;"></textarea>
+                <button type="submit" class="btn-primary" style="width:100%">Submit Review via WhatsApp</button>
+                <p style="font-size: 0.75rem; color: var(--text-light); margin-top: 10px;">*Reviews are moderated and will appear after approval.</p>
+            </form>
+        </div>
+    </div>
     <footer class="main-footer">
         <p>&copy; 2017-2026 Philately World Gallery</p>
         <p><a href="javascript:void(0)" id="privacyTrigger" style="color: var(--text-light); font-size: 0.75rem; text-decoration: underline;">Privacy Policy</a></p>
@@ -138,5 +159,6 @@
     </div>
     <script src="data.js"></script>
     <script src="script.js"></script>
+    <script src="reviews.js"></script>
 </body>
 </html>

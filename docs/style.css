@@ -570,3 +570,31 @@ header {
     font-size: 1.5rem;
     margin-bottom: 15px;
 }
+
+.feedback-section { margin-top: 50px; padding-bottom: 50px; }
+.feedback-grid { 
+    display: grid; 
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); 
+    gap: 20px; 
+    margin-top: 20px; 
+}
+.feedback-card {
+    background: white;
+    padding: 25px;
+    border-radius: 15px;
+    border: 1px solid var(--border);
+    position: relative;
+}
+.quote-icon {
+    font-size: 40px;
+    color: var(--accent);
+    line-height: 1;
+    margin-bottom: -10px;
+    opacity: 0.3;
+}
+.reviewer-info {
+    margin-top: 15px;
+    display: flex;
+    flex-direction: column;
+    font-size: 0.85rem;
+}
