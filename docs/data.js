@@ -1,6 +1,17 @@
 // 1. STAMP DATABASE
 const stamps = [
     { 
+        name: "Collection of 100 FDC's from Sweden", 
+        country: "Sweden", 
+        year: "<b>Year</b>: 1958+", 
+        priceINR: 3500,
+        isSoldOut: false,
+        folder: "D46",
+        imageCount: 1,
+        desc: "RN4112: Collection of 100 FDC's from Sweden. <b>Rs.35/- per cover</b>\
+         + Shipping Inside India in APril 2026."
+    },
+    { 
         name: "Collection of old and modern used/MNH stamps from Different countries", 
         country: "Suriname, Spain, Pakistan, Portugal", 
         year: "<b>Year</b>: Various", 
