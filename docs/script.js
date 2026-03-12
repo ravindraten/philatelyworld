@@ -53,6 +53,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     initEventListeners();
     updateStatusLine();
+    renderReviews();
 });
 /**
  * Fetches Live EUR to INR rate and calculates the WU conversion
@@ -434,3 +435,42 @@ function updateMetaTags(stamp, id) {
     document.getElementById('og-image').setAttribute('content', imgUrl);
     document.getElementById('og-url').setAttribute('content', window.location.href);
 }
+
+// Render Reviews on Page Load
+function renderReviews() {
+    const grid = document.getElementById('feedbackGrid');
+    if (!grid || typeof approvedReviews === 'undefined') return;
+    
+    grid.innerHTML = approvedReviews.map(r => `
+        <div class="feedback-card">
+            <div class="quote-icon">“</div>
+            <p>"${r.text}"</p>
+            <div class="reviewer-info">
+                <strong>${r.name}</strong>
+                <span>${r.date}</span>
+            </div>
+        </div>
+    `).join('');
+}
+window.openFeedbackModal = function() {
+    document.getElementById('feedbackModal').style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+};
+
+window.closeFeedbackModal = function() {
+    document.getElementById('feedbackModal').style.display = 'none';
+    document.body.style.overflow = 'auto';
+};
+
+window.handleFeedbackSubmit = function(event) {
+    event.preventDefault();
+    const name = document.getElementById('reviewerName').value;
+    const text = document.getElementById('reviewerText').value;
+    
+    // Formats a WhatsApp message for you to review
+    const message = `*NEW REVIEW SUBMISSION*%0A%0A*From:* ${name}%0A*Review:* ${text}%0A%0A_Copy this to reviews.js to approve._`;
+    window.open(`https://wa.me/${CONFIG.whatsappNumber}?text=${message}`, '_blank');
+    
+    closeFeedbackModal();
+    alert("Thank you! Your review has been sent for moderation.");
+};
