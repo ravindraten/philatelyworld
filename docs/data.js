@@ -8,7 +8,7 @@ const stamps = [
         isSoldOut: false,
         folder: "D45",
         imageCount: 6,
-        desc: "RN4110: Collection of old and modern used/MNH stamps from Different countries,\
+        desc: "RN4111: Collection of old and modern used/MNH stamps from Different countries,\
          Suriname, Spain, Pakistan, Portugal.\
          + Free letter post shipping worldwide"
     },
