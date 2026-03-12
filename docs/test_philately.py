@@ -233,3 +233,45 @@ def test_dynamic_link_preview_meta(driver):
     # Check if the OG image tag was updated to the correct folder
     og_image = driver.find_element(By.ID, "og-image").get_attribute("content")
     assert "D13" in og_image  # RN4078 is in folder D13
+
+def test_promo_banner_content(driver):
+    """Verify the running promo banner exists and contains the correct promotion text."""
+    driver.get(URL)
+    # The banner uses the class 'running-banner'
+    banner = driver.find_element(By.CLASS_NAME, "running-banner")
+    assert banner.is_displayed()
+    
+    # Checking for the specific text found in your index.html
+    content = banner.text
+    assert "WHATSAPP" in content
+    assert "150 STAMPS" in content
+    assert "INSTAGRAM" in content
+
+def test_privacy_feature(driver):
+    """Verify the Privacy Policy modal opens using a JS click to avoid header interception."""
+    driver.get(URL)
+    wait = WebDriverWait(driver, 10)
+
+    # 1. Scroll to the bottom so the footer is rendered
+    driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+    time.sleep(1) # Give it a moment to settle
+
+    # 2. Find the trigger
+    privacy_trigger = wait.until(EC.presence_of_element_located((By.ID, "privacyTrigger")))
+
+    # 3. FIX: Use JavaScript to click instead of standard .click()
+    # This prevents 'ElementClickInterceptedException' caused by the sticky header
+    driver.execute_script("arguments[0].click();", privacy_trigger)
+
+    # 4. Verify the modal appears
+    privacy_modal = wait.until(EC.visibility_of_element_located((By.ID, "privacyModal")))
+    assert privacy_modal.is_displayed()
+    assert "Privacy Policy" in privacy_modal.text
+
+    # 5. Click the close button (JS click here too for safety)
+    close_btn = driver.find_element(By.ID, "privacyClose")
+    driver.execute_script("arguments[0].click();", close_btn)
+
+    # 6. Wait for it to disappear
+    wait.until(EC.invisibility_of_element_located((By.ID, "privacyModal")))
+    assert not privacy_modal.is_displayed()
