@@ -173,6 +173,32 @@ function initEventListeners() {
             document.body.style.overflow = "auto";
         };
     }
+
+    // Privacy Policy Modal Controls
+    const privacyModal = document.getElementById("privacyModal");
+    const privacyBtn = document.getElementById("privacyTrigger");
+    const privacyClose = document.getElementById("privacyClose");
+
+    if (privacyBtn) {
+        privacyBtn.onclick = () => {
+            privacyModal.style.display = "flex";
+            document.body.style.overflow = "hidden";
+        };
+    }
+
+    if (privacyClose) {
+        privacyClose.onclick = () => {
+            privacyModal.style.display = "none";
+            document.body.style.overflow = "auto";
+        };
+    }
+    // Close privacy modal if clicking outside the content
+    window.addEventListener('click', (event) => {
+        if (event.target === privacyModal) {
+            privacyModal.style.display = "none";
+            document.body.style.overflow = "auto";
+        }
+    });
 }
 
 // Helper to reset view to the top of results
