@@ -1,6 +1,18 @@
 // 1. STAMP DATABASE
 const stamps = [
     { 
+        name: "Collection of old and modern used/MNH stamps from Different countries", 
+        country: "Suriname, Spain, Pakistan, Portugal", 
+        year: "<b>Year</b>: Various", 
+        priceINR: 899,
+        isSoldOut: false,
+        folder: "D45",
+        imageCount: 6,
+        desc: "RN4110: Collection of old and modern used/MNH stamps from Different countries,\
+         Suriname, Spain, Pakistan, Portugal.\
+         + Free letter post shipping worldwide"
+    },
+    { 
         name: "Collection of old and modern used/MNH stamps from France", 
         country: "France", 
         year: "<b>Year</b>: Various", 
