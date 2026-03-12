@@ -1,6 +1,17 @@
 // 1. STAMP DATABASE
 const stamps = [
     { 
+        name: "Collection of old and modern used/MNH stamps from France", 
+        country: "France", 
+        year: "<b>Year</b>: Various", 
+        priceINR: 899,
+        isSoldOut: false,
+        folder: "D44",
+        imageCount: 8,
+        desc: "RN4110: Collection of old and modern used/MNH stamps from France\
+         + Free letter post shipping worldwide"
+    },
+    { 
         name: "Definitive series from Belgian Congo", 
         country: "Belgian Congo", 
         year: "<b>Year</b>: 1960", 
