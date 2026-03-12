@@ -485,3 +485,52 @@ header {
     }
     
 }
+
+/* --- Running Banner Styles --- */
+.running-banner {
+    background: var(--primary); /* Deep slate color to stand out */
+    color: #ffffff;
+    overflow: hidden;
+    white-space: nowrap;
+    padding: 10px 0;
+    font-size: 0.8rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.running-banner a {
+    color: #fbbf24; /* Golden accent for links */
+    text-decoration: none;
+    font-weight: 700;
+}
+
+.banner-track {
+    display: flex;
+    width: max-content;
+}
+
+.banner-content {
+    display: inline-block;
+    animation: marquee 30s linear infinite;
+}
+
+/* Pauses the scroll when user hovers so they can click links */
+.running-banner:hover .banner-content {
+    animation-play-state: paused;
+}
+
+@keyframes marquee {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
+
+/* Adjusting the main header sticky offset to account for banner height */
+@media (max-width: 800px) {
+    header { top: -245px; } /* Increased from -205px */
+}
+
+@media (min-width: 801px) {
+    header { top: -230px; } /* Increased from -190px */
+}
