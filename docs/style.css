@@ -534,3 +534,14 @@ header {
 @media (min-width: 801px) {
     header { top: -230px; } /* Increased from -190px */
 }
+
+/* Privacy Modal specific padding */
+#privacyModal .qr-modal-content {
+    padding: 40px;
+    line-height: 1.6;
+}
+
+#privacyModal h2 {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+}
