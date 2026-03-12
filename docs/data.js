@@ -17,7 +17,7 @@ const stamps = [
         country: "France", 
         year: "<b>Year</b>: Various", 
         priceINR: 899,
-        isSoldOut: false,
+        isSoldOut: true,
         folder: "D44",
         imageCount: 8,
         desc: "RN4110: Collection of old and modern used/MNH stamps from France\
