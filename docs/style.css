@@ -26,14 +26,14 @@ header {
 /* Mobile Default: Hide top part of header on scroll, but keep search */
 @media (max-width: 800px) {
     header {
-        top: -245px; /* Adjust this to match the height of your top-bar + header-main */
+        top: -205px; /* Adjust this to match the height of your top-bar + header-main */
     }
 }
 
 /* Desktop Default */
 @media (min-width: 801px) {
     header {
-        top: -230px;
+        top: -190px;
         background: rgba(255, 255, 255, 0.5);
         -webkit-backdrop-filter: blur(15px) saturate(160%);
         backdrop-filter: blur(15px) saturate(160%);
@@ -511,55 +511,6 @@ header {
     
 }
 
-/* --- Running Banner Styles --- */
-.running-banner {
-    background: var(--primary); /* Deep slate color to stand out */
-    color: #ffffff;
-    overflow: hidden;
-    white-space: nowrap;
-    padding: 10px 0;
-    font-size: 0.8rem;
-    font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    border-bottom: 1px solid rgba(255,255,255,0.1);
-}
-
-.running-banner a {
-    color: #fbbf24; /* Golden accent for links */
-    text-decoration: none;
-    font-weight: 700;
-}
-
-.banner-track {
-    display: flex;
-    width: max-content;
-}
-
-.banner-content {
-    display: inline-block;
-    animation: marquee 30s linear infinite;
-}
-
-/* Pauses the scroll when user hovers so they can click links */
-.running-banner:hover .banner-content {
-    animation-play-state: paused;
-}
-
-@keyframes marquee {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(-50%); }
-}
-
-/* Adjusting the main header sticky offset to account for banner height */
-@media (max-width: 800px) {
-    header { top: -235px; } /* Increased from -205px */
-}
-
-@media (min-width: 801px) {
-    header { top: -205px; } /* Increased from -190px */
-}
-
 /* Privacy Modal specific padding */
 #privacyModal .qr-modal-content {
     padding: 40px;
@@ -569,4 +520,140 @@ header {
 #privacyModal h2 {
     font-size: 1.5rem;
     margin-bottom: 15px;
+}
+
+/* --- Hero/Promo Card Styling --- */
+ /* background: linear-gradient(135deg, #1e293b 0%, #334155 100%) !important; */
+/* --- Hero/Promo Card with Background Image --- */
+.promo-card {
+    position: relative;
+    background: #1e293b;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 40px 30px;
+    border: none !important;
+    overflow: hidden;
+    z-index: 1;
+
+    /* Gradual Collapse Transition */
+    transition: 
+        max-height 0.7s cubic-bezier(0.4, 0, 0.2, 1), 
+        opacity 0.5s ease, 
+        padding 0.7s ease,
+        margin 0.7s ease,
+        transform 0.5s ease;
+    
+    /* Set a base max-height larger than content */
+    max-height: 500px; 
+    opacity: 1;
+    margin-bottom: 20px; /* Match your grid gap */
+}
+/* The Transparent Background Image */
+.promo-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    
+    /* ADD YOUR IMAGE URL HERE */
+    background-image: url('https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/largest-stamp.jpg');
+    
+    background-size: cover;
+    background-position: center;
+    
+    /* ADJUST TRANSPARENCY HERE (0.1 = very faint, 0.5 = strong) */
+    opacity: 0.45; 
+    
+    z-index: -1; /* Puts the image behind the text */
+}
+/* Subtle overlay to make text even more readable */
+.promo-card::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(180deg, rgba(30, 41, 59, 0.4) 0%, rgba(30, 41, 59, 0.8) 100%);
+    z-index: -1;
+}
+.promo-content {
+    position: relative;
+    z-index: 2; /* Ensures content stays above all background layers */
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+}
+
+.promo-badge {
+    background: #fbbf24;
+    color: #000;
+    font-size: 0.65rem;
+    font-weight: 800;
+    padding: 4px 12px;
+    border-radius: 50px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.promo-card h2 {
+    margin: 0;
+    font-size: 1.4rem;
+    /* color: #f9b0b0; */
+    color: #f8fafc;
+    line-height: 1.2;
+}
+
+.promo-card p {
+    font-size: 0.9rem;
+    opacity: 0.9;
+    margin: 0;
+    color: #cbd5e1;
+}
+
+.promo-btn {
+    background: white;
+    color: #1e293b;
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    transition: transform 0.2s ease;
+}
+
+.promo-btn:hover {
+    transform: scale(1.05);
+    background: #f1f5f9;
+}
+/* Collapsed State (Desktop/Tablet Only) */
+.promo-card.scrolled-hidden {
+    max-height: 0;
+    opacity: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    transform: translateY(-20px); /* Subtle slide up */
+    pointer-events: none;
+}
+/* Ensure mobile remains smooth and unaffected */
+@media (max-width: 800px) {
+    .promo-card {
+        transition: none; /* Disable transitions on mobile to prevent jitter */
+        max-height: none;
+        opacity: 1 !important;
+        transform: none !important;
+        padding: 30px 20px;
+    }
+}
+/* Remove any old running banner styles if they exist */
+.running-banner, .banner-track, .banner-content {
+    display: none !important;
 }

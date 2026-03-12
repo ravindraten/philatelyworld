@@ -234,18 +234,26 @@ def test_dynamic_link_preview_meta(driver):
     og_image = driver.find_element(By.ID, "og-image").get_attribute("content")
     assert "D13" in og_image  # RN4078 is in folder D13
 
-def test_promo_banner_content(driver):
-    """Verify the running promo banner exists and contains the correct promotion text."""
-    driver.get(URL)
-    # The banner uses the class 'running-banner'
-    banner = driver.find_element(By.CLASS_NAME, "running-banner")
-    assert banner.is_displayed()
+def test_hero_collapse_only_on_desktop(driver):
+    """Verify gradual collapse on Desktop and fixed visibility on Mobile."""
     
-    # Checking for the specific text found in your index.html
-    content = banner.text
-    assert "WHATSAPP" in content
-    assert "150 STAMPS" in content
-    assert "INSTAGRAM" in content
+    # Test Desktop (Collapse Expected)
+    driver.set_window_size(1920, 1080)
+    driver.get(URL)
+    driver.execute_script("window.scrollTo(0, 500);")
+    time.sleep(1) # Wait for CSS transition
+    
+    promo = driver.find_element(By.CLASS_NAME, "promo-card")
+    assert promo.size['height'] < 10, "Promo card should collapse on Desktop scroll"
+
+    # Test Mobile (No Collapse Expected)
+    driver.set_window_size(390, 844)
+    driver.get(URL)
+    driver.execute_script("window.scrollTo(0, 500);")
+    time.sleep(1)
+    
+    promo_mobile = driver.find_element(By.CLASS_NAME, "promo-card")
+    assert promo_mobile.size['height'] > 100, "Promo card should NOT collapse on Mobile"
 
 def test_privacy_feature(driver):
     """Verify the Privacy Policy modal opens using a JS click to avoid header interception."""

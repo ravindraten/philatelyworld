@@ -110,19 +110,41 @@ function initEventListeners() {
     });
 
     const backToTopBtn = document.getElementById('backToTop');
-    window.addEventListener('scroll', () => {
-        const header = document.querySelector('header');
-        if (window.scrollY > 50) {
-            header.classList.add('is-pinned');
+    // Replace your scroll listener block with this:
+// Find your scroll listener in script.js and update it
+window.addEventListener('scroll', () => {
+    const promoCard = document.querySelector('.promo-card');
+    const header = document.querySelector('header');
+    const backToTopBtn = document.getElementById('backToTop');
+
+    // --- Desktop/Tablet Gradual Collapse Logic ---
+    if (promoCard) {
+        // Only collapse if screen width is above 800px (Desktop/Tablet)
+        if (window.innerWidth > 800) {
+            if (window.scrollY > 100) {
+                promoCard.classList.add('scrolled-hidden');
+            } else {
+                promoCard.classList.remove('scrolled-hidden');
+            }
         } else {
-            header.classList.remove('is-pinned');
+            // Force visible on mobile regardless of scroll
+            promoCard.classList.remove('scrolled-hidden');
         }
-        if (window.scrollY > 400) {
-            backToTopBtn.classList.add('visible');
-        } else {
-            backToTopBtn.classList.remove('visible');
-        }
-    });
+    }
+
+    // Standard Header & Back to Top logic
+    if (window.scrollY > 50) {
+        header.classList.add('is-pinned');
+    } else {
+        header.classList.remove('is-pinned');
+    }
+
+    if (window.scrollY > 400) {
+        backToTopBtn.classList.add('visible');
+    } else {
+        backToTopBtn.classList.remove('visible');
+    }
+}, { passive: true });
 
     backToTopBtn.addEventListener('click', () => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -244,8 +266,10 @@ function setCurrency(type) {
 // --- REPLACE YOUR renderGallery FUNCTION ---
 function renderGallery(data) {
     const grid = document.getElementById('stampGrid');
+    const searchInput = document.getElementById('stampSearch');
     const urlParams = new URLSearchParams(window.location.search);
     const isSharedLink = urlParams.has('item');
+    const isSearching = searchInput && searchInput.value.trim() !== "";
 
     if (!data.length) {
         grid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; padding: 40px;">No stamps found.</p>';
@@ -254,6 +278,34 @@ function renderGallery(data) {
 
     let html = '';
     
+    // --- INJECT HERO/PROMO CARD ---
+    // Only show this on the main view (not when searching or viewing a single shared item)
+    if (!isSharedLink && !isSearching) {
+        html += `
+            <article class="stamp-card promo-card">
+                <div class="promo-content">
+                    <div class="promo-badge">Featured Announcement</div>
+                    <h2>Exclusives</h2>
+                    <p>Receive 150 stamps in your mail box for FREE! When you ...</p>
+                    <div class="promo-actions">
+                        <a href="https://whatsapp.com/channel/0029VaafwRWAojYq5jzkJJ2u" target="_blank" class="promo-btn">Join WhatsApp Channel</a>
+                    </div>
+                    <div class="promo-actions">
+                        <a href="https://www.instagram.com/philatelyworld10" target="_blank" class="promo-btn">Follow Instagram</a>
+                    </div>
+                    <div class="promo-actions">
+                        <a href="https://x.com/philately_wrld?s=21&t=QZ8DtcmMWFm0zBxcSOur3w" target="_blank" class="promo-btn">Follow X account</a>
+                    </div>
+                    <div class="promo-actions">
+                        <a href="https://www.facebook.com/share/1DosA1sNnK/?mibextid=wwXIfr" target="_blank" class="promo-btn">Follow Facebook Page</a>
+                    </div>
+                    <p>AWESOME!! </p>
+                    <p><a href="https://wa.me/31633467712" target="_blank" class="buy-btn">Now DM me your address</a></p>
+                </div>
+            </article>
+        `;
+    }
+
     if (isSharedLink) {
         html += `
             <div style="grid-column: 1/-1; display: flex; justify-content: center; margin-bottom: 20px;">
@@ -268,14 +320,13 @@ function renderGallery(data) {
         const rnMatch = stamp.desc.match(/RN\d+/);
         const rnCode = rnMatch ? rnMatch[0] : "";
         const shareUrl = `${window.location.origin}${window.location.pathname}?item=${rnCode}`;
-
-        // SEO Optimized Alt Text: "Stamp Name - Country (RNCode)"
         const seoAltText = `${stamp.name} - ${stamp.country} Philately ${rnCode}`.replace(/"/g, '&quot;');
 
         const priceDisplay = state.currency === 'EUR' 
             ? `€${(stamp.priceINR * CONFIG.eurRate).toFixed(2)}`
             : `₹${stamp.priceINR.toLocaleString('en-IN')}`;
         const waMessage = `Interested in Buying: ${stamp.name} (Ref: ${rnCode})\nLink: ${shareUrl}`;
+        
         return `
             <article class="stamp-card ${stamp.isSoldOut ? 'sold-out' : ''}">
                 <div class="img-container">
@@ -301,7 +352,6 @@ function renderGallery(data) {
                             <button onclick="copyShareLink('${shareUrl}', this)" class="share-icon-btn" title="Copy Share Link">
                                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path><polyline points="16 6 12 2 8 6"></polyline><line x1="12" y1="2" x2="12" y2="15"></line></svg>
                             </button>
-                            
                             <a href="${stamp.isSoldOut ? 'javascript:void(0)' : `https://wa.me/${CONFIG.whatsappNumber}?text=${encodeURIComponent(waMessage)}`}" 
                                class="buy-btn ${stamp.isSoldOut ? 'disabled' : ''}">
                                ${stamp.isSoldOut ? 'Sold Out' : 'Buy Now'}
