@@ -98,7 +98,11 @@
 
     <footer class="main-footer">
         <p>&copy; 2017-2026 Philately World Gallery</p>
-        <p><a href="javascript:void(0)" id="privacyTrigger" style="color: var(--text-light); font-size: 0.75rem; text-decoration: underline;">Privacy Policy</a></p>
+        <p>
+            <a href="javascript:void(0)" id="privacyTrigger" style="color: var(--text-light); font-size: 0.75rem; text-decoration: underline;">Privacy Policy</a>
+            <span style="color: var(--text-light); margin: 0 8px;">•</span>
+            <a href="javascript:void(0)" id="securityTrigger" style="color: var(--text-light); font-size: 0.75rem; text-decoration: underline;">Security & Guarantee</a>
+        </p>
     </footer>
 
     <div id="qrModal" class="qr-modal">
@@ -109,6 +113,26 @@
             <div class="upi-copy-box">
                 <span id="upiIdText">9900416731@upi</span>
                 <button onclick="copyUPI()" id="copyBtn">Copy</button>
+            </div>
+        </div>
+    </div>
+    <div id="securityModal" class="qr-modal">
+        <div class="qr-modal-content" style="max-width: 600px; text-align: left; max-height: 80vh; overflow-y: auto;">
+            <span class="qr-close" id="securityClose">&times;</span>
+            <h2 style="margin-top:0; color: var(--primary);">Security & Guarantee</h2>
+            <p style="font-size: 0.85rem; color: var(--text-light);">Last Updated: March 2026</p>
+            <div style="font-size: 0.9rem; color: var(--text-main); line-height: 1.5;">
+                <p><strong>1. Expert Authentication</strong><br>
+                Every item in our collection is meticulously inspected and authenticated. We guarantee the description and condition of the stamps as listed.</p>
+                
+                <p><strong>2. Secure Payments</strong><br>
+                We utilize secure payment methods including BHIM UPI and direct bank transfers. No sensitive financial data is stored on our servers.</p>
+                
+                <p><strong>3. Global Shipping Protection</strong><br>
+                All shipments are expertly packed to prevent damage. We provide free letter post shipping worldwide from the Netherlands for specific items.During shipment the buyer is responsible for loss or damage, unless the shipment is sent by registered mail.</p>
+                
+                <p><strong>4. Satisfaction Guarantee</strong><br>
+                If you are not satisfied with your purchase, please contact us via WhatsApp at +31 633467712 within 48 hours of receipt for a resolution. There's a 100% guarantee on your purchases. Should any item be different from the description, or not meet the quality described, kindly contact us.</p>
             </div>
         </div>
     </div>
