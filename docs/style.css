@@ -356,6 +356,27 @@ header {
     color: var(--text-main);
     transition: all 0.2s ease;
     padding: 0;
+    top: 12px;
+    right: 6px;
+    background: rgba(255, 255, 255, 0.15);
+}
+.share-icon-btn-promo {
+    background: #000000;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    width: 38px;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: var(--text-main);
+    transition: all 0.2s ease;
+    padding: 0;
+    top: -22px;
+    right: -16px;
+    background: rgba(0, 0, 0, 0.15);
+    position: absolute;
 }
 
 .share-icon-btn:hover {
@@ -632,11 +653,13 @@ header {
 }
 .promo-content {
     position: relative;
+    padding: 40px 20px; /* Added extra top padding so text doesn't hit the button */
     z-index: 2; /* Ensures content stays above all background layers */
     display: flex;
     flex-direction: column;
     gap: 15px;
     align-items: center;
+    text-align: center;
 }
 
 .promo-badge {
@@ -704,4 +727,23 @@ header {
 /* Remove any old running banner styles if they exist */
 .running-banner, .banner-track, .banner-content {
     display: none !important;
+}
+
+/* Fix for centering the promo on shared links */
+.sidebar-promo.centered-view {
+    flex: 1 1 100% !important; /* Forces the sidebar to take full width of the container */
+    max-width: 100%;
+    display: flex !important;
+    justify-content: center; /* Centers horizontally */
+    align-items: center;     /* Centers vertically */
+    min-height: 60vh;        /* Gives enough vertical space to feel centered */
+    padding: 40px 20px;
+    margin: 0 auto;
+    position: static;        /* Disables 'sticky' so it doesn't float during centering */
+}
+
+.sidebar-promo.centered-view .promo-card {
+    max-width: 500px;        /* Keeps the announcement at a nice readable width */
+    width: 100%;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.15); /* Adds some depth */
 }

@@ -26,7 +26,22 @@ document.addEventListener('DOMContentLoaded', () => {
     const urlParams = new URLSearchParams(window.location.search);
     const itemID = urlParams.get('item');
 
-    if (itemID) {
+        if (itemID === 'promo') {
+        updateMetaTags(null, 'promo'); 
+        renderGallery([]); 
+        
+        // Instead of grid, add the button to the sidebar/container so it's visible
+        const container = document.querySelector('.container');
+        if (container) {
+            container.insertAdjacentHTML('afterbegin', 
+                `<div style="text-align:center; margin: 20px 0;">
+                    <button onclick="window.location.href='index.html'" class="toggle-btn active" style="padding: 12px 24px; font-weight: bold; cursor: pointer;">
+                        ← View Stamp Collection
+                    </button>
+                </div>`
+            );
+        }
+        } else if (itemID) {
         const selectedStamp = stamps.find(s => s.desc.includes(itemID));
         
         if (selectedStamp) {
@@ -241,6 +256,7 @@ function setCurrency(type) {
 function renderGallery(data) {
     const grid = document.getElementById('stampGrid');
     const sidebar = document.getElementById('sidebarPromo');
+    const mainContent = document.querySelector('.main-content');
     const searchInput = document.getElementById('stampSearch');
     
     if (!grid) return;
@@ -251,10 +267,26 @@ function renderGallery(data) {
 
     // 1. Handle Sidebar (Hero Card)
     if (sidebar) {
-        if (!isSearching && !isSharedLink) {
+        const isPromoShared = urlParams.get('item') === 'promo';
+        if (!isSearching && (urlParams.get('item') === null || isPromoShared)){
+            // Toggle the centering class
+            if (isPromoShared) {
+                sidebar.classList.add('centered-view');
+                if (mainContent) mainContent.style.display = "none"; // HIDE STAMP AREA
+            } else {
+                sidebar.classList.remove('centered-view');
+                if (mainContent) mainContent.style.display = "block"; // SHOW STAMP AREA
+            }
+            // Create the unique share URL for the promo
+            const promoShareUrl = `${window.location.origin}${window.location.pathname}?item=promo`;
             sidebar.innerHTML = `
                 <article class="stamp-card promo-card">
                     <div class="promo-content">
+                        <div style="position: absolute; top: 10px; right: 10px;">
+                                <button class="share-icon-btn-promo" onclick="copyShareLink('${promoShareUrl}', this)" title="Share Announcement" style="background: rgba(255, 255, 255, 0.2); border-radius: 50%;">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path><polyline points="16 6 12 2 8 6"></polyline><line x1="12" y1="2" x2="12" y2="15"></line></svg>
+                                </button>
+                            </div>
                         <div class="promo-badge">Featured Announcement</div>
                         <h2>Exclusives</h2>
                         <p>Receive 150 stamps in your mail box for FREE! When you follow our</p>
@@ -271,11 +303,13 @@ function renderGallery(data) {
                             <a href="https://www.facebook.com/share/1DosA1sNnK/?mibextid=wwXIfr" target="_blank" class="promo-btn">Facebook Page</a>
                         </div>
                         <p>AWESOME!!</p>
-                        <p><a href="https://wa.me/31633467712" target="_blank" class="buy-btn">Now share mailing address</a></p>
+                        <p><a href="https://wa.me/31633467712" target="_blank" class="buy-btn">Share mailing address</a></p>
                     </div>
                 </article>`;
             sidebar.style.display = "block";
         } else {
+            sidebar.classList.remove('centered-view');
+            if (mainContent) mainContent.style.display = "block"; // ENSURE SHOWN
             sidebar.innerHTML = "";
             sidebar.style.display = "none";
         }
@@ -453,15 +487,26 @@ function copyShareLink(url, btn) {
 }
 
 function updateMetaTags(stamp, id) {
-    // 1. Clean up the title and description
-    const title = `Philately World: ${stamp.name}`;
-    const cleanYear = stamp.year.replace(/<\/?[^>]+(>|$)/g, "");
-    const desc = `${stamp.country} | ${cleanYear} | Price: ₹${stamp.priceINR}`;
+    let title, desc, imgUrl;
+    if (id === 'promo') {
+        title = "Philately World - Exclusive Announcement";
+        desc = "Get 150 stamps for FREE! Follow our social channels to claim yours.";
+        imgUrl = "https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/logo.jpg";
+    } else if (stamp) {
+        title = `Philately World: ${stamp.name}`;
+        const cleanYear = stamp.year.replace(/<\/?[^>]+(>|$)/g, "");
+        desc = `${stamp.country} | ${cleanYear} | Price: ₹${stamp.priceINR}`;
+        imgUrl = `${CONFIG.baseImgPath}/${stamp.folder}/1.jpg`;
+    }
+    // // 1. Clean up the title and description
+    // const title = `Philately World: ${stamp.name}`;
+    // const cleanYear = stamp.year.replace(/<\/?[^>]+(>|$)/g, "");
+    // const desc = `${stamp.country} | ${cleanYear} | Price: ₹${stamp.priceINR}`;
     
-    // 2. Point to the FIRST image in the folder (1.jpg)
-    // Using your CONFIG.baseImgPath for consistency
-    const imgUrl = `${CONFIG.baseImgPath}/${stamp.folder}/1.jpg`;
-
+    // // 2. Point to the FIRST image in the folder (1.jpg)
+    // // Using your CONFIG.baseImgPath for consistency
+    // const imgUrl = `${CONFIG.baseImgPath}/${stamp.folder}/1.jpg`;
+    
     // 3. Update the Browser Tab Title
     document.title = title;
     
