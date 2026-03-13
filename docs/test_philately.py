@@ -315,3 +315,15 @@ def test_view_collection_button_at_top(driver):
     # Verify it is positioned before the stamp grid
     grid = driver.find_element(By.ID, "stampGrid")
     assert btn.location['y'] < grid.location['y'], "Button should be located above the grid"
+
+def test_dynamic_og_image_update(driver):
+    """Verify the social preview image updates to the first image of the stamp folder."""
+    driver.get(f"{URL}?item=RN4111")
+    wait = WebDriverWait(driver, 10)
+    
+    # Wait until the JavaScript has had time to update the attribute
+    wait.until(lambda d: "D45/1.jpg" in d.find_element(By.ID, "og-image").get_attribute("content"))
+    
+    og_image = driver.find_element(By.ID, "og-image").get_attribute("content")
+    
+    assert "D45/1.jpg" in og_image, f"Expected image path for RN4111 (D45) not found in {og_image}"

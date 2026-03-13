@@ -452,17 +452,30 @@ function copyShareLink(url, btn) {
     });
 }
 
-// New function to handle link preview data
 function updateMetaTags(stamp, id) {
+    // 1. Clean up the title and description
     const title = `Philately World: ${stamp.name}`;
-    const desc = `${stamp.country} | Price: ₹${stamp.priceINR}`;
-    const imgUrl = `https://philatelyworld.in/images/${stamp.folder}/1.jpg`; // Path to first image
+    const cleanYear = stamp.year.replace(/<\/?[^>]+(>|$)/g, "");
+    const desc = `${stamp.country} | ${cleanYear} | Price: ₹${stamp.priceINR}`;
+    
+    // 2. Point to the FIRST image in the folder (1.jpg)
+    // Using your CONFIG.baseImgPath for consistency
+    const imgUrl = `${CONFIG.baseImgPath}/${stamp.folder}/1.jpg`;
 
+    // 3. Update the Browser Tab Title
     document.title = title;
     
-    // Update Open Graph tags for social previews
-    document.getElementById('og-title').setAttribute('content', title);
-    document.getElementById('og-desc').setAttribute('content', desc);
-    document.getElementById('og-image').setAttribute('content', imgUrl);
-    document.getElementById('og-url').setAttribute('content', window.location.href);
+    // 4. Update Open Graph tags for social media previews
+    // These IDs must match the meta tags in your index.html
+    const tags = {
+        'og-title': title,
+        'og-desc': desc,
+        'og-image': imgUrl,
+        'og-url': window.location.href
+    };
+
+    for (const [id, value] of Object.entries(tags)) {
+        const el = document.getElementById(id);
+        if (el) el.setAttribute('content', value);
+    }
 }
