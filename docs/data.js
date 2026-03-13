@@ -1,6 +1,19 @@
 // 1. STAMP DATABASE
 const stamps = [
     { 
+        name: "France collection mostly old postal items in binder", 
+        country: "France", 
+        year: "<b>Year</b>: 1900+", 
+        priceINR: 60000,
+        isSoldOut: false,
+        folder: "D49",
+        imageCount: 40,
+        desc: "RN4115: Binder with very nice collection about 300 mostly old postal items France, used and unused.\
+            Check the photos. What you see is what you get.\
+            <b>Rs.200/- per item.</b> Very unique and huge lot.\
+            + Shipping Inside India in April 2026. <b> Album for FREE</b>  "
+    },
+    { 
         name: "Czechoslovakia sheetbinder with lot stamp blocks and sheets", 
         country: "Czechoslovakia", 
         year: "<b>Year</b>: 1930+", 
