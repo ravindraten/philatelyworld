@@ -300,3 +300,18 @@ def test_promo_visibility_on_scroll_desktop_tablet(driver, width, height):
     # 6. Verify it hasn't collapsed to zero height
     height_val = promo_card.size['height']
     assert height_val > 100, f"Promo card collapsed to {height_val}px at {width}px width"
+
+
+def test_view_collection_button_at_top(driver):
+    """Verify 'View Full Collection' button appears at the top on shared item links."""
+    shared_url = f"{URL}?item=RN4112"
+    driver.get(shared_url)
+    
+    # Locate the button
+    btn = WebDriverWait(driver, 10).until(
+        EC.presence_of_element_located((By.XPATH, "//button[contains(text(), 'View Full Collection')]"))
+    )
+    
+    # Verify it is positioned before the stamp grid
+    grid = driver.find_element(By.ID, "stampGrid")
+    assert btn.location['y'] < grid.location['y'], "Button should be located above the grid"
