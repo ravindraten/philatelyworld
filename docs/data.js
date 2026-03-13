@@ -17,7 +17,7 @@ const stamps = [
         country: "France", 
         year: "<b>Year</b>: 1849-1983", 
         priceINR: 10800,
-        isSoldOut: false,
+        isSoldOut: true,
         folder: "D47",
         imageCount: 52,
         desc: "RN4113: Davo album France 1849-1983 with collection about 1350 stamps.\
