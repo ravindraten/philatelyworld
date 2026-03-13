@@ -27,23 +27,24 @@ document.addEventListener('DOMContentLoaded', () => {
     const itemID = urlParams.get('item');
 
     if (itemID) {
-        // 1. Find the specific stamp in your data.js array
         const selectedStamp = stamps.find(s => s.desc.includes(itemID));
         
         if (selectedStamp) {
-            // 2. Update Meta Tags for Link Previews
             updateMetaTags(selectedStamp, itemID);
-            
-            // 3. Filter gallery as usual
             const filtered = [selectedStamp];
             renderGallery(filtered);
             
-            // Show the "View Full Collection" button
-            document.getElementById('backToTop').insertAdjacentHTML('beforebegin', 
-                `<div style="text-align:center; margin: 20px 0;">
-                    <button onclick="window.location.href='index.html'" class="toggle-btn active">View Full Collection</button>
-                </div>`
-            );
+            // FIX: Insert the button at the TOP of the results grid
+            const grid = document.getElementById('stampGrid');
+            if (grid) {
+                grid.insertAdjacentHTML('beforebegin', 
+                    `<div style="text-align:center; margin: 20px 0;">
+                        <button onclick="window.location.href='index.html'" class="toggle-btn active" style="padding: 12px 24px; font-weight: bold;">
+                            ← View Full Collection
+                        </button>
+                    </div>`
+                );
+            }
         } else {
             initGallery();
         }
@@ -110,19 +111,28 @@ function initEventListeners() {
     });
 
     const backToTopBtn = document.getElementById('backToTop');
-    window.addEventListener('scroll', () => {
-        const header = document.querySelector('header');
-        if (window.scrollY > 50) {
-            header.classList.add('is-pinned');
-        } else {
-            header.classList.remove('is-pinned');
-        }
-        if (window.scrollY > 400) {
-            backToTopBtn.classList.add('visible');
-        } else {
-            backToTopBtn.classList.remove('visible');
-        }
-    });
+    // Replace your scroll listener block with this:
+// Find your scroll listener in script.js and update it
+window.addEventListener('scroll', () => {
+    const header = document.querySelector('header');
+    const backToTopBtn = document.getElementById('backToTop');
+
+    // 1. Toggle Header Pinning (Keep this for the search bar)
+    if (window.scrollY > 50) {
+        header.classList.add('is-pinned');
+    } else {
+        header.classList.remove('is-pinned');
+    }
+
+    // 2. Back to Top Button visibility
+    if (window.scrollY > 400) {
+        backToTopBtn.classList.add('visible');
+    } else {
+        backToTopBtn.classList.remove('visible');
+    }
+    
+    // NOTE: Removed the logic that previously added .scrolled-hidden to the promo card
+}, { passive: true });
 
     backToTopBtn.addEventListener('click', () => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -223,68 +233,81 @@ function setCurrency(type) {
         btn.classList.toggle('active', btn.id === `btn${type}`);
     });
 
-    // Check if we are currently viewing a single item from a shared link
-    const urlParams = new URLSearchParams(window.location.search);
-    const itemID = urlParams.get('item');
+    // Re-run the filter logic, which triggers renderGallery
     const searchInput = document.getElementById('stampSearch');
-
-    if (itemID && (!searchInput || !searchInput.value.trim())) {
-        // If viewing a shared item and search is empty, re-run the shared link logic
-        const selectedStamp = stamps.find(s => s.desc.includes(itemID));
-        if (selectedStamp) {
-            renderGallery([selectedStamp]);
-            return;
-        }
-    }
-
-    // Otherwise, proceed with normal filtering/rendering
     filterStamps(searchInput ? searchInput.value : "");
 }
 
-// --- REPLACE YOUR renderGallery FUNCTION ---
 function renderGallery(data) {
     const grid = document.getElementById('stampGrid');
+    const sidebar = document.getElementById('sidebarPromo');
+    const searchInput = document.getElementById('stampSearch');
+    
+    if (!grid) return;
+
+    const isSearching = searchInput && searchInput.value.trim() !== "";
     const urlParams = new URLSearchParams(window.location.search);
     const isSharedLink = urlParams.has('item');
 
-    if (!data.length) {
+    // 1. Handle Sidebar (Hero Card)
+    if (sidebar) {
+        if (!isSearching && !isSharedLink) {
+            sidebar.innerHTML = `
+                <article class="stamp-card promo-card">
+                    <div class="promo-content">
+                        <div class="promo-badge">Featured Announcement</div>
+                        <h2>Exclusives</h2>
+                        <p>Receive 150 stamps in your mail box for FREE! When you follow our</p>
+                        <div class="promo-actions">
+                            <a href="https://whatsapp.com/channel/0029VaafwRWAojYq5jzkJJ2u" target="_blank" class="promo-btn">WhatsApp Channel</a>
+                        </div>
+                        <div class="promo-actions">
+                            <a href="https://www.instagram.com/philately_world" target="_blank" class="promo-btn">Instagram</a>
+                        </div>
+                        <div class="promo-actions">
+                            <a href="https://x.com/philately_wrld?s=21&t=QZ8DtcmMWFm0zBxcSOur3w" target="_blank" class="promo-btn">X account</a>
+                        </div>
+                        <div class="promo-actions">
+                            <a href="https://www.facebook.com/share/1DosA1sNnK/?mibextid=wwXIfr" target="_blank" class="promo-btn">Facebook Page</a>
+                        </div>
+                        <p>AWESOME!!</p>
+                        <p><a href="https://wa.me/31633467712" target="_blank" class="buy-btn">Now share mailing address</a></p>
+                    </div>
+                </article>`;
+            sidebar.style.display = "block";
+        } else {
+            sidebar.innerHTML = "";
+            sidebar.style.display = "none";
+        }
+    }
+
+    // 2. Handle Stamp Grid
+    if (data.length === 0) {
         grid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; padding: 40px;">No stamps found.</p>';
         return;
     }
 
-    let html = '';
-    
-    if (isSharedLink) {
-        html += `
-            <div style="grid-column: 1/-1; display: flex; justify-content: center; margin-bottom: 20px;">
-                <button onclick="window.location.href='index.html'" class="curr-btn" style="width: auto; padding: 8px 20px;">
-                    ← View Full Collection
-                </button>
-            </div>`;
-    }
+    grid.innerHTML = data.map(stamp => {
+        const itemID = stamp.desc.split(':')[0].trim();
+        const shareUrl = `${window.location.origin}${window.location.pathname}?item=${encodeURIComponent(itemID)}`;
+        
+        // --- CURRENCY LOGIC ---
+        let displayPrice;
+        if (state.currency === 'EUR') {
+            // Convert INR to EUR using the live/fallback rate
+            const priceEUR = stamp.priceINR * CONFIG.eurRate;
+            displayPrice = `€${priceEUR.toFixed(2)}`;
+        } else {
+            displayPrice = `₹${stamp.priceINR}`;
+        }
 
-    html += data.map(stamp => {
-        const originalIdx = stamps.findIndex(s => s.name === stamp.name);
-        const rnMatch = stamp.desc.match(/RN\d+/);
-        const rnCode = rnMatch ? rnMatch[0] : "";
-        const shareUrl = `${window.location.origin}${window.location.pathname}?item=${rnCode}`;
-
-        // SEO Optimized Alt Text: "Stamp Name - Country (RNCode)"
-        const seoAltText = `${stamp.name} - ${stamp.country} Philately ${rnCode}`.replace(/"/g, '&quot;');
-
-        const priceDisplay = state.currency === 'EUR' 
-            ? `€${(stamp.priceINR * CONFIG.eurRate).toFixed(2)}`
-            : `₹${stamp.priceINR.toLocaleString('en-IN')}`;
-        const waMessage = `Interested in Buying: ${stamp.name} (Ref: ${rnCode})\nLink: ${shareUrl}`;
         return `
-            <article class="stamp-card ${stamp.isSoldOut ? 'sold-out' : ''}">
+            <div class="stamp-card ${stamp.isSoldOut ? 'sold-out' : ''}">
+                ${stamp.isSoldOut ? '<div class="sold-out-badge">Sold Out</div>' : ''}
                 <div class="img-container">
-                    ${stamp.isSoldOut ? '<div class="sold-out-badge">Sold Out</div>' : ''}
-                    <img 
-                        src="${CONFIG.baseImgPath}/${stamp.folder}/1.jpg" 
-                        alt="${seoAltText}" 
-                        title="${seoAltText}"
-                        onclick="openLightbox(${originalIdx})">
+                    <img src="${CONFIG.baseImgPath}/${stamp.folder}/1.jpg" 
+                        alt="${stamp.name}" 
+                        onclick="openLightbox(${stamps.indexOf(stamp)})">
                     <div class="photo-badge">${stamp.imageCount} Photos</div>
                 </div>
                 <div class="details">
@@ -293,28 +316,27 @@ function renderGallery(data) {
                         <span class="stamp-year">${stamp.year}</span>
                         <small style="color: var(--text-light)">${stamp.country}</small>
                     </div>
-                    <p class="stamp-desc">${stamp.desc}</p>
+
+                    <div class="stamp-desc">${stamp.desc}</div>
                     
                     <div class="price-row">
-                        <span class="price">${priceDisplay}</span>
+                        <div class="price">${displayPrice}</div>
                         <div class="action-buttons">
-                            <button onclick="copyShareLink('${shareUrl}', this)" class="share-icon-btn" title="Copy Share Link">
+                            <button class="share-icon-btn" onclick="copyShareLink('${shareUrl}', this)" title="Copy Share Link">
                                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path><polyline points="16 6 12 2 8 6"></polyline><line x1="12" y1="2" x2="12" y2="15"></line></svg>
                             </button>
                             
-                            <a href="${stamp.isSoldOut ? 'javascript:void(0)' : `https://wa.me/${CONFIG.whatsappNumber}?text=${encodeURIComponent(waMessage)}`}" 
-                               class="buy-btn ${stamp.isSoldOut ? 'disabled' : ''}">
-                               ${stamp.isSoldOut ? 'Sold Out' : 'Buy Now'}
-                            </a>
+                            ${stamp.isSoldOut 
+                                ? `<button class="buy-btn disabled" disabled>Sold Out</button>`
+                                : `<a href="https://wa.me/${CONFIG.whatsappNumber}?text=Hi, I am interested in: ${stamp.name} (${itemID})" 
+                                    target="_blank" class="buy-btn">Buy Now</a>`
+                            }
                         </div>
                     </div>
                 </div>
-            </article>`;
+            </div>`;
     }).join('');
-
-    grid.innerHTML = html;
 }
-
 function filterStamps(query) {
     const term = query.toLowerCase().trim();
     
