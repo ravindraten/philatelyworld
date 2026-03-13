@@ -1,6 +1,19 @@
 // 1. STAMP DATABASE
 const stamps = [
     { 
+        name: "International year of Child 1979 FDC's", 
+        country: "International", 
+        year: "<b>Year</b>: 1979+", 
+        priceINR: 3410,
+        isSoldOut: false,
+        folder: "D50",
+        imageCount: 27,
+        desc: "RN4116: Around 62 different FDC's on theme IYC 1979.\
+            Check the photos. What you see is what you get.\
+            <b>Rs.55/- per item.</b> \
+            + Shipping Inside India in April 2026."
+    },
+    { 
         name: "France collection mostly old postal items in binder", 
         country: "France", 
         year: "<b>Year</b>: 1900+", 
