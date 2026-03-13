@@ -51,10 +51,6 @@
                     </a>
                     <a href="https://wa.me/31633467712" class="contact-pill" target="_blank" data-tooltip="Chat with us on WhatsApp">Chat</a>
                 </div>
-                <div class="currency-toggle">
-                    <button onclick="setCurrency('INR')" id="btnINR" class="toggle-btn active">₹ INR</button>
-                    <button onclick="setCurrency('EUR')" id="btnEUR" class="toggle-btn">€ EUR</button>
-                </div>
             </div>    
         </div>
     
@@ -64,9 +60,17 @@
                 <div class="search-container">
                     <input type="search" id="stampSearch" placeholder="Search by theme, country, or year...">
                 </div>
+                <div class="currency-toggle desktop-only">
+                    <button onclick="setCurrency('INR')" id="btnINR" class="toggle-btn active">₹ INR</button>
+                    <button onclick="setCurrency('EUR')" id="btnEUR" class="toggle-btn">€ EUR</button>
+                </div>
             </div>
             <p id="lastUpdated" class="header-status"></p>
             <p id="lastUpdatedFXRate" class="header-status">Loading live exchange rates...</p>
+            <div class="currency-toggle mobile-only">
+                <button onclick="setCurrency('INR')" id="btnINR_m" class="toggle-btn active">₹ INR</button>
+                <button onclick="setCurrency('EUR')" id="btnEUR_m" class="toggle-btn">€ EUR</button>
+            </div>
         </div>
     </header>
     
