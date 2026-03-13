@@ -328,9 +328,19 @@ function renderGallery(data) {
                             
                             ${stamp.isSoldOut 
                                 ? `<button class="buy-btn disabled" disabled>Sold Out</button>`
-                                : `<a href="https://wa.me/${CONFIG.whatsappNumber}?text=Hi, I am interested in: ${stamp.name} (${itemID})" 
-                                    target="_blank" class="buy-btn">Buy Now</a>`
-                            }
+                                : (() => {
+                                    // 1. Extract the Item ID (e.g., RN4112) from the description
+                                    const itemID = stamp.desc.split(':')[0];
+                                    // 2. Construct the direct link to this listing
+                                    const listingUrl = `https://philatelyworld.in/index.html?item=${itemID}`;
+                                    // 3. Create the encoded WhatsApp message
+                                    const message = encodeURIComponent(
+                                        `Hi, I am interested in buying :\n${stamp.name}\nLink: ${listingUrl}`
+                                    );
+                                return `<a href="https://wa.me/${CONFIG.whatsappNumber}?text=${message}" 
+                                        target="_blank" class="buy-btn">Buy Now</a>`;
+                                    })()
+                                }
                         </div>
                     </div>
                 </div>
