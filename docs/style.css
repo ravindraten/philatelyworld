@@ -103,12 +103,13 @@ header {
 }
 
 @media (min-width: 801px) {
+    /* --- Updated Sticky & Toggle Logic --- */
     .sticky-wrapper {
         display: flex;
         align-items: center;
         justify-content: center;
         gap: 15px;
-        max-width: 1000px;
+        max-width: 1250px;
         margin: auto;
         padding: 5px 20px;
     }
@@ -129,13 +130,23 @@ header {
 
     .sticky-wrapper .search-container {
         flex: 2;
-        max-width: 600px;
+        max-width: 750px;
         padding: 0;
         margin: 0;
     }
 }
-
+.desktop-only { display: flex; }
+.mobile-only { display: none; }
 @media (max-width: 800px) {
+    .desktop-only { 
+        display: none !important; 
+    }
+    .mobile-only { 
+        display: flex !important; 
+        margin: 5px auto 10px; /* Centers below status lines */
+        width: fit-content;
+    }
+    
     .sticky-logo { display: none !important; }
     .brand-info { order: 2; min-width: auto; padding: 0; }
     .brand-info h1 { font-size: 1.8rem !important; }
@@ -530,26 +541,24 @@ header {
 }
 /* Currency Toggle Styles */
 .currency-toggle {
-    display: flex;
     background: #f1f5f9;
-    padding: 2px; /* Reduced from 4px */
+    padding: 2px;
     border-radius: 50px;
     border: 1px solid var(--border);
     gap: 1px;
-    width: fit-content;
+    flex-shrink: 0; /* Prevents squishing */
 }
 
 .toggle-btn {
     border: none;
     background: transparent;
-    padding: 4px 10px; /* Reduced from 6px 16px */
+    padding: 6px 12px;
     border-radius: 50px;
     cursor: pointer;
-    font-size: 0.7rem; /* Reduced from 0.8rem */
+    font-size: 0.75rem;
     font-weight: 700;
     color: var(--text-light);
     transition: all 0.2s ease;
-    white-space: nowrap;
 }
 
 .toggle-btn.active {

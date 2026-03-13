@@ -243,14 +243,28 @@ function scrollToGrid() {
 function setCurrency(type) {
     state.currency = type;
     
-    // Update button UI
+    // 1. Update all toggle buttons (Desktop and Mobile)
     document.querySelectorAll('.toggle-btn').forEach(btn => {
-        btn.classList.toggle('active', btn.id === `btn${type}`);
+        btn.classList.toggle('active', btn.id.includes(type));
     });
 
-    // Re-run the filter logic, which triggers renderGallery
+    // 2. Determine what is currently being displayed
+    const urlParams = new URLSearchParams(window.location.search);
+    const itemID = urlParams.get('item');
     const searchInput = document.getElementById('stampSearch');
-    filterStamps(searchInput ? searchInput.value : "");
+    const searchTerm = searchInput ? searchInput.value.trim() : "";
+
+    if (itemID && !searchTerm) {
+        // If viewing a specific shared item and NOT searching, only re-render that item
+        const selectedStamp = stamps.find(s => s.desc.includes(itemID));
+        if (selectedStamp) {
+            renderGallery([selectedStamp]);
+            return;
+        }
+    }
+
+    // Otherwise, re-run the filter logic with the current search term
+    filterStamps(searchTerm);
 }
 
 function renderGallery(data) {
