@@ -285,7 +285,7 @@ const stamps = [
         country: "Hungary", 
         year: "<b>Year</b>:Old", 
         priceINR: 14500,
-        isSoldOut: false,
+        isSoldOut: true,
         folder: "D27",
         imageCount: 33,
         desc: "RN4092: 2 Albums Hungary 1871-1980 with collection about 2900 stamps.\
@@ -391,7 +391,7 @@ const stamps = [
         country: "Germany and Berlin", 
         year: "<b>Year</b>:1956 onwards", 
         priceINR: 11499,
-        isSoldOut: false,
+        isSoldOut: true,
         folder: "D18",
         imageCount: 64,
         desc: "RN4083: 2 Davo and 1 Safe album Germany Bund and Berlin with a lot of stamps.\
@@ -404,7 +404,7 @@ const stamps = [
         country: "Bhutan, Kazakhstan", 
         year: "<b>Year</b>:1980 onwards", 
         priceINR: 1499,
-        isSoldOut: false,
+        isSoldOut: true,
         folder: "D17",
         imageCount: 9,
         desc: "RN4082: Asia incl. MNH Bhutan stamp collection\
