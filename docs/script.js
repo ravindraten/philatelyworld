@@ -27,23 +27,24 @@ document.addEventListener('DOMContentLoaded', () => {
     const itemID = urlParams.get('item');
 
     if (itemID) {
-        // 1. Find the specific stamp in your data.js array
         const selectedStamp = stamps.find(s => s.desc.includes(itemID));
         
         if (selectedStamp) {
-            // 2. Update Meta Tags for Link Previews
             updateMetaTags(selectedStamp, itemID);
-            
-            // 3. Filter gallery as usual
             const filtered = [selectedStamp];
             renderGallery(filtered);
             
-            // Show the "View Full Collection" button
-            document.getElementById('backToTop').insertAdjacentHTML('beforebegin', 
-                `<div style="text-align:center; margin: 20px 0;">
-                    <button onclick="window.location.href='index.html'" class="toggle-btn active">View Full Collection</button>
-                </div>`
-            );
+            // FIX: Insert the button at the TOP of the results grid
+            const grid = document.getElementById('stampGrid');
+            if (grid) {
+                grid.insertAdjacentHTML('beforebegin', 
+                    `<div style="text-align:center; margin: 20px 0;">
+                        <button onclick="window.location.href='index.html'" class="toggle-btn active" style="padding: 12px 24px; font-weight: bold;">
+                            ← View Full Collection
+                        </button>
+                    </div>`
+                );
+            }
         } else {
             initGallery();
         }
