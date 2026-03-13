@@ -1,6 +1,18 @@
 // 1. STAMP DATABASE
 const stamps = [
     { 
+        name: "France 1849-1983 stamp collection in album", 
+        country: "France", 
+        year: "<b>Year</b>: 1849-1983", 
+        priceINR: 10800,
+        isSoldOut: false,
+        folder: "D47",
+        imageCount: 52,
+        desc: "RN4113: Davo album France 1849-1983 with collection about 1350 stamps.\
+            Check the photos to see a small part, but there is a lot more than you can see here.\
+            + Shipping Inside India in April 2026. <b> Davo Album for FREE</b>  "
+    },
+    { 
         name: "Collection of 100 FDC's from Sweden", 
         country: "Sweden", 
         year: "<b>Year</b>: 1958+", 
@@ -9,7 +21,7 @@ const stamps = [
         folder: "D46",
         imageCount: 1,
         desc: "RN4112: Collection of 100 FDC's from Sweden. <b>Rs.35/- per cover</b>\
-         + Shipping Inside India in APril 2026."
+         + Shipping Inside India in April 2026."
     },
     { 
         name: "Collection of old and modern used/MNH stamps from Different countries", 
