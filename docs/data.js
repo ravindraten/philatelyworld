@@ -18,7 +18,7 @@ const stamps = [
         country: "Czechoslovakia", 
         year: "<b>Year</b>: 1930+", 
         priceINR: 14500,
-        isSoldOut: false,
+        isSoldOut: true,
         folder: "D48",
         imageCount: 27,
         desc: "RN4114: Lindner sheetbinder with lot blocks and some sheets Czechoslovakia.\
