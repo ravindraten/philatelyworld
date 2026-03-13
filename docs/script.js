@@ -223,7 +223,31 @@ window.addEventListener('scroll', () => {
             privacyModal.style.display = "none";
             document.body.style.overflow = "auto";
         }
+        if (event.target === securityModal) {
+            securityModal.style.display = "none";
+            document.body.style.overflow = "auto";
+        }
     });
+
+    // Inside initEventListeners() function:
+
+    const securityModal = document.getElementById("securityModal");
+    const securityBtn = document.getElementById("securityTrigger");
+    const securityClose = document.getElementById("securityClose");
+
+    if (securityBtn) {
+        securityBtn.onclick = () => {
+            securityModal.style.display = "flex";
+            document.body.style.overflow = "hidden";
+        };
+    }
+
+    if (securityClose) {
+        securityClose.onclick = () => {
+            securityModal.style.display = "none";
+            document.body.style.overflow = "auto";
+        };
+    }
 }
 
 // Helper to reset view to the top of results

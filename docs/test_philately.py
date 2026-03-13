@@ -327,3 +327,36 @@ def test_dynamic_og_image_update(driver):
     og_image = driver.find_element(By.ID, "og-image").get_attribute("content")
     
     assert "D45/1.jpg" in og_image, f"Expected image path for RN4111 (D45) not found in {og_image}"
+
+def test_security_guarantee_modal(driver):
+    """Verify the Security & Guarantee modal opens and shows correct content."""
+    driver.get(URL)
+    wait = WebDriverWait(driver, 10)
+
+    # 1. Scroll to the bottom to ensure footer is visible
+    driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+    time.sleep(1) 
+
+    # 2. Find and click the Security & Guarantee trigger
+    # Using JS click to avoid potential sticky header/footer interception
+    security_trigger = wait.until(EC.presence_of_element_located((By.ID, "securityTrigger")))
+    driver.execute_script("arguments[0].click();", security_trigger)
+
+    # 3. Verify the modal becomes visible
+    security_modal = wait.until(EC.visibility_of_element_located((By.ID, "securityModal")))
+    assert security_modal.is_displayed()
+
+    # 4. Check for key content within the modal
+    modal_text = security_modal.text
+    assert "Security & Guarantee" in modal_text
+    assert "Expert Authentication" in modal_text
+    assert "Global Shipping Protection" in modal_text
+    assert "+31 633467712" in modal_text # Verify contact info is present
+
+    # 5. Test closing the modal
+    close_btn = driver.find_element(By.ID, "securityClose")
+    driver.execute_script("arguments[0].click();", close_btn)
+
+    # 6. Wait for it to be hidden
+    wait.until(EC.invisibility_of_element_located((By.ID, "securityModal")))
+    assert not security_modal.is_displayed()
