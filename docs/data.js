@@ -1,6 +1,18 @@
 // 1. STAMP DATABASE
 const stamps = [
     { 
+        name: "Czechoslovakia sheetbinder with lot stamp blocks and sheets", 
+        country: "Czechoslovakia", 
+        year: "<b>Year</b>: 1930+", 
+        priceINR: 14500,
+        isSoldOut: false,
+        folder: "D48",
+        imageCount: 27,
+        desc: "RN4114: Lindner sheetbinder with lot blocks and some sheets Czechoslovakia.\
+                Check the photos. What you see is what you get.\
+            + Shipping Inside India in April 2026. <b> Album for FREE</b>  "
+    },
+    { 
         name: "France 1849-1983 stamp collection in album", 
         country: "France", 
         year: "<b>Year</b>: 1849-1983", 
