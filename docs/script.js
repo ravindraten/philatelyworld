@@ -70,6 +70,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     initEventListeners();
     updateStatusLine();
+    updateFilterCounts();
 });
 /**
  * Fetches Live EUR to INR rate and calculates the WU conversion
@@ -516,7 +517,20 @@ function updateStatusLine() {
         el.textContent = `Catalog Updated: ${date} • ${stamps.length} Unique Pieces`;
     }
 }
+function updateFilterCounts() {
+    const total = stamps.length;
+    const sold = stamps.filter(s => s.isSoldOut).length;
+    const available = total - sold;
 
+    // Update the buttons in the filter-tabs div
+    const tabs = document.querySelectorAll('.filter-tab');
+    tabs.forEach(tab => {
+        const status = tab.getAttribute('data-status');
+        if (status === 'all') tab.innerText = `All Items (${total})`;
+        if (status === 'available') tab.innerText = `Available (${available})`;
+        if (status === 'sold') tab.innerText = `Sold Out (${sold})`;
+    });
+}
 function copyUPI() {
     const upiId = document.getElementById('upiIdText').innerText;
     navigator.clipboard.writeText(upiId).then(() => {
