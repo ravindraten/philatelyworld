@@ -5,7 +5,7 @@ const stamps = [
         country: "International", 
         year: "<b>Year</b>: 1979+", 
         priceINR: 3410,
-        isSoldOut: false,
+        isSoldOut: true,
         folder: "D50",
         imageCount: 27,
         desc: "RN4116: Around 62 different FDC's on theme IYC 1979.\
