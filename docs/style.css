@@ -314,6 +314,11 @@ header {
         gap: 20px;
     }
     .filter-sticky-bar {
+        transform: scale(0.8);
+        border-radius: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         border-bottom: none; /* Ensure it's removed on mobile too */
     }
 }
