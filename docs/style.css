@@ -16,7 +16,7 @@ body { font-family: 'Inter', sans-serif; background-color: var(--bg); color: var
 
 /* --- Header & Sticky Logic --- */
 header {
-    background: white;
+    background: #ffffff;
     border-bottom: 1px solid var(--border);
     position: sticky;
     z-index: 1000;
@@ -34,7 +34,7 @@ header {
 @media (min-width: 801px) {
     header {
         top: -190px;
-        background: rgba(255, 255, 255, 0.5);
+        background: #ffffff;
         -webkit-backdrop-filter: blur(15px) saturate(160%);
         backdrop-filter: blur(15px) saturate(160%);
     }
@@ -47,7 +47,7 @@ header {
 .search-sticky-container {
     position: sticky;
     top: 0; 
-    background: white; 
+    background: #ffffff; 
     padding: 15px 0;
     z-index: 1001;
     border-bottom: 1px solid var(--border);
@@ -56,7 +56,7 @@ header {
 
 @media (min-width: 801px) {
     .search-sticky-container {
-        background: rgba(255, 255, 255, 0.5);
+        background: #ffffff;
         -webkit-backdrop-filter: blur(10px);
         backdrop-filter: blur(10px);
         padding: 25px 0;
@@ -247,7 +247,7 @@ header {
     .container {
         max-width: 2000px;
         margin: 20px auto;
-        padding: 0 20px;
+        padding: 0 20px 40px 20px;
     }
 
     /* Creates a two-column layout */
@@ -262,8 +262,9 @@ header {
         flex: 0 0 320px;
         position: sticky;
         /* Increase this value if the top of the card is still hidden under the header */
-        top: 180px; 
-        z-index: 10;
+        top: 120px; 
+        height: fit-content;
+        z-index: 999;
         align-self: flex-start; /* Required for sticky to work in flexbox */
     }
 
@@ -301,11 +302,24 @@ header {
         padding: 0 20px;
     }
     .layout-wrapper { display: block; }
-    .sidebar-promo { margin-bottom: 20px; }
+    .sidebar-promo {
+        display: block; /* Changed from none to block */
+        position: relative; /* On mobile, it's better to let it flow naturally */
+        top: 0;
+        margin-top: 20px;
+    }
     .stamp-grid {
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
         gap: 20px;
+    }
+    .filter-sticky-bar {
+        transform: scale(0.8);
+        border-radius: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-bottom: none; /* Ensure it's removed on mobile too */
     }
 }
 .stamp-card {
@@ -625,7 +639,7 @@ header {
     transition: opacity 0.3s ease, transform 0.3s ease; /* Simplified transition */
     
     /* Set a base max-height larger than content */
-    max-height: 500px; 
+    max-height: 900px; 
     opacity: 1;
     margin-bottom: 20px; /* Match your grid gap */
 }
@@ -755,4 +769,57 @@ header {
     max-width: 500px;        /* Keeps the announcement at a nice readable width */
     width: 100%;
     box-shadow: 0 20px 40px rgba(0,0,0,0.15); /* Adds some depth */
+}
+
+/* --- Sticky Filter Bar Logic --- */
+.filter-sticky-bar {
+    position: sticky;
+    /* This aligns it exactly below the mobile sticky search bar (~72px) */
+    top: 72px; 
+    z-index: 1001; 
+    background: #ffffff;
+    padding: 10px 0;
+    margin-bottom: 0;
+    display: flex;
+    justify-content: center;
+    border-bottom: none;
+}
+
+/* Desktop Adjustment */
+@media (min-width: 801px) {
+    .filter-sticky-bar {
+        /* Matches the taller desktop search bar height (~92px) */
+        top: 92px; 
+        background: #ffffff;
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter:blur(10px);
+        margin-bottom: 0;
+    }
+}
+
+.filter-tabs {
+    display: flex;
+    background: #e2e8f0;
+    padding: 4px;
+    border-radius: 50px;
+    gap: 4px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.filter-tab {
+    border: none;
+    background: transparent;
+    padding: 8px 18px;
+    border-radius: 40px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-light);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.filter-tab.active {
+    background: white;
+    color: var(--primary);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
 }

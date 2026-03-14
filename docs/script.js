@@ -16,7 +16,8 @@ const CONFIG = {
 let state = {
     currency: 'INR',
     currentStampIdx: 0,
-    currentImgIdx: 1
+    currentImgIdx: 1,
+    statusFilter: 'all' // Keep track of the active tab
 };
 
 // --- REPLACE YOUR DOMContentLoaded BLOCK ---
@@ -69,6 +70,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     initEventListeners();
     updateStatusLine();
+    updateFilterCounts();
 });
 /**
  * Fetches Live EUR to INR rate and calculates the WU conversion
@@ -128,26 +130,26 @@ function initEventListeners() {
     const backToTopBtn = document.getElementById('backToTop');
     // Replace your scroll listener block with this:
 // Find your scroll listener in script.js and update it
-window.addEventListener('scroll', () => {
-    const header = document.querySelector('header');
-    const backToTopBtn = document.getElementById('backToTop');
+    window.addEventListener('scroll', () => {
+        const header = document.querySelector('header');
+        const backToTopBtn = document.getElementById('backToTop');
 
-    // 1. Toggle Header Pinning (Keep this for the search bar)
-    if (window.scrollY > 50) {
-        header.classList.add('is-pinned');
-    } else {
-        header.classList.remove('is-pinned');
-    }
+        // 1. Toggle Header Pinning (Keep this for the search bar)
+        if (window.scrollY > 50) {
+            header.classList.add('is-pinned');
+        } else {
+            header.classList.remove('is-pinned');
+        }
 
-    // 2. Back to Top Button visibility
-    if (window.scrollY > 400) {
-        backToTopBtn.classList.add('visible');
-    } else {
-        backToTopBtn.classList.remove('visible');
-    }
-    
-    // NOTE: Removed the logic that previously added .scrolled-hidden to the promo card
-}, { passive: true });
+        // 2. Back to Top Button visibility
+        if (window.scrollY > 400) {
+            backToTopBtn.classList.add('visible');
+        } else {
+            backToTopBtn.classList.remove('visible');
+        }
+        
+        // NOTE: Removed the logic that previously added .scrolled-hidden to the promo card
+    }, { passive: true });
 
     backToTopBtn.addEventListener('click', () => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -248,6 +250,21 @@ window.addEventListener('scroll', () => {
             document.body.style.overflow = "auto";
         };
     }
+
+   // Filter Tab Logic
+    const filterTabs = document.querySelectorAll('.filter-tab');
+    filterTabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            // UI Update
+            filterTabs.forEach(t => t.classList.remove('active'));
+            tab.classList.add('active');
+
+            // Logic Update
+            state.statusFilter = tab.getAttribute('data-status');
+            const searchVal = document.getElementById('stampSearch').value;
+            filterStamps(searchVal);
+        });
+    });
 }
 
 // Helper to reset view to the top of results
@@ -421,22 +438,21 @@ function renderGallery(data) {
 }
 function filterStamps(query) {
     const term = query.toLowerCase().trim();
-    
-    // If search is cleared, show all
-    if (!term) {
-        renderGallery(stamps);
-        return;
-    }
 
     const filtered = stamps.filter(stamp => {
-        return (
+        // 1. Text Search Match
+        const textMatch = !term || (
             stamp.name.toLowerCase().includes(term) ||
             stamp.country.toLowerCase().includes(term) ||
-            // Adding description to the search logic
-            (stamp.desc && stamp.desc.toLowerCase().includes(term)) ||
-            // Stripping HTML tags from year before searching
-            stamp.year.replace(/<[^>]*>/g, '').toLowerCase().includes(term)
+            (stamp.desc && stamp.desc.toLowerCase().includes(term))
         );
+
+        // 2. Status Match
+        let statusMatch = true;
+        if (state.statusFilter === 'available') statusMatch = !stamp.isSoldOut;
+        if (state.statusFilter === 'sold') statusMatch = stamp.isSoldOut;
+
+        return textMatch && statusMatch;
     });
 
     renderGallery(filtered);
@@ -501,7 +517,20 @@ function updateStatusLine() {
         el.textContent = `Catalog Updated: ${date} • ${stamps.length} Unique Pieces`;
     }
 }
+function updateFilterCounts() {
+    const total = stamps.length;
+    const sold = stamps.filter(s => s.isSoldOut).length;
+    const available = total - sold;
 
+    // Update the buttons in the filter-tabs div
+    const tabs = document.querySelectorAll('.filter-tab');
+    tabs.forEach(tab => {
+        const status = tab.getAttribute('data-status');
+        if (status === 'all') tab.innerText = `All Items (${total})`;
+        if (status === 'available') tab.innerText = `Available (${available})`;
+        if (status === 'sold') tab.innerText = `Sold Out (${sold})`;
+    });
+}
 function copyUPI() {
     const upiId = document.getElementById('upiIdText').innerText;
     navigator.clipboard.writeText(upiId).then(() => {

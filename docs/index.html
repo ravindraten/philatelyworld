@@ -67,6 +67,13 @@
             </div>
             <p id="lastUpdated" class="header-status"></p>
             <p id="lastUpdatedFXRate" class="header-status">Loading live exchange rates...</p>
+            <div class="filter-sticky-bar">
+                <div class="filter-tabs">
+                    <button class="filter-tab active" data-status="all">All Items</button>
+                    <button class="filter-tab" data-status="available">Available</button>
+                    <button class="filter-tab" data-status="sold">Sold Out</button>
+                </div>
+            </div>
             <div class="currency-toggle mobile-only">
                 <button onclick="setCurrency('INR')" id="btnINR_m" class="toggle-btn active">₹ INR</button>
                 <button onclick="setCurrency('EUR')" id="btnEUR_m" class="toggle-btn">€ EUR</button>
@@ -76,8 +83,8 @@
     
     <main class="container">
         <div class="layout-wrapper">
-            <aside class="sidebar-promo" id="sidebarPromo"></aside>
             
+            <aside class="sidebar-promo" id="sidebarPromo"></aside>
             <div class="main-content">
                 <div class="stamp-grid" id="stampGrid"></div>
             </div>

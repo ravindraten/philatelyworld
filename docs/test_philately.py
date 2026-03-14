@@ -360,3 +360,44 @@ def test_security_guarantee_modal(driver):
     # 6. Wait for it to be hidden
     wait.until(EC.invisibility_of_element_located((By.ID, "securityModal")))
     assert not security_modal.is_displayed()
+
+
+def test_status_filtering(driver):
+    """Verify that the 'Available' and 'Sold Out' tabs correctly filter the grid."""
+    driver.get(URL)
+    wait = WebDriverWait(driver, 10)
+
+    # 1. Click 'Available' tab
+    available_tab = wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, ".filter-tab[data-status='available']")))
+    driver.execute_script("arguments[0].click();", available_tab)
+    time.sleep(1)
+
+    sold_badges = driver.find_elements(By.CLASS_NAME, "sold-out-badge")
+    visible_badges = [b for b in sold_badges if b.is_displayed()]
+    assert len(visible_badges) == 0, "Found 'Sold Out' items in the 'Available' view"
+
+    # 2. Click 'Sold Out' tab
+    sold_tab = driver.find_element(By.CSS_SELECTOR, ".filter-tab[data-status='sold']")
+    driver.execute_script("arguments[0].click();", sold_tab)
+    time.sleep(1)
+
+    cards = driver.find_elements(By.CLASS_NAME, "stamp-card")
+    visible_cards = [c for c in cards if c.is_displayed()]
+    
+    for card in visible_cards:
+        # --- FIX STARTS HERE ---
+        # Skip the card if it contains the text "FEATURED ANNOUNCEMENT"
+        if "FEATURED ANNOUNCEMENT" in card.text:
+            continue
+        # -----------------------
+        
+        badge = card.find_elements(By.CLASS_NAME, "sold-out-badge")
+        assert len(badge) > 0, f"Found an available item in the 'Sold Out' view: {card.text}"
+
+    # 3. Reset to 'All Items'
+    all_tab = driver.find_element(By.CSS_SELECTOR, ".filter-tab[data-status='all']")
+    driver.execute_script("arguments[0].click();", all_tab)
+    time.sleep(1)
+    
+    new_cards = driver.find_elements(By.CLASS_NAME, "stamp-card")
+    assert len(new_cards) > len(visible_cards), "Grid did not reset to show all items"
