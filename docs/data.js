@@ -66,7 +66,7 @@ const stamps = [
         country: "Suriname, Spain, Pakistan, Portugal", 
         year: "<b>Year</b>: Various", 
         priceINR: 899,
-        isSoldOut: false,
+        isSoldOut: true,
         folder: "D45",
         imageCount: 6,
         desc: "RN4111: Collection of old and modern used/MNH stamps from Different countries,\
