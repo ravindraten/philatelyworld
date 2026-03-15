@@ -142,7 +142,7 @@ const stamps = [
         country: "Netherlands", 
         year: "<b>Year</b>: 1960+", 
         priceINR: 10500,
-        isSoldOut: false,
+        isSoldOut: true,
         folder: "D39",
         imageCount: 14,
         desc: "RN4104: Shoebox with a lot MNH stamps Netherlands, parts of sheets, etc.\
