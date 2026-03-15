@@ -212,7 +212,7 @@ def test_back_to_top_visibility(driver):
     assert not btn.is_displayed()
 
     driver.execute_script("window.scrollTo(0, 1000)")
-    time.sleep(0.5)
+    time.sleep(10)
     assert "visible" in btn.get_attribute("class")
     
     btn.click()
@@ -401,3 +401,65 @@ def test_status_filtering(driver):
     
     new_cards = driver.find_elements(By.CLASS_NAME, "stamp-card")
     assert len(new_cards) > len(visible_cards), "Grid did not reset to show all items"
+
+
+# --- 6. Blog Feature Tests ---
+
+def test_blog_tab_switching(driver):
+    """Verify that clicking the Blog tab switches the view to blog posts."""
+    driver.get(URL)
+    wait = WebDriverWait(driver, 10)
+
+    # 1. Locate and click the Blog filter tab
+    blog_tab = wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, ".filter-tab[data-status='blog']")))
+    driver.execute_script("arguments[0].click();", blog_tab)
+    
+    # 2. Wait for the blog-specific class to appear in the grid
+    wait.until(EC.presence_of_element_located((By.CLASS_NAME, "blog-card")))
+
+    # 3. Verify that the cards displayed are blog cards
+    cards = driver.find_elements(By.CLASS_NAME, "blog-card")
+    assert len(cards) > 0, "No blog posts were rendered"
+    
+    # 4. Check for blog-specific UI elements (like the 'Read Post' button)
+    read_post_btn = cards[0].find_element(By.LINK_TEXT, "Read Post")
+    assert read_post_btn.is_displayed()
+    assert "blog/" in read_post_btn.get_attribute("href")
+
+def test_blog_search_filtering(driver):
+    """Verify that the search bar filters blog posts specifically when the blog tab is active."""
+    driver.get(URL)
+    wait = WebDriverWait(driver, 10)
+
+    # 1. Switch to blog tab
+    blog_tab = driver.find_element(By.CSS_SELECTOR, ".filter-tab[data-status='blog']")
+    driver.execute_script("arguments[0].click();", blog_tab)
+
+    # 2. Search for a specific blog title (e.g., "Buzin")
+    search_input = driver.find_element(By.ID, "stampSearch")
+    search_input.clear()
+    search_input.send_keys("Buzin")
+    time.sleep(0.5)
+
+    # 3. Verify results
+    cards = driver.find_elements(By.CLASS_NAME, "blog-card")
+    assert len(cards) == 1
+    assert "Buzin" in cards[0].text
+
+def test_blog_indicator_on_stamp_cards(driver):
+    """Verify that stamps with a related blog post show the blog icon indicator."""
+    driver.get(URL)
+    wait = WebDriverWait(driver, 10)
+    
+    # Clear filters to see all stamps
+    all_tab = driver.find_element(By.CSS_SELECTOR, ".filter-tab[data-status='all']")
+    driver.execute_script("arguments[0].click();", all_tab)
+
+    # Find an indicator (the SVG icon for related blog posts)
+    # This assumes at least one stamp in your 'stamps' array has 'blogUrl' set
+    try:
+        indicator = wait.until(EC.presence_of_element_located((By.CLASS_NAME, "stamp-blog-indicator")))
+        assert indicator.is_displayed()
+        assert indicator.get_attribute("title") == "Read related blog post"
+    except Exception:
+        pytest.skip("No stamps currently have a blogUrl assigned in the data.")

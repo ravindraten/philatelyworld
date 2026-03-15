@@ -823,3 +823,29 @@ header {
     color: var(--primary);
     box-shadow: 0 2px 6px rgba(0,0,0,0.1);
 }
+
+/* Blog Specific Styles */
+.blog-card {
+    border-left: 4px solid var(--secondary-color) !important;
+}
+
+.blog-card .photo-badge {
+    background: var(--secondary-color) !important;
+}
+
+/* Ensure the blog tab button stands out when active */
+.filter-tab[data-status="blog"].active {
+    background: var(--secondary-color);
+    color: rgb(0, 0, 0);
+    border-color: var(--secondary-color);
+}
+
+.blog-card:hover .blog-type-icon {
+    transform: scale(1.1);
+    transition: transform 0.2s ease;
+    background: #4f46e5 !important;
+}
+
+.blog-card:hover .blog-type-icon svg {
+    stroke: white;
+}
