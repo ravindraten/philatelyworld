@@ -12,8 +12,8 @@ const stamps = [
                 Plus engros many duplicates blocks Spain and parts of sheets Uruguay.\
                 The pictures of wholesale lots only show a small part. There is a lot more.\
                 Total weight: 10 kg.\
-                <b>Price: Rs.100/- per stock card</b>\
-                Free Registered Shipping worldwide from Netherlands. Can ship this immediately this week"
+                <b>Price: Rs.100/- per stock card.</b>\
+                <b>Free Registered Shipping worldwide from Netherlands</b>. Can ship this immediately this week"
     },
     { 
         name: "International year of Child 1979 FDC's", 
