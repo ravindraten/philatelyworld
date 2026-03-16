@@ -1,6 +1,21 @@
 // 1. STAMP DATABASE
 const stamps = [
     { 
+        name: "Box with about 450 stockcards with good stamp variation. A lot Europe and Congo", 
+        country: "International", 
+        year: "<b>Year</b>:Various", 
+        priceINR: 45000,
+        isSoldOut: false,
+        folder: "D51",
+        imageCount: 26,
+        desc: "RN4120: Box with about 450 stockcards with good stamp variation. A lot Europe and Congo, all ready to sell, only few duplicates.\
+                Plus engros many duplicates blocks Spain and parts of sheets Uruguay.\
+                The pictures of wholesale lots only show a small part. There is a lot more.\
+                Total weight: 10 kg.\
+                <b>Price: Rs.100/- per stock card</b>\
+                Free Registered Shipping worldwide from Netherlands. Can ship this immediately this week"
+    },
+    { 
         name: "International year of Child 1979 FDC's", 
         country: "International", 
         year: "<b>Year</b>: 1979+", 
