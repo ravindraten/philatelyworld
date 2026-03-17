@@ -20,14 +20,27 @@ let state = {
     statusFilter: 'available' // Keep track of the active tab
 };
 
-// --- REPLACE YOUR DOMContentLoaded BLOCK ---
 document.addEventListener('DOMContentLoaded', () => {
     // First, get the live exchange rate
     updateLiveExchangeRate();
     const urlParams = new URLSearchParams(window.location.search);
     const itemID = urlParams.get('item');
 
-        if (itemID === 'promo') {
+    // 1. Initialize Event Listeners & UI First
+    initEventListeners();
+    updateStatusLine();
+    updateFilterCounts();
+
+    // Ensure the "Available" tab looks active in the UI
+    const availableTab = document.querySelector('.filter-tab[data-status="available"]');
+    const allTab = document.querySelector('.filter-tab[data-status="all"]');
+    if (availableTab && allTab) {
+        allTab.classList.remove('active');
+        availableTab.classList.add('active');
+    }
+
+    // 2. Handle Routing (Deep Links vs Default Load)
+    if (itemID === 'promo') {
         updateMetaTags(null, 'promo'); 
         renderGallery([]); 
         
@@ -42,15 +55,17 @@ document.addEventListener('DOMContentLoaded', () => {
                 </div>`
             );
         }
-        } else if (itemID) {
+    } else if (itemID) {
         const selectedStamp = stamps.find(s => s.desc.includes(itemID));
         
         if (selectedStamp) {
             updateMetaTags(selectedStamp, itemID);
             const filtered = [selectedStamp];
+            
+            // Render ONLY this specific stamp
             renderGallery(filtered);
             
-            // FIX: Insert the button at the TOP of the results grid
+            // Insert the button at the TOP of the results grid
             const grid = document.getElementById('stampGrid');
             if (grid) {
                 grid.insertAdjacentHTML('beforebegin', 
@@ -62,25 +77,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 );
             }
         } else {
+            // If ID not found, load everything
             initGallery();
         }
     } else {
+        // If no special link parameters, load everything
         initGallery();
     }
-    
-    initEventListeners();
-    updateStatusLine();
-    updateFilterCounts();
-    // ADD THIS: Ensure the "Available" tab looks active in the UI
-    const availableTab = document.querySelector('.filter-tab[data-status="available"]');
-    const allTab = document.querySelector('.filter-tab[data-status="all"]');
-    if (availableTab && allTab) {
-        allTab.classList.remove('active');
-        availableTab.classList.add('active');
-    }
-    
-    // Trigger the filter to show only available items on load
-    filterStamps(document.getElementById('stampSearch').value);
 });
 /**
  * Fetches Live EUR to INR rate and calculates the WU conversion
