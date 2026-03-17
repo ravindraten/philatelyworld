@@ -42,5 +42,16 @@ const blogPosts = [
         // Update this to your local file path:
         url: "blog/redcross.html", 
         isBlog: true 
+    },
+    {
+        name: "Divine Power on the Blockchain: Exploring the 'Heroes of Mytholog' Set",
+        year: "2025",
+        country: "Netherlands, Austria, Luxembourg, Belgium, Portugal",
+        desc: "A visual walkthrough of the collection featuring the 2025 'Heroes of Mythology' Crypto Stamps. Discover the six gods of Olympus from across Europe..",
+        folder: "crypto",
+        imageCount: 1,
+        // Update this to your local file path:
+        url: "blog/crypto.html", 
+        isBlog: true 
     }
 ];
