@@ -349,7 +349,7 @@ function renderGallery(data) {
                             <a href="https://whatsapp.com/channel/0029VaafwRWAojYq5jzkJJ2u" target="_blank" class="promo-btn">WhatsApp Channel</a>
                         </div>
                         <div class="promo-actions">
-                            <a href="https://www.instagram.com/philately_world" target="_blank" class="promo-btn">Instagram</a>
+                            <a href="https://www.instagram.com/philatelyworld10" target="_blank" class="promo-btn">Instagram</a>
                         </div>
                         <div class="promo-actions">
                             <a href="https://x.com/philately_wrld?s=21&t=QZ8DtcmMWFm0zBxcSOur3w" target="_blank" class="promo-btn">X account</a>
