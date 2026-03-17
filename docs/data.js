@@ -1,6 +1,20 @@
 // 1. STAMP DATABASE
 const stamps = [
     { 
+        name: "Box with lot estimated over 750 FDC's", 
+        country: "International", 
+        year: "<b>Year</b>:Various", 
+        priceINR: 30000,
+        isSoldOut: false,
+        folder: "D52",
+        imageCount: 11,
+        desc: "RN4121: Check this lot estimated over 750 FDC's, \
+                covers and postal items world including old. Nice treasure hunting for the coverlover.\
+                Check the photos to see a small part, but there is a lot more than you can see here.\
+                <b>Price: Rs.40/- per cover</b>\
+                <b>Free Registered Shipping worldwide from Netherlands</b>. Can ship this immediately this week"
+    },
+    { 
         name: "Box with about 450 stockcards with good stamp variation. A lot Europe and Congo", 
         country: "International", 
         year: "<b>Year</b>:Various", 
