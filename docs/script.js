@@ -17,7 +17,7 @@ let state = {
     currency: 'INR',
     currentStampIdx: 0,
     currentImgIdx: 1,
-    statusFilter: 'all' // Keep track of the active tab
+    statusFilter: 'available' // Keep track of the active tab
 };
 
 // --- REPLACE YOUR DOMContentLoaded BLOCK ---
@@ -71,6 +71,16 @@ document.addEventListener('DOMContentLoaded', () => {
     initEventListeners();
     updateStatusLine();
     updateFilterCounts();
+    // ADD THIS: Ensure the "Available" tab looks active in the UI
+    const availableTab = document.querySelector('.filter-tab[data-status="available"]');
+    const allTab = document.querySelector('.filter-tab[data-status="all"]');
+    if (availableTab && allTab) {
+        allTab.classList.remove('active');
+        availableTab.classList.add('active');
+    }
+    
+    // Trigger the filter to show only available items on load
+    filterStamps(document.getElementById('stampSearch').value);
 });
 /**
  * Fetches Live EUR to INR rate and calculates the WU conversion
@@ -101,7 +111,8 @@ async function updateLiveExchangeRate() {
 }
 
 function initGallery() {
-    renderGallery(stamps);
+    // Instead of renderGallery(stamps), use the filter logic
+    filterStamps("");
 }
 
 function initEventListeners() {
@@ -419,14 +430,14 @@ function renderGallery(data) {
                         alt="${stamp.name}" 
                         onclick="openLightbox(${stamps.indexOf(stamp)})">
                         ${stamp.blogUrl ? `
-                        <div class="stamp-blog-indicator" title="Read related blog post" style="position: absolute; top: 10px; left: 10px; background: #cbc9f5; padding: 6px; border-radius: 50%; display: flex; box-shadow: 0 2px 8px rgba(0,0,0,0.3); border: 2px solid white;">
+                        <a href="${stamp.blogUrl}" class="stamp-blog-indicator" title="Read related blog post" style="position: absolute; top: 10px; left: 10px; background: #f6bbbb; padding: 6px; border-radius: 50%; display: flex; box-shadow: 0 2px 8px rgba(0,0,0,0.3); border: 2px solid white; onclick="event.stopPropagation();">
                             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                                 <path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"></path>
                                 <path d="M18 14h-8"></path>
                                 <path d="M15 18h-5"></path>
                                 <path d="M10 6h8v4h-8V6Z"></path>
                             </svg>
-                        </div>
+                        </a>
                     ` : ''}
                     <div class="photo-badge">${stamp.imageCount} Photos</div>
                 </div>

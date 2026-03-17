@@ -160,7 +160,7 @@ const stamps = [
         desc: "RN4103: MNH stamps from Belgium on theme birds.\
                 Check the photos. What you see is what you get.\
                 + Free letter post shipping from Netherlands in FDC.",
-        blogUrl: "index.html?tab=blog" // Adding this triggers the icon
+        blogUrl: "blog/buzin.html" // Adding this triggers the icon
     },
     { 
         name: "Classic German Reich and DDR used/MH stamp collection.", 
@@ -326,7 +326,7 @@ const stamps = [
         imageCount: 487,
         desc: "RN4089: Extensive mint and cancelled thematic stamp collection Red Cross 1917-1980, including covers and first-day covers, imperforate stamps, varieties, etc., in 8 albums. \
               High catalogue value! + shipping inside India in April 2026. <b> All 8 Albums for FREE</b>",
-        blogUrl: "index.html?tab=blog"
+        blogUrl: "blog/redcross.html"
     },
     { 
         name: "Europa CEPT 1956-2000", 
@@ -336,7 +336,7 @@ const stamps = [
         isSoldOut: false,
         folder: "D23",
         imageCount: 363,
-        blogUrl: "index.html?tab=blog",
+        blogUrl: "blog/europa_cept.html",
         desc: "RN4088: 99% complete, mint (year 1956 stamped) stamp collection Europa CEPT 1956-2000 in 3 Leuchtturm albums.. \
               High catalogue value! + shipping inside India in April 2026. <b> All 3 Albums for FREE</b>"
     },
@@ -360,7 +360,7 @@ const stamps = [
         isSoldOut: false,
         folder: "D21",
         imageCount: 105,
-        blogUrl: "index.html?tab=blog",
+        blogUrl: "blog/bharat.html",
         desc: "RN4086: Very well filled, mainly used stamp collection India 1854-1993, \
                 including good stamps such as (Stanley Gibbons no's): 66, 119-147, 151-191, 247-264, 305-308 Gandhi), \
                 service 72, 102, etc. in 2 blank albums with slipcases.\
@@ -617,6 +617,7 @@ const stamps = [
         isSoldOut: false,
         folder: "crypto",
         imageCount: 1,
+        blogUrl: "blog/crypto.html", // Adding this triggers the icon
         //images: ["https://picsum.photos/400/300?random=3"],
         desc: "RN4002: Bundle - Crypto Stamp Heroes of Mythology Portugal, Austria Post, Post Luxembourg, \
         bpost (Belgium) and PostNL (Netherlands).(Free shipping inside India in April 2026)"
