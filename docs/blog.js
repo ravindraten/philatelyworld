@@ -1,5 +1,27 @@
 const blogPosts = [
     {
+        name: "The Philatelic Detective: How to Identify a Stamp?",
+        year: "-",
+        country: "Identify stamps",
+        desc: "Learn professional techniques for detecting and identifying stamp watermarks using traditional methods and modern digital tools.",
+        folder: "identifyStamp",
+        imageCount: 1,
+        // Update this to your local file path:
+        url: "blog/identifystamp.html", 
+        isBlog: true 
+    },
+    {
+        name: "Hidden Security: A Guide to Stamp Watermark Detection",
+        year: "",
+        country: "Watermark",
+        desc: "Learn professional techniques for detecting and identifying stamp watermarks using traditional methods and modern digital tools.",
+        folder: "watermark",
+        imageCount: 1,
+        // Update this to your local file path:
+        url: "blog/bharat.html", 
+        isBlog: true 
+    },
+    {
         name: "India Philately 1854-1993: From Victoria to Gandhi",
         year: "1854-1993",
         country: "India",
