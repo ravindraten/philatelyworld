@@ -1,6 +1,19 @@
 // 1. STAMP DATABASE
 const stamps = [
     { 
+        name: "World various postal item collection in stockbook, mostly older incl. Netherlands", 
+        country: "World", 
+        year: "<b>Year</b>:1890+", 
+        priceINR: 9000,
+        isSoldOut: false,
+        folder: "D54",
+        imageCount: 16,
+        desc: "RN4123: Collection over 100 covers and postal items various.\
+                Check the photos. What you see is what you get.\
+                <b>Price: Rs.90/- per cover</b>\
+                + Shipping Inside India in April 2026."
+    },
+    { 
         name: "32 FDC's from Deutsche Bundespost Berlin", 
         country: "Germany", 
         year: "<b>Year</b>:Various", 
