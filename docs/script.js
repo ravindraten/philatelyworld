@@ -17,17 +17,30 @@ let state = {
     currency: 'INR',
     currentStampIdx: 0,
     currentImgIdx: 1,
-    statusFilter: 'all' // Keep track of the active tab
+    statusFilter: 'available' // Keep track of the active tab
 };
 
-// --- REPLACE YOUR DOMContentLoaded BLOCK ---
 document.addEventListener('DOMContentLoaded', () => {
     // First, get the live exchange rate
     updateLiveExchangeRate();
     const urlParams = new URLSearchParams(window.location.search);
     const itemID = urlParams.get('item');
 
-        if (itemID === 'promo') {
+    // 1. Initialize Event Listeners & UI First
+    initEventListeners();
+    updateStatusLine();
+    updateFilterCounts();
+
+    // Ensure the "Available" tab looks active in the UI
+    const availableTab = document.querySelector('.filter-tab[data-status="available"]');
+    const allTab = document.querySelector('.filter-tab[data-status="all"]');
+    if (availableTab && allTab) {
+        allTab.classList.remove('active');
+        availableTab.classList.add('active');
+    }
+
+    // 2. Handle Routing (Deep Links vs Default Load)
+    if (itemID === 'promo') {
         updateMetaTags(null, 'promo'); 
         renderGallery([]); 
         
@@ -42,15 +55,17 @@ document.addEventListener('DOMContentLoaded', () => {
                 </div>`
             );
         }
-        } else if (itemID) {
+    } else if (itemID) {
         const selectedStamp = stamps.find(s => s.desc.includes(itemID));
         
         if (selectedStamp) {
             updateMetaTags(selectedStamp, itemID);
             const filtered = [selectedStamp];
+            
+            // Render ONLY this specific stamp
             renderGallery(filtered);
             
-            // FIX: Insert the button at the TOP of the results grid
+            // Insert the button at the TOP of the results grid
             const grid = document.getElementById('stampGrid');
             if (grid) {
                 grid.insertAdjacentHTML('beforebegin', 
@@ -62,15 +77,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 );
             }
         } else {
+            // If ID not found, load everything
             initGallery();
         }
     } else {
+        // If no special link parameters, load everything
         initGallery();
     }
-    
-    initEventListeners();
-    updateStatusLine();
-    updateFilterCounts();
 });
 /**
  * Fetches Live EUR to INR rate and calculates the WU conversion
@@ -101,7 +114,8 @@ async function updateLiveExchangeRate() {
 }
 
 function initGallery() {
-    renderGallery(stamps);
+    // Instead of renderGallery(stamps), use the filter logic
+    filterStamps("");
 }
 
 function initEventListeners() {
@@ -377,9 +391,30 @@ function renderGallery(data) {
     }
 
     grid.innerHTML = data.map(stamp => {
+        // Fix: Use 'stamp' instead of 'item' to match the loop parameter
+        if (state.statusFilter === 'blog') {
+            return `
+                <div class="stamp-card blog-card">
+                    <div class="img-container">
+                        <img src="${CONFIG.baseImgPath}/${stamp.folder}/1.jpg" alt="${stamp.name}">
+                        <div class="photo-badge">Article</div>
+                    </div>
+                    <div class="details">
+                        <div class="promo-badge" style="background:#e0f2fe; margin-bottom:8px;">Philately Blog</div>
+                        <h3>${stamp.name}</h3>
+                        <div style="display: flex; gap: 8px; align-items: center;">
+                            <span class="stamp-year">${stamp.year}</span>
+                            <small style="color: var(--text-light)">${stamp.country}</small>
+                        </div>
+                        <div class="stamp-desc">${stamp.desc}</div>
+                        <div class="price-row" style="justify-content: flex-end;">
+                            <a href="${stamp.url || '#'}" class="buy-btn" style="background:#e0f2fe">Read Post</a>
+                        </div>
+                    </div>
+                </div>`;
+        }
         const itemID = stamp.desc.split(':')[0].trim();
         const shareUrl = `${window.location.origin}${window.location.pathname}?item=${encodeURIComponent(itemID)}`;
-        
         // --- CURRENCY LOGIC ---
         let displayPrice;
         if (state.currency === 'EUR') {
@@ -397,6 +432,16 @@ function renderGallery(data) {
                     <img src="${CONFIG.baseImgPath}/${stamp.folder}/1.jpg" 
                         alt="${stamp.name}" 
                         onclick="openLightbox(${stamps.indexOf(stamp)})">
+                        ${stamp.blogUrl ? `
+                        <a href="${stamp.blogUrl}" class="stamp-blog-indicator" title="Read related blog post" style="position: absolute; top: 10px; left: 10px; background: #f6bbbb; padding: 6px; border-radius: 50%; display: flex; box-shadow: 0 2px 8px rgba(0,0,0,0.3); border: 2px solid white; onclick="event.stopPropagation();">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"></path>
+                                <path d="M18 14h-8"></path>
+                                <path d="M15 18h-5"></path>
+                                <path d="M10 6h8v4h-8V6Z"></path>
+                            </svg>
+                        </a>
+                    ` : ''}
                     <div class="photo-badge">${stamp.imageCount} Photos</div>
                 </div>
                 <div class="details">
@@ -438,19 +483,24 @@ function renderGallery(data) {
 }
 function filterStamps(query) {
     const term = query.toLowerCase().trim();
+    
+    // Switch data source based on active tab
+    const activeData = (state.statusFilter === 'blog') ? blogPosts : stamps;
 
-    const filtered = stamps.filter(stamp => {
+    const filtered = activeData.filter(item => {
         // 1. Text Search Match
         const textMatch = !term || (
-            stamp.name.toLowerCase().includes(term) ||
-            stamp.country.toLowerCase().includes(term) ||
-            (stamp.desc && stamp.desc.toLowerCase().includes(term))
+            item.name.toLowerCase().includes(term) ||
+            item.country.toLowerCase().includes(term) ||
+            (item.desc && item.desc.toLowerCase().includes(term))
         );
 
-        // 2. Status Match
+        // 2. Status Match (only applicable to stamps)
+        if (state.statusFilter === 'blog') return textMatch;
+
         let statusMatch = true;
-        if (state.statusFilter === 'available') statusMatch = !stamp.isSoldOut;
-        if (state.statusFilter === 'sold') statusMatch = stamp.isSoldOut;
+        if (state.statusFilter === 'available') statusMatch = !item.isSoldOut;
+        if (state.statusFilter === 'sold') statusMatch = item.isSoldOut;
 
         return textMatch && statusMatch;
     });
@@ -521,14 +571,15 @@ function updateFilterCounts() {
     const total = stamps.length;
     const sold = stamps.filter(s => s.isSoldOut).length;
     const available = total - sold;
+    const blogTotal = blogPosts.length; // From data.js
 
-    // Update the buttons in the filter-tabs div
     const tabs = document.querySelectorAll('.filter-tab');
     tabs.forEach(tab => {
         const status = tab.getAttribute('data-status');
         if (status === 'all') tab.innerText = `All Items (${total})`;
         if (status === 'available') tab.innerText = `Available (${available})`;
         if (status === 'sold') tab.innerText = `Sold Out (${sold})`;
+        if (status === 'blog') tab.innerText = `Blog (${blogTotal})`; // Add this
     });
 }
 function copyUPI() {
