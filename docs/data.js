@@ -231,7 +231,7 @@ const stamps = [
         country: "Italy", 
         year: "<b>Year</b>: 1900+", 
         priceINR: 8499,
-        isSoldOut: false,
+        isSoldOut: true,
         folder: "D35",
         imageCount: 29,
         desc: "RN4100: Thick stockbook with stamp collection Italy.\
