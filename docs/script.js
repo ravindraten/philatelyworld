@@ -26,19 +26,30 @@ document.addEventListener('DOMContentLoaded', () => {
     const urlParams = new URLSearchParams(window.location.search);
     const itemID = urlParams.get('item');
 
+    // --- NEW PERSISTENCE LOGIC ---
+    // Check if we have a saved tab from this session, otherwise default to 'available'
+    const savedTab = sessionStorage.getItem('activeTab');
+    if (savedTab) {
+        state.statusFilter = savedTab;
+    } else {
+        state.statusFilter = 'available';
+    }
+
     // 1. Initialize Event Listeners & UI First
     initEventListeners();
     updateStatusLine();
     updateFilterCounts();
 
-    // Ensure the "Available" tab looks active in the UI
-    const availableTab = document.querySelector('.filter-tab[data-status="available"]');
-    const allTab = document.querySelector('.filter-tab[data-status="all"]');
-    if (availableTab && allTab) {
-        allTab.classList.remove('active');
-        availableTab.classList.add('active');
-    }
-
+    // Dynamically set the active tab UI based on the state
+    const tabs = document.querySelectorAll('.filter-tab');
+    tabs.forEach(tab => {
+        if (tab.getAttribute('data-status') === state.statusFilter) {
+            tab.classList.add('active');
+        } else {
+            tab.classList.remove('active');
+        }
+    });
+    // --- END NEW PERSISTENCE LOGIC ---
     // 2. Handle Routing (Deep Links vs Default Load)
     if (itemID === 'promo') {
         updateMetaTags(null, 'promo'); 
@@ -275,6 +286,10 @@ function initEventListeners() {
 
             // Logic Update
             state.statusFilter = tab.getAttribute('data-status');
+            
+            // SAVE current tab to session storage so back-button works
+            sessionStorage.setItem('activeTab', state.statusFilter);
+
             const searchVal = document.getElementById('stampSearch').value;
             filterStamps(searchVal);
         });
@@ -392,16 +407,22 @@ function renderGallery(data) {
 
     grid.innerHTML = data.map(stamp => {
         // Fix: Use 'stamp' instead of 'item' to match the loop parameter
+// --- REPLACE THIS SECTION INSIDE renderGallery in script.js ---
+
         if (state.statusFilter === 'blog') {
             return `
                 <div class="stamp-card blog-card">
-                    <div class="img-container">
-                        <img src="${CONFIG.baseImgPath}/${stamp.folder}/1.jpg" alt="${stamp.name}">
-                        <div class="photo-badge">Article</div>
-                    </div>
+                    <a href="${stamp.url || '#'}" class="blog-link-wrapper" style="text-decoration: none; color: inherit;">
+                        <div class="img-container" style="cursor: pointer;">
+                            <img src="${CONFIG.baseImgPath}/${stamp.folder}/1.jpg" alt="${stamp.name}">
+                            <div class="photo-badge">Article</div>
+                        </div>
+                    </a>
                     <div class="details">
                         <div class="promo-badge" style="background:#e0f2fe; margin-bottom:8px;">Philately Blog</div>
-                        <h3>${stamp.name}</h3>
+                        <a href="${stamp.url || '#'}" style="text-decoration: none; color: inherit;">
+                            <h3 style="cursor: pointer;">${stamp.name}</h3>
+                        </a>
                         <div style="display: flex; gap: 8px; align-items: center;">
                             <span class="stamp-year">${stamp.year}</span>
                             <small style="color: var(--text-light)">${stamp.country}</small>
