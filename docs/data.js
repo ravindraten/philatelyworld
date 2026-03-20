@@ -1,6 +1,18 @@
 // 1. STAMP DATABASE
 const stamps = [
     { 
+        name: "32 FDC's from Deutsche Bundespost Berlin", 
+        country: "Germany", 
+        year: "<b>Year</b>:Various", 
+        priceINR: 1920,
+        isSoldOut: false,
+        folder: "D53",
+        imageCount: 8,
+        desc: "RN4122: 32 different FDC's from Deutsche Bundespost Berlin. Various thematics\
+                <b>Price: Rs.60/- per cover</b>\
+                + Shipping Inside India in April 2026."
+    },
+    { 
         name: "Box with lot estimated over 750 FDC's", 
         country: "International", 
         year: "<b>Year</b>:Various", 
