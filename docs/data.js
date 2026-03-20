@@ -19,7 +19,7 @@ const stamps = [
         country: "International", 
         year: "<b>Year</b>:Various", 
         priceINR: 45000,
-        isSoldOut: false,
+        isSoldOut: true,
         folder: "D51",
         imageCount: 26,
         desc: "RN4120: Box with about 450 stockcards with good stamp variation. A lot Europe and Congo, all ready to sell, only few duplicates.\
