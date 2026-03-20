@@ -18,7 +18,7 @@ const blogPosts = [
         folder: "watermark",
         imageCount: 1,
         // Update this to your local file path:
-        url: "blog/bharat.html", 
+        url: "blog/identify_watermark.html", 
         isBlog: true 
     },
     {
