@@ -1,5 +1,16 @@
 const blogPosts = [
     {
+        name: "The Crown Jewels of Indian Philately: Most Valuable Postage Stamps",
+        year: "-",
+        country: "Valuable",
+        desc: "An extensive guide to the rarest and most expensive postage stamps of India, from the Scinde Dawk to the record-breaking Gandhi Service stamps.",
+        folder: "ScindeDawk",
+        imageCount: 1,
+        // Update this to your local file path:
+        url: "blog/valuableIndianStamps.html", 
+        isBlog: true 
+    },
+    {
         name: "The Philatelic Detective: How to Identify a Stamp?",
         year: "-",
         country: "Identify stamps",
