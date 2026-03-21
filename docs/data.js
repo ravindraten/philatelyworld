@@ -31,7 +31,7 @@ const stamps = [
         country: "Germany", 
         year: "<b>Year</b>:1960+", 
         priceINR: 8200,
-        isSoldOut: false,
+        isSoldOut: true,
         folder: "D55",
         imageCount: 2,
         desc: "RN4124: Collection over 205 FDC from DDR Germany.\
