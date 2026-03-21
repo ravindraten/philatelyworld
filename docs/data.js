@@ -1,6 +1,45 @@
 // 1. STAMP DATABASE
 const stamps = [
     { 
+        name: "Collection over 135 registered travelled covers from DDR Germany", 
+        country: "Germany", 
+        year: "<b>Year</b>:1960+", 
+        priceINR: 3375,
+        isSoldOut: false,
+        folder: "D57",
+        imageCount: 2,
+        desc: "RN4126: Collection over 135 registered travelled covers from DDR Germany.\
+                Check the photos. What you see is what you get.\
+                <b>Price: Rs.25/- per cover</b>\
+                + Shipping Inside India in April 2026."
+    },
+    { 
+        name: "Collection over 130 registered travelled covers from DDR Germany", 
+        country: "Germany", 
+        year: "<b>Year</b>:1960+", 
+        priceINR: 3250,
+        isSoldOut: false,
+        folder: "D56",
+        imageCount: 2,
+        desc: "RN4125: Collection over 130 registered travelled covers from DDR Germany.\
+                Check the photos. What you see is what you get.\
+                <b>Price: Rs.25/- per cover</b>\
+                + Shipping Inside India in April 2026."
+    },
+    { 
+        name: "Collection over 205 FDC from DDR Germany", 
+        country: "Germany", 
+        year: "<b>Year</b>:1960+", 
+        priceINR: 8200,
+        isSoldOut: false,
+        folder: "D55",
+        imageCount: 2,
+        desc: "RN4124: Collection over 205 FDC from DDR Germany.\
+                Check the photos. What you see is what you get.\
+                <b>Price: Rs.40/- per cover</b>\
+                + Shipping Inside India in April 2026."
+    },
+    { 
         name: "World various postal item collection in stockbook, mostly older incl. Netherlands", 
         country: "World", 
         year: "<b>Year</b>:1890+", 
