@@ -9,7 +9,6 @@ const stamps = [
         folder: "D58",
         imageCount: 1,
         desc: "RN4127: Souvenir sheet from Netherlands 1994.\
-                5 copies available.\
                 + Shipping Inside India in April 2026."
     },
     { 
