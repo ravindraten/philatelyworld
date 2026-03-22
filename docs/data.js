@@ -1,6 +1,18 @@
 // 1. STAMP DATABASE
 const stamps = [
     { 
+        name: "Souvenir sheet from Netherlands 1994", 
+        country: "Netherlands", 
+        year: "<b>Year</b>:1994", 
+        priceINR: 150,
+        isSoldOut: false,
+        folder: "D58",
+        imageCount: 1,
+        desc: "RN4127: Souvenir sheet from Netherlands 1994.\
+                5 copies available.\
+                + Shipping Inside India in April 2026."
+    },
+    { 
         name: "Collection over 135 registered travelled covers from DDR Germany", 
         country: "Germany", 
         year: "<b>Year</b>:1960+", 
