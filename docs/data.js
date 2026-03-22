@@ -832,7 +832,7 @@ const stamps = [
         country: "India", 
         year: "<b>Year</b>: 1989", 
         priceINR: 270, 
-        isSoldOut: false,
+        isSoldOut: true,
         folder: "005",
         imageCount: 1,
         //images: ["https://picsum.photos/400/300?random=3"],
