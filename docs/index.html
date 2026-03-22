@@ -58,6 +58,7 @@
                     </a>
                     <a href="https://wa.me/31633467712" class="contact-pill" target="_blank" data-tooltip="Chat with us on WhatsApp">Chat</a>
                 </div>
+                <div id="google_translate_element"></div>
             </div>    
         </div>
     
@@ -175,5 +176,15 @@
     <script src="data.js"></script>
     <script src="blog.js"></script>
     <script src="script.js"></script>
+    <script type="text/javascript">
+    function googleTranslateElementInit() {
+    new google.translate.TranslateElement({
+        pageLanguage: 'en', 
+        includedLanguages: 'en,nl', 
+        layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+    }, 'google_translate_element');
+    }
+    </script>
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </body>
 </html>
