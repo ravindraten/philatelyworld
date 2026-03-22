@@ -1,6 +1,18 @@
 // 1. STAMP DATABASE
 const stamps = [
     { 
+        name: "MS OF Indian Masks Series 15 APRIL 1974", 
+        country: "India", 
+        year: "<b>Year</b>: 1974", 
+        priceINR: 1300, 
+        isSoldOut: false,
+        folder: "D59",
+        imageCount: 1,
+        desc: "RN4128: MS OF Indian Masks Series 15 APRIL 1974.\
+                <b> 3 copies available.</b> \
+                + Shipping Inside India in April 2026."
+    },
+    { 
         name: "Souvenir sheet from Netherlands 1994", 
         country: "Netherlands", 
         year: "<b>Year</b>:1994", 
