@@ -7,6 +7,11 @@ const CONFIG = {
     eurRate: 0.00935,
     baseImgPath: "https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images",
 
+    // Feature Switches
+    showAnnouncement: true,
+    showPromo: false,
+    announcementFiles: ['3.html', '4.html'], // Place your HTML files in the 'announcement' folder
+
     // 2. CURRENCY CONFIGURATION
     eurRate: 0.011, // Fallback rate
     apiURL: "https://open.er-api.com/v6/latest/EUR",
@@ -52,13 +57,13 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- END NEW PERSISTENCE LOGIC ---
     // 2. Handle Routing (Deep Links vs Default Load)
     if (itemID === 'promo') {
-        updateMetaTags(null, 'promo'); 
-        renderGallery([]); 
-        
+        updateMetaTags(null, 'promo');
+        renderGallery([]);
+
         // Instead of grid, add the button to the sidebar/container so it's visible
         const container = document.querySelector('.container');
         if (container) {
-            container.insertAdjacentHTML('afterbegin', 
+            container.insertAdjacentHTML('afterbegin',
                 `<div style="text-align:center; margin: 20px 0;">
                     <button onclick="window.location.href='index.html'" class="toggle-btn active" style="padding: 12px 24px; font-weight: bold; cursor: pointer;">
                         ← View Stamp Collection
@@ -68,18 +73,18 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     } else if (itemID) {
         const selectedStamp = stamps.find(s => s.desc.includes(itemID));
-        
+
         if (selectedStamp) {
             updateMetaTags(selectedStamp, itemID);
             const filtered = [selectedStamp];
-            
+
             // Render ONLY this specific stamp
             renderGallery(filtered);
-            
+
             // Insert the button at the TOP of the results grid
             const grid = document.getElementById('stampGrid');
             if (grid) {
-                grid.insertAdjacentHTML('beforebegin', 
+                grid.insertAdjacentHTML('beforebegin',
                     `<div style="text-align:center; margin: 20px 0;">
                         <button onclick="window.location.href='index.html'" class="toggle-btn active" style="padding: 12px 24px; font-weight: bold;">
                             ← View Full Collection
@@ -103,14 +108,14 @@ async function updateLiveExchangeRate() {
     try {
         const response = await fetch(CONFIG.apiURL);
         const data = await response.json();
-        
+
         if (data.result === "success") {
             const marketRateINR = data.rates.INR;
             // Western Union adjustment: Buyers pay more Rupees per Euro
             const adjustedRateINR = marketRateINR * CONFIG.wuAdjustment;
-            
+
             // Set global rate: 1 INR = X EUR
-            CONFIG.eurRate = 1 / adjustedRateINR; 
+            CONFIG.eurRate = 1 / adjustedRateINR;
 
             // Update Header Status
             const statusEl = document.getElementById('lastUpdatedFXRate');
@@ -131,9 +136,20 @@ function initGallery() {
 
 function initEventListeners() {
     const searchInput = document.getElementById('stampSearch');
-    
-    // Filter on input
-    searchInput.addEventListener('input', (e) => filterStamps(e.target.value));
+
+    // Filter on input (conditionally routing to the correct grid renderer)
+    searchInput.addEventListener('input', (e) => {
+        const term = e.target.value;
+        const urlParams = new URLSearchParams(window.location.search);
+        if (term) urlParams.set('q', term); else urlParams.delete('q');
+        window.history.replaceState({}, '', `${window.location.pathname}?${urlParams.toString()}`);
+
+        if (document.getElementById('announcementsGrid')) {
+            renderAllAnnouncementsPage(term);
+        } else {
+            filterStamps(term);
+        }
+    });
 
     // Reset view when the search bar is selected (tapped/clicked)
     searchInput.addEventListener('focus', () => {
@@ -148,13 +164,13 @@ function initEventListeners() {
         if (e.key === 'Enter') {
             e.preventDefault();
             scrollToGrid();
-            searchInput.blur(); 
+            searchInput.blur();
         }
     });
 
     const backToTopBtn = document.getElementById('backToTop');
     // Replace your scroll listener block with this:
-// Find your scroll listener in script.js and update it
+    // Find your scroll listener in script.js and update it
     window.addEventListener('scroll', () => {
         const header = document.querySelector('header');
         const backToTopBtn = document.getElementById('backToTop');
@@ -172,7 +188,7 @@ function initEventListeners() {
         } else {
             backToTopBtn.classList.remove('visible');
         }
-        
+
         // NOTE: Removed the logic that previously added .scrolled-hidden to the promo card
     }, { passive: true });
 
@@ -185,14 +201,14 @@ function initEventListeners() {
     const modal = document.getElementById("myModal");
     document.getElementById('prevBtn').onclick = () => changeSlide(-1);
     document.getElementById('nextBtn').onclick = () => changeSlide(1);
-    
+
     window.onclick = (event) => {
         const modal = document.getElementById("myModal");
         if (event.target === modal) closeModal();
     };
     // 1. Close on Touch (Instant for mobile)
     closeBtn.addEventListener('touchstart', closeModal, { passive: false });
-    
+
     // 2. Close on Click (Fallback for desktop)
     closeBtn.addEventListener('click', closeModal);
 
@@ -276,7 +292,7 @@ function initEventListeners() {
         };
     }
 
-   // Filter Tab Logic
+    // Filter Tab Logic
     const filterTabs = document.querySelectorAll('.filter-tab');
     filterTabs.forEach(tab => {
         tab.addEventListener('click', () => {
@@ -286,7 +302,7 @@ function initEventListeners() {
 
             // Logic Update
             state.statusFilter = tab.getAttribute('data-status');
-            
+
             // SAVE current tab to session storage so back-button works
             sessionStorage.setItem('activeTab', state.statusFilter);
 
@@ -303,7 +319,7 @@ function scrollToGrid() {
     // Calculate offset based on sticky search bar height
     const offset = header ? header.offsetHeight + 10 : 100;
     const elementPosition = grid.getBoundingClientRect().top + window.pageYOffset;
-    
+
     window.scrollTo({
         top: elementPosition - offset,
         behavior: 'smooth'
@@ -312,7 +328,7 @@ function scrollToGrid() {
 
 function setCurrency(type) {
     state.currency = type;
-    
+
     // 1. Update all toggle buttons (Desktop and Mobile)
     document.querySelectorAll('.toggle-btn').forEach(btn => {
         btn.classList.toggle('active', btn.id.includes(type));
@@ -342,7 +358,7 @@ function renderGallery(data) {
     const sidebar = document.getElementById('sidebarPromo');
     const mainContent = document.querySelector('.main-content');
     const searchInput = document.getElementById('stampSearch');
-    
+
     if (!grid) return;
 
     const isSearching = searchInput && searchInput.value.trim() !== "";
@@ -352,7 +368,7 @@ function renderGallery(data) {
     // 1. Handle Sidebar (Hero Card)
     if (sidebar) {
         const isPromoShared = urlParams.get('item') === 'promo';
-        if (!isSearching && (urlParams.get('item') === null || isPromoShared)){
+        if (!isSearching && (urlParams.get('item') === null || isPromoShared)) {
             // Toggle the centering class
             if (isPromoShared) {
                 sidebar.classList.add('centered-view');
@@ -363,33 +379,46 @@ function renderGallery(data) {
             }
             // Create the unique share URL for the promo
             const promoShareUrl = `${window.location.origin}${window.location.pathname}?item=promo`;
-            sidebar.innerHTML = `
-                <article class="stamp-card promo-card">
-                    <div class="promo-content">
-                        <div style="position: absolute; top: 10px; right: 10px;">
-                                <button class="share-icon-btn-promo" onclick="copyShareLink('${promoShareUrl}', this)" title="Share Announcement" style="background: rgba(255, 255, 255, 0.2); border-radius: 50%;">
-                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path><polyline points="16 6 12 2 8 6"></polyline><line x1="12" y1="2" x2="12" y2="15"></line></svg>
-                                </button>
-                            </div>
-                        <div class="promo-badge">Featured Announcement</div>
-                        <h2>Exclusives</h2>
-                        <p>Receive 150 stamps in your mail box for FREE! When you follow our</p>
-                        <div class="promo-actions">
-                            <a href="https://whatsapp.com/channel/0029VaafwRWAojYq5jzkJJ2u" target="_blank" class="promo-btn">WhatsApp Channel</a>
-                        </div>
-                        <div class="promo-actions">
-                            <a href="https://www.instagram.com/philatelyworld10" target="_blank" class="promo-btn">Instagram</a>
-                        </div>
-                        <div class="promo-actions">
-                            <a href="https://x.com/philately_wrld?s=21&t=QZ8DtcmMWFm0zBxcSOur3w" target="_blank" class="promo-btn">X account</a>
-                        </div>
-                        <div class="promo-actions">
-                            <a href="https://www.facebook.com/share/1DosA1sNnK/?mibextid=wwXIfr" target="_blank" class="promo-btn">Facebook Page</a>
-                        </div>
-                        <p>AWESOME!!</p>
-                        <p><a href="https://wa.me/31633467712" target="_blank" class="buy-btn">Share mailing address</a></p>
+
+            let sidebarContent = '';
+
+            if (CONFIG.showAnnouncement && CONFIG.announcementFiles && CONFIG.announcementFiles.length > 0) {
+                // Generates the shell for the carousel; content will be fetched asynchronously
+                sidebarContent += `
+                <div class="announcement-carousel-container stamp-card" style="position: relative; margin-bottom: 12px; width: 100%;">
+                    <div class="announcement-carousel-track" id="announcementCarouselTrack" style="display: flex; height: 100%; transition: transform 0.5s ease-in-out;">
                     </div>
-                </article>`;
+                    
+                    ${CONFIG.announcementFiles.length > 1 ? `
+                    <div class="carousel-indicators" id="carouselIndicators" style="position: absolute; bottom: 15px; width: 100%; display: flex; justify-content: center; gap: 8px; z-index: 10;">
+                    </div>
+                    ` : ''}
+                </div>
+                <a href="all_announcements.html" class="buy-btn" style="display: block; width: 100%; text-align: center; margin-bottom: 20px; text-decoration: none; padding: 12px; border-radius: 8px;">View All Announcements</a>`;
+
+                // Trigger the carousel initialization
+                setTimeout(initAnnouncementCarousel, 0);
+            }
+
+            if (CONFIG.showPromo) {
+                // Feature card in the sidebar utilizing the universal stamp-card format
+                sidebarContent += `
+                <div class="stamp-card" style="margin-bottom: 20px;">
+                    <div class="img-container">
+                        <img src="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/largest-stamp.jpg" alt="The Royal Collection">
+                        <span class="photo-badge" style="background: var(--primary);">Promotion</span>
+                    </div>
+                    <div class="details">
+                        <h3>Get 150 stamps for FREE!</h3>
+                        <p class="stamp-desc">Follow our social channels to claim yours.</p>
+                        <div class="action-buttons" style="margin-top: auto; justify-content: flex-end;">
+                            <a href="${CONFIG.whatsappNumber}?text=Hi!%20I'm%20interested%20in%20The%20Royal%20Collection%20you%20featured." target="_blank" class="buy-btn" style="text-align: center;"><i class="fab fa-whatsapp"></i> Inquire</a>
+                        </div>
+                    </div>
+                </div>`;
+            }
+
+            sidebar.innerHTML = sidebarContent;
             sidebar.style.display = "block";
         } else {
             sidebar.classList.remove('centered-view');
@@ -407,7 +436,7 @@ function renderGallery(data) {
 
     grid.innerHTML = data.map(stamp => {
         // Fix: Use 'stamp' instead of 'item' to match the loop parameter
-// --- REPLACE THIS SECTION INSIDE renderGallery in script.js ---
+        // --- REPLACE THIS SECTION INSIDE renderGallery in script.js ---
 
         if (state.statusFilter === 'blog') {
             return `
@@ -481,21 +510,21 @@ function renderGallery(data) {
                                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path><polyline points="16 6 12 2 8 6"></polyline><line x1="12" y1="2" x2="12" y2="15"></line></svg>
                             </button>
                             
-                            ${stamp.isSoldOut 
-                                ? `<button class="buy-btn disabled" disabled>Sold Out</button>`
-                                : (() => {
-                                    // 1. Extract the Item ID (e.g., RN4112) from the description
-                                    const itemID = stamp.desc.split(':')[0];
-                                    // 2. Construct the direct link to this listing
-                                    const listingUrl = `https://philatelyworld.in/index.html?item=${itemID}`;
-                                    // 3. Create the encoded WhatsApp message
-                                    const message = encodeURIComponent(
-                                        `Hi, I am interested in buying :\n${stamp.name}\nLink: ${listingUrl}`
-                                    );
-                                return `<a href="https://wa.me/${CONFIG.whatsappNumber}?text=${message}" 
+                            ${stamp.isSoldOut
+                ? `<button class="buy-btn disabled" disabled>Sold Out</button>`
+                : (() => {
+                    // 1. Extract the Item ID (e.g., RN4112) from the description
+                    const itemID = stamp.desc.split(':')[0];
+                    // 2. Construct the direct link to this listing
+                    const listingUrl = `https://philatelyworld.in/index.html?item=${itemID}`;
+                    // 3. Create the encoded WhatsApp message
+                    const message = encodeURIComponent(
+                        `Hi, I am interested in buying :\n${stamp.name}\nLink: ${listingUrl}`
+                    );
+                    return `<a href="https://wa.me/${CONFIG.whatsappNumber}?text=${message}" 
                                         target="_blank" class="buy-btn">Buy Now</a>`;
-                                    })()
-                                }
+                })()
+            }
                         </div>
                     </div>
                 </div>
@@ -504,7 +533,7 @@ function renderGallery(data) {
 }
 function filterStamps(query) {
     const term = query.toLowerCase().trim();
-    
+
     // Switch data source based on active tab
     const activeData = (state.statusFilter === 'blog') ? blogPosts : stamps;
 
@@ -542,20 +571,20 @@ function updateLightbox() {
     const modalImg = document.getElementById("img01");
     const rnMatch = stamp.desc.match(/RN\d+/);
     const rnCode = rnMatch ? rnMatch[0] : "ref";
-    
+
     // Create a descriptive filename for the browser/SEO
     const slug = `${stamp.name}-${stamp.country}-${rnCode}`
         .toLowerCase()
         .replace(/[^a-z0-9]/g, '-'); // Turn "India Stamp!" into "india-stamp"
 
     modalImg.src = `${CONFIG.baseImgPath}/${stamp.folder}/${state.currentImgIdx}.jpg`;
-    
+
     // SEO Trick: The 'alt' and 'title' are key for dynamic ranking
     modalImg.alt = `${stamp.name} - Photo ${state.currentImgIdx}`;
     modalImg.title = `Philately World: ${stamp.name} (${rnCode})`;
 
     document.getElementById("caption").textContent = `${stamp.name} (${state.currentImgIdx}/${stamp.imageCount})`;
-    
+
     const display = stamp.imageCount <= 1 ? "none" : "block";
     document.getElementById("prevBtn").style.display = display;
     document.getElementById("nextBtn").style.display = display;
@@ -575,7 +604,7 @@ function closeModal(e) {
         e.preventDefault();
         e.stopPropagation();
     }
-    
+
     const modal = document.getElementById("myModal");
     modal.style.display = "none";
     document.body.style.overflow = "auto";
@@ -641,14 +670,14 @@ function updateMetaTags(stamp, id) {
     // const title = `Philately World: ${stamp.name}`;
     // const cleanYear = stamp.year.replace(/<\/?[^>]+(>|$)/g, "");
     // const desc = `${stamp.country} | ${cleanYear} | Price: ₹${stamp.priceINR}`;
-    
+
     // // 2. Point to the FIRST image in the folder (1.jpg)
     // // Using your CONFIG.baseImgPath for consistency
     // const imgUrl = `${CONFIG.baseImgPath}/${stamp.folder}/1.jpg`;
-    
+
     // 3. Update the Browser Tab Title
     document.title = title;
-    
+
     // 4. Update Open Graph tags for social media previews
     // These IDs must match the meta tags in your index.html
     const tags = {
@@ -662,4 +691,241 @@ function updateMetaTags(stamp, id) {
         const el = document.getElementById(id);
         if (el) el.setAttribute('content', value);
     }
+}
+
+// --- NEW CAROUSEL LOGIC ---
+async function initAnnouncementCarousel() {
+    const track = document.getElementById('announcementCarouselTrack');
+    const indicators = document.getElementById('carouselIndicators');
+    if (!track) return;
+
+    // Safety check so we don't fetch/initialize multiple times
+    if (track.children.length > 0) return;
+
+    // Fetch all announcement HTML files
+    const slidesHTML = await Promise.all(CONFIG.announcementFiles.map(async (file) => {
+        try {
+            const resp = await fetch(`announcement/${file}`);
+            if (!resp.ok) return '';
+            const html = await resp.text();
+
+            // Create a DOM Parser to extract content from the full HTML files safely
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(html, 'text/html');
+
+            // Extract core components for the summary slide
+            const titleEl = doc.querySelector('h1');
+            const categoryEl = doc.querySelector('.blog-container > p');
+            const descEl = Array.from(doc.querySelectorAll('p')).find(p => p.textContent.length > 30 && p !== categoryEl && !p.classList.contains('img-caption'));
+            const imgEl = doc.querySelector('.img-wrap img');
+
+            const title = titleEl ? titleEl.textContent.trim() : 'Announcement';
+            const category = categoryEl ? categoryEl.textContent.trim() : 'News';
+            let desc = descEl ? descEl.textContent.trim() : 'Click to read more about this update...';
+            if (desc.length > 90) desc = desc.substring(0, 90) + '...';
+
+            const imgSrc = imgEl ? imgEl.getAttribute('src') : 'https://placehold.co/400x300/e2e8f0/475569?text=Announcement';
+
+            // Construct the slide using standard stamp-card DOM structure
+            const slideInner = `
+                <div class="stamp-card" style="margin: 0; border: none; box-shadow: none; height: 100%; border-radius: 0;">
+                    <div class="img-container">
+                        <img src="${imgSrc}" alt="${title}">
+                        <span class="photo-badge" style="background: var(--primary);">${category}</span>
+                    </div>
+                    <div class="details">
+                        <h3>${title}</h3>
+                        <p class="stamp-desc" style="display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden;">${desc}</p>
+                        <div class="action-buttons" style="margin-top: auto; justify-content: flex-end;">
+                            <span class="buy-btn" style="text-align: center;">Read More</span>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            return `<a href="announcement/${file}" class="carousel-slide" style="min-width: 100%; flex-shrink: 0; display: block; text-decoration: none; color: inherit; cursor: pointer; height: 100%;">${slideInner}</a>`;
+        } catch (e) {
+            console.error('Error loading announcement:', file, e);
+            return '';
+        }
+    }));
+
+    const validSlides = slidesHTML.filter(s => s !== '');
+    if (validSlides.length === 0) {
+        // If there are no valid HTML slides, hide the entire container
+        track.parentElement.style.display = 'none';
+        return;
+    }
+
+    // Inject all valid HTML content into the track
+    track.innerHTML = validSlides.join('');
+
+    let currentSlide = parseInt(sessionStorage.getItem('announcementSlide')) || 0;
+    const totalSlides = validSlides.length;
+    if (currentSlide >= totalSlides) currentSlide = 0;
+
+    // Apply the saved slide position immediately
+    updateAnnouncementCarousel(currentSlide, track, null);
+
+    // Setup navigation dots if there are multiple slides
+    if (indicators && totalSlides > 1) {
+        let dotsHTML = '';
+        for (let i = 0; i < totalSlides; i++) {
+            dotsHTML += `<button class="carousel-dot ${i === currentSlide ? 'active' : ''}" data-idx="${i}" aria-label="Slide ${i + 1}"></button>`;
+        }
+        indicators.innerHTML = dotsHTML;
+
+        const dots = indicators.querySelectorAll('.carousel-dot');
+
+        // Re-update the carousel to synchronize the dots correctly
+        updateAnnouncementCarousel(currentSlide, track, dots);
+
+        dots.forEach(dot => {
+            dot.addEventListener('click', (e) => {
+                currentSlide = parseInt(e.target.getAttribute('data-idx'));
+                updateAnnouncementCarousel(currentSlide, track, dots);
+                resetAutoSlide();
+            });
+        });
+
+    }
+
+    // Sync height precisely with a standard stamp card in the grid
+    const container = track.closest('.announcement-carousel-container');
+    const syncHeight = () => {
+        const stampCard = document.querySelector('#stampGrid .stamp-card');
+        if (stampCard && container) {
+            container.style.height = stampCard.offsetHeight + 'px';
+        }
+    };
+
+    // Aggressively sync to handle delayed image rendering
+    syncHeight();
+    setTimeout(syncHeight, 100);
+    setTimeout(syncHeight, 500);
+    setTimeout(syncHeight, 1500);
+
+    // Watch for dynamic grid resizes (e.g., window resize or layout shift)
+    const gridEl = document.getElementById('stampGrid');
+    if (gridEl && window.ResizeObserver) {
+        new ResizeObserver(syncHeight).observe(gridEl);
+    }
+
+    // Auto-slide functionality
+    let slideInterval;
+    function startAutoSlide() {
+        if (totalSlides <= 1) return;
+        slideInterval = setInterval(() => {
+            currentSlide = (currentSlide + 1) % totalSlides;
+            updateAnnouncementCarousel(currentSlide, track, indicators ? indicators.querySelectorAll('.carousel-dot') : []);
+        }, 5000); // Slide every 5 seconds
+    }
+
+    function resetAutoSlide() {
+        clearInterval(slideInterval);
+        startAutoSlide();
+    }
+
+    startAutoSlide();
+}
+
+function updateAnnouncementCarousel(idx, track, dots) {
+    track.style.transform = `translateX(-${idx * 100}%)`;
+    sessionStorage.setItem('announcementSlide', idx);
+
+    if (dots && dots.length > 0) {
+        dots.forEach((dot, i) => {
+            dot.classList.toggle('active', i === idx);
+        });
+    }
+}
+
+// Internal cache for search filtering
+window.announcementsCache = null;
+
+// Global render function for the dedicated all_announcements.html page
+async function renderAllAnnouncementsPage(searchTerm = '') {
+    const grid = document.getElementById('announcementsGrid');
+    if (!grid) return;
+    
+    // 1. Initial Data Fetch and Parse (only happens once)
+    if (!window.announcementsCache) {
+        grid.innerHTML = '<p style="text-align:center; grid-column:1/-1; padding: 40px; color: var(--text-light);">Loading announcements...</p>';
+        
+        if (!CONFIG.announcementFiles || CONFIG.announcementFiles.length === 0) {
+            grid.innerHTML = '<p style="text-align:center; grid-column:1/-1; padding: 40px; color: var(--text-light);">No announcements presently available.</p>';
+            return;
+        }
+
+        try {
+            const fetchPromises = CONFIG.announcementFiles.map(file => 
+                fetch(`announcement/${file}`)
+                    .then(response => response.ok ? response.text() : '')
+                    .catch(e => '')
+            );
+            const texts = await Promise.all(fetchPromises);
+            
+            const parser = new DOMParser();
+            window.announcementsCache = [];
+            
+            texts.forEach((html, index) => {
+                if (!html) return;
+                const file = CONFIG.announcementFiles[index];
+                const doc = parser.parseFromString(html, 'text/html');
+                
+                const titleEl = doc.querySelector('h1');
+                const categoryEl = doc.querySelector('.blog-container > p');
+                const descEl = Array.from(doc.querySelectorAll('p')).find(p => p.textContent.length > 30 && p !== categoryEl && !p.classList.contains('img-caption'));
+                const imgEl = doc.querySelector('.img-wrap img');
+
+                const title = titleEl ? titleEl.textContent.trim() : 'Announcement';
+                const category = categoryEl ? categoryEl.textContent.trim() : 'News';
+                let desc = descEl ? descEl.textContent.trim() : 'Click to read more about this announcement...';
+                if (desc.length > 120) desc = desc.substring(0, 120) + '...';
+
+                const imgSrc = imgEl ? imgEl.getAttribute('src') : 'https://placehold.co/400x300/e2e8f0/475569?text=Announcement';
+
+                window.announcementsCache.push({ file, title, category, desc, imgSrc });
+            });
+        } catch (e) {
+            console.error('Error rendering announcements page:', e);
+            grid.innerHTML = '<p style="text-align:center; grid-column:1/-1; padding: 40px; color: var(--text-light);">Error loading announcements. Please try again.</p>';
+            return; // Abort
+        }
+    }
+
+    // 2. Filter logic
+    const s = (searchTerm || '').toLowerCase().trim();
+    const filtered = window.announcementsCache.filter(item => 
+        item.title.toLowerCase().includes(s) || 
+        item.desc.toLowerCase().includes(s) || 
+        item.category.toLowerCase().includes(s)
+    );
+
+    if (filtered.length === 0) {
+        grid.innerHTML = '<p style="text-align:center; grid-column:1/-1; padding: 40px; color: var(--text-light);">No announcements match your search.</p>';
+        return;
+    }
+
+    // 3. Render
+    let cardsHTML = '';
+    filtered.forEach(item => {
+        cardsHTML += `
+            <div class="stamp-card" style="display: flex; flex-direction: column; height: 100%;">
+                <div class="img-container">
+                    <img src="${item.imgSrc}" alt="${item.title}">
+                    <span class="photo-badge" style="background: var(--primary);">${item.category}</span>
+                </div>
+                <div class="details" style="display: flex; flex-direction: column; flex-grow: 1;">
+                    <h3>${item.title}</h3>
+                    <p class="stamp-desc" style="display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; margin-bottom: 20px; flex-grow: 1;">${item.desc}</p>
+                    <div class="action-buttons" style="margin-top: auto; justify-content: flex-end;">
+                        <a href="announcement/${item.file}" class="buy-btn" style="text-align: center; text-decoration: none; width: 100%;">Read More</a>
+                    </div>
+                </div>
+            </div>
+        `;
+    });
+    
+    grid.innerHTML = cardsHTML;
 }

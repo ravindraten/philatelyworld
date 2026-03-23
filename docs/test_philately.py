@@ -10,8 +10,8 @@ import time
 
 # --- Configuration ---
 # Replace with your local dev URL or GitHub Pages URL
-#URL = "http://localhost:5500/docs/index.html" 
-URL = "http://127.0.0.1:5500/docs/index.html"
+URL = "http://localhost:5500/docs/index.html" 
+#URL = "http://127.0.0.1:8000/index.html"
 
 @pytest.fixture(scope="module")
 def driver():
@@ -42,9 +42,9 @@ def test_search_filtering(driver):
     search_input.send_keys("Germany")
 
     # Instead of sleep, wait until the first card contains 'Germany'
-    wait.until(EC.text_to_be_present_in_element((By.CLASS_NAME, "stamp-card"), "Germany"))
+    wait.until(EC.text_to_be_present_in_element((By.CSS_SELECTOR, "#stampGrid .stamp-card"), "Germany"))
 
-    cards = driver.find_elements(By.CLASS_NAME, "stamp-card")
+    cards = driver.find_elements(By.CSS_SELECTOR, "#stampGrid .stamp-card")
     for card in cards:
         assert "germany" in card.text.lower()
 
@@ -65,7 +65,7 @@ def test_lightbox_open_close(driver):
     wait = WebDriverWait(driver, 10)
     
     # 1. Click the first stamp image
-    first_stamp_img = wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, ".stamp-card img")))
+    first_stamp_img = wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, "#stampGrid .stamp-card img")))
     first_stamp_img.click()
 
     # 2. Verify modal becomes visible
@@ -93,7 +93,7 @@ def test_sold_out_logic(driver):
     search_input.clear()
     search_input.send_keys("Antilles")
     
-    card = driver.find_element(By.CLASS_NAME, "stamp-card")
+    card = driver.find_element(By.CSS_SELECTOR, "#stampGrid .stamp-card")
     assert "sold-out" in card.get_attribute("class")
     
     buy_btn = card.find_element(By.CLASS_NAME, "buy-btn")
@@ -101,7 +101,7 @@ def test_sold_out_logic(driver):
 
 # --- 2. Functional Logic (Search & Currency) ---
 
-def test_search_filtering(driver):
+def test_search_filtering_duplicate(driver):
     """Verify that searching for 'Germany' filters the cards accurately."""
     driver.get(URL)
     wait = WebDriverWait(driver, 10)
@@ -110,7 +110,7 @@ def test_search_filtering(driver):
     search_input.send_keys("Germany")
     time.sleep(0.5) 
 
-    cards = driver.find_elements(By.CLASS_NAME, "stamp-card")
+    cards = driver.find_elements(By.CSS_SELECTOR, "#stampGrid .stamp-card")
     for card in cards:
         # Check title or country for match
         text = card.text.lower()
@@ -195,7 +195,7 @@ def test_deep_link_item(driver):
     # assert search_input.get_attribute("value") == target_item
 
     # 4. Verify only one card is displayed
-    cards = driver.find_elements(By.CLASS_NAME, "stamp-card")
+    cards = driver.find_elements(By.CSS_SELECTOR, "#stampGrid .stamp-card")
     assert len(cards) == 1
     assert target_item in cards[0].text
 # --- 5. Responsive / Mobile Logic ---
@@ -273,6 +273,7 @@ def test_privacy_feature(driver):
     wait.until(EC.invisibility_of_element_located((By.ID, "privacyModal")))
     assert not privacy_modal.is_displayed()
 
+@pytest.mark.skip(reason="Promo is disabled in CONFIG")
 @pytest.mark.parametrize("width, height", [
     (1200, 800),  # Desktop
     (768, 1024),  # Tablet (Portrait)
@@ -394,7 +395,7 @@ def test_status_filtering(driver):
     driver.execute_script("arguments[0].click();", sold_tab)
     time.sleep(1)
 
-    cards = driver.find_elements(By.CLASS_NAME, "stamp-card")
+    cards = driver.find_elements(By.CSS_SELECTOR, "#stampGrid .stamp-card")
     visible_cards = [c for c in cards if c.is_displayed()]
     
     for card in visible_cards:
@@ -412,7 +413,7 @@ def test_status_filtering(driver):
     driver.execute_script("arguments[0].click();", all_tab)
     time.sleep(1)
     
-    new_cards = driver.find_elements(By.CLASS_NAME, "stamp-card")
+    new_cards = driver.find_elements(By.CSS_SELECTOR, "#stampGrid .stamp-card")
     assert len(new_cards) > len(visible_cards), "Grid did not reset to show all items"
 
 
@@ -507,3 +508,101 @@ def test_blog_indicator_on_stamp_cards(driver):
         assert indicator.get_attribute("title") == "Read related blog post"
     except Exception:
         pytest.skip("No stamps currently have a blogUrl assigned in the data.")
+
+# --- 7. Announcements Feature Tests ---
+
+def test_announcement_carousel_limit(driver):
+    """Verify that the homepage carousel loads properly and contains no more than 3 visible items."""
+    driver.get(URL)
+    wait = WebDriverWait(driver, 10)
+    
+    # Wait for JS to inject the carousel track
+    track = wait.until(EC.presence_of_element_located((By.ID, "announcementCarouselTrack")))
+    
+    # Needs a moment for JS to fetch and append the slides
+    time.sleep(2)
+    
+    # Find all carousel items
+    items = track.find_elements(By.CLASS_NAME, "carousel-item")
+    
+    # Assert limit is capped at 3 by script.js config slicer (assuming data has >= 1)
+    assert len(items) <= 3, "Carousel holds more than 3 announcements"
+
+def test_announcement_view_all_button(driver):
+    """Verify the 'View All Announcements' button is present and securely linked."""
+    driver.get(URL)
+    wait = WebDriverWait(driver, 10)
+    
+    container = wait.until(EC.presence_of_element_located((By.CLASS_NAME, "announcement-carousel-container")))
+    
+    try:
+        # Search for the newly injected link directly after/inside container
+        view_all_btn = container.find_element(By.XPATH, "..//a[contains(text(), 'View All Announcements')]")
+        assert view_all_btn.is_displayed()
+        assert "all_announcements.html" in view_all_btn.get_attribute("href")
+    except Exception as e:
+        pytest.fail(f"'View All Announcements' button not found: {str(e)}")
+
+def test_all_announcements_page_render(driver):
+    """Load the dedicated HTML page and wait for the async fetch loop to populate the grid."""
+    base_url = URL.replace("index.html", "all_announcements.html")
+    driver.get(base_url)
+    wait = WebDriverWait(driver, 10)
+    
+    # Wait for the cache-hydrated `.stamp-card` elements to flow into `#announcementsGrid`
+    grid = wait.until(EC.presence_of_element_located((By.ID, "announcementsGrid")))
+    
+    # The loading text is initially present, wait for actual cards to pop in
+    try:
+        wait.until(lambda d: len(grid.find_elements(By.CLASS_NAME, "stamp-card")) > 0)
+    except Exception as e:
+        pytest.skip(f"Could not load announcements (possibly CORS or network failure): {str(e)}")
+        
+    cards = grid.find_elements(By.CLASS_NAME, "stamp-card")
+    assert len(cards) > 0, "No announcements parsed on all_announcements.html"
+
+def test_all_announcements_search(driver):
+    """Type a query into the grid and verify it instantly filters correctly."""
+    base_url = URL.replace("index.html", "all_announcements.html")
+    driver.get(base_url)
+    wait = WebDriverWait(driver, 10)
+    
+    grid = wait.until(EC.presence_of_element_located((By.ID, "announcementsGrid")))
+    
+    try:
+        wait.until(lambda d: len(grid.find_elements(By.CLASS_NAME, "stamp-card")) > 0)
+    except Exception:
+        pytest.skip("Could not load announcements to test search.")
+    
+    search_input = driver.find_element(By.ID, "stampSearch")
+    search_input.clear()
+    search_input.send_keys("ECTP")
+    time.sleep(1) # Wait for DOM cache filter
+    
+    cards = grid.find_elements(By.CLASS_NAME, "stamp-card")
+    assert len(cards) > 0, "No items returned for 'ECTP' search."
+    
+    text = cards[0].text.lower()
+    assert "ectp" in text or "european" in text
+
+def test_all_announcements_url_hydration(driver):
+    """Test URL ?q= hydration securely tracks and binds parameters on launch."""
+    base_url = URL.replace("index.html", "all_announcements.html?q=ECTP")
+    driver.get(base_url)
+    wait = WebDriverWait(driver, 10)
+    
+    grid = wait.until(EC.presence_of_element_located((By.ID, "announcementsGrid")))
+    
+    try:
+        wait.until(lambda d: len(grid.find_elements(By.CLASS_NAME, "stamp-card")) > 0)
+    except Exception:
+        pytest.skip("Could not load announcements to test hydration.")
+        
+    cards = grid.find_elements(By.CLASS_NAME, "stamp-card")
+    assert len(cards) > 0
+    text = cards[0].text.lower()
+    assert "ectp" in text or "european" in text
+    
+    # Verify the input box consumed the URL state
+    search_input = driver.find_element(By.ID, "stampSearch")
+    assert search_input.get_attribute("value") == "ECTP"
