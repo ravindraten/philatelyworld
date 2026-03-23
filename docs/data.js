@@ -8,7 +8,7 @@ const stamps = [
         isSoldOut: false,
         folder: "D60",
         imageCount: 19,
-        desc: "RN4128:Leuchtturm album Berlin 1955-1990 with from 1960 almost complete MNH stamp collection.\
+        desc: "RN4129:Leuchtturm album Berlin 1955-1990 with from 1960 almost complete MNH stamp collection.\
                 Check the photos to see a small part, but there is a lot more than you can see here.\
                 <b> Album for FREE.</b> \
                 + Shipping Inside India in April 2026."
