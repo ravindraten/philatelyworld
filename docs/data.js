@@ -1,6 +1,19 @@
 // 1. STAMP DATABASE
 const stamps = [
     { 
+        name: "Berlin 1955-1990 MNH stamp collection in album", 
+        country: "Germany", 
+        year: "<b>Year</b>: 1955-1990", 
+        priceINR: 11500, 
+        isSoldOut: false,
+        folder: "D60",
+        imageCount: 19,
+        desc: "RN4128:Leuchtturm album Berlin 1955-1990 with from 1960 almost complete MNH stamp collection.\
+                Check the photos to see a small part, but there is a lot more than you can see here.\
+                <b> Album for FREE.</b> \
+                + Shipping Inside India in April 2026."
+    },
+    { 
         name: "MS OF Indian Masks Series 15 APRIL 1974", 
         country: "India", 
         year: "<b>Year</b>: 1974", 
@@ -17,7 +30,7 @@ const stamps = [
         country: "Netherlands", 
         year: "<b>Year</b>:1994", 
         priceINR: 150,
-        isSoldOut: false,
+        isSoldOut: true,
         folder: "D58",
         imageCount: 1,
         desc: "RN4127: Souvenir sheet from Netherlands 1994.\
