@@ -10,7 +10,7 @@ const CONFIG = {
     // Feature Switches
     showAnnouncement: true,
     showPromo: false,
-    announcementFiles: ['1.html', '3.html', '4.html'], // Place your HTML files in the 'announcement' folder
+    announcementFiles: ['1.html', '2.html', '3.html', '4.html'], // Place your HTML files in the 'announcement' folder
 
     // 2. CURRENCY CONFIGURATION
     eurRate: 0.011, // Fallback rate
