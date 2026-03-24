@@ -10,7 +10,7 @@ const CONFIG = {
     // Feature Switches
     showAnnouncement: true,
     showPromo: false,
-    announcementFiles: ['3.html', '4.html'], // Place your HTML files in the 'announcement' folder
+    announcementFiles: ['1.html', '3.html', '4.html'], // Place your HTML files in the 'announcement' folder
 
     // 2. CURRENCY CONFIGURATION
     eurRate: 0.011, // Fallback rate
@@ -702,18 +702,19 @@ async function initAnnouncementCarousel() {
     // Safety check so we don't fetch/initialize multiple times
     if (track.children.length > 0) return;
 
-    // Fetch all announcement HTML files
-    const slidesHTML = await Promise.all(CONFIG.announcementFiles.map(async (file) => {
+    // LIMIT TO ONLY 2 ANNOUNCEMENTS FOR THE CAROUSEL
+    const carouselFiles = CONFIG.announcementFiles.slice(0, 2);
+
+    // Fetch only the sliced announcement HTML files
+    const slidesHTML = await Promise.all(carouselFiles.map(async (file) => {
         try {
             const resp = await fetch(`announcement/${file}`);
             if (!resp.ok) return '';
             const html = await resp.text();
 
-            // Create a DOM Parser to extract content from the full HTML files safely
             const parser = new DOMParser();
             const doc = parser.parseFromString(html, 'text/html');
 
-            // Extract core components for the summary slide
             const titleEl = doc.querySelector('h1');
             const categoryEl = doc.querySelector('.blog-container > p');
             const descEl = Array.from(doc.querySelectorAll('p')).find(p => p.textContent.length > 30 && p !== categoryEl && !p.classList.contains('img-caption'));
@@ -721,12 +722,11 @@ async function initAnnouncementCarousel() {
 
             const title = titleEl ? titleEl.textContent.trim() : 'Announcement';
             const category = categoryEl ? categoryEl.textContent.trim() : 'News';
-            let desc = descEl ? descEl.textContent.trim() : 'Click to read more about this update...';
+            let desc = descEl ? descEl.textContent.trim() : 'Click to read more...';
             if (desc.length > 90) desc = desc.substring(0, 90) + '...';
 
             const imgSrc = imgEl ? imgEl.getAttribute('src') : 'https://placehold.co/400x300/e2e8f0/475569?text=Announcement';
 
-            // Construct the slide using standard stamp-card DOM structure
             const slideInner = `
                 <div class="stamp-card" style="margin: 0; border: none; box-shadow: none; height: 100%; border-radius: 0;">
                     <div class="img-container">
@@ -752,22 +752,18 @@ async function initAnnouncementCarousel() {
 
     const validSlides = slidesHTML.filter(s => s !== '');
     if (validSlides.length === 0) {
-        // If there are no valid HTML slides, hide the entire container
         track.parentElement.style.display = 'none';
         return;
     }
 
-    // Inject all valid HTML content into the track
     track.innerHTML = validSlides.join('');
 
     let currentSlide = parseInt(sessionStorage.getItem('announcementSlide')) || 0;
     const totalSlides = validSlides.length;
     if (currentSlide >= totalSlides) currentSlide = 0;
 
-    // Apply the saved slide position immediately
     updateAnnouncementCarousel(currentSlide, track, null);
 
-    // Setup navigation dots if there are multiple slides
     if (indicators && totalSlides > 1) {
         let dotsHTML = '';
         for (let i = 0; i < totalSlides; i++) {
@@ -776,8 +772,6 @@ async function initAnnouncementCarousel() {
         indicators.innerHTML = dotsHTML;
 
         const dots = indicators.querySelectorAll('.carousel-dot');
-
-        // Re-update the carousel to synchronize the dots correctly
         updateAnnouncementCarousel(currentSlide, track, dots);
 
         dots.forEach(dot => {
@@ -787,7 +781,6 @@ async function initAnnouncementCarousel() {
                 resetAutoSlide();
             });
         });
-
     }
 
     // Sync height precisely with a standard stamp card in the grid
@@ -847,32 +840,32 @@ window.announcementsCache = null;
 async function renderAllAnnouncementsPage(searchTerm = '') {
     const grid = document.getElementById('announcementsGrid');
     if (!grid) return;
-    
+
     // 1. Initial Data Fetch and Parse (only happens once)
     if (!window.announcementsCache) {
         grid.innerHTML = '<p style="text-align:center; grid-column:1/-1; padding: 40px; color: var(--text-light);">Loading announcements...</p>';
-        
+
         if (!CONFIG.announcementFiles || CONFIG.announcementFiles.length === 0) {
             grid.innerHTML = '<p style="text-align:center; grid-column:1/-1; padding: 40px; color: var(--text-light);">No announcements presently available.</p>';
             return;
         }
 
         try {
-            const fetchPromises = CONFIG.announcementFiles.map(file => 
+            const fetchPromises = CONFIG.announcementFiles.map(file =>
                 fetch(`announcement/${file}`)
                     .then(response => response.ok ? response.text() : '')
                     .catch(e => '')
             );
             const texts = await Promise.all(fetchPromises);
-            
+
             const parser = new DOMParser();
             window.announcementsCache = [];
-            
+
             texts.forEach((html, index) => {
                 if (!html) return;
                 const file = CONFIG.announcementFiles[index];
                 const doc = parser.parseFromString(html, 'text/html');
-                
+
                 const titleEl = doc.querySelector('h1');
                 const categoryEl = doc.querySelector('.blog-container > p');
                 const descEl = Array.from(doc.querySelectorAll('p')).find(p => p.textContent.length > 30 && p !== categoryEl && !p.classList.contains('img-caption'));
@@ -896,9 +889,9 @@ async function renderAllAnnouncementsPage(searchTerm = '') {
 
     // 2. Filter logic
     const s = (searchTerm || '').toLowerCase().trim();
-    const filtered = window.announcementsCache.filter(item => 
-        item.title.toLowerCase().includes(s) || 
-        item.desc.toLowerCase().includes(s) || 
+    const filtered = window.announcementsCache.filter(item =>
+        item.title.toLowerCase().includes(s) ||
+        item.desc.toLowerCase().includes(s) ||
         item.category.toLowerCase().includes(s)
     );
 
@@ -926,6 +919,6 @@ async function renderAllAnnouncementsPage(searchTerm = '') {
             </div>
         `;
     });
-    
+
     grid.innerHTML = cardsHTML;
 }
