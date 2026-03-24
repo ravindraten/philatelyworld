@@ -39,7 +39,7 @@ header {
 /* Mobile Default: Hide top part of header on scroll, but keep search */
 @media (max-width: 800px) {
     header {
-        top: -305px;
+        top: -265px;
         /* Adjust this to match the height of your top-bar + header-main */
     }
 }
