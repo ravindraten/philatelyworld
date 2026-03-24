@@ -832,17 +832,6 @@ const stamps = [
         desc: "RN4060: MNH MS from India( Free letter post shipping worldwide from Netherlands)"
     },
     {
-        name: "Indian Masks Series",
-        country: "India",
-        year: "<b>Year</b>: 1975",
-        priceINR: 999,
-        isSoldOut: false,
-        folder: "002",
-        imageCount: 1,
-        //images: ["https://picsum.photos/400/300?random=3"],
-        desc: "RN4061: MNH MS from India( Free letter post shipping worldwide from Netherlands)"
-    },
-    {
         name: "UPU Centenary",
         country: "India",
         year: "<b>Year</b>: 1974",
