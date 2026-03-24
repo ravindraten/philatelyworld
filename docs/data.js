@@ -5,7 +5,7 @@ const stamps = [
         country: "Germany",
         year: "<b>Year</b>: 1941",
         priceINR: 900,
-        isSoldOut: false,
+        isSoldOut: true,
         folder: "D61",
         imageCount: 3,
         desc: "RN4130: 1 Reichspfennig stamp from the definitive series of Nazi Germany. Sheet of 90 stamps\
