@@ -105,7 +105,7 @@ const stamps = [
         country: "Germany",
         year: "<b>Year</b>:Various",
         priceINR: 1920,
-        isSoldOut: false,
+        isSoldOut: true,
         folder: "D53",
         imageCount: 8,
         desc: "RN4122: 32 different FDC's from Deutsche Bundespost Berlin. Various thematics\
