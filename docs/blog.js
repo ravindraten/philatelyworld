@@ -7,8 +7,8 @@ const blogPosts = [
         folder: "ScindeDawk",
         imageCount: 1,
         // Update this to your local file path:
-        url: "blog/valuableIndianStamps.html", 
-        isBlog: true 
+        url: "blog/valuableIndianStamps.html",
+        isBlog: true
     },
     {
         name: "The Philatelic Detective: How to Identify a Stamp?",
@@ -18,8 +18,8 @@ const blogPosts = [
         folder: "identifyStamp",
         imageCount: 1,
         // Update this to your local file path:
-        url: "blog/identifystamp.html", 
-        isBlog: true 
+        url: "blog/identifystamp.html",
+        isBlog: true
     },
     {
         name: "Hidden Security: A Guide to Stamp Watermark Detection",
@@ -29,8 +29,8 @@ const blogPosts = [
         folder: "watermark",
         imageCount: 1,
         // Update this to your local file path:
-        url: "blog/identify_watermark.html", 
-        isBlog: true 
+        url: "blog/identify_watermark.html",
+        isBlog: true
     },
     {
         name: "India Philately 1854-1993: From Victoria to Gandhi",
@@ -40,8 +40,8 @@ const blogPosts = [
         folder: "D21",
         imageCount: 1,
         // Update this to your local file path:
-        url: "blog/bharat.html", 
-        isBlog: true 
+        url: "blog/bharat.html",
+        isBlog: true
     },
     {
         name: "André Buzin Bird Stamps: A Philatelic Study of Belgium",
@@ -51,8 +51,8 @@ const blogPosts = [
         folder: "D38",
         imageCount: 1,
         // Update this to your local file path:
-        url: "blog/buzin.html", 
-        isBlog: true 
+        url: "blog/buzin.html",
+        isBlog: true
     },
     {
         name: "Europa CEPT 1956-2000: The Complete Philatelic Guide",
@@ -62,8 +62,8 @@ const blogPosts = [
         folder: "D23",
         imageCount: 1,
         // Update this to your local file path:
-        url: "blog/europa_cept.html", 
-        isBlog: true 
+        url: "blog/europa_cept.html",
+        isBlog: true
     },
     {
         name: "Red Cross Postal History: 60 Years of Humanitarian Aid",
@@ -73,8 +73,8 @@ const blogPosts = [
         folder: "D24",
         imageCount: 1,
         // Update this to your local file path:
-        url: "blog/redcross.html", 
-        isBlog: true 
+        url: "blog/redcross.html",
+        isBlog: true
     },
     {
         name: "Divine Power on the Blockchain: Exploring the 'Heroes of Mytholog' Set",
@@ -84,7 +84,17 @@ const blogPosts = [
         folder: "crypto",
         imageCount: 1,
         // Update this to your local file path:
-        url: "blog/crypto.html", 
-        isBlog: true 
+        url: "blog/crypto.html",
+        isBlog: true
+    },
+    {
+        name: "Ramayana Book on Ram Mandir: A Philatelic Tribute",
+        year: "2024",
+        country: "India",
+        desc: "A specialized study of the Ramayana and Ram Mandir book release on 18.01.2024. Explore the philatelic documentation of this historic cultural event.",
+        folder: "ramayana",
+        imageCount: 1,
+        url: "blog/ramayana.html",
+        isBlog: true
     }
 ];
