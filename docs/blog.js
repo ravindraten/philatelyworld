@@ -1,5 +1,16 @@
 const blogPosts = [
     {
+        name: "Digital Philately: A Guide to Using bpost’s StampConnect App",
+        year: "-",
+        country: "Technology & Philately",
+        desc: "A comprehensive guide to the StampConnect app by bpost, designed to bridge the gap between traditional stamp collecting and the digital age.",
+        folder: "stampconnect",
+        imageCount: 1,
+        // Update this to your local file path:
+        url: "blog/stampconnect.html",
+        isBlog: true
+    },
+    {
         name: "The Crown Jewels of Indian Philately: Most Valuable Postage Stamps",
         year: "-",
         country: "Valuable",
