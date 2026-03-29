@@ -1,6 +1,18 @@
 // 1. STAMP DATABASE
 const stamps = [
     {
+        name: "40 Years of André Buzin’s Birds – “From Pen to Brush”",
+        country: "Belgium",
+        year: "<b>Year</b>: 2025",
+        priceINR: 1485,
+        isSoldOut: false,
+        folder: "Buzin2025",
+        imageCount: 1,
+        desc: "RN4131: 40 Years of André Buzin’s Birds  'From Pen to Brush'\
+                <b> 5 copies available.</b> \
+                + Shipping Inside India in April 2026."
+    },
+    {
         name: "1 Reichspfennig stamp from the definitive series of Nazi Germany",
         country: "Germany",
         year: "<b>Year</b>: 1941",
