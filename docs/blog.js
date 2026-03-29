@@ -107,5 +107,15 @@ const blogPosts = [
         imageCount: 1,
         url: "blog/ramayana.html",
         isBlog: true
+    },
+    {
+        name: "Is my Penny Red worth millions? – A Philatelic Guide",
+        year: "1841-1879",
+        country: "Great Britain",
+        desc: "Learn how to date and value your British Penny Red stamps. A detailed guide covering design elements, plate numbers, and rarity, including the legendary Plate 77.",
+        folder: "RedPenny",
+        imageCount: 1,
+        url: "blog/penny-red.html",
+        isBlog: true
     }
 ];
