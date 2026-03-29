@@ -104,7 +104,7 @@ const stamps = [
         country: "World",
         year: "<b>Year</b>:1890+",
         priceINR: 9000,
-        isSoldOut: false,
+        isSoldOut: true,
         folder: "D54",
         imageCount: 16,
         desc: "RN4123: Collection over 100 covers and postal items various.\
