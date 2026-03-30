@@ -1,9 +1,23 @@
 // 1. STAMP DATABASE
 const stamps = [
     {
+        name: "The Dutch Water Defence Line",
+        country: "Netherlands",
+        year: "<b>Year</b>: 2026",
+        priceINR: 1750,
+        isSoldOut: false,
+        folder: "D63",
+        imageCount: 1,
+        desc: "RN4133: On 30 March 2026, PostNL issued the Dutch Water Defence Line stamp sheetlet, which contains photos and plans of 19th- and early 20th-century \
+            defences in the Netherlands. The Dutch Water Defence Lines is the collective name for the New Dutch Water Line and the Defence Line of Amsterdam. \
+            By flooding land in war situations, these defense lines could protect the west of the Netherlands against the enemy.\
+                <b> muliple copies available.</b> \
+                + Shipping Inside India in April 2026."
+    },
+    {
         name: "Experience Nature - Butterflies Saba",
-        country: "Belgium",
-        year: "<b>Year</b>: 2025",
+        country: "Netherlands",
+        year: "<b>Year</b>: 2026",
         priceINR: 1750,
         isSoldOut: false,
         folder: "D62",
