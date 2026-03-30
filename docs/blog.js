@@ -1,5 +1,16 @@
 const blogPosts = [
     {
+        name: "Gold Stamp: The Goldfinch (Het Puttertje) - Philately World",
+        year: "2026",
+        country: "Netherlands",
+        desc: "Discover the exclusive 24-carat gold stamp featuring 'The Goldfinch' by Carel Fabritius. A unique masterpiece for philatelists and art lovers.",
+        folder: "goldfinch",
+        imageCount: 1,
+        // Update this to your local file path:
+        url: "goldfinch-gold-stamp.html",
+        isBlog: true
+    },
+    {
         name: "Digital Philately: A Guide to Using bpost’s StampConnect App",
         year: "-",
         country: "Technology & Philately",
