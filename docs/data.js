@@ -1,6 +1,18 @@
 // 1. STAMP DATABASE
 const stamps = [
     {
+        name: "Experience Nature - Butterflies Saba",
+        country: "Belgium",
+        year: "<b>Year</b>: 2025",
+        priceINR: 1750,
+        isSoldOut: false,
+        folder: "D62",
+        imageCount: 1,
+        desc: "RN4132: On 30 March 2026, PostNL issued Experience Nature - Butterflies Saba, a sheet with 10 stamps in 10 different designs\
+                <b> muliple copies available.</b> \
+                + Shipping Inside India in April 2026."
+    },
+    {
         name: "40 Years of André Buzin’s Birds – “From Pen to Brush”",
         country: "Belgium",
         year: "<b>Year</b>: 2025",
