@@ -7,7 +7,7 @@ const blogPosts = [
         folder: "goldfinch",
         imageCount: 1,
         // Update this to your local file path:
-        url: "goldfinch-gold-stamp.html",
+        url: "blog/goldfinch-gold-stamp.html",
         isBlog: true
     },
     {
