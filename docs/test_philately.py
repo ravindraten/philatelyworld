@@ -337,18 +337,26 @@ def test_view_collection_button_at_top(driver):
     assert btn.location['y'] < grid.location['y'], "Button should be located above the grid"
 
 def test_dynamic_og_image_update(driver):
-    """Verify the social preview image updates to the first image of the stamp folder."""
+    """Verify that items generally use the second image folder if available."""
     driver.get(URL)
     wait = WebDriverWait(driver, 10)
     driver.get(f"{URL}?item=RN4111")
     wait = WebDriverWait(driver, 10)
     
-    # Wait until the JavaScript has had time to update the attribute
-    wait.until(lambda d: "D45/1.jpg" in d.find_element(By.ID, "og-image").get_attribute("content"))
-    
+    # RN4111 (D45) has 6 images, so it should use D45/2.jpg
+    wait.until(lambda d: "D45/2.jpg" in d.find_element(By.ID, "og-image").get_attribute("content"))
     og_image = driver.find_element(By.ID, "og-image").get_attribute("content")
+    assert "D45/2.jpg" in og_image
+
+def test_og_image_rn4137(driver):
+    """Verify that RN4137 specifically uses its 2nd photo (D67/2.jpg)."""
+    driver.get(f"{URL}?item=RN4137")
+    wait = WebDriverWait(driver, 10)
     
-    assert "D45/1.jpg" in og_image, f"Expected image path for RN4111 (D45) not found in {og_image}"
+    # D67 is the folder for RN4137
+    wait.until(lambda d: "D67/2.jpg" in d.find_element(By.ID, "og-image").get_attribute("content"))
+    og_image = driver.find_element(By.ID, "og-image").get_attribute("content")
+    assert "D67/2.jpg" in og_image, f"RN4137 should point to D67/2.jpg, found: {og_image}"
 
 def test_security_guarantee_modal(driver):
     """Verify the Security & Guarantee modal opens and shows correct content."""

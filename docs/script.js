@@ -678,7 +678,8 @@ function updateMetaTags(stamp, id) {
         title = `Philately World: ${stamp.name}`;
         const cleanYear = stamp.year.replace(/<\/?[^>]+(>|$)/g, "");
         desc = `${stamp.country} | ${cleanYear} | Price: ₹${stamp.priceINR}`;
-        imgUrl = `${CONFIG.baseImgPath}/${stamp.folder}/1.jpg`;
+        const photoNum = (stamp.imageCount >= 2) ? 2 : 1;
+        imgUrl = `${CONFIG.baseImgPath}/${stamp.folder}/${photoNum}.jpg`;
     }
     // // 1. Clean up the title and description
     // const title = `Philately World: ${stamp.name}`;
