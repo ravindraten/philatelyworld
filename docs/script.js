@@ -10,6 +10,7 @@ const CONFIG = {
     // Feature Switches
     showAnnouncement: true,
     showPromo: false,
+    showSoldOut: false, // Set to true to show the Sold Out filter tab
     announcementFiles: ['1.html', '2.html', '3.html', '4.html'], // Place your HTML files in the 'announcement' folder
 
     // 2. CURRENCY CONFIGURATION
@@ -48,7 +49,14 @@ document.addEventListener('DOMContentLoaded', () => {
     // Dynamically set the active tab UI based on the state
     const tabs = document.querySelectorAll('.filter-tab');
     tabs.forEach(tab => {
-        if (tab.getAttribute('data-status') === state.statusFilter) {
+        const status = tab.getAttribute('data-status');
+        
+        // --- HIDE SOLD OUT TAB IF DISABLED ---
+        if (status === 'sold' && !CONFIG.showSoldOut) {
+            tab.style.display = 'none';
+        }
+
+        if (status === state.statusFilter) {
             tab.classList.add('active');
         } else {
             tab.classList.remove('active');
@@ -619,18 +627,23 @@ function updateStatusLine() {
     }
 }
 function updateFilterCounts() {
-    const total = stamps.length;
-    const sold = stamps.filter(s => s.isSoldOut).length;
-    const available = total - sold;
-    const blogTotal = blogPosts.length; // From data.js
+    const totalCount = stamps.length;
+    const soldCount = stamps.filter(s => s.isSoldOut).length;
+    const availableCount = totalCount - soldCount;
+    const blogTotal = blogPosts.length;
 
     const tabs = document.querySelectorAll('.filter-tab');
     tabs.forEach(tab => {
         const status = tab.getAttribute('data-status');
-        if (status === 'all') tab.innerText = `All Items (${total})`;
-        if (status === 'available') tab.innerText = `Available (${available})`;
-        if (status === 'sold') tab.innerText = `Sold Out (${sold})`;
-        if (status === 'blog') tab.innerText = `Blog (${blogTotal})`; // Add this
+        if (status === 'all') {
+            tab.innerText = `All Items (${totalCount})`;
+        }
+        if (status === 'available') tab.innerText = `Available (${availableCount})`;
+        if (status === 'sold') {
+            tab.innerText = `Sold Out (${soldCount})`;
+            if (!CONFIG.showSoldOut) tab.style.display = 'none';
+        }
+        if (status === 'blog') tab.innerText = `Blog (${blogTotal})`;
     });
 }
 function copyUPI() {
