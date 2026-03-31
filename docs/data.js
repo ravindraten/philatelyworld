@@ -1,6 +1,18 @@
 // 1. STAMP DATABASE
 const stamps = [
     {
+        name: "4 Reichspfennig stamp from the definitive series of Nazi Germany",
+        country: "Germany",
+        year: "<b>Year</b>: 1941",
+        priceINR: 900,
+        isSoldOut: false,
+        folder: "D65",
+        imageCount: 3,
+        desc: "RN4135: 4 Reichspfennig stamp from the definitive series of Nazi Germany. Sheet of 72 stamps\
+                <b> 6 copies available.</b> \
+                + Shipping Inside India in April 2026."
+    },
+    {
         name: "3 Reichspfennig stamp from the definitive series of Nazi Germany",
         country: "Germany",
         year: "<b>Year</b>: 1941",
