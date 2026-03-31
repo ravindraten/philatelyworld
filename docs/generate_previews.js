@@ -72,6 +72,16 @@ stamps.forEach(stamp => {
     <!-- Auto-redirect to the actual item page -->
     <meta http-equiv="refresh" content="0; url='../../index.html?item=${rnCode}'" />
     <script>window.location.replace("../../index.html?item=${rnCode}");</script>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-0K58TP8LVP"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-0K58TP8LVP');
+    </script>
+    <script data-goatcounter="https://ravindraten.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </head>
 <body>
     <p>Redirecting to <a href="../../index.html?item=${rnCode}">${stamp.name}</a>...</p>
