@@ -1,6 +1,18 @@
 // 1. STAMP DATABASE
 const stamps = [
     {
+        name: "AIR Mail Covers travelled from around the world to West Germany",
+        country: "West Germany",
+        year: "<b>Year</b>: 1950-1990",
+        priceINR: 15000,
+        isSoldOut: false,
+        folder: "D68",
+        imageCount: 39,
+        desc: "RN4139: 153 different AIR Mail Covers travelled from around the world to West Germany.\
+                Check the photos. What you see is what you get.\
+                <b>Rs.100 per cover </b> \
+                + Shipping Inside India in April 2026."
+    }, {
         name: "70 Years of Diplomatic Ties: Lao PDR & India Joint Postage Stamp Issue",
         country: "Lao PDR & India",
         year: "<b>Year</b>: 2026",
