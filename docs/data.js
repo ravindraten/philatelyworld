@@ -16,11 +16,10 @@ const stamps = [
         country: "Germany",
         year: "<b>Year</b>: 1941",
         priceINR: 900,
-        isSoldOut: true,
+        isSoldOut: false,
         folder: "D65",
         imageCount: 3,
-        desc: "RN4135: 4 Reichspfennig stamp from the definitive series of Nazi Germany. Sheet of 72 stamps\
-                <b> 3 copies available.</b> \
+        desc: "RN4135: 4 Reichspfennig stamp from the definitive series of Nazi Germany. Sheet of 72 stamps \
                 + Shipping Inside India in April 2026."
     },
     {
