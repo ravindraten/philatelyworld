@@ -693,18 +693,27 @@ function updateMetaTags(stamp, id) {
     // 3. Update the Browser Tab Title
     document.title = title;
 
-    // 4. Update Open Graph tags for social media previews
-    // These IDs must match the meta tags in your index.html
+    // 4. Update Open Graph tags and Twitter Cards for social media previews
     const tags = {
         'og-title': title,
         'og-desc': desc,
         'og-image': imgUrl,
-        'og-url': window.location.href
+        'og-url': window.location.href,
+        'twitter-image': imgUrl
     };
 
     for (const [id, value] of Object.entries(tags)) {
+        // A. Primary update via IDs (Reliable if JS is executed)
         const el = document.getElementById(id);
         if (el) el.setAttribute('content', value);
+        
+        // B. Secondary update via attribute selectors (Legacy/Crawler fallbacks)
+        const propName = id.replace('-', ':');
+        const metaByProp = document.querySelector(`meta[property="${propName}"]`);
+        const metaByName = document.querySelector(`meta[name="${propName}"]`);
+        
+        if (metaByProp) metaByProp.setAttribute('content', value);
+        if (metaByName) metaByName.setAttribute('content', value);
     }
 }
 
