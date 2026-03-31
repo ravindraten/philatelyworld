@@ -5,7 +5,7 @@ const stamps = [
         country: "France",
         year: "<b>Year</b>: 1850 onwards",
         priceINR: 9500,
-        isSoldOut: false,
+        isSoldOut: true,
         folder: "D67",
         imageCount: 19,
         desc: "RN4137: Stockbook with stamp collection France.\
