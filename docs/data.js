@@ -1,6 +1,18 @@
 // 1. STAMP DATABASE
 const stamps = [
     {
+        name: "France stamp collection in stockbook",
+        country: "France",
+        year: "<b>Year</b>: 1850 onwards",
+        priceINR: 9000,
+        isSoldOut: false,
+        folder: "D67",
+        imageCount: 19,
+        desc: "RN4137: Stockbook with stamp collection France.\
+                Check the photos. What you see is what you get.<b> Stock Album for Free</b>\
+                + Shipping Inside India in April 2026."
+    },
+    {
         name: "12 Reichspfennig stamp from the definitive series of Nazi Germany",
         country: "Germany",
         year: "<b>Year</b>: 1941",
