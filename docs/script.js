@@ -383,9 +383,11 @@ function renderGallery(data) {
             let sidebarContent = '';
 
             if (CONFIG.showAnnouncement && CONFIG.announcementFiles && CONFIG.announcementFiles.length > 0) {
-                // Generates the shell for the carousel; content will be fetched asynchronously
+                // Feature the button AT THE TOP for better visibility on smaller screens
                 sidebarContent += `
-                <div class="announcement-carousel-container stamp-card" style="position: relative; margin-bottom: 12px; width: 100%;">
+                <a href="all_announcements.html" class="buy-btn" style="display: block; width: 100%; text-align: center; margin-bottom: 20px; text-decoration: none; padding: 12px; border-radius: 8px;">View All Announcements</a>
+                
+                <div class="announcement-carousel-container stamp-card" style="position: relative; margin-bottom: 12px; width: 100%; overflow: hidden;">
                     <div class="announcement-carousel-track" id="announcementCarouselTrack" style="display: flex; height: 100%; transition: transform 0.5s ease-in-out;">
                     </div>
                     
@@ -393,8 +395,7 @@ function renderGallery(data) {
                     <div class="carousel-indicators" id="carouselIndicators" style="position: absolute; bottom: 15px; width: 100%; display: flex; justify-content: center; gap: 8px; z-index: 10;">
                     </div>
                     ` : ''}
-                </div>
-                <a href="all_announcements.html" class="buy-btn" style="display: block; width: 100%; text-align: center; margin-bottom: 20px; text-decoration: none; padding: 12px; border-radius: 8px;">View All Announcements</a>`;
+                </div>`;
 
                 // Trigger the carousel initialization
                 setTimeout(initAnnouncementCarousel, 0);
@@ -783,12 +784,16 @@ async function initAnnouncementCarousel() {
         });
     }
 
-    // Sync height precisely with a standard stamp card in the grid
+    // Sync height with a standard stamp card in the grid, but enforce a minimum to prevent clipping the button
     const container = track.closest('.announcement-carousel-container');
     const syncHeight = () => {
-        const stampCard = document.querySelector('#stampGrid .stamp-card');
-        if (stampCard && container) {
-            container.style.height = stampCard.offsetHeight + 'px';
+        const firstGridCard = document.querySelector('#stampGrid .stamp-card');
+        if (container) {
+            if (firstGridCard && firstGridCard.offsetHeight > 420) {
+                container.style.height = firstGridCard.offsetHeight + 'px';
+            } else {
+                container.style.height = '420px'; // Safe height that fits title, 4-line desc, and button
+            }
         }
     };
 

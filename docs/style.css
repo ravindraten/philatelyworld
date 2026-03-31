@@ -356,7 +356,7 @@ header {
         flex: 0 0 320px;
         position: sticky;
         /* Increase this value if the top of the card is still hidden under the header */
-        top: 240px;
+        top: 140px;
         height: fit-content;
         z-index: 999;
         align-self: flex-start;
