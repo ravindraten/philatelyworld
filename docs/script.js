@@ -452,7 +452,7 @@ function renderGallery(data) {
                 <div class="stamp-card blog-card">
                     <a href="${stamp.url || '#'}" class="blog-link-wrapper" style="text-decoration: none; color: inherit;">
                         <div class="img-container" style="cursor: pointer;">
-                            <img src="${CONFIG.baseImgPath}/${stamp.folder}/1.jpg" alt="${stamp.name}">
+                            <img src="${CONFIG.baseImgPath}/${stamp.folder}/1.${stamp.extension || 'jpg'}" alt="${stamp.name}">
                             <div class="photo-badge">Article</div>
                         </div>
                     </a>
@@ -489,7 +489,7 @@ function renderGallery(data) {
             <div class="stamp-card ${stamp.isSoldOut ? 'sold-out' : ''}">
                 ${stamp.isSoldOut ? '<div class="sold-out-badge">Sold Out</div>' : ''}
                 <div class="img-container">
-                    <img src="${CONFIG.baseImgPath}/${stamp.folder}/1.jpg" 
+                    <img src="${CONFIG.baseImgPath}/${stamp.folder}/1.${stamp.extension || 'jpg'}" 
                         alt="${stamp.name}" 
                         onclick="openLightbox(${stamps.indexOf(stamp)})">
                         ${stamp.blogUrl ? `
@@ -587,7 +587,7 @@ function updateLightbox() {
         .toLowerCase()
         .replace(/[^a-z0-9]/g, '-'); // Turn "India Stamp!" into "india-stamp"
 
-    modalImg.src = `${CONFIG.baseImgPath}/${stamp.folder}/${state.currentImgIdx}.jpg`;
+    modalImg.src = `${CONFIG.baseImgPath}/${stamp.folder}/${state.currentImgIdx}.${stamp.extension || 'jpg'}`;
 
     // SEO Trick: The 'alt' and 'title' are key for dynamic ranking
     modalImg.alt = `${stamp.name} - Photo ${state.currentImgIdx}`;

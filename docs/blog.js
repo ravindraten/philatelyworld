@@ -128,5 +128,15 @@ const blogPosts = [
         imageCount: 1,
         url: "blog/penny-red.html",
         isBlog: true
+    },
+    {
+        name: "70 Years of Diplomatic Ties: Lao PDR & India Joint Postage Stamp Issue",
+        year: "2026",
+        country: "Lao PDR & India",
+        desc: "Commemorating 70 years of friendship between Laos and India (1956-2026). Explore the technical details and historical significance of this joint commemorative stamp.",
+        folder: "JointIssue",
+        imageCount: 3,
+        url: "blog/lao-india-joint-issue-2026.html",
+        isBlog: true
     }
 ];

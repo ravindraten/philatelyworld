@@ -48,7 +48,7 @@ stamps.forEach(stamp => {
     // Prepare metadata
     const cleanYear = stamp.year ? stamp.year.replace(/<\/?b>/g, "") : '';
     const descText = `${stamp.country} | ${cleanYear.replace('Year: ', '')} | Price: ₹${stamp.priceINR}`;
-    const imgUrl = `${baseImgPath}/${stamp.folder}/1.jpg`;
+    const imgUrl = `${baseImgPath}/${stamp.folder}/1.${stamp.extension || 'jpg'}`;
     
     // The HTML will act as a static page for crawlers and a redirect for users
     const html = `<!DOCTYPE html>

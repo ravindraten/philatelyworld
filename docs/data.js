@@ -1,6 +1,20 @@
 // 1. STAMP DATABASE
 const stamps = [
     {
+        name: "70 Years of Diplomatic Ties: Lao PDR & India Joint Postage Stamp Issue",
+        country: "Lao PDR & India",
+        year: "<b>Year</b>: 2026",
+        priceINR: 1750,
+        isSoldOut: true,
+        folder: "JointIssue",
+        imageCount: 3,
+        extension: "jpeg",
+        blogUrl: "blog/lao-india-joint-issue-2026.html",
+        desc: "RN4138: Commemorating 70 years of friendship between Laos and India (1956-2026). \
+        Features deep cultural ties including Buddhism and the Ramayana heritage. \
+        Limited edition of 3,000 sets. (+ shipping inside India in April 2026)"
+    },
+    {
         name: "France stamp collection in stockbook",
         country: "France",
         year: "<b>Year</b>: 1850 onwards",
