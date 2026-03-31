@@ -343,10 +343,10 @@ def test_dynamic_og_image_update(driver):
     driver.get(f"{URL}?item=RN4111")
     wait = WebDriverWait(driver, 10)
     
-    # RN4111 (D45) has 6 images, so it should use D45/2.jpg
-    wait.until(lambda d: "D45/2.jpg" in d.find_element(By.ID, "og-image").get_attribute("content"))
+    # RN4111 (D45) has 6 images, so it should use D45/1.jpg
+    wait.until(lambda d: "D45/1.jpg" in d.find_element(By.ID, "og-image").get_attribute("content"))
     og_image = driver.find_element(By.ID, "og-image").get_attribute("content")
-    assert "D45/2.jpg" in og_image
+    assert "D45/1.jpg" in og_image
 
 def test_og_image_rn4137(driver):
     """Verify that RN4137 specifically uses its 2nd photo (D67/2.jpg)."""
@@ -354,9 +354,9 @@ def test_og_image_rn4137(driver):
     wait = WebDriverWait(driver, 10)
     
     # D67 is the folder for RN4137
-    wait.until(lambda d: "D67/2.jpg" in d.find_element(By.ID, "og-image").get_attribute("content"))
+    wait.until(lambda d: "D67/1.jpg" in d.find_element(By.ID, "og-image").get_attribute("content"))
     og_image = driver.find_element(By.ID, "og-image").get_attribute("content")
-    assert "D67/2.jpg" in og_image, f"RN4137 should point to D67/2.jpg, found: {og_image}"
+    assert "D67/1.jpg" in og_image, f"RN4137 should point to D67/1.jpg, found: {og_image}"
 
 def test_security_guarantee_modal(driver):
     """Verify the Security & Guarantee modal opens and shows correct content."""

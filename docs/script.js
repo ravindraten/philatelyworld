@@ -473,7 +473,8 @@ function renderGallery(data) {
                 </div>`;
         }
         const itemID = stamp.desc.split(':')[0].trim();
-        const shareUrl = `${window.location.origin}${window.location.pathname}?item=${encodeURIComponent(itemID)}`;
+        const basePath = window.location.pathname.replace('index.html', '');
+        const shareUrl = `${window.location.origin}${basePath}item/${encodeURIComponent(itemID)}/`;
         // --- CURRENCY LOGIC ---
         let displayPrice;
         if (state.currency === 'EUR') {
@@ -678,8 +679,7 @@ function updateMetaTags(stamp, id) {
         title = `Philately World: ${stamp.name}`;
         const cleanYear = stamp.year.replace(/<\/?[^>]+(>|$)/g, "");
         desc = `${stamp.country} | ${cleanYear} | Price: ₹${stamp.priceINR}`;
-        const photoNum = (stamp.imageCount >= 2) ? 2 : 1;
-        imgUrl = `${CONFIG.baseImgPath}/${stamp.folder}/${photoNum}.jpg`;
+        imgUrl = `${CONFIG.baseImgPath}/${stamp.folder}/1.jpg`;
     }
     // // 1. Clean up the title and description
     // const title = `Philately World: ${stamp.name}`;
