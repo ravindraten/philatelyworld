@@ -1,5 +1,16 @@
 const blogPosts = [
     {
+        name: "WorldPride Amsterdam 2026 Stamp Sheet - Philately World",
+        year: "2026",
+        country: "Netherlands",
+        desc: "Discover the WorldPride Amsterdam 2026 stamp sheet by PostNL, featuring a colorful geometric design and honoring 25 years of marriage equality in the Netherlands.",
+        folder: "pride",
+        imageCount: 1,
+        // Update this to your local file path:
+        url: "blog/worldpride-amsterdam-stamp.html",
+        isBlog: true
+    },
+    {
         name: "Gold Stamp: The Goldfinch (Het Puttertje) - Philately World",
         year: "2026",
         country: "Netherlands",
