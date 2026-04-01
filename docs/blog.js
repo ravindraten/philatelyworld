@@ -1,5 +1,16 @@
 const blogPosts = [
     {
+        name: "Compilation Innovation Exhibition Philately - Philately World",
+        year: "2025",
+        country: "Austria",
+        desc: "Explore Austria Post's 2025 Compilation Innovation Exhibition Philately, a premium set featuring eight iconic Austrian stamp innovations from the last 20 years.",
+        folder: "innovation",
+        imageCount: 1,
+        // Update this to your local file path:
+        url: "blog/innovation-exhibition-philately.html",
+        isBlog: true
+    },
+    {
         name: "WorldPride Amsterdam 2026 Stamp Sheet - Philately World",
         year: "2026",
         country: "Netherlands",
