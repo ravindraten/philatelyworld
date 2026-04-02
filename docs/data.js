@@ -32,7 +32,6 @@ const stamps = [
         isSoldOut: true,
         folder: "JointIssue",
         imageCount: 3,
-        extension: "jpeg",
         blogUrl: "blog/lao-india-joint-issue-2026.html",
         desc: "RN4138: Commemorating 70 years of friendship between Laos and India (1956-2026). \
         Features deep cultural ties including Buddhism and the Ramayana heritage. \
