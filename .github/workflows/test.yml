@@ -16,7 +16,7 @@ jobs:
 
       - name: Install Dependencies
         run: |
-          pip install pytest pytest-xdist selenium webdriver-manager
+          pip install -r requirements.txt
 
       - name: Start Local Server
         # Starts the server on port 5500 in the background
