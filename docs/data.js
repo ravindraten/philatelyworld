@@ -1,6 +1,18 @@
 // 1. STAMP DATABASE
 const stamps = [
     {
+        name: "Large lot hundreds stamp sheets and some blocks, a lot topical",
+        country: "World",
+        year: "<b>Year</b>: Various",
+        priceINR: 15000,
+        isSoldOut: false,
+        folder: "D69",
+        imageCount: 39,
+        desc: "RN4140: Large lot hundreds stamp sheets and some blocks, a lot mostly topical.\
+                Check the photos. but there is a lot more than you can see here. \
+                + Shipping Inside India in April 2026."
+    },
+    {
         name: "AIR Mail Covers travelled from around the world to West Germany",
         country: "West Germany",
         year: "<b>Year</b>: 1950-1990",
