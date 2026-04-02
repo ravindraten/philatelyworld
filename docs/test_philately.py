@@ -50,9 +50,13 @@ def test_search_filtering(driver):
 
 def test_currency_toggle(driver):
     """Check if switching to EUR updates the price symbols."""
-    eur_btn = driver.find_element(By.ID, "btnEUR")
+    driver.get(URL)
+    wait = WebDriverWait(driver, 10)
+    eur_btn = wait.until(EC.element_to_be_clickable((By.ID, "btnEUR")))
     eur_btn.click()
-    time.sleep(0.5)
+    
+    # Wait for the price to contain '€' instead of fixed sleep
+    wait.until(EC.text_to_be_present_in_element((By.CLASS_NAME, "price"), "€"))
 
     prices = driver.find_elements(By.CLASS_NAME, "price")
     for price in prices:
@@ -92,15 +96,15 @@ def test_sold_out_logic(driver):
     
     # We still use JS click because standard .click() fails on hidden elements
     driver.execute_script("arguments[0].click();", sold_tab)
-    time.sleep(1)
-
-    # Search for an item known to be sold out (using the folder/id)
-    search_input = driver.find_element(By.ID, "stampSearch")
+    
+    # Wait for search input instead of sleep
+    search_input = wait.until(EC.presence_of_element_located((By.ID, "stampSearch")))
     search_input.clear()
     search_input.send_keys("Antilles")
     
     # Wait for the card to appear
     card = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, "#stampGrid .stamp-card")))
+    wait.until(lambda d: "sold-out" in card.get_attribute("class"))
     assert "sold-out" in card.get_attribute("class")
     
     buy_btn = card.find_element(By.CLASS_NAME, "buy-btn")
@@ -113,10 +117,12 @@ def test_search_filtering_duplicate(driver):
     """Verify that searching for 'Germany' filters the cards accurately."""
     driver.get(URL)
     wait = WebDriverWait(driver, 10)
-    search_input = driver.find_element(By.ID, "stampSearch")
+    search_input = wait.until(EC.presence_of_element_located((By.ID, "stampSearch")))
     search_input.clear()
     search_input.send_keys("Germany")
-    time.sleep(0.5) 
+    
+    # Wait until first card text contains Germany instead of sleep
+    wait.until(EC.text_to_be_present_in_element((By.CSS_SELECTOR, "#stampGrid .stamp-card"), "Germany"))
 
     cards = driver.find_elements(By.CSS_SELECTOR, "#stampGrid .stamp-card")
     for card in cards:
@@ -146,11 +152,11 @@ def test_lightbox_navigation(driver):
     """Test opening a card with multiple images and clicking 'Next'."""
     driver.get(URL)
     wait = WebDriverWait(driver, 10)
-    all_tab = driver.find_element(By.CSS_SELECTOR, ".filter-tab[data-status='all']")
+    all_tab = wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, ".filter-tab[data-status='all']")))
     driver.execute_script("arguments[0].click();", all_tab)
-    time.sleep(1)
-    # Search for an item known to have multiple images
-    search = driver.find_element(By.ID, "stampSearch")
+    
+    # Wait for the grid to update
+    search = wait.until(EC.presence_of_element_located((By.ID, "stampSearch")))
     search.send_keys("RN4078")
     
     # Click the image once it's clickable
@@ -172,17 +178,19 @@ def test_lightbox_navigation(driver):
 def test_qr_modal_copy(driver):
     """Test BHIM/UPI modal opens and copy button changes text."""
     driver.get(URL)
-    bhim_trigger = driver.find_element(By.ID, "bhimTrigger")
+    wait = WebDriverWait(driver, 10)
+    bhim_trigger = wait.until(EC.element_to_be_clickable((By.ID, "bhimTrigger")))
     bhim_trigger.click()
 
-    qr_modal = driver.find_element(By.ID, "qrModal")
+    qr_modal = wait.until(EC.visibility_of_element_located((By.ID, "qrModal")))
     assert qr_modal.is_displayed()
 
-    copy_btn = driver.find_element(By.ID, "copyBtn")
+    copy_btn = wait.until(EC.element_to_be_clickable((By.ID, "copyBtn")))
     copy_btn.click()
-    wait = WebDriverWait(driver, 10)
+    
+    # Wait for text to update and re-find in the assertion to avoid staleness
     wait.until(EC.text_to_be_present_in_element((By.ID, "copyBtn"), "Copied!"))
-    assert copy_btn.text == "Copied!"
+    assert driver.find_element(By.ID, "copyBtn").text == "Copied!"
 
 # --- 4. Deep Linking Scenario ---
 
@@ -225,18 +233,20 @@ def test_sticky_header_on_scroll(driver):
 def test_back_to_top_visibility(driver):
     """Verify 'Back to Top' button appears only after scrolling down."""
     driver.get(URL)
-    btn = driver.find_element(By.ID, "backToTop")
-    assert not btn.is_displayed()
-
-    driver.execute_script("window.scrollTo(0, 1000)")
-    time.sleep(10)
-    assert "visible" in btn.get_attribute("class")
+    wait = WebDriverWait(driver, 10)
     
-    btn.click()
-    time.sleep(1)
-    # Check if we are back near the top
-    scroll_pos = driver.execute_script("return window.pageYOffset;")
-    assert scroll_pos < 100
+    # Check initial invisibility
+    btn_id = "backToTop"
+    wait.until(lambda d: not d.find_element(By.ID, btn_id).is_displayed())
+
+    # Scroll and wait for visibility class
+    driver.execute_script("window.scrollTo(0, 1000)")
+    wait.until(lambda d: "visible" in d.find_element(By.ID, btn_id).get_attribute("class"))
+    
+    # Click and wait for top
+    driver.find_element(By.ID, btn_id).click()
+    wait.until(lambda d: d.execute_script("return window.pageYOffset;") < 100)
+    assert driver.execute_script("return window.pageYOffset;") < 100
 
 def test_dynamic_link_preview_meta(driver):
     """Verify that visiting ?item=RN4078 updates the document title and meta tags."""
@@ -259,8 +269,7 @@ def test_privacy_feature(driver):
 
     # 1. Scroll to the bottom so the footer is rendered
     driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
-    time.sleep(1) # Give it a moment to settle
-
+    
     # 2. Find the trigger
     privacy_trigger = wait.until(EC.presence_of_element_located((By.ID, "privacyTrigger")))
 
@@ -365,7 +374,6 @@ def test_security_guarantee_modal(driver):
 
     # 1. Scroll to the bottom to ensure footer is visible
     driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
-    time.sleep(1) 
 
     # 2. Find and click the Security & Guarantee trigger
     # Using JS click to avoid potential sticky header/footer interception
@@ -400,7 +408,9 @@ def test_status_filtering(driver):
     # 1. Click 'Available' tab
     available_tab = wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, ".filter-tab[data-status='available']")))
     driver.execute_script("arguments[0].click();", available_tab)
-    time.sleep(1)
+    
+    # Wait for the grid to filter: check that no visible products are 'sold-out'
+    wait.until(lambda d: len([b for b in d.find_elements(By.CLASS_NAME, "sold-out-badge") if b.is_displayed()]) == 0)
 
     sold_badges = driver.find_elements(By.CLASS_NAME, "sold-out-badge")
     visible_badges = [b for b in sold_badges if b.is_displayed()]
@@ -409,13 +419,13 @@ def test_status_filtering(driver):
     # 2. Check if 'Sold Out' tab is hidden (per current CONFIG in script.js)
     sold_tab = driver.find_element(By.CSS_SELECTOR, ".filter-tab[data-status='sold']")
     is_hidden = driver.execute_script("return window.getComputedStyle(arguments[0]).display === 'none';", sold_tab)
-    # Verification: Tab should be hidden based on current config
-    # assert is_hidden, "Sold Out tab should be hidden from UI"
 
     # 3. Reset to 'All Items' and verify sold items ARE visible even if tab is gone
     all_tab = driver.find_element(By.CSS_SELECTOR, ".filter-tab[data-status='all']")
     driver.execute_script("arguments[0].click();", all_tab)
-    time.sleep(1)
+    
+    # Wait for sold items to reappear
+    wait.until(lambda d: len([c for c in d.find_elements(By.CSS_SELECTOR, "#stampGrid .stamp-card") if "sold-out" in c.get_attribute("class")]) > 0)
     
     # Verify both available and sold items are shown
     all_cards = driver.find_elements(By.CSS_SELECTOR, "#stampGrid .stamp-card")
@@ -455,14 +465,16 @@ def test_blog_search_filtering(driver):
     wait = WebDriverWait(driver, 10)
 
     # 1. Switch to blog tab
-    blog_tab = driver.find_element(By.CSS_SELECTOR, ".filter-tab[data-status='blog']")
+    blog_tab = wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, ".filter-tab[data-status='blog']")))
     driver.execute_script("arguments[0].click();", blog_tab)
 
     # 2. Search for a specific blog title (e.g., "Buzin")
-    search_input = driver.find_element(By.ID, "stampSearch")
+    search_input = wait.until(EC.presence_of_element_located((By.ID, "stampSearch")))
     search_input.clear()
     search_input.send_keys("Buzin")
-    time.sleep(0.5)
+    
+    # Wait for blog card to appear instead of sleep
+    wait.until(EC.text_to_be_present_in_element((By.CLASS_NAME, "blog-card"), "Buzin"))
 
     # 3. Verify results
     cards = driver.find_elements(By.CLASS_NAME, "blog-card")
@@ -487,8 +499,8 @@ def test_blog_indicator_click_navigation(driver):
     # 3. Click the indicator
     driver.execute_script("arguments[0].click();", blog_link)
     
-    # 4. Verify URL change (handling potential relative paths)
-    time.sleep(10) # Allow for navigation
+    # 4. Verify URL change (handling potential relative paths) instead of 10s sleep
+    wait.until(lambda d: expected_url_part in d.current_url)
     assert expected_url_part in driver.current_url
     
     # 5. Verify the Modal/Overlay is NOT present
@@ -528,14 +540,14 @@ def test_announcement_carousel_limit(driver):
     # Wait for JS to inject the carousel track
     track = wait.until(EC.presence_of_element_located((By.ID, "announcementCarouselTrack")))
     
-    # Needs a moment for JS to fetch and append the slides
-    time.sleep(2)
+    # Wait for actual slides to pop in instead of 2s sleep
+    wait.until(lambda d: len(track.find_elements(By.CLASS_NAME, "carousel-slide")) > 0)
     
     # Find all carousel items
-    items = track.find_elements(By.CLASS_NAME, "carousel-item")
+    items = track.find_elements(By.CLASS_NAME, "carousel-slide")
     
-    # Assert limit is capped at 3 by script.js config slicer (assuming data has >= 1)
-    assert len(items) <= 3, "Carousel holds more than 3 announcements"
+    # Assert limit is capped at 2 by script.js config slicer (it slices 0 to 2)
+    assert len(items) <= 2, "Carousel holds more than 2 announcements"
 
 def test_announcement_view_all_button(driver):
     """Verify the 'View All Announcements' button is present and securely linked."""
@@ -583,10 +595,12 @@ def test_all_announcements_search(driver):
     except Exception:
         pytest.skip("Could not load announcements to test search.")
     
-    search_input = driver.find_element(By.ID, "stampSearch")
+    search_input = wait.until(EC.presence_of_element_located((By.ID, "stampSearch")))
     search_input.clear()
     search_input.send_keys("ECTP")
-    time.sleep(1) # Wait for DOM cache filter
+    
+    # Wait for DOM cache filter instead of sleep
+    wait.until(lambda d: "ectp" in grid.find_elements(By.CLASS_NAME, "stamp-card")[0].text.lower() or "european" in grid.find_elements(By.CLASS_NAME, "stamp-card")[0].text.lower())
     
     cards = grid.find_elements(By.CLASS_NAME, "stamp-card")
     assert len(cards) > 0, "No items returned for 'ECTP' search."
