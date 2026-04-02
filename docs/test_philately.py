@@ -243,8 +243,10 @@ def test_back_to_top_visibility(driver):
     driver.execute_script("window.scrollTo(0, 1000)")
     wait.until(lambda d: "visible" in d.find_element(By.ID, btn_id).get_attribute("class"))
     
-    # Click and wait for top
-    driver.find_element(By.ID, btn_id).click()
+    # Click and wait for top. Use JS click to avoid 'ElementNotInteractableException' during CSS transitions.
+    btn = wait.until(EC.element_to_be_clickable((By.ID, btn_id)))
+    driver.execute_script("arguments[0].click();", btn)
+    
     wait.until(lambda d: d.execute_script("return window.pageYOffset;") < 100)
     assert driver.execute_script("return window.pageYOffset;") < 100
 
