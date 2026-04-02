@@ -5,7 +5,7 @@ const stamps = [
         country: "World",
         year: "<b>Year</b>: Various",
         priceINR: 15000,
-        isSoldOut: false,
+        isSoldOut: true,
         folder: "D69",
         imageCount: 11,
         desc: "RN4140: Large lot hundreds stamp sheets and some blocks, a lot mostly topical.\
