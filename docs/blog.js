@@ -1,5 +1,15 @@
 const blogPosts = [
     {
+        name: "India Post: Master List of Diplomatic Joint Issues (1990–2025)",
+        year: "1990-2025",
+        country: "India & Various",
+        desc: "A comprehensive master list of all diplomatic joint issue stamps released by India Post from 1990 to 2025 across partner countries around the world.",
+        folder: "JointIssue",
+        imageCount: 1,
+        url: "blog/india-joint-issues.html",
+        isBlog: true
+    },
+    {
         name: "India Miniature Sheets: Complete Visual Catalog (1973-2026)",
         year: "1973-2026",
         country: "India",
