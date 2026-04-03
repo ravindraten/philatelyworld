@@ -292,6 +292,10 @@ header {
     color: #f381dc;
 }
 
+.social-icon.facebook-icon {
+    color: #1877F2;
+}
+
 .social-icon {
     color: var(--primary);
     display: flex;
