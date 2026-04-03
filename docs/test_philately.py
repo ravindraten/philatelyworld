@@ -175,6 +175,7 @@ def test_lightbox_navigation(driver):
     wait.until(EC.text_to_be_present_in_element((By.ID, "caption"), "(2/14)"))
     assert "(2/14)" in caption.text
 
+@pytest.mark.skip(reason="BHIM icon was originally replaced with Facebook link by user request")
 def test_qr_modal_copy(driver):
     """Test BHIM/UPI modal opens and copy button changes text."""
     driver.get(URL)
