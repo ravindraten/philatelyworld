@@ -1,6 +1,18 @@
 // 1. STAMP DATABASE
 const stamps = [
     {
+        name: "Special issued Czechoslovakia album with collection about 180 mint hinged stamps",
+        country: "Czechoslovakia",
+        year: "<b>Year</b>: 1948+",
+        priceINR: 7250,
+        isSoldOut: false,
+        folder: "D70",
+        imageCount: 17,
+        desc: "RN4141: Special issued Czechoslovakia album with collection about 180 mint hinged stamps.\
+                Check the photos to see a small part, but there is a lot more than you can see here.\
+                + Shipping Inside India in April 2026."
+    },
+    {
         name: "Large lot hundreds stamp sheets and some blocks, a lot topical",
         country: "World",
         year: "<b>Year</b>: Various",
@@ -17,7 +29,7 @@ const stamps = [
         country: "West Germany",
         year: "<b>Year</b>: 1950-1990",
         priceINR: 15000,
-        isSoldOut: false,
+        isSoldOut: true,
         folder: "D68",
         imageCount: 39,
         desc: "RN4139: 153 different AIR Mail Covers travelled from around the world to West Germany.\
