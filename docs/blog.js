@@ -1,5 +1,15 @@
 const blogPosts = [
     {
+        name: "India Miniature Sheets: Complete Visual Catalog (1973-2026)",
+        year: "1973-2026",
+        country: "India",
+        desc: "Complete visual catalog of all 303 Indian Miniature Sheets from 1973 to 2026. Browse every miniature sheet with dates, titles, and images.",
+        folder: "miniature-sheets-India",
+        imageCount: 1,
+        url: "blog/miniature-sheets-India.html",
+        isBlog: true
+    },
+    {
         name: "Compilation Innovation Exhibition Philately - Philately World",
         year: "2025",
         country: "Austria",
