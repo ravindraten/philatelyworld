@@ -17,7 +17,7 @@ const stamps = [
         country: "Germany",
         year: "<b>Year</b>: 1923",
         priceINR: 899,
-        isSoldOut: false,
+        isSoldOut: true,
         folder: "D71",
         imageCount: 1,
         desc: "RN4142: Fascinating piece of history from the Weimar Republic in Germany, specifically from the hyperinflation period of 1923.\
