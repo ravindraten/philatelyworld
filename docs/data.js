@@ -1,6 +1,17 @@
 // 1. STAMP DATABASE
 const stamps = [
     {
+        name: "Hyperinflation stamps from the definitive series of Weimar Republic",
+        country: "Germany",
+        year: "<b>Year</b>: 1923",
+        priceINR: 899,
+        isSoldOut: false,
+        folder: "D71",
+        imageCount: 1,
+        desc: "RN4142: Fascinating piece of history from the Weimar Republic in Germany, specifically from the hyperinflation period of 1923.\
+                + Shipping Inside India in April 2026."
+    },
+    {
         name: "Special issued Czechoslovakia album with collection about 180 mint hinged stamps",
         country: "Czechoslovakia",
         year: "<b>Year</b>: 1948+",
