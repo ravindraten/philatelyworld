@@ -1,6 +1,18 @@
 // 1. STAMP DATABASE
 const stamps = [
     {
+        name: "Collection of 29 GB Postal History Covers (1940-1960s) - Registered, First Flight, High-Value Castles & Wildings",
+        country: "Commonwealth",
+        year: "<b>Year</b>: 1940-1960s",
+        priceINR: 11600,
+        isSoldOut: true,
+        folder: "D72",
+        imageCount: 29,
+        desc: "RN4143: A diverse and high-quality collection of 29 British Postal History covers, spanning the late King George VI and early Queen Elizabeth II \"Wilding\" eras. \
+        This lot is an excellent opportunity for a postal history specialist or a collector of international commercial mail.\
+        <b>Rs.400 per cover.</b> \
+        + Shipping Inside India in April 2026."
+    }, {
         name: "Hyperinflation stamps from the definitive series of Weimar Republic",
         country: "Germany",
         year: "<b>Year</b>: 1923",
