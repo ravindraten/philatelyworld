@@ -1244,7 +1244,7 @@ header {
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     pointer-events: none;
     z-index: 2000;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
 .designer-icon:hover::after {
@@ -1254,8 +1254,8 @@ header {
 }
 
 .designer-icon-img {
-    width: 24px;
-    height: 24px;
+    width: 36px;
+    height: 36px;
     object-fit: contain;
     transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -1269,11 +1269,13 @@ header {
     .designer-icon {
         margin: 5px auto 15px;
     }
+
     .designer-icon::after {
         left: 50%;
         right: auto;
         transform: translateX(-50%) translateY(-10px);
     }
+
     .designer-icon:hover::after {
         transform: translateX(-50%) translateY(-18px);
     }
