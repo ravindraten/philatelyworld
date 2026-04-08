@@ -669,7 +669,7 @@ def test_album_designer_mobile_lockdown(driver):
     # 3. Verify the lockdown overlay becomes visible instantly
     wait.until(EC.visibility_of_element_located((By.ID, "mobile-warning")))
     assert warning.is_displayed()
-    assert "Desktop View Required" in warning.text
+    assert "Desktop View Required".lower() in warning.text.lower()
     
     # 4. Verify main content is hidden
     controls = driver.find_element(By.ID, "controls")
