@@ -218,18 +218,18 @@ def test_deep_link_item(driver):
 # --- 5. Responsive / Mobile Logic ---
 
 def test_sticky_header_on_scroll(driver):
-    """Verify header class changes when scrolling (Requires JS execution in headless)."""
+    """Verify search bar class changes when scrolling."""
     driver.get(URL)
-    header = driver.find_element(By.TAG_NAME, "header")
+    search_sticky = driver.find_element(By.CLASS_NAME, "search-sticky-container")
     
     # Scroll down via JavaScript
     driver.execute_script("window.scrollTo(0, 500)")
     
-    # Wait until the class 'is-pinned' is added to the header
+    # Wait until the class 'is-pinned' is added to the search container
     wait = WebDriverWait(driver, 5)
-    wait.until(lambda d: "is-pinned" in header.get_attribute("class"))
+    wait.until(lambda d: "is-pinned" in search_sticky.get_attribute("class"))
     
-    assert "is-pinned" in header.get_attribute("class")
+    assert "is-pinned" in search_sticky.get_attribute("class")
 
 def test_back_to_top_visibility(driver):
     """Verify 'Back to Top' button appears only after scrolling down."""
