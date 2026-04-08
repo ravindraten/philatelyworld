@@ -11,7 +11,7 @@ const CONFIG = {
     showAnnouncement: true,
     showPromo: false,
     showSoldOut: false, // Set to true to show the Sold Out filter tab
-    announcementFiles: ['1.html', '2.html', '3.html', '4.html'], // Place your HTML files in the 'announcement' folder
+    announcementFiles: ['5.html', '4.html', '3.html', '2.html', '1.html'], // Place your HTML files in the 'announcement' folder
 
     // 2. CURRENCY CONFIGURATION
     eurRate: 0.011, // Fallback rate
@@ -50,7 +50,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const tabs = document.querySelectorAll('.filter-tab');
     tabs.forEach(tab => {
         const status = tab.getAttribute('data-status');
-        
+
         // --- HIDE SOLD OUT TAB IF DISABLED ---
         if (status === 'sold' && !CONFIG.showSoldOut) {
             tab.style.display = 'none';
@@ -706,12 +706,12 @@ function updateMetaTags(stamp, id) {
         // A. Primary update via IDs (Reliable if JS is executed)
         const el = document.getElementById(id);
         if (el) el.setAttribute('content', value);
-        
+
         // B. Secondary update via attribute selectors (Legacy/Crawler fallbacks)
         const propName = id.replace('-', ':');
         const metaByProp = document.querySelector(`meta[property="${propName}"]`);
         const metaByName = document.querySelector(`meta[name="${propName}"]`);
-        
+
         if (metaByProp) metaByProp.setAttribute('content', value);
         if (metaByName) metaByName.setAttribute('content', value);
     }
