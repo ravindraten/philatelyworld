@@ -11,7 +11,7 @@ const CONFIG = {
     showAnnouncement: true,
     showPromo: false,
     showSoldOut: false, // Set to true to show the Sold Out filter tab
-    announcementFiles: ['1.html', '2.html', '3.html', '4.html'], // Place your HTML files in the 'announcement' folder
+    announcementFiles: ['5.html', '4.html', '3.html', '2.html', '1.html'], // Place your HTML files in the 'announcement' folder
 
     // 2. CURRENCY CONFIGURATION
     eurRate: 0.011, // Fallback rate
@@ -31,6 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
     updateLiveExchangeRate();
     const urlParams = new URLSearchParams(window.location.search);
     const itemID = urlParams.get('item');
+    const announcementID = urlParams.get('announcement');
 
     // --- NEW PERSISTENCE LOGIC ---
     // Check if we have a saved tab from this session, otherwise default to 'available'
@@ -64,15 +65,15 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     // --- END NEW PERSISTENCE LOGIC ---
     // 2. Handle Routing (Deep Links vs Default Load)
-    if (itemID === 'promo') {
-        updateMetaTags(null, 'promo');
+    if (itemID === 'promo' || announcementID) {
+        updateMetaTags(null, itemID === 'promo' ? 'promo' : announcementID);
         renderGallery([]);
 
         // Instead of grid, add the button to the sidebar/container so it's visible
         const container = document.querySelector('.container');
         if (container) {
             container.insertAdjacentHTML('afterbegin',
-                `<div style="text-align:center; margin: 20px 0;">
+                `<div style="text-align:center; margin: 20px 0;" id="backToCollectionBtn">
                     <button onclick="window.location.href='index.html'" class="toggle-btn active" style="padding: 12px 24px; font-weight: bold; cursor: pointer;">
                         ← View Stamp Collection
                     </button>
@@ -375,7 +376,8 @@ function renderGallery(data) {
 
     // 1. Handle Sidebar (Hero Card)
     if (sidebar) {
-        const isPromoShared = urlParams.get('item') === 'promo';
+        const urlParams = new URLSearchParams(window.location.search);
+        const isPromoShared = urlParams.get('item') === 'promo' || urlParams.has('announcement');
         if (!isSearching && (urlParams.get('item') === null || isPromoShared)) {
             // Toggle the centering class
             if (isPromoShared) {
@@ -671,29 +673,65 @@ function copyShareLink(url, btn) {
 
 function updateMetaTags(stamp, id) {
     let title, desc, imgUrl;
-    if (id === 'promo') {
-        title = "Philately World - Exclusive Announcement";
-        desc = "Get 150 stamps for FREE! Follow our social channels to claim yours.";
-        imgUrl = "https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/logo.jpg";
+    if (id === 'promo' || id) {
+        if (id === 'promo') {
+            title = "Philately World - Exclusive Announcement";
+            desc = "Get 150 stamps for FREE! Follow our social channels to claim yours.";
+            imgUrl = "https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/logo.jpg";
+        } else if (id) {
+            // It's a specific announcement ID (e.g., '5')
+            title = "Philately World - Special Announcement";
+            
+            // Set specific content for each announcement
+            const cleanId = id.toString().replace('.html', '');
+            
+            // Try to find the title/desc in the cache first (if the announcements were already loaded)
+            if (window.announcementsCache) {
+                const cached = window.announcementsCache.find(a => a.file === `${cleanId}.html`);
+                if (cached) {
+                    title = cached.title;
+                    desc = cached.desc;
+                    imgUrl = cached.imgSrc;
+                    updateHeaderTags(title, desc, imgUrl);
+                    return;
+                }
+            }
+
+            // Fallback: If not cached, fetch the file once to get the metadata
+            fetch(`announcement/${cleanId}.html`)
+                .then(r => r.ok ? r.text() : '')
+                .then(html => {
+                    if (html) {
+                        const parser = new DOMParser();
+                        const doc = parser.parseFromString(html, 'text/html');
+                        const extractedTitle = doc.querySelector('h1') ? doc.querySelector('h1').textContent.trim() : "Philately World Announcement";
+                        
+                        const paragraphs = Array.from(doc.querySelectorAll('p'));
+                        const descEl = paragraphs.find(p => p.textContent.length > 50 && !p.classList.contains('category-tag'));
+                        const extractedDesc = descEl ? descEl.textContent.trim() : "Discover our latest philatelic news and exclusive releases.";
+                        const finalDesc = extractedDesc.length > 160 ? extractedDesc.substring(0, 160) + "..." : extractedDesc;
+                        
+                        const imgEl = doc.querySelector('.img-wrap img');
+                        const extractedImg = imgEl ? imgEl.getAttribute('src') : "https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/logo.jpg";
+                        
+                        updateHeaderTags(extractedTitle, finalDesc, extractedImg);
+                    }
+                });
+            return; // updateHeaderTags will be called in the promise
+        }
     } else if (stamp) {
         title = `Philately World: ${stamp.name}`;
         const cleanYear = stamp.year.replace(/<\/?[^>]+(>|$)/g, "");
         desc = `${stamp.country} | ${cleanYear} | Price: ₹${stamp.priceINR}`;
         imgUrl = `${CONFIG.baseImgPath}/${stamp.folder}/1.jpg`;
     }
-    // // 1. Clean up the title and description
-    // const title = `Philately World: ${stamp.name}`;
-    // const cleanYear = stamp.year.replace(/<\/?[^>]+(>|$)/g, "");
-    // const desc = `${stamp.country} | ${cleanYear} | Price: ₹${stamp.priceINR}`;
 
-    // // 2. Point to the FIRST image in the folder (1.jpg)
-    // // Using your CONFIG.baseImgPath for consistency
-    // const imgUrl = `${CONFIG.baseImgPath}/${stamp.folder}/1.jpg`;
+    updateHeaderTags(title, desc, imgUrl);
+}
 
-    // 3. Update the Browser Tab Title
+function updateHeaderTags(title, desc, imgUrl) {
     document.title = title;
 
-    // 4. Update Open Graph tags and Twitter Cards for social media previews
     const tags = {
         'og-title': title,
         'og-desc': desc,
@@ -703,11 +741,9 @@ function updateMetaTags(stamp, id) {
     };
 
     for (const [id, value] of Object.entries(tags)) {
-        // A. Primary update via IDs (Reliable if JS is executed)
         const el = document.getElementById(id);
         if (el) el.setAttribute('content', value);
         
-        // B. Secondary update via attribute selectors (Legacy/Crawler fallbacks)
         const propName = id.replace('-', ':');
         const metaByProp = document.querySelector(`meta[property="${propName}"]`);
         const metaByName = document.querySelector(`meta[name="${propName}"]`);
@@ -746,10 +782,9 @@ async function initAnnouncementCarousel() {
 
             const title = titleEl ? titleEl.textContent.trim() : 'Announcement';
             const category = categoryEl ? categoryEl.textContent.trim() : 'News';
-            let desc = descEl ? descEl.textContent.trim() : 'Click to read more...';
-            if (desc.length > 90) desc = desc.substring(0, 90) + '...';
-
-            const imgSrc = imgEl ? imgEl.getAttribute('src') : 'https://placehold.co/400x300/e2e8f0/475569?text=Announcement';
+            const announcementID = file.replace('.html', '');
+            const basePath = window.location.pathname.replace('index.html', '');
+            const shareUrl = `${window.location.origin}${basePath}announcement/${announcementID}/`;
 
             const slideInner = `
                 <div class="stamp-card" style="margin: 0; border: none; box-shadow: none; height: 100%; border-radius: 0;">
@@ -759,9 +794,12 @@ async function initAnnouncementCarousel() {
                     </div>
                     <div class="details">
                         <h3>${title}</h3>
-                        <p class="stamp-desc" style="display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden;">${desc}</p>
+                        <p class="stamp-desc" style="display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden;">${desc} <a href="announcement/${file}" style="font-size:0.75rem; color:var(--primary); font-weight:600;">[Read More]</a></p>
                         <div class="action-buttons" style="margin-top: auto; justify-content: flex-end;">
-                            <span class="buy-btn" style="text-align: center;">Read More</span>
+                            <button class="share-icon-btn" onclick="event.preventDefault(); event.stopPropagation(); copyShareLink('${shareUrl}', this)" title="Copy Share Link">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path><polyline points="16 6 12 2 8 6"></polyline><line x1="12" y1="2" x2="12" y2="15"></line></svg>
+                            </button>
+                            <a href="announcement/${file}" class="buy-btn" style="text-align: center;">View Full Post</a>
                         </div>
                     </div>
                 </div>
@@ -931,6 +969,10 @@ async function renderAllAnnouncementsPage(searchTerm = '') {
     // 3. Render
     let cardsHTML = '';
     filtered.forEach(item => {
+        const announcementID = item.file.replace('.html', '');
+        const basePath = window.location.pathname.replace('all_announcements.html', '');
+        const shareUrl = `${window.location.origin}${basePath}announcement/${announcementID}/`;
+
         cardsHTML += `
             <div class="stamp-card" style="display: flex; flex-direction: column; height: 100%;">
                 <div class="img-container">
@@ -941,6 +983,9 @@ async function renderAllAnnouncementsPage(searchTerm = '') {
                     <h3>${item.title}</h3>
                     <p class="stamp-desc" style="display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; margin-bottom: 20px; flex-grow: 1;">${item.desc}</p>
                     <div class="action-buttons" style="margin-top: auto; justify-content: flex-end;">
+                        <button class="share-icon-btn" onclick="copyShareLink('${shareUrl}', this)" title="Copy Share Link">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path><polyline points="16 6 12 2 8 6"></polyline><line x1="12" y1="2" x2="12" y2="15"></line></svg>
+                        </button>
                         <a href="announcement/${item.file}" class="buy-btn" style="text-align: center; text-decoration: none; width: 100%;">Read More</a>
                     </div>
                 </div>

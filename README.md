@@ -17,3 +17,19 @@ This generates a static HTML file inside `docs/item/` for every stamp.
 
 When sharing, use the generated folder path:
 `https://philatelyworld.in/item/RN4135/`
+
+### Generating Announcement Previews
+Similar to item listings, social media previews for site announcements must be statically pre-generated to be visible on platforms like WhatsApp and Facebook.
+
+**Whenever you add a new announcement:**
+1.  **Create the file**: Add your new announcement (e.g., `6.html`) to the `docs/announcement/` folder.
+2.  **Register it**: Open `docs/script.js` and add `'6.html'` to the beginning of the `announcementFiles` list (line 14).
+3.  **Generate Previews**: Run the automated script:
+    ```bash
+    cd docs
+    node generate_announcement_previews.js
+    ```
+This creates the required deep-link folders (e.g., `docs/announcement/6/`) with correct metadata extracted from your HTML.
+
+When sharing, use the generated folder path:
+`https://philatelyworld.in/announcement/6/`

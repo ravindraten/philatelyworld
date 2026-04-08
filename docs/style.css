@@ -467,6 +467,13 @@ header {
     transform: scale(1.05);
 }
 
+/* Ensure announcement cards show the full image */
+#announcementsGrid .img-container img,
+.announcement-carousel-track .img-container img {
+    object-fit: contain;
+    background: #f1f5f9;
+}
+
 .sold-out-badge {
     position: absolute;
     top: 15px;
