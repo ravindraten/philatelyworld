@@ -786,6 +786,11 @@ async function initAnnouncementCarousel() {
             const basePath = window.location.pathname.replace('index.html', '');
             const shareUrl = `${window.location.origin}${basePath}announcement/${announcementID}/`;
 
+            let desc = descEl ? descEl.textContent.trim() : 'Click to read more...';
+            if (desc.length > 120) desc = desc.substring(0, 120) + '...';
+
+            const imgSrc = imgEl ? imgEl.getAttribute('src') : 'https://placehold.co/400x300/e2e8f0/475569?text=Announcement';
+
             const slideInner = `
                 <div class="stamp-card" style="margin: 0; border: none; box-shadow: none; height: 100%; border-radius: 0;">
                     <div class="img-container">
@@ -814,17 +819,23 @@ async function initAnnouncementCarousel() {
 
     const validSlides = slidesHTML.filter(s => s !== '');
     if (validSlides.length === 0) {
-        track.parentElement.style.display = 'none';
+        const liveTrack = document.getElementById('announcementCarouselTrack');
+        if (liveTrack && liveTrack.parentElement) {
+            liveTrack.parentElement.style.display = 'none';
+        }
         return;
     }
 
-    track.innerHTML = validSlides.join('');
+    // RE-QUERY the track for the latest version in the DOM to avoid rendering to a detached node
+    const currentTrack = document.getElementById('announcementCarouselTrack');
+    if (!currentTrack) return;
+    currentTrack.innerHTML = validSlides.join('');
 
     let currentSlide = parseInt(sessionStorage.getItem('announcementSlide')) || 0;
     const totalSlides = validSlides.length;
     if (currentSlide >= totalSlides) currentSlide = 0;
 
-    updateAnnouncementCarousel(currentSlide, track, null);
+    updateAnnouncementCarousel(currentSlide, currentTrack, null);
 
     if (indicators && totalSlides > 1) {
         let dotsHTML = '';
@@ -834,19 +845,19 @@ async function initAnnouncementCarousel() {
         indicators.innerHTML = dotsHTML;
 
         const dots = indicators.querySelectorAll('.carousel-dot');
-        updateAnnouncementCarousel(currentSlide, track, dots);
+        updateAnnouncementCarousel(currentSlide, currentTrack, dots);
 
         dots.forEach(dot => {
             dot.addEventListener('click', (e) => {
                 currentSlide = parseInt(e.target.getAttribute('data-idx'));
-                updateAnnouncementCarousel(currentSlide, track, dots);
+                updateAnnouncementCarousel(currentSlide, currentTrack, dots);
                 resetAutoSlide();
             });
         });
     }
 
     // Sync height with a standard stamp card in the grid, but enforce a minimum to prevent clipping the button
-    const container = track.closest('.announcement-carousel-container');
+    const container = currentTrack.closest('.announcement-carousel-container');
     const syncHeight = () => {
         const firstGridCard = document.querySelector('#stampGrid .stamp-card');
         if (container) {
