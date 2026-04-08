@@ -1,32 +1,44 @@
-# 📬 philatelyWorld: Automated Stamp Album Designer
+# 📬 Philately World: Automated Stamp Album Designer
 
-A high-precision, web-based tool for philatelists to generate professional A4 album pages automatically. Designed to eliminate the need for manual coding or complex design software.
+A high-precision, web-based tool for philatelists to generate professional A4 album pages automatically. Eliminate manual design work and complex software with our intelligent, server-less designer.
 
-## ✨ Features
+## ✨ Core Features
 
-  * **Automatic Centering:** Intelligent layout engine that perfectly centers stamps on the page.
-  * **Smart Naming Logic:** Extracts **Title**, **Date**, and **Denomination** automatically from filenames.
-  * **Professional Borders:** Includes decorative 10mm page borders and precise stamp frames.
-  * **Corner Metadata:** Placements for release dates (bottom-left) and prices (bottom-right).
-  * **Instant Preview:** High-speed rendering for real-time design adjustments.
+*   **Intelligent Layout Engine:** Automatically calculates centering, spacing, and row distribution for a perfectly balanced A4 page.
+*   **Managed Stamps Gallery:** A dedicated dashboard to track, preview, and delete uploaded stamps before final generation.
+*   **Session Persistence (Auto-Save):** Powered by **IndexedDB**, your collection is automatically saved locally. Close your browser and pick up exactly where you left off.
+*   **Global Typography:** Choose from **25 world-class fonts** (Sans-Serif, Serif, and Monospace) to match your album's aesthetic.
+*   **Smart Metadata Extraction:** Pre-fill stamp details directly from filenames (format: `Title_Year_Price.jpg`).
+*   **Dynamic Currency Support:** Automatic symbol prepending for all major world currencies (₹, €, $, £, ¥, CHF, AU$, CA$).
+*   **High-Resolution PDF:** Generates print-ready PDFs with binding-aware margins (20mm binding edge).
+*   **Privacy First:** 100% server-less. All images and data stay on your local device.
 
-## 🚀 Usage Instructions
+## 🚀 Usage Guide
 
-1.  **Renaming Strategy:** For the metadata to appear, rename your images as: `StampName_Year_Value.jpg` (e.g., `Osprey_2026_2.50.jpg`).
-2.  **Configurations:** Adjust width/height to match your stamp mounts.
-3.  **Generation:** Upload your files; the engine will populate rows and add pages as needed.
+1.  **Preparation:** Rename your stamp images following the pattern: `Title_Year_Price.jpg`
+    *   *Example:* `Birds_of_Europe_2026_1.50.jpg`
+2.  **Configuration:** Set your global album title, unified typography, and precise stamp dimensions (width/height in mm).
+3.  **Upload:** Drag & drop or click the upload card. The gallery will populate, and your preview will update instantly.
+4.  **Refine:** Use the "Managed Stamps" sidebar to remove unwanted items or re-upload.
+5.  **Export:** Click "Download High-Res PDF" to save your page.
 
-## ⚖️ Limitations
+## ⚖️ Fair Usage Policy
 
-  * **Free Lifetime Limit:** Users are restricted to downloading **10 total pages** (tracked via LocalStorage).
-  * **Preview Mode:** Unlimited previews; the counter only increments when the "Download" button is clicked.
+*   **Free Lifetime Limit:** Users can download up to **10 high-resolution pages** for free.
+*   **Drafting Is FREE:** Unlimited previews and image management. The counter only increments upon a successful high-res PDF download.
+*   **Device Persistent:** Your progress and usage limit are stored locally in your browser.
 
-## 🛠️ Tech Stack
+## 🛠️ Technology Stack
 
-  * **Frontend:** HTML5 / CSS3 (Flexbox/Grid)
-  * **Logic:** Vanilla JavaScript
-  * **PDF Engine:** [jsPDF](https://github.com/parallax/jsPDF)
+*   **Engine:** Vanilla JavaScript / ES6+
+*   **Persistence:** IndexedDB (for image data) & LocalStorage (for session metadata)
+*   **Rendering:** [jsPDF](https://github.com/parallax/jsPDF) PDF library
+*   **Design:** Premium Glassmorphism UI with responsive CSS Grid/Flexbox
+*   **Compatibility:** Optimized for Desktop and Tablet (800px+ viewports)
 
------
+---
 
-**Developed by Ravindra Nayak** 🌐 [philatelyworld.in](https://philatelyworld.in) | 📸 IG: [@philatelyworld10](https://www.google.com/search?q=https://instagram.com/philatelyworld10)
+**Developed by Ravindra Nayak**  
+🌐 [philatelyworld.in](https://philatelyworld.in)  
+📸 Follow on Instagram: [@philatelyworld10](https://www.instagram.com/philatelyworld10)  
+☕ Support the Project: UPI (India) & PayPal (Global) options available in-app.

@@ -666,7 +666,7 @@ def test_album_designer_mobile_lockdown(driver):
     warning = driver.find_element(By.ID, "mobile-warning")
     assert not warning.is_displayed()
     
-    # 2. Switch to Mobile resolution (below 1024px)
+    # 2. Switch to Mobile resolution (below 800px)
     driver.set_window_size(375, 812) # iPhone size
     
     # 3. Verify the lockdown overlay becomes visible instantly
