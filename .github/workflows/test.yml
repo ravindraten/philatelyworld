@@ -36,7 +36,20 @@ jobs:
 
       - name: Run Selenium Tests (Parallel)
         run: |
-          pytest -n auto --html=report.html --self-contained-html docs/test_philately.py
+          # Generate the HTML report (can still be downloaded)
+          pytest -n auto --html=report.html --self-contained-html --color=no > test-output.txt || true
+          
+          # Print the output to the console for the logs
+          cat test-output.txt
+          
+          # Append the readable results directly to the GitHub Job Summary
+          echo "## Test Summary" >> $GITHUB_STEP_SUMMARY
+          echo "\`\`\`text" >> $GITHUB_STEP_SUMMARY
+          cat test-output.txt >> $GITHUB_STEP_SUMMARY
+          echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
+          
+          # Re-run pytest silently just to capture the correct exit code for the action status
+          pytest -n auto -q docs/test_philately.py
 
       - name: Upload Test Report
         uses: actions/upload-artifact@v4
