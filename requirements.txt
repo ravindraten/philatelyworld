@@ -2,3 +2,4 @@ pytest
 pytest-xdist
 selenium
 webdriver-manager
+pytest-html

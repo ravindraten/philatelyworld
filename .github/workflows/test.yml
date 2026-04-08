@@ -36,4 +36,11 @@ jobs:
 
       - name: Run Selenium Tests (Parallel)
         run: |
-          pytest -n auto docs/test_philately.py
+          pytest -n auto --html=report.html --self-contained-html docs/test_philately.py
+
+      - name: Upload Test Report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: test-results-html
+          path: report.html
