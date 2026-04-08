@@ -705,4 +705,4 @@ def test_album_designer_seo_meta(driver):
     
     # Verify Open Graph Image
     og_image = driver.find_element(By.XPATH, "//meta[@property='og:image']").get_attribute("content")
-    assert "logo.jpg" in og_image
+    assert "designer-icon.png" in og_image
