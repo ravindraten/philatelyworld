@@ -47,7 +47,7 @@ document.addEventListener('DOMContentLoaded', () => {
     updateFilterCounts();
 
     // Dynamically set the active tab UI based on the state
-    const tabs = document.querySelectorAll('.filter-tab');
+    const tabs = document.querySelectorAll('.filter-tab[data-status]');
     tabs.forEach(tab => {
         const status = tab.getAttribute('data-status');
 
@@ -301,7 +301,7 @@ function initEventListeners() {
     }
 
     // Filter Tab Logic
-    const filterTabs = document.querySelectorAll('.filter-tab');
+    const filterTabs = document.querySelectorAll('.filter-tab[data-status]');
     filterTabs.forEach(tab => {
         tab.addEventListener('click', () => {
             // UI Update
@@ -633,7 +633,7 @@ function updateFilterCounts() {
     const availableCount = totalCount - soldCount;
     const blogTotal = blogPosts.length;
 
-    const tabs = document.querySelectorAll('.filter-tab');
+    const tabs = document.querySelectorAll('.filter-tab[data-status]');
     tabs.forEach(tab => {
         const status = tab.getAttribute('data-status');
         if (status === 'all') {
