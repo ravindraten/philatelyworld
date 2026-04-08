@@ -799,18 +799,18 @@ async function initAnnouncementCarousel() {
                     </div>
                     <div class="details">
                         <h3>${title}</h3>
-                        <p class="stamp-desc" style="display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden;">${desc} <a href="announcement/${file}" style="font-size:0.75rem; color:var(--primary); font-weight:600;">[Read More]</a></p>
+                        <p class="stamp-desc" style="display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden;">${desc} <a href="announcement/${file}" onclick="event.stopPropagation()" style="font-size:0.75rem; color:var(--primary); font-weight:600;">[Read More]</a></p>
                         <div class="action-buttons" style="margin-top: auto; justify-content: flex-end;">
                             <button class="share-icon-btn" onclick="event.preventDefault(); event.stopPropagation(); copyShareLink('${shareUrl}', this)" title="Copy Share Link">
                                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path><polyline points="16 6 12 2 8 6"></polyline><line x1="12" y1="2" x2="12" y2="15"></line></svg>
                             </button>
-                            <a href="announcement/${file}" class="buy-btn" style="text-align: center;">View Full Post</a>
+                            <a href="announcement/${file}" onclick="event.stopPropagation()" class="buy-btn" style="text-align: center;">View Full Post</a>
                         </div>
                     </div>
                 </div>
             `;
 
-            return `<a href="announcement/${file}" class="carousel-slide" style="min-width: 100%; flex-shrink: 0; display: block; text-decoration: none; color: inherit; cursor: pointer; height: 100%;">${slideInner}</a>`;
+            return `<div class="carousel-slide" onclick="window.location.href='announcement/${file}'" style="min-width: 100%; flex-shrink: 0; display: block; text-decoration: none; color: inherit; cursor: pointer; height: 100%;">${slideInner}</div>`;
         } catch (e) {
             console.error('Error loading announcement:', file, e);
             return '';
