@@ -1,6 +1,17 @@
 // 1. STAMP DATABASE
 const stamps = [
     {
+        name: "Postset Birds Saba",
+        country: "Netherlands",
+        year: "<b>Year</b>: 2026",
+        priceINR: 900,
+        isSoldOut: false,
+        folder: "D73",
+        imageCount: 4,
+        desc: "RN4144: Postset Birds Saba.The rugged, green island of Saba teems with extraordinary birds.\
+        <b>Muliple Sets available</b>\
+        + Shipping Inside India in April 2026."
+    }, {
         name: "Collection of 29 GB Postal History Covers (1940-1960s) - Registered, First Flight, High-Value Castles & Wildings",
         country: "Commonwealth",
         year: "<b>Year</b>: 1940-1960s",
