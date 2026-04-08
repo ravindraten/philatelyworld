@@ -31,7 +31,6 @@ document.addEventListener('DOMContentLoaded', () => {
     updateLiveExchangeRate();
     const urlParams = new URLSearchParams(window.location.search);
     const itemID = urlParams.get('item');
-    const announcementID = urlParams.get('announcement');
 
     // --- NEW PERSISTENCE LOGIC ---
     // Check if we have a saved tab from this session, otherwise default to 'available'
@@ -51,7 +50,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const tabs = document.querySelectorAll('.filter-tab');
     tabs.forEach(tab => {
         const status = tab.getAttribute('data-status');
-        
+
         // --- HIDE SOLD OUT TAB IF DISABLED ---
         if (status === 'sold' && !CONFIG.showSoldOut) {
             tab.style.display = 'none';
@@ -65,15 +64,15 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     // --- END NEW PERSISTENCE LOGIC ---
     // 2. Handle Routing (Deep Links vs Default Load)
-    if (itemID === 'promo' || announcementID) {
-        updateMetaTags(null, itemID === 'promo' ? 'promo' : announcementID);
+    if (itemID === 'promo') {
+        updateMetaTags(null, 'promo');
         renderGallery([]);
 
         // Instead of grid, add the button to the sidebar/container so it's visible
         const container = document.querySelector('.container');
         if (container) {
             container.insertAdjacentHTML('afterbegin',
-                `<div style="text-align:center; margin: 20px 0;" id="backToCollectionBtn">
+                `<div style="text-align:center; margin: 20px 0;">
                     <button onclick="window.location.href='index.html'" class="toggle-btn active" style="padding: 12px 24px; font-weight: bold; cursor: pointer;">
                         ← View Stamp Collection
                     </button>
@@ -376,8 +375,7 @@ function renderGallery(data) {
 
     // 1. Handle Sidebar (Hero Card)
     if (sidebar) {
-        const urlParams = new URLSearchParams(window.location.search);
-        const isPromoShared = urlParams.get('item') === 'promo' || urlParams.has('announcement');
+        const isPromoShared = urlParams.get('item') === 'promo';
         if (!isSearching && (urlParams.get('item') === null || isPromoShared)) {
             // Toggle the centering class
             if (isPromoShared) {
@@ -673,65 +671,29 @@ function copyShareLink(url, btn) {
 
 function updateMetaTags(stamp, id) {
     let title, desc, imgUrl;
-    if (id === 'promo' || id) {
-        if (id === 'promo') {
-            title = "Philately World - Exclusive Announcement";
-            desc = "Get 150 stamps for FREE! Follow our social channels to claim yours.";
-            imgUrl = "https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/logo.jpg";
-        } else if (id) {
-            // It's a specific announcement ID (e.g., '5')
-            title = "Philately World - Special Announcement";
-            
-            // Set specific content for each announcement
-            const cleanId = id.toString().replace('.html', '');
-            
-            // Try to find the title/desc in the cache first (if the announcements were already loaded)
-            if (window.announcementsCache) {
-                const cached = window.announcementsCache.find(a => a.file === `${cleanId}.html`);
-                if (cached) {
-                    title = cached.title;
-                    desc = cached.desc;
-                    imgUrl = cached.imgSrc;
-                    updateHeaderTags(title, desc, imgUrl);
-                    return;
-                }
-            }
-
-            // Fallback: If not cached, fetch the file once to get the metadata
-            fetch(`announcement/${cleanId}.html`)
-                .then(r => r.ok ? r.text() : '')
-                .then(html => {
-                    if (html) {
-                        const parser = new DOMParser();
-                        const doc = parser.parseFromString(html, 'text/html');
-                        const extractedTitle = doc.querySelector('h1') ? doc.querySelector('h1').textContent.trim() : "Philately World Announcement";
-                        
-                        const paragraphs = Array.from(doc.querySelectorAll('p'));
-                        const descEl = paragraphs.find(p => p.textContent.length > 50 && !p.classList.contains('category-tag'));
-                        const extractedDesc = descEl ? descEl.textContent.trim() : "Discover our latest philatelic news and exclusive releases.";
-                        const finalDesc = extractedDesc.length > 160 ? extractedDesc.substring(0, 160) + "..." : extractedDesc;
-                        
-                        const imgEl = doc.querySelector('.img-wrap img');
-                        const extractedImg = imgEl ? imgEl.getAttribute('src') : "https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/logo.jpg";
-                        
-                        updateHeaderTags(extractedTitle, finalDesc, extractedImg);
-                    }
-                });
-            return; // updateHeaderTags will be called in the promise
-        }
+    if (id === 'promo') {
+        title = "Philately World - Exclusive Announcement";
+        desc = "Get 150 stamps for FREE! Follow our social channels to claim yours.";
+        imgUrl = "https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/logo.jpg";
     } else if (stamp) {
         title = `Philately World: ${stamp.name}`;
         const cleanYear = stamp.year.replace(/<\/?[^>]+(>|$)/g, "");
         desc = `${stamp.country} | ${cleanYear} | Price: ₹${stamp.priceINR}`;
         imgUrl = `${CONFIG.baseImgPath}/${stamp.folder}/1.jpg`;
     }
+    // // 1. Clean up the title and description
+    // const title = `Philately World: ${stamp.name}`;
+    // const cleanYear = stamp.year.replace(/<\/?[^>]+(>|$)/g, "");
+    // const desc = `${stamp.country} | ${cleanYear} | Price: ₹${stamp.priceINR}`;
 
-    updateHeaderTags(title, desc, imgUrl);
-}
+    // // 2. Point to the FIRST image in the folder (1.jpg)
+    // // Using your CONFIG.baseImgPath for consistency
+    // const imgUrl = `${CONFIG.baseImgPath}/${stamp.folder}/1.jpg`;
 
-function updateHeaderTags(title, desc, imgUrl) {
+    // 3. Update the Browser Tab Title
     document.title = title;
 
+    // 4. Update Open Graph tags and Twitter Cards for social media previews
     const tags = {
         'og-title': title,
         'og-desc': desc,
@@ -741,13 +703,15 @@ function updateHeaderTags(title, desc, imgUrl) {
     };
 
     for (const [id, value] of Object.entries(tags)) {
+        // A. Primary update via IDs (Reliable if JS is executed)
         const el = document.getElementById(id);
         if (el) el.setAttribute('content', value);
-        
+
+        // B. Secondary update via attribute selectors (Legacy/Crawler fallbacks)
         const propName = id.replace('-', ':');
         const metaByProp = document.querySelector(`meta[property="${propName}"]`);
         const metaByName = document.querySelector(`meta[name="${propName}"]`);
-        
+
         if (metaByProp) metaByProp.setAttribute('content', value);
         if (metaByName) metaByName.setAttribute('content', value);
     }
@@ -782,12 +746,8 @@ async function initAnnouncementCarousel() {
 
             const title = titleEl ? titleEl.textContent.trim() : 'Announcement';
             const category = categoryEl ? categoryEl.textContent.trim() : 'News';
-            const announcementID = file.replace('.html', '');
-            const basePath = window.location.pathname.replace('index.html', '');
-            const shareUrl = `${window.location.origin}${basePath}announcement/${announcementID}/`;
-
             let desc = descEl ? descEl.textContent.trim() : 'Click to read more...';
-            if (desc.length > 120) desc = desc.substring(0, 120) + '...';
+            if (desc.length > 90) desc = desc.substring(0, 90) + '...';
 
             const imgSrc = imgEl ? imgEl.getAttribute('src') : 'https://placehold.co/400x300/e2e8f0/475569?text=Announcement';
 
@@ -799,18 +759,15 @@ async function initAnnouncementCarousel() {
                     </div>
                     <div class="details">
                         <h3>${title}</h3>
-                        <p class="stamp-desc" style="display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden;">${desc} <a href="announcement/${file}" onclick="event.stopPropagation()" style="font-size:0.75rem; color:var(--primary); font-weight:600;">[Read More]</a></p>
+                        <p class="stamp-desc" style="display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden;">${desc}</p>
                         <div class="action-buttons" style="margin-top: auto; justify-content: flex-end;">
-                            <button class="share-icon-btn" onclick="event.preventDefault(); event.stopPropagation(); copyShareLink('${shareUrl}', this)" title="Copy Share Link">
-                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path><polyline points="16 6 12 2 8 6"></polyline><line x1="12" y1="2" x2="12" y2="15"></line></svg>
-                            </button>
-                            <a href="announcement/${file}" onclick="event.stopPropagation()" class="buy-btn" style="text-align: center;">View Full Post</a>
+                            <span class="buy-btn" style="text-align: center;">Read More</span>
                         </div>
                     </div>
                 </div>
             `;
 
-            return `<div class="carousel-slide" onclick="window.location.href='announcement/${file}'" style="min-width: 100%; flex-shrink: 0; display: block; text-decoration: none; color: inherit; cursor: pointer; height: 100%;">${slideInner}</div>`;
+            return `<a href="announcement/${file}" class="carousel-slide" style="min-width: 100%; flex-shrink: 0; display: block; text-decoration: none; color: inherit; cursor: pointer; height: 100%;">${slideInner}</a>`;
         } catch (e) {
             console.error('Error loading announcement:', file, e);
             return '';
@@ -819,23 +776,17 @@ async function initAnnouncementCarousel() {
 
     const validSlides = slidesHTML.filter(s => s !== '');
     if (validSlides.length === 0) {
-        const liveTrack = document.getElementById('announcementCarouselTrack');
-        if (liveTrack && liveTrack.parentElement) {
-            liveTrack.parentElement.style.display = 'none';
-        }
+        track.parentElement.style.display = 'none';
         return;
     }
 
-    // RE-QUERY the track for the latest version in the DOM to avoid rendering to a detached node
-    const currentTrack = document.getElementById('announcementCarouselTrack');
-    if (!currentTrack) return;
-    currentTrack.innerHTML = validSlides.join('');
+    track.innerHTML = validSlides.join('');
 
     let currentSlide = parseInt(sessionStorage.getItem('announcementSlide')) || 0;
     const totalSlides = validSlides.length;
     if (currentSlide >= totalSlides) currentSlide = 0;
 
-    updateAnnouncementCarousel(currentSlide, currentTrack, null);
+    updateAnnouncementCarousel(currentSlide, track, null);
 
     if (indicators && totalSlides > 1) {
         let dotsHTML = '';
@@ -845,19 +796,19 @@ async function initAnnouncementCarousel() {
         indicators.innerHTML = dotsHTML;
 
         const dots = indicators.querySelectorAll('.carousel-dot');
-        updateAnnouncementCarousel(currentSlide, currentTrack, dots);
+        updateAnnouncementCarousel(currentSlide, track, dots);
 
         dots.forEach(dot => {
             dot.addEventListener('click', (e) => {
                 currentSlide = parseInt(e.target.getAttribute('data-idx'));
-                updateAnnouncementCarousel(currentSlide, currentTrack, dots);
+                updateAnnouncementCarousel(currentSlide, track, dots);
                 resetAutoSlide();
             });
         });
     }
 
     // Sync height with a standard stamp card in the grid, but enforce a minimum to prevent clipping the button
-    const container = currentTrack.closest('.announcement-carousel-container');
+    const container = track.closest('.announcement-carousel-container');
     const syncHeight = () => {
         const firstGridCard = document.querySelector('#stampGrid .stamp-card');
         if (container) {
@@ -980,10 +931,6 @@ async function renderAllAnnouncementsPage(searchTerm = '') {
     // 3. Render
     let cardsHTML = '';
     filtered.forEach(item => {
-        const announcementID = item.file.replace('.html', '');
-        const basePath = window.location.pathname.replace('all_announcements.html', '');
-        const shareUrl = `${window.location.origin}${basePath}announcement/${announcementID}/`;
-
         cardsHTML += `
             <div class="stamp-card" style="display: flex; flex-direction: column; height: 100%;">
                 <div class="img-container">
@@ -994,9 +941,6 @@ async function renderAllAnnouncementsPage(searchTerm = '') {
                     <h3>${item.title}</h3>
                     <p class="stamp-desc" style="display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; margin-bottom: 20px; flex-grow: 1;">${item.desc}</p>
                     <div class="action-buttons" style="margin-top: auto; justify-content: flex-end;">
-                        <button class="share-icon-btn" onclick="copyShareLink('${shareUrl}', this)" title="Copy Share Link">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path><polyline points="16 6 12 2 8 6"></polyline><line x1="12" y1="2" x2="12" y2="15"></line></svg>
-                        </button>
                         <a href="announcement/${item.file}" class="buy-btn" style="text-align: center; text-decoration: none; width: 100%;">Read More</a>
                     </div>
                 </div>
