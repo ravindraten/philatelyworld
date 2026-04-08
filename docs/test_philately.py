@@ -640,10 +640,13 @@ def test_album_designer_navigation(driver):
     driver.get(URL)
     wait = WebDriverWait(driver, 10)
     
-    # 1. Locate the floating button
-    designer_btn = wait.until(EC.element_to_be_clickable((By.ID, "floatingDesigner")))
+    # 1. Locate the designer link icon in the header
+    designer_btn = wait.until(EC.element_to_be_clickable((By.CLASS_NAME, "designer-icon")))
     assert designer_btn.is_displayed()
-    assert "Album Designer" in designer_btn.text
+    
+    # Verify tooltip/label exists since visible text is removed
+    assert "Album Designer" in designer_btn.get_attribute("aria-label")
+    assert "Album Designer" in designer_btn.get_attribute("data-tooltip")
     
     # 2. Click it and verify navigation
     driver.execute_script("arguments[0].click();", designer_btn)
