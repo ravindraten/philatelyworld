@@ -218,18 +218,18 @@ def test_deep_link_item(driver):
 # --- 5. Responsive / Mobile Logic ---
 
 def test_sticky_header_on_scroll(driver):
-    """Verify header class changes when scrolling (Requires JS execution in headless)."""
+    """Verify search bar class changes when scrolling."""
     driver.get(URL)
-    header = driver.find_element(By.TAG_NAME, "header")
+    search_sticky = driver.find_element(By.CLASS_NAME, "search-sticky-container")
     
     # Scroll down via JavaScript
     driver.execute_script("window.scrollTo(0, 500)")
     
-    # Wait until the class 'is-pinned' is added to the header
+    # Wait until the class 'is-pinned' is added to the search container
     wait = WebDriverWait(driver, 5)
-    wait.until(lambda d: "is-pinned" in header.get_attribute("class"))
+    wait.until(lambda d: "is-pinned" in search_sticky.get_attribute("class"))
     
-    assert "is-pinned" in header.get_attribute("class")
+    assert "is-pinned" in search_sticky.get_attribute("class")
 
 def test_back_to_top_visibility(driver):
     """Verify 'Back to Top' button appears only after scrolling down."""
@@ -632,3 +632,77 @@ def test_all_announcements_url_hydration(driver):
     # Verify the input box consumed the URL state
     search_input = driver.find_element(By.ID, "stampSearch")
     assert search_input.get_attribute("value") == "ECTP"
+
+# --- 8. Album Designer Tests ---
+
+def test_album_designer_navigation(driver):
+    """Verify that the floating Album Designer button exists and navigates correctly."""
+    driver.get(URL)
+    wait = WebDriverWait(driver, 10)
+    
+    # 1. Locate the designer link icon in the header
+    designer_btn = wait.until(EC.element_to_be_clickable((By.CLASS_NAME, "designer-icon")))
+    assert designer_btn.is_displayed()
+    
+    # Verify tooltip/label exists since visible text is removed
+    assert "Album Designer" in designer_btn.get_attribute("aria-label")
+    assert "Album Designer" in designer_btn.get_attribute("data-tooltip")
+    
+    # 2. Click it and verify navigation
+    driver.execute_script("arguments[0].click();", designer_btn)
+    wait.until(EC.url_contains("AlbumDesigner/auto-album.html"))
+    assert "auto-album.html" in driver.current_url
+    assert "Philately World | Free Automated Stamp Album Designer" in driver.title
+
+def test_album_designer_mobile_lockdown(driver):
+    """Verify that the Album Designer shows the 'Desktop View Required' warning on small screens."""
+    designer_url = URL.replace("index.html", "AlbumDesigner/auto-album.html")
+    driver.get(designer_url)
+    wait = WebDriverWait(driver, 10)
+    
+    # 1. Start in Desktop mode (should already be set by driver fixture, but let's be explicit)
+    driver.set_window_size(1200, 800)
+    wait.until(EC.visibility_of_element_located((By.ID, "controls")))
+    warning = driver.find_element(By.ID, "mobile-warning")
+    assert not warning.is_displayed()
+    
+    # 2. Switch to Mobile resolution (below 800px)
+    driver.set_window_size(375, 812) # iPhone size
+    
+    # 3. Verify the lockdown overlay becomes visible instantly
+    wait.until(EC.visibility_of_element_located((By.ID, "mobile-warning")))
+    assert warning.is_displayed()
+    assert "Desktop View Required".lower() in warning.text.lower()
+    
+    # 4. Verify main content is hidden
+    controls = driver.find_element(By.ID, "controls")
+    assert not controls.is_displayed()
+    
+    # 5. Verify the 'Return to Collection' button works
+    back_btn = warning.find_element(By.CLASS_NAME, "warning-back-btn")
+    driver.execute_script("arguments[0].click();", back_btn)
+    wait.until(EC.url_contains("index.html"))
+    assert "index.html" in driver.current_url
+
+    # Restore window size for other tests
+    driver.set_window_size(1920, 1080)
+
+def test_album_designer_seo_meta(driver):
+    """Verify SEO meta tags and link previews on the Album Designer page."""
+    designer_url = URL.replace("index.html", "AlbumDesigner/auto-album.html")
+    driver.get(designer_url)
+    
+    # Verify Title
+    assert "Philately World | Free Automated Stamp Album Designer" in driver.title
+    
+    # Verify Meta Description
+    desc = driver.find_element(By.NAME, "description").get_attribute("content")
+    assert "professional, high-resolution PDF stamp albums" in desc
+    
+    # Verify Open Graph Title
+    og_title = driver.find_element(By.XPATH, "//meta[@property='og:title']").get_attribute("content")
+    assert "Automated Stamp Album Designer" in og_title
+    
+    # Verify Open Graph Image
+    og_image = driver.find_element(By.XPATH, "//meta[@property='og:image']").get_attribute("content")
+    assert "designer-icon.png" in og_image

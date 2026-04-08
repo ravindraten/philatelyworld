@@ -30,32 +30,19 @@ body {
 /* --- Header & Sticky Logic --- */
 header {
     background: #ffffff;
-    border-bottom: 1px solid var(--border);
-    position: sticky;
+    position: relative;
     z-index: 1000;
-    transition: background 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* Mobile Default: Hide top part of header on scroll, but keep search */
 @media (max-width: 800px) {
     header {
-        top: -265px;
-        /* Adjust this to match the height of your top-bar + header-main */
+        position: relative;
     }
 }
 
-/* Desktop Default */
 @media (min-width: 801px) {
     header {
-        top: -190px;
-        background: #ffffff;
-        -webkit-backdrop-filter: blur(15px) saturate(160%);
-        backdrop-filter: blur(15px) saturate(160%);
-    }
-
-    header.is-pinned {
-        background: rgba(255, 255, 255, 0.85);
-        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+        position: relative;
     }
 }
 
@@ -64,21 +51,24 @@ header {
     top: 0;
     background: #ffffff;
     padding: 15px 0;
-    z-index: 1001;
+    z-index: 1010;
     border-bottom: 1px solid var(--border);
-    margin-top: -1px;
+    transition: all 0.3s ease;
+}
+
+.search-sticky-container.is-pinned {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
 @media (min-width: 801px) {
     .search-sticky-container {
-        background: #ffffff;
-        -webkit-backdrop-filter: blur(10px);
-        backdrop-filter: blur(10px);
         padding: 25px 0;
     }
-
-    header.is-pinned .search-sticky-container {
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    
+    .search-sticky-container.is-pinned {
+        padding: 10px 0;
     }
 }
 
@@ -152,13 +142,7 @@ header {
         transition: opacity 0.3s ease;
     }
 
-    header.is-pinned .logo-wrapper .logo {
-        opacity: 0;
-        visibility: hidden;
-        pointer-events: none;
-    }
-
-    header.is-pinned .sticky-logo {
+    .search-sticky-container.is-pinned .sticky-logo {
         display: block;
     }
 
@@ -238,22 +222,6 @@ header {
         margin-bottom: 10px;
     }
 
-    /* 2. SWAP: Triggered ONLY when scrolling (is-pinned) */
-    header.is-pinned .header-actions {
-        order: -1;
-        /* Jumps to the very top */
-        margin-top: 0;
-        margin-bottom: 5px;
-    }
-
-    header.is-pinned .brand-info {
-        order: 1;
-    }
-
-    header.is-pinned .logo-wrapper {
-        order: 2;
-        /* Moves to the bottom */
-    }
 }
 
 .brand-info h1 {
@@ -278,9 +246,10 @@ header {
 .header-actions {
     flex: 1.5;
     display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    gap: 10px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-end;
+    gap: 1px;
     white-space: nowrap;
 }
 
@@ -1206,6 +1175,78 @@ header {
     background: white;
     color: var(--primary);
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* --- Album Designer Header Icon --- */
+.designer-icon {
+    margin-top: 12px;
+    position: relative;
+    color: var(--primary) !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.designer-icon:hover {
+    color: #2563eb !important;
+    transform: translateY(-2px);
+}
+
+/* Designer Tooltip */
+.designer-icon::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: 100%;
+    right: 0;
+    transform: translateY(-10px);
+    background: #1e293b;
+    color: white;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    pointer-events: none;
+    z-index: 2000;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.designer-icon:hover::after {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(-18px);
+}
+
+.designer-icon-img {
+    width: 36px;
+    height: 36px;
+    object-fit: contain;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.designer-icon:hover .designer-icon-img {
+    transform: scale(1.15) rotate(5deg);
+}
+
+/* Mobile Alignment */
+@media (max-width: 800px) {
+    .designer-icon {
+        margin: 5px auto 15px;
+    }
+
+    .designer-icon::after {
+        left: 50%;
+        right: auto;
+        transform: translateX(-50%) translateY(-10px);
+    }
+
+    .designer-icon:hover::after {
+        transform: translateX(-50%) translateY(-18px);
+    }
 }
 
 /* Blog Specific Styles */

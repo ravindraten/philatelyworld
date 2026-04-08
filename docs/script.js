@@ -47,7 +47,7 @@ document.addEventListener('DOMContentLoaded', () => {
     updateFilterCounts();
 
     // Dynamically set the active tab UI based on the state
-    const tabs = document.querySelectorAll('.filter-tab');
+    const tabs = document.querySelectorAll('.filter-tab[data-status]');
     tabs.forEach(tab => {
         const status = tab.getAttribute('data-status');
 
@@ -181,13 +181,17 @@ function initEventListeners() {
     // Find your scroll listener in script.js and update it
     window.addEventListener('scroll', () => {
         const header = document.querySelector('header');
+        const searchSticky = document.querySelector('.search-sticky-container');
         const backToTopBtn = document.getElementById('backToTop');
 
-        // 1. Toggle Header Pinning (Keep this for the search bar)
-        if (window.scrollY > 50) {
-            header.classList.add('is-pinned');
-        } else {
-            header.classList.remove('is-pinned');
+        // 1. Toggle Search Bar Pinning
+        if (searchSticky) {
+            const headerHeight = header ? header.offsetHeight : 0;
+            if (window.scrollY > headerHeight) {
+                searchSticky.classList.add('is-pinned');
+            } else {
+                searchSticky.classList.remove('is-pinned');
+            }
         }
 
         // 2. Back to Top Button visibility
@@ -301,7 +305,7 @@ function initEventListeners() {
     }
 
     // Filter Tab Logic
-    const filterTabs = document.querySelectorAll('.filter-tab');
+    const filterTabs = document.querySelectorAll('.filter-tab[data-status]');
     filterTabs.forEach(tab => {
         tab.addEventListener('click', () => {
             // UI Update
@@ -633,7 +637,7 @@ function updateFilterCounts() {
     const availableCount = totalCount - soldCount;
     const blogTotal = blogPosts.length;
 
-    const tabs = document.querySelectorAll('.filter-tab');
+    const tabs = document.querySelectorAll('.filter-tab[data-status]');
     tabs.forEach(tab => {
         const status = tab.getAttribute('data-status');
         if (status === 'all') {
