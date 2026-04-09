@@ -1,6 +1,19 @@
 // 1. STAMP DATABASE
 const stamps = [
     {
+        name: "Small box with about 350 FDC covers United Nations",
+        country: "United Nations",
+        year: "<b>Year</b>: 2026",
+        priceINR: 21000,
+        isSoldOut: false,
+        folder: "D74",
+        imageCount: 6,
+        desc: "RN4145: Small box with about 350 FDC covers UN.\
+            I am offering this box as it has arrived and hardly check them.\
+            Check the photos to see a small part, but there is a lot more than you can see here.\
+            <b>Rs.60 per cover</b>\
+            + Shipping Inside India in April 2026."
+    }, {
         name: "Postset Birds Saba",
         country: "Netherlands",
         year: "<b>Year</b>: 2026",
