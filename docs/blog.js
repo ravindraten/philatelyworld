@@ -1,5 +1,15 @@
 const blogPosts = [
     {
+        name: "Rotary, District Romania, 90 Years",
+        year: "2026",
+        country: "Romania",
+        desc: "To mark the anniversary of nine decades since the establishment of the first Romanian Rotary District, exploring the legacy of Rotary International in Romania.",
+        folder: "Rotary90",
+        imageCount: 1,
+        url: "blog/rotary-district-romania.html",
+        isBlog: true
+    },
+    {
         name: "India Post: Master List of Diplomatic Joint Issues (1990–2025)",
         year: "1990-2025",
         country: "India & Various",
