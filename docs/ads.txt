@@ -1,3 +1,1 @@
-# Ads.txt file for Philately World
-# Replace the publisher ID 'pub-0000000000000000' with your actual Google AdSense Publisher ID
-google.com, pub-0000000000000000, DIRECT, f08c47fec0942fa0
+google.com, pub-4513179393076408, DIRECT, f08c47fec0942fa0
