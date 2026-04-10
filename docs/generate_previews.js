@@ -79,7 +79,7 @@ stamps.forEach(stamp => {
     <meta name="twitter:image" content="${imgUrl}">
 
     <!-- Auto-redirect to the actual item page[cite: 1, 2] -->
-    <meta http-equiv="refresh" content="0; url='../../index.html?item=${rnCode}'" />
+    <meta http-equiv="refresh" content="2; url='../../index.html?item=${rnCode}'" />
     <script>window.location.replace("../../index.html?item=${rnCode}");</script>
 
     <!-- Google tag (gtag.js)[cite: 2] -->
