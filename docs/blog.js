@@ -1,5 +1,14 @@
 const blogPosts = [
     {
+        name: "King George VI, Coronation, 1937",
+        year: "1937",
+        country: "British Commonwealth",
+        desc: "Explore the 1937 Coronation omnibus issue featuring King George VI and Queen Elizabeth, one of philately's great logistical feats with 202 stamp variants across 47 territories.",
+        folder: "coronation",
+        imageCount: 1,
+        url: "blog/coronation-1937.html",
+        isBlog: true
+    }, {
         name: "Rotary, District Romania, 90 Years",
         year: "2026",
         country: "Romania",
