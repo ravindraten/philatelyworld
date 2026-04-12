@@ -6,7 +6,7 @@ const blogPosts = [
         desc: "Explore the ISRO stamps released by India Post on April 12, 2026, celebrating the nation's space achievements.",
         folder: "ISRO",
         imageCount: 1,
-        url: "blog/ISRO.html",
+        url: "blog/Isro.html",
         isBlog: true
     }, {
         name: "King George VI, Coronation, 1937",
