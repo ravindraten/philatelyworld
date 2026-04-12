@@ -22,7 +22,8 @@
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="keywords" content="philately world, stamp collecting, rare stamps, indian stamps, global stamps, postal history, philately blog, stamp collection">
+    <meta name="keywords"
+        content="philately world, stamp collecting, rare stamps, indian stamps, global stamps, postal history, philately blog, stamp collection">
     <link rel="canonical" href="https://philatelyworld.in/all_announcements.html" />
 
     <!-- Structured Data -->
@@ -62,7 +63,7 @@
             </div>
 
             <div class="brand-info">
-                <h1>Philately World</h1>
+                <h1><span class="VuuXrf">Philately World</span></h1>
                 <p>ESTABLISHED 2017 • PREMIUM STAMP CURATION</p>
             </div>
 
@@ -216,11 +217,11 @@
             const searchInput = document.getElementById('stampSearch');
             const urlParams = new URLSearchParams(window.location.search);
             const initialQuery = urlParams.get('q') || '';
-            
+
             if (searchInput && initialQuery) {
                 searchInput.value = initialQuery;
             }
-            
+
             renderAllAnnouncementsPage(initialQuery);
         });
     </script>
