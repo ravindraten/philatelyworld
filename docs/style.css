@@ -27,6 +27,14 @@ body {
     line-height: 1.6;
 }
 
+/* Google site name span */
+.VuuXrf {
+    display: inline;
+    font: inherit;
+    color: inherit;
+    letter-spacing: inherit;
+}
+
 /* --- Header & Sticky Logic --- */
 header {
     background: #ffffff;
@@ -66,7 +74,7 @@ header {
     .search-sticky-container {
         padding: 25px 0;
     }
-    
+
     .search-sticky-container.is-pinned {
         padding: 10px 0;
     }
