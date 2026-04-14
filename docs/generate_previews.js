@@ -57,7 +57,7 @@ stamps.forEach(stamp => {
 <head>
     <meta charset="UTF-8">
     <title>Philately World - ${stamp.name}</title>
-    
+    <meta name="description" content="Buy authenticated ${stamp.name}. Established 2017. Ships worldwide.">
     <!-- Open Graph (Facebook/WhatsApp/LinkedIn) -->
     <meta property="og:site_name" content="Philately World">
     <meta property="og:title" content="Philately World: ${stamp.name}">
@@ -102,3 +102,32 @@ stamps.forEach(stamp => {
 });
 
 console.log(`\n✅ Generated ${generatedCount} static preview pages.`);
+
+// At the bottom of generate_previews.js — auto-generate sitemap
+
+const baseUrl = 'https://philatelyworld.in';
+const itemDir = path.join(__dirname, 'item');
+
+// Collect all item folders
+const itemIds = fs.readdirSync(itemDir).filter(f =>
+    fs.statSync(path.join(itemDir, f)).isDirectory()
+);
+
+const itemUrls = itemIds.map(id => `
+  <url>
+    <loc>${baseUrl}/item/${id}/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>`).join('');
+
+const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>${baseUrl}/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>${itemUrls}
+</urlset>`;
+
+fs.writeFileSync(path.join(__dirname, 'sitemap.xml'), sitemap);
+console.log(`✅ sitemap.xml generated with ${itemIds.length} items.`);
