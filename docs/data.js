@@ -3,7 +3,7 @@ const stamps = [
     {
         name: "Collection of 280 First Day Covers (FDC) from around Europe. GB, Finland, Norway, Portugal, Marshall Islands, etc",
         country: "World",
-        year: "<b>Year</b>: 1890s",
+        year: "<b>Year</b>: 1975",
         priceINR: 18200,
         isSoldOut: false,
         folder: "D76",
