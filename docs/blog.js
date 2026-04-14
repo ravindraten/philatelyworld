@@ -1,5 +1,14 @@
 const blogPosts = [
     {
+        name: "Apollo 11 – 30th Anniversary Commemorative Philatelic Collection",
+        year: "1999",
+        country: "Bahamas, Barbados, Solomon Islands",
+        desc: "Explore the Apollo 11 stamps released by Bahamas, Barbados, and Solomon Islands on July 20, 1999, celebrating the 30th anniversary of the first moon landing.",
+        folder: "moonlanding",
+        imageCount: 1,
+        url: "blog/apollo.html",
+        isBlog: true
+    }, {
         name: "ISRO, India, 2026",
         year: "2026",
         country: "India",
