@@ -1,6 +1,18 @@
 // 1. STAMP DATABASE
 const stamps = [
     {
+        name: "Collection of 360 Mint stamps from GB in Stockbook.",
+        country: "GB",
+        year: "<b>Year</b>: 1950-2000",
+        priceINR: 14400,
+        isSoldOut: false,
+        folder: "D77",
+        imageCount: 22,
+        desc: "RN4148: Collection of 360 Mint stamps from GB.\
+            <b>Rs.40 per stamp.</b>\
+            Stock Album for free and Miniature sheets for free\
+            + Shipping Inside India in April 2026."
+    }, {
         name: "Collection of 280 First Day Covers (FDC) from around Europe. GB, Finland, Norway, Portugal, Marshall Islands, etc",
         country: "World",
         year: "<b>Year</b>: 1975",
