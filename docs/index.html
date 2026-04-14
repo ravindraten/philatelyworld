@@ -46,21 +46,23 @@
     <link rel="dns-prefetch" href="https://www.googletagmanager.com">
     <link rel="dns-prefetch" href="https://gc.zgo.at">
     <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="dns-prefetch" href="https://www.google-analytics.com">
+    <link rel="dns-prefetch" href="https://www.googletagmanager.com">
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap"></noscript>
     <link rel="stylesheet" href="style.css">
-    <link rel="icon" type="image/png"
-        href="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/logo.jpg">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect fill='%231e293b' width='100' height='100' rx='20'/><text y='.9em' x='50%' text-anchor='middle' font-size='60'>📬</text></svg>">
     <link rel="apple-touch-icon" href="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/logo.jpg">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta name="twitter:card" content="summary_large_image">
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-0K58TP8LVP"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
         function gtag() { dataLayer.push(arguments); }
         gtag('js', new Date());
         gtag('config', 'G-0K58TP8LVP');
     </script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-0K58TP8LVP"></script>
     <script data-goatcounter="https://ravindraten.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
     <!-- Google AdSense and Consent Management Platform (CMP) for EEA/UK -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4513179393076408"
@@ -77,7 +79,7 @@
         <div class="header-main">
             <div class="logo-wrapper">
                 <img src="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/logo.jpg"
-                    alt="Philately World Logo" class="logo" width="80" height="80" loading="eager">
+                    alt="Philately World Logo" class="logo" width="80" height="80" loading="eager" fetchpriority="high">
             </div>
 
             <div class="brand-info">
@@ -123,7 +125,7 @@
     <div class="search-sticky-container">
         <div class="sticky-wrapper">
             <img src="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/logo.jpg" alt="Logo"
-                class="sticky-logo" width="40" height="40" loading="lazy">
+                class="sticky-logo" width="40" height="40" loading="lazy" decoding="async">
             <div class="search-container">
                 <input type="search" id="stampSearch" placeholder="Search by theme, country, or year...">
             </div>
@@ -187,7 +189,7 @@
             <span class="qr-close" id="qrClose">&times;</span>
             <h3 style="margin-top:0">Scan to Pay</h3>
             <img src="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/BHIM.jpg"
-                alt="BHIM QR Code" class="qr-image" width="250" height="250" loading="lazy">
+                alt="BHIM QR Code" class="qr-image" width="220" height="220" loading="lazy" decoding="async">
             <div class="upi-copy-box">
                 <span id="upiIdText">9900416731@upi</span>
                 <button onclick="copyUPI()" id="copyBtn">Copy</button>
