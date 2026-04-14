@@ -1,6 +1,17 @@
 // 1. STAMP DATABASE
 const stamps = [
     {
+        name: "Collection of 280 First Day Covers (FDC) from around Europe. GB, Finland, Norway, Portugal, Marshall Islands, etc",
+        country: "World",
+        year: "<b>Year</b>: 1890s",
+        priceINR: 18200,
+        isSoldOut: false,
+        folder: "D76",
+        imageCount: 6,
+        desc: "RN4147: Collection of 280 First Day Covers (FDC) from around Europe. GB, Finland, Norway, Portugal, Marshall Islands, etc\
+            <b>Rs.65 per cover</b>\
+            + Shipping Inside India in April 2026."
+    }, {
         name: "Schaubek's \"Victoria\" Postage Stamp Album, which was a very popular German-made album during the late 19th",
         country: "World",
         year: "<b>Year</b>: 1890s",
