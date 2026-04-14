@@ -50,8 +50,10 @@ stamps.forEach(stamp => {
     const descText = `${stamp.country} | ${cleanYear.replace('Year: ', '')} | Price: ₹${stamp.priceINR}`;
     const imgUrl = `${baseImgPath}/${stamp.folder}/1.${stamp.extension || 'jpg'}`;
 
-    // The HTML will act as a static page for crawlers and a redirect for users[cite: 2]
-    // UPDATED: Added explicit image dimensions and site_name for WhatsApp
+    // The HTML acts as a static OG/preview page for crawlers and redirects human users.
+    // IMPORTANT: The JS redirect is intentionally deferred via setTimeout so WhatsApp's
+    // crawler can fully parse the <head> OG tags before any redirect fires.
+    // Synchronous window.location.replace() was causing WhatsApp to see a blank page.
     const html = `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -63,37 +65,41 @@ stamps.forEach(stamp => {
     <meta property="og:title" content="Philately World: ${stamp.name}">
     <meta property="og:description" content="${descText}">
     <meta property="og:url" content="https://philatelyworld.in/item/${rnCode}/">
-    <meta property="og:type" content="website">
+    <meta property="og:type" content="product">
 
-    <!-- WhatsApp specific image optimization -->
-    <meta property="og:image" itemprop="image" content="${imgUrl}">
+    <!-- WhatsApp image: must be HTTPS, ideally under 300KB, 600x315 or square -->
+    <meta property="og:image" content="${imgUrl}">
     <meta property="og:image:secure_url" content="${imgUrl}">
     <meta property="og:image:type" content="image/jpeg">
     <meta property="og:image:width" content="600">
     <meta property="og:image:height" content="600">
-    
+
     <!-- Twitter Cards -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Philately World: ${stamp.name}">
     <meta name="twitter:description" content="${descText}">
     <meta name="twitter:image" content="${imgUrl}">
 
-    <!-- Auto-redirect to the actual item page[cite: 1, 2] -->
-    <meta http-equiv="refresh" content="2; url='../../index.html?item=${rnCode}'" />
-    <script>window.location.replace("../../index.html?item=${rnCode}");</script>
+    <!-- Redirect human users only — NOT inline JS (breaks WhatsApp crawler OG parsing) -->
+    <meta http-equiv="refresh" content="0; url=https://philatelyworld.in/?item=${rnCode}">
 
-    <!-- Google tag (gtag.js)[cite: 2] -->
+    <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-0K58TP8LVP"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
         gtag('config', 'G-0K58TP8LVP');
+        // Deferred redirect: gives crawlers time to read OG tags before navigating away
+        setTimeout(function(){ window.location.replace("https://philatelyworld.in/?item=${rnCode}"); }, 100);
     </script>
     <script data-goatcounter="https://ravindraten.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </head>
 <body>
-    <p>Redirecting to <a href="../../index.html?item=${rnCode}">${stamp.name}</a>...</p>
+    <h1>${stamp.name}</h1>
+    <p>${descText}</p>
+    <img src="${imgUrl}" alt="${stamp.name}" width="300" style="max-width:100%">
+    <p><a href="https://philatelyworld.in/?item=${rnCode}">View full listing on Philately World &rarr;</a></p>
 </body>
 </html>`;
 
