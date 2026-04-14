@@ -111,21 +111,46 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 /**
  * Fetches Live EUR to INR rate and calculates the WU conversion
+ * Caches result in sessionStorage for 1 hour to avoid redundant API calls
  */
 async function updateLiveExchangeRate() {
+    const cacheKey = 'fxRateCache';
+    const cacheDuration = 60 * 60 * 1000; // 1 hour
+
+    // Check cache first
+    try {
+        const cached = sessionStorage.getItem(cacheKey);
+        if (cached) {
+            const { rate, timestamp } = JSON.parse(cached);
+            if (Date.now() - timestamp < cacheDuration) {
+                CONFIG.eurRate = rate;
+                const statusEl = document.getElementById('lastUpdatedFXRate');
+                if (statusEl) {
+                    const date = new Date(timestamp).toLocaleDateString();
+                    statusEl.innerText = `Cached WU Rate: 1 INR = ${rate.toFixed(4)} EUR (Updated: ${date})`;
+                }
+                return;
+            }
+        }
+    } catch (e) { /* cache read failed, proceed with fetch */ }
+
     try {
         const response = await fetch(CONFIG.apiURL);
         const data = await response.json();
 
         if (data.result === "success") {
             const marketRateINR = data.rates.INR;
-            // Western Union adjustment: Buyers pay more Rupees per Euro
             const adjustedRateINR = marketRateINR * CONFIG.wuAdjustment;
-
-            // Set global rate: 1 INR = X EUR
             CONFIG.eurRate = 1 / adjustedRateINR;
 
-            // Update Header Status
+            // Cache the result
+            try {
+                sessionStorage.setItem(cacheKey, JSON.stringify({
+                    rate: CONFIG.eurRate,
+                    timestamp: Date.now()
+                }));
+            } catch (e) { /* cache write failed */ }
+
             const statusEl = document.getElementById('lastUpdatedFXRate');
             if (statusEl) {
                 const date = new Date().toLocaleDateString();
@@ -134,6 +159,10 @@ async function updateLiveExchangeRate() {
         }
     } catch (error) {
         console.error("FX fetch failed, using fallback.");
+        const statusEl = document.getElementById('lastUpdatedFXRate');
+        if (statusEl) {
+            statusEl.innerText = `Rate: 1 INR = ${CONFIG.eurRate.toFixed(4)} EUR (cached/fallback)`;
+        }
     }
 }
 
@@ -418,7 +447,7 @@ function renderGallery(data) {
                 sidebarContent += `
                 <div class="stamp-card" style="margin-bottom: 20px;">
                     <div class="img-container">
-                        <img src="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/largest-stamp.jpg" alt="The Royal Collection">
+                        <img src="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/largest-stamp.jpg" alt="The Royal Collection" loading="lazy">
                         <span class="photo-badge" style="background: var(--primary);">Promotion</span>
                     </div>
                     <div class="details">
@@ -456,7 +485,7 @@ function renderGallery(data) {
                 <div class="stamp-card blog-card">
                     <a href="${stamp.url || '#'}" class="blog-link-wrapper" style="text-decoration: none; color: inherit;">
                         <div class="img-container" style="cursor: pointer;">
-                            <img src="${CONFIG.baseImgPath}/${stamp.folder}/1.${stamp.extension || 'jpg'}" alt="${stamp.name}">
+                            <img src="${CONFIG.baseImgPath}/${stamp.folder}/1.${stamp.extension || 'jpg'}" alt="${stamp.name}" loading="lazy">
                             <div class="photo-badge">Article</div>
                         </div>
                     </a>
@@ -495,6 +524,7 @@ function renderGallery(data) {
                 <div class="img-container">
                     <img src="${CONFIG.baseImgPath}/${stamp.folder}/1.${stamp.extension || 'jpg'}" 
                         alt="${stamp.name}" 
+                        loading="lazy"
                         onclick="openLightbox(${stamps.indexOf(stamp)})">
                         ${stamp.blogUrl ? `
                         <a href="${stamp.blogUrl}" class="stamp-blog-indicator" title="Read related blog post" style="position: absolute; top: 10px; right: 10px; background: #f6bbbb; padding: 6px; border-radius: 50%; display: flex; box-shadow: 0 2px 8px rgba(0,0,0,0.3); border: 2px solid white;" onclick="event.stopPropagation();">
@@ -758,7 +788,7 @@ async function initAnnouncementCarousel() {
             const slideInner = `
                 <div class="stamp-card" style="margin: 0; border: none; box-shadow: none; height: 100%; border-radius: 0;">
                     <div class="img-container">
-                        <img src="${imgSrc}" alt="${title}">
+                        <img src="${imgSrc}" alt="${title}" loading="lazy">
                         <span class="photo-badge" style="background: var(--primary);">${category}</span>
                     </div>
                     <div class="details">
@@ -938,7 +968,7 @@ async function renderAllAnnouncementsPage(searchTerm = '') {
         cardsHTML += `
             <div class="stamp-card" style="display: flex; flex-direction: column; height: 100%;">
                 <div class="img-container">
-                    <img src="${item.imgSrc}" alt="${item.title}">
+                    <img src="${item.imgSrc}" alt="${item.title}" loading="lazy">
                     <span class="photo-badge" style="background: var(--primary);">${item.category}</span>
                 </div>
                 <div class="details" style="display: flex; flex-direction: column; flex-grow: 1;">
