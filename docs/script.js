@@ -428,7 +428,7 @@ function renderGallery(data) {
                 sidebarContent += `
                 <a href="all_announcements.html" class="buy-btn" style="display: block; width: 100%; text-align: center; margin-bottom: 20px; text-decoration: none; padding: 12px; border-radius: 8px;">View All Announcements</a>
                 
-                <div class="announcement-carousel-container stamp-card" style="position: relative; margin-bottom: 12px; width: 100%; overflow: hidden;">
+                <div class="announcement-carousel-container stamp-card" style="position: relative; margin-bottom: 12px; width: 100%; overflow: hidden; aspect-ratio: 4/3;">
                     <div class="announcement-carousel-track" id="announcementCarouselTrack" style="display: flex; height: 100%; transition: transform 0.5s ease-in-out;">
                     </div>
                     
@@ -484,8 +484,8 @@ function renderGallery(data) {
             return `
                 <div class="stamp-card blog-card">
                     <a href="${stamp.url || '#'}" class="blog-link-wrapper" style="text-decoration: none; color: inherit;">
-                        <div class="img-container" style="cursor: pointer;">
-                            <img src="${CONFIG.baseImgPath}/${stamp.folder}/1.${stamp.extension || 'jpg'}" alt="${stamp.name}" loading="lazy">
+                        <div class="img-container" style="cursor: pointer; aspect-ratio: 4/3;">
+                            <img src="${CONFIG.baseImgPath}/${stamp.folder}/1.${stamp.extension || 'jpg'}" alt="${stamp.name}" width="400" height="300" loading="lazy" decoding="async">
                             <div class="photo-badge">Article</div>
                         </div>
                     </a>
@@ -521,10 +521,12 @@ function renderGallery(data) {
         return `
             <div class="stamp-card ${stamp.isSoldOut ? 'sold-out' : ''}">
                 ${stamp.isSoldOut ? '<div class="sold-out-badge">Sold Out</div>' : ''}
-                <div class="img-container">
+                <div class="img-container" style="aspect-ratio: 4/3;">
                     <img src="${CONFIG.baseImgPath}/${stamp.folder}/1.${stamp.extension || 'jpg'}" 
                         alt="${stamp.name}" 
+                        width="400" height="300"
                         loading="lazy"
+                        decoding="async"
                         onclick="openLightbox(${stamps.indexOf(stamp)})">
                         ${stamp.blogUrl ? `
                         <a href="${stamp.blogUrl}" class="stamp-blog-indicator" title="Read related blog post" style="position: absolute; top: 10px; right: 10px; background: #f6bbbb; padding: 6px; border-radius: 50%; display: flex; box-shadow: 0 2px 8px rgba(0,0,0,0.3); border: 2px solid white;" onclick="event.stopPropagation();">
@@ -967,8 +969,8 @@ async function renderAllAnnouncementsPage(searchTerm = '') {
     filtered.forEach(item => {
         cardsHTML += `
             <div class="stamp-card" style="display: flex; flex-direction: column; height: 100%;">
-                <div class="img-container">
-                    <img src="${item.imgSrc}" alt="${item.title}" loading="lazy">
+                <div class="img-container" style="aspect-ratio: 4/3;">
+                    <img src="${item.imgSrc}" alt="${item.title}" width="400" height="300" loading="lazy" decoding="async">
                     <span class="photo-badge" style="background: var(--primary);">${item.category}</span>
                 </div>
                 <div class="details" style="display: flex; flex-direction: column; flex-grow: 1;">
