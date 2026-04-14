@@ -24,14 +24,14 @@ const stamps = [
             <b>Rs.65 per cover</b>\
             + Shipping Inside India in April 2026."
     }, {
-        name: "Schaubek's \"Victoria\" Postage Stamp Album, which was a very popular German-made album during the late 19th",
+        name: "Schaubek's Victoria Postage Stamp Album, which was a very popular German-made album during the late 19th",
         country: "World",
         year: "<b>Year</b>: 1890s",
         priceINR: 42000,
         isSoldOut: false,
         folder: "D75",
         imageCount: 63,
-        desc: "RN4146: Schaubek's \"Victoria\" Postage Stamp Album, which was a very popular German-made album during the late 19th century.\
+        desc: "RN4146: Schaubek's  Victoria Postage Stamp Album, which was a very popular German-made album during the late 19th century.\
             Album has around 700 Hinged stamps.\
             Pictures are taken from all the pages.\
             <b>Rs.60 per stamp</b>\
