@@ -72,10 +72,6 @@ header {
 
 @media (min-width: 801px) {
     .search-sticky-container {
-        padding: 12px 0;
-    }
-
-    .search-sticky-container.is-pinned {
         padding: 10px 0;
     }
 }
@@ -183,9 +179,13 @@ header {
         display: block;
     }
 
-    /* When pinned, the sticky-logo serves as the left balance — remove the pseudo spacer */
+    .sticky-wrapper::before {
+        width: 140px;
+        flex-shrink: 0;
+    }
+
     .search-sticky-container.is-pinned .sticky-wrapper::before {
-        display: none;
+        width: 140px;
     }
 
     .sticky-wrapper .search-container {
