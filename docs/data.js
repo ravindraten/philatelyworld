@@ -17,7 +17,7 @@ const stamps = [
         country: "World",
         year: "<b>Year</b>: 1975",
         priceINR: 18200,
-        isSoldOut: false,
+        isSoldOut: true,
         folder: "D76",
         imageCount: 6,
         desc: "RN4147: Collection of 280 First Day Covers (FDC) from around Europe. GB, Finland, Norway, Portugal, Marshall Islands, etc\
