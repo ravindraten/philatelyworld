@@ -58,7 +58,7 @@ header {
     position: sticky;
     top: 0;
     background: #ffffff;
-    padding: 15px 0;
+    padding: 10px 0;
     z-index: 1010;
     border-bottom: 1px solid var(--border);
     transition: all 0.3s ease;
@@ -72,7 +72,7 @@ header {
 
 @media (min-width: 801px) {
     .search-sticky-container {
-        padding: 25px 0;
+        padding: 12px 0;
     }
 
     .search-sticky-container.is-pinned {
@@ -92,33 +92,47 @@ header {
 }
 
 .header-main {
-    max-width: 1000px;
+    max-width: 1200px;
     margin: 0 auto;
-    padding: 40px 20px 20px 20px;
+    padding: 30px 20px 10px 20px;
     display: flex;
+    align-items: stretch;
     justify-content: space-between;
 }
 
 .logo {
-    width: 85px;
-    height: 85px;
+    width: 125px;
+    height: 125px;
     border-radius: 50%;
     object-fit: cover;
 }
 
 .logo-wrapper {
-    flex: 1.5;
+    flex: 1;
     display: flex;
+    align-items: center;
     justify-content: flex-start;
-    padding-left: 20px;
+    padding-left: 0;
     min-width: 100px;
 }
+
+/* Ensure brand-info is truly centered by equalising flanking columns */
 
 .brand-info {
     flex: 0 0 auto;
     text-align: center;
     min-width: 600px;
     padding: 0 20px;
+}
+
+.header-actions {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 12px;
+    white-space: nowrap;
+    min-width: 100px;
 }
 
 @media (min-width: 801px) {
@@ -132,6 +146,19 @@ header {
         max-width: 1250px;
         margin: auto;
         padding: 5px 20px;
+    }
+
+    /* Invisible spacer to balance the currency toggle so the search bar is truly centered */
+    .sticky-wrapper::before {
+        content: '';
+        display: block;
+        min-width: 120px;
+        flex-shrink: 0;
+    }
+
+    .sticky-wrapper.is-pinned::before,
+    .sticky-wrapper:has(.sticky-logo[style*="display: block"])::before {
+        display: none;
     }
 
     .sticky-logo {
@@ -152,6 +179,11 @@ header {
 
     .search-sticky-container.is-pinned .sticky-logo {
         display: block;
+    }
+
+    /* When pinned, the sticky-logo serves as the left balance — remove the pseudo spacer */
+    .search-sticky-container.is-pinned .sticky-wrapper::before {
+        display: none;
     }
 
     .sticky-wrapper .search-container {
@@ -252,12 +284,12 @@ header {
 }
 
 .header-actions {
-    flex: 1.5;
+    flex: 1;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-between;
     align-items: flex-end;
-    gap: 1px;
+    gap: 0;
     white-space: nowrap;
 }
 
@@ -277,7 +309,10 @@ header {
     color: var(--primary);
     display: flex;
     align-items: center;
+    justify-content: center;
     transition: color 0.3s ease, transform 0.2s ease;
+    line-height: 1;
+}
 }
 
 .social-icon:hover {
@@ -285,7 +320,8 @@ header {
     text-decoration: none;
 }
 
-.announcement-bell, .blog-bell {
+.announcement-bell,
+.blog-bell {
     position: relative;
     display: flex;
     align-items: center;
@@ -294,11 +330,13 @@ header {
     transition: color 0.3s ease, transform 0.2s ease;
 }
 
-.announcement-bell:hover, .blog-bell:hover {
+.announcement-bell:hover,
+.blog-bell:hover {
     transform: translateY(-2px);
 }
 
-.announcement-bell svg, .blog-bell svg {
+.announcement-bell svg,
+.blog-bell svg {
     width: 22px;
     height: 22px;
 }
@@ -318,6 +356,14 @@ header {
     align-items: center;
     justify-content: center;
     border: 2px solid white;
+}
+
+.announcement-badge {
+    background: var(--primary);
+}
+
+.blog-badge {
+    background: #f381dc;
 }
 
 .blog-bell {
@@ -848,23 +894,19 @@ header {
 
 @media (min-width: 801px) {
     .header-actions {
-        display: flex;
-        flex-direction: column;
+        flex-direction: row;
+        justify-content: flex-end;
         align-items: center;
-        gap: 0px;
-        /* Reduced from 15px to bring them closer */
-        margin-top: 10px;
-        /* Reduced from 15px to reduce space from top brand info */
+        gap: 12px;
     }
 
     .social-links-wrapper {
-        gap: 15px;
-        /* Optional: adjust horizontal spacing between icons */
-        /* Ensure no bottom margin is pushing the toggle away */
-        margin-bottom: 2px;
+        gap: 8px;
+        margin-bottom: 0;
         position: relative;
-        display: inline-flex;
+        display: flex;
         align-items: center;
+        justify-content: flex-end;
         transition: transform 0.2s ease;
     }
 
@@ -973,13 +1015,10 @@ header {
 /* Adjusting mobile placement */
 @media (max-width: 800px) {
     .header-actions {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 0px;
-        /* Reduced from 15px to bring them closer */
-        margin-top: 10px;
-        /* Reduced from 15px to reduce space from top brand info */
+        flex-direction: row;
+        justify-content: center;
+        gap: 8px;
+        margin-top: 0;
     }
 
     .social-links-wrapper {
@@ -1238,7 +1277,6 @@ header {
 
 /* --- Album Designer Header Icon --- */
 .designer-icon {
-    margin-top: 12px;
     position: relative;
     color: var(--primary) !important;
     display: flex;
@@ -1250,34 +1288,6 @@ header {
 .designer-icon:hover {
     color: #2563eb !important;
     transform: translateY(-2px);
-}
-
-/* Designer Tooltip */
-.designer-icon::after {
-    content: attr(data-tooltip);
-    position: absolute;
-    bottom: 100%;
-    right: 0;
-    transform: translateY(-10px);
-    background: #1e293b;
-    color: white;
-    padding: 6px 12px;
-    border-radius: 6px;
-    font-size: 0.75rem;
-    font-weight: 600;
-    white-space: nowrap;
-    opacity: 0;
-    visibility: hidden;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    pointer-events: none;
-    z-index: 2000;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-}
-
-.designer-icon:hover::after {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(-18px);
 }
 
 .designer-icon-img {
@@ -1294,7 +1304,7 @@ header {
 /* Mobile Alignment */
 @media (max-width: 800px) {
     .designer-icon {
-        margin: 5px auto 15px;
+        margin: 0;
     }
 
     .designer-icon::after {

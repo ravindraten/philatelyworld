@@ -17,6 +17,8 @@
     <title>All Announcements - Philately World</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/jpeg"
+        href="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/logo.jpg">
     <link rel="apple-touch-icon" href="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/logo.jpg">
     <meta property="og:image" content="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/logo.jpg">
     <meta property="og:image:width" content="1200">
@@ -74,16 +76,6 @@
 
             <div class="header-actions">
                 <div class="social-links-wrapper">
-                    <a href="#" id="blogBell" class="social-icon blog-bell" aria-label="Blog" data-tooltip="Blog">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-                            <polyline points="14 2 14 8 20 8"></polyline>
-                            <line x1="16" y1="13" x2="8" y2="13"></line>
-                            <line x1="16" y1="17" x2="8" y2="17"></line>
-                            <polyline points="10 9 9 9 8 9"></polyline>
-                        </svg>
-                        <span class="notification-badge blog-badge" id="blogBadge" style="display: none;">0</span>
-                    </a>
                     <a href="https://www.facebook.com/PhilatelyWorld" target="_blank" class="social-icon facebook-icon"
                         aria-label="Facebook" data-tooltip="Follow us on Facebook">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
@@ -115,6 +107,27 @@
                     data-tooltip="Album Designer">
                     <img src="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/designer-icon.png"
                         alt="Album Designer Icon" class="designer-icon-img" width="24" height="24" loading="lazy">
+                </a>
+                <a href="#" id="announcementBell" class="social-icon announcement-bell" aria-label="Announcements"
+                    data-tooltip="Announcements">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                        <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+                    </svg>
+                    <span class="notification-badge announcement-badge" id="announcementBadge"
+                        style="display: none;">0</span>
+                </a>
+                <a href="#" id="blogBell" class="social-icon blog-bell" aria-label="Blog" data-tooltip="Blog">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                        <polyline points="14 2 14 8 20 8"></polyline>
+                        <line x1="16" y1="13" x2="8" y2="13"></line>
+                        <line x1="16" y1="17" x2="8" y2="17"></line>
+                        <polyline points="10 9 9 9 8 9"></polyline>
+                    </svg>
+                    <span class="notification-badge blog-badge" id="blogBadge" style="display: none;">0</span>
                 </a>
             </div>
     </header>
@@ -257,11 +270,22 @@
                 localStorage.setItem('lastSeenAnnouncement', CONFIG.announcementFiles[0]);
             }
 
+            // Announcement bell click - scroll to top (already on announcements page)
+            if (announcementBell) {
+                announcementBell.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                });
+            }
+
             // Blog bell functionality - go to blog tab
             const blogBell = document.getElementById('blogBell');
             if (blogBell) {
                 blogBell.addEventListener('click', (e) => {
                     e.preventDefault();
+                    if (typeof blogPosts !== 'undefined' && blogPosts.length > 0) {
+                        localStorage.setItem('lastSeenBlog', blogPosts[0].url);
+                    }
                     window.location.href = 'index.html';
                     setTimeout(() => {
                         const blogTab = document.querySelector('.filter-tab[data-status="blog"]');
