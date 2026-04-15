@@ -311,6 +311,30 @@ function initEventListeners() {
         };
     }
 
+    if (window.location.hash === '#privacy-policy' && privacyModal) {
+        setTimeout(() => {
+            privacyModal.style.display = "flex";
+            document.body.style.overflow = "hidden";
+        }, 100);
+    }
+
+    if (window.location.hash === '#security-guarantee' && securityModal) {
+        setTimeout(() => {
+            securityModal.style.display = "flex";
+            document.body.style.overflow = "hidden";
+        }, 100);
+    }
+
+    window.addEventListener('hashchange', () => {
+        if (window.location.hash === '#privacy-policy' && privacyModal) {
+            privacyModal.style.display = "flex";
+            document.body.style.overflow = "hidden";
+        } else if (window.location.hash === '#security-guarantee' && securityModal) {
+            securityModal.style.display = "flex";
+            document.body.style.overflow = "hidden";
+        }
+    });
+
     if (privacyClose) {
         privacyClose.onclick = () => {
             privacyModal.style.display = "none";
@@ -444,7 +468,7 @@ function renderGallery(data) {
                 sidebarContent += `
                 <div class="stamp-card" style="margin-bottom: 20px;">
                     <div class="img-container">
-                        <img src="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/largest-stamp.jpg" alt="The Royal Collection" loading="lazy">
+                        <img src="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/largest-stamp.jpg" alt="The Royal Collection" loading="lazy" decoding="async" fetchpriority="low" width="300" height="300">
                         <span class="photo-badge" style="background: var(--primary);">Promotion</span>
                     </div>
                     <div class="details">
@@ -489,7 +513,7 @@ function renderGallery(data) {
                 <div class="stamp-card blog-card">
                     <a href="${stamp.url || '#'}" class="blog-link-wrapper" style="text-decoration: none; color: inherit;">
                         <div class="img-container" style="cursor: pointer;">
-                            <img src="${CONFIG.baseImgPath}/${stamp.folder}/1.${stamp.extension || 'jpg'}" alt="${stamp.name}" loading="lazy">
+                            <img src="${CONFIG.baseImgPath}/${stamp.folder}/1.${stamp.extension || 'jpg'}" alt="${stamp.name}" loading="lazy" decoding="async" fetchpriority="low" width="300" height="300">
                             <div class="photo-badge">Article</div>
                         </div>
                     </a>
@@ -529,6 +553,9 @@ function renderGallery(data) {
                     <img src="${CONFIG.baseImgPath}/${stamp.folder}/1.${stamp.extension || 'jpg'}" 
                         alt="${stamp.name}" 
                         loading="lazy"
+                        decoding="async"
+                        fetchpriority="low"
+                        width="300" height="300"
                         onclick="openLightbox(${stamps.indexOf(stamp)})">
                         ${stamp.blogUrl ? `
                         <a href="${stamp.blogUrl}" class="stamp-blog-indicator" title="Read related blog post" style="position: absolute; top: 10px; right: 10px; background: #f6bbbb; padding: 6px; border-radius: 50%; display: flex; box-shadow: 0 2px 8px rgba(0,0,0,0.3); border: 2px solid white;" onclick="event.stopPropagation();">
@@ -792,7 +819,7 @@ async function initAnnouncementCarousel() {
             const slideInner = `
                 <div class="stamp-card" style="margin: 0; border: none; box-shadow: none; height: 100%; border-radius: 0;">
                     <div class="img-container">
-                        <img src="${imgSrc}" alt="${title}" loading="lazy">
+                        <img src="${imgSrc}" alt="${title}" loading="lazy" decoding="async" fetchpriority="low" width="300" height="300">
                         <span class="photo-badge" style="background: var(--primary);">${category}</span>
                     </div>
                     <div class="details">

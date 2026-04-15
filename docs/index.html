@@ -43,6 +43,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://filedn.eu" crossorigin>
     <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
+    <link rel="preload" as="image" href="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/logo.jpg" fetchpriority="high">
     <link rel="dns-prefetch" href="https://www.googletagmanager.com">
     <link rel="dns-prefetch" href="https://gc.zgo.at">
     <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com">
@@ -54,7 +55,7 @@
     <noscript>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap">
     </noscript>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css?v=20260415">
     <link rel="icon" type="image/jpeg"
         href="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/logo.jpg">
     <link rel="apple-touch-icon" href="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/logo.jpg">
@@ -69,9 +70,6 @@
     </script>
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-0K58TP8LVP"></script>
     <script data-goatcounter="https://ravindraten.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
-    <!-- Google AdSense and Consent Management Platform (CMP) for EEA/UK -->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4513179393076408"
-        crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -216,10 +214,10 @@
     <footer class="main-footer">
         <p>&copy; 2017-2026 Philately World Gallery</p>
         <p>
-            <a href="javascript:void(0)" id="privacyTrigger"
+            <a href="#privacy-policy" id="privacyTrigger"
                 style="color: var(--text-light); font-size: 0.75rem; text-decoration: underline;">Privacy Policy</a>
             <span style="color: var(--text-light); margin: 0 8px;">•</span>
-            <a href="javascript:void(0)" id="securityTrigger"
+            <a href="#security-guarantee" id="securityTrigger"
                 style="color: var(--text-light); font-size: 0.75rem; text-decoration: underline;">Security &
                 Guarantee</a>
         </p>
@@ -237,7 +235,7 @@
             </div>
         </div>
     </div>
-    <div id="securityModal" class="qr-modal">
+    <div id="securityModal" class="qr-modal" data-anchor="security-guarantee">
         <div class="qr-modal-content" style="max-width: 600px; text-align: left; max-height: 80vh; overflow-y: auto;">
             <span class="qr-close" id="securityClose">&times;</span>
             <h2 style="margin-top:0; color: var(--primary);">Security & Guarantee</h2>
@@ -263,7 +261,7 @@
             </div>
         </div>
     </div>
-    <div id="privacyModal" class="qr-modal">
+    <div id="privacyModal" class="qr-modal" data-anchor="privacy-policy">
         <div class="qr-modal-content" style="max-width: 600px; text-align: left; max-height: 80vh; overflow-y: auto;">
             <span class="qr-close" id="privacyClose">&times;</span>
             <h2 style="margin-top:0; color: var(--primary);">Privacy Policy</h2>
@@ -297,8 +295,8 @@
     <script>
         (adsbygoogle = window.adsbygoogle || []).push({});
     </script>
-    <script defer src="data.js"></script>
-    <script defer src="blog.js"></script>
+    <script defer src="data.js?v=20260415"></script>
+    <script defer src="blog.js?v=20260415"></script>
     <script>
         if (new URLSearchParams(window.location.search).get('tab') === 'blog') {
             document.addEventListener('DOMContentLoaded', () => {
@@ -307,7 +305,7 @@
             });
         }
     </script>
-    <script defer src="script.js"></script>
+    <script defer src="script.js?v=20260415"></script>
 </body>
 
 </html>
