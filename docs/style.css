@@ -6,7 +6,7 @@
     --whatsapp: #25D366;
     --instgram: #f381dc;
     --text-main: #334155;
-    --text-light: #64748b;
+    --text-light: #475569;
     --border: rgba(0, 0, 0, 0.08);
 }
 
@@ -72,10 +72,6 @@ header {
 
 @media (min-width: 801px) {
     .search-sticky-container {
-        padding: 12px 0;
-    }
-
-    .search-sticky-container.is-pinned {
         padding: 10px 0;
     }
 }
@@ -183,9 +179,13 @@ header {
         display: block;
     }
 
-    /* When pinned, the sticky-logo serves as the left balance — remove the pseudo spacer */
+    .sticky-wrapper::before {
+        width: 140px;
+        flex-shrink: 0;
+    }
+
     .search-sticky-container.is-pinned .sticky-wrapper::before {
-        display: none;
+        width: 140px;
     }
 
     .sticky-wrapper .search-container {
@@ -279,8 +279,7 @@ header {
 }
 
 .brand-info p {
-    font-weight: 300;
-    opacity: 0.8;
+    font-weight: 400;
     letter-spacing: 0.1em;
     font-size: 0.8rem;
     color: var(--text-light);
@@ -633,8 +632,8 @@ header {
 }
 
 .share-icon-btn {
-    background: #f1f5f9;
-    border: 1px solid var(--border);
+    background: #cbd5e1;
+    border: 1px solid #94a3b8;
     border-radius: 8px;
     width: 38px;
     height: 38px;
@@ -647,12 +646,11 @@ header {
     padding: 0;
     top: 12px;
     right: 6px;
-    background: rgba(255, 255, 255, 0.15);
 }
 
 .share-icon-btn-promo {
-    background: #000000;
-    border: 1px solid var(--border);
+    background: #475569;
+    border: 1px solid #64748b;
     border-radius: 8px;
     width: 38px;
     height: 38px;
@@ -660,12 +658,11 @@ header {
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    color: var(--text-main);
+    color: white;
     transition: all 0.2s ease;
     padding: 0;
     top: -22px;
     right: -16px;
-    background: rgba(0, 0, 0, 0.15);
     position: absolute;
 }
 
@@ -1172,7 +1169,6 @@ header {
 
 .promo-card p {
     font-size: 0.9rem;
-    opacity: 0.9;
     margin: 0;
     color: #cbd5e1;
 }
@@ -1385,8 +1381,8 @@ header {
     width: 8px;
     height: 8px;
     border-radius: 50%;
-    background: rgba(255, 255, 255, 0.4);
-    border: none;
+    background: rgba(255, 255, 255, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.8);
     cursor: pointer;
     transition: background 0.3s ease, transform 0.2s ease;
     padding: 0;
