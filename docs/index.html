@@ -299,6 +299,14 @@
     </script>
     <script defer src="data.js"></script>
     <script defer src="blog.js"></script>
+    <script>
+        if (new URLSearchParams(window.location.search).get('tab') === 'blog') {
+            document.addEventListener('DOMContentLoaded', () => {
+                const blogTab = document.querySelector('.filter-tab[data-status="blog"]');
+                if (blogTab) blogTab.click();
+            });
+        }
+    </script>
     <script defer src="script.js"></script>
 </body>
 
