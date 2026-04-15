@@ -311,6 +311,30 @@ function initEventListeners() {
         };
     }
 
+    if (window.location.hash === '#privacy-policy' && privacyModal) {
+        setTimeout(() => {
+            privacyModal.style.display = "flex";
+            document.body.style.overflow = "hidden";
+        }, 100);
+    }
+
+    if (window.location.hash === '#security-guarantee' && securityModal) {
+        setTimeout(() => {
+            securityModal.style.display = "flex";
+            document.body.style.overflow = "hidden";
+        }, 100);
+    }
+
+    window.addEventListener('hashchange', () => {
+        if (window.location.hash === '#privacy-policy' && privacyModal) {
+            privacyModal.style.display = "flex";
+            document.body.style.overflow = "hidden";
+        } else if (window.location.hash === '#security-guarantee' && securityModal) {
+            securityModal.style.display = "flex";
+            document.body.style.overflow = "hidden";
+        }
+    });
+
     if (privacyClose) {
         privacyClose.onclick = () => {
             privacyModal.style.display = "none";
