@@ -129,10 +129,12 @@ header {
     flex: 1;
     display: flex;
     justify-content: flex-end;
-    align-items: center;
+    align-items: flex-start;
     gap: 12px;
     white-space: nowrap;
     min-width: 100px;
+    flex-wrap: wrap;
+    align-content: flex-start;
 }
 
 @media (min-width: 801px) {
@@ -253,13 +255,15 @@ header {
         margin-bottom: 10px;
         display: flex;
         flex-direction: column;
-        align-items: center;
+        align-items: flex-start;
     }
 
     .social-links-wrapper {
         display: flex;
         gap: 10px;
         margin-bottom: 10px;
+        align-items: center;
+        justify-content: center;
     }
 
 }
@@ -286,9 +290,9 @@ header {
 .header-actions {
     flex: 1;
     display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: flex-end;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
     gap: 0;
     white-space: nowrap;
 }
@@ -312,6 +316,13 @@ header {
     justify-content: center;
     transition: color 0.3s ease, transform 0.2s ease;
     line-height: 1;
+    width: 36px;
+    height: 36px;
+}
+
+.social-icon svg {
+    width: 24px;
+    height: 24px;
 }
 
 .social-icon:hover {
@@ -336,8 +347,8 @@ header {
 
 .announcement-bell svg,
 .blog-bell svg {
-    width: 22px;
-    height: 22px;
+    width: 24px;
+    height: 24px;
 }
 
 .notification-badge {
@@ -444,6 +455,24 @@ header {
         gap: 20px;
         max-width: none;
         margin: 0;
+    }
+
+    @media (min-width: 1200px) {
+        .stamp-grid {
+            grid-template-columns: repeat(3, 1fr);
+        }
+    }
+
+    @media (min-width: 1600px) {
+        .stamp-grid {
+            grid-template-columns: repeat(4, 1fr);
+        }
+    }
+
+    @media (min-width: 2000px) {
+        .stamp-grid {
+            grid-template-columns: repeat(5, 1fr);
+        }
     }
 
     /* 2. Force the card to stay visible regardless of scroll state */
@@ -907,6 +936,7 @@ header {
         align-items: center;
         justify-content: flex-end;
         transition: transform 0.2s ease;
+        flex-wrap: wrap;
     }
 
     /* The Tooltip Box */
