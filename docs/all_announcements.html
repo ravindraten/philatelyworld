@@ -76,6 +76,28 @@
 
             <div class="header-actions">
                 <div class="social-links-wrapper">
+                    <a href="#" id="announcementBell" class="social-icon announcement-bell" aria-label="Announcements"
+                        data-tooltip="Announcements">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                            <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+                        </svg>
+                        <span class="notification-badge announcement-badge" id="announcementBadge"
+                            style="display: none;">0</span>
+                    </a>
+                    <a href="#" id="blogBell" class="social-icon blog-bell" aria-label="New Blog"
+                        data-tooltip="New Blog">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                            <polyline points="14 2 14 8 20 8"></polyline>
+                            <line x1="16" y1="13" x2="8" y2="13"></line>
+                            <line x1="16" y1="17" x2="8" y2="17"></line>
+                            <polyline points="10 9 9 9 8 9"></polyline>
+                        </svg>
+                        <span class="notification-badge blog-badge" id="blogBadge" style="display: none;">0</span>
+                    </a>
                     <a href="https://www.facebook.com/PhilatelyWorld" target="_blank" class="social-icon facebook-icon"
                         aria-label="Facebook" data-tooltip="Follow us on Facebook">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
@@ -102,33 +124,14 @@
                     </a>
                     <a href="https://wa.me/31633467712" class="contact-pill" target="_blank"
                         data-tooltip="Chat with us on WhatsApp">Chat</a>
+                    <a href="AlbumDesigner/auto-album.html" class="social-icon designer-icon"
+                        aria-label="Album Designer" data-tooltip="Album Designer">
+                        <img src="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/designer-icon.png"
+                            alt="Album Designer Icon" class="designer-icon-img" width="24" height="24" loading="lazy">
+                    </a>
                 </div>
-                <a href="AlbumDesigner/auto-album.html" class="social-icon designer-icon" aria-label="Album Designer"
-                    data-tooltip="Album Designer">
-                    <img src="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/designer-icon.png"
-                        alt="Album Designer Icon" class="designer-icon-img" width="24" height="24" loading="lazy">
-                </a>
-                <a href="#" id="announcementBell" class="social-icon announcement-bell" aria-label="Announcements"
-                    data-tooltip="Announcements">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
-                        <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
-                    </svg>
-                    <span class="notification-badge announcement-badge" id="announcementBadge"
-                        style="display: none;">0</span>
-                </a>
-                <a href="#" id="blogBell" class="social-icon blog-bell" aria-label="Blog" data-tooltip="Blog">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-                        <polyline points="14 2 14 8 20 8"></polyline>
-                        <line x1="16" y1="13" x2="8" y2="13"></line>
-                        <line x1="16" y1="17" x2="8" y2="17"></line>
-                        <polyline points="10 9 9 9 8 9"></polyline>
-                    </svg>
-                    <span class="notification-badge blog-badge" id="blogBadge" style="display: none;">0</span>
-                </a>
+
+
             </div>
     </header>
 
@@ -139,6 +142,7 @@
             <div class="search-container">
                 <input type="search" id="stampSearch" placeholder="Search by theme, country, or year...">
             </div>
+            <div style="min-width: 120px;"></div>
         </div>
     </div>
 
