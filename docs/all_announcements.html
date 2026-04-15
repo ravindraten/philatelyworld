@@ -250,6 +250,7 @@
         </div>
     </div>
     <script defer src="data.js?v=2"></script>
+    <script defer src="blog.js"></script>
     <script defer src="script.js?v=20260408"></script>
     <script>
         // Trigger rendering immediately 
@@ -264,14 +265,22 @@
 
             renderAllAnnouncementsPage(initialQuery);
 
-            // Clear announcement badge when visiting announcements page
+            // Clear badges and mark as seen
             const announcementBadge = document.getElementById('announcementBadge');
             const announcementBell = document.getElementById('announcementBell');
+            const blogBadge = document.getElementById('blogBadge');
+            
             if (announcementBadge) announcementBadge.style.display = 'none';
+            if (blogBadge) blogBadge.style.display = 'none';
 
             // Mark announcements as seen
             if (typeof CONFIG !== 'undefined' && CONFIG.announcementFiles && CONFIG.announcementFiles.length > 0) {
                 localStorage.setItem('lastSeenAnnouncement', CONFIG.announcementFiles[0]);
+            }
+            
+            // Mark blogs as seen
+            if (typeof blogPosts !== 'undefined' && blogPosts.length > 0) {
+                localStorage.setItem('lastSeenBlog', blogPosts[0].url);
             }
 
             // Announcement bell click - scroll to top (already on announcements page)
@@ -287,14 +296,8 @@
             if (blogBell) {
                 blogBell.addEventListener('click', (e) => {
                     e.preventDefault();
-                    if (typeof blogPosts !== 'undefined' && blogPosts.length > 0) {
-                        localStorage.setItem('lastSeenBlog', blogPosts[0].url);
-                    }
+                    localStorage.setItem('navigateToTab', 'blog');
                     window.location.href = 'index.html';
-                    setTimeout(() => {
-                        const blogTab = document.querySelector('.filter-tab[data-status="blog"]');
-                        if (blogTab) blogTab.click();
-                    }, 100);
                 });
             }
         });

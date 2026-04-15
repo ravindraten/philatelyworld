@@ -31,9 +31,19 @@ document.addEventListener('DOMContentLoaded', () => {
     updateLiveExchangeRate();
     const urlParams = new URLSearchParams(window.location.search);
     const itemID = urlParams.get('item');
+    const tabParam = urlParams.get('tab');
 
-    // Always default to 'available' tab
-    state.statusFilter = 'available';
+    // Check for localStorage navigation flag first, then URL param, else default to 'available'
+    const navTab = localStorage.getItem('navigateToTab');
+    localStorage.removeItem('navigateToTab');
+    
+    const effectiveTab = navTab || tabParam;
+    
+    if (effectiveTab && ['all', 'available', 'sold', 'blog'].includes(effectiveTab)) {
+        state.statusFilter = effectiveTab;
+    } else {
+        state.statusFilter = 'available';
+    }
 
     // 1. Initialize Event Listeners & UI First
     initEventListeners();
@@ -56,6 +66,19 @@ document.addEventListener('DOMContentLoaded', () => {
             tab.classList.remove('active');
         }
     });
+    
+    // Handle navigation to specific tab (only if no item parameter)
+    if (effectiveTab && ['all', 'available', 'sold', 'blog'].includes(effectiveTab) && !itemID) {
+        const targetTab = document.querySelector(`.filter-tab[data-status="${effectiveTab}"]`);
+        if (targetTab) {
+            tabs.forEach(t => t.classList.remove('active'));
+            targetTab.classList.add('active');
+        }
+        const searchVal = document.getElementById('stampSearch').value;
+        filterStamps(searchVal);
+        return;
+    }
+    
     // 2. Handle Routing (Deep Links vs Default Load)
     if (itemID === 'promo') {
         updateMetaTags(null, 'promo');
@@ -560,7 +583,7 @@ function filterStamps(query) {
     const term = query.toLowerCase().trim();
 
     // Switch data source based on active tab
-    const activeData = (state.statusFilter === 'blog') ? blogPosts : stamps;
+    const activeData = (state.statusFilter === 'blog') ? (blogPosts || []) : stamps;
 
     const filtered = activeData.filter(item => {
         // 1. Text Search Match
