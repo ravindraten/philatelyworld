@@ -1,0 +1,41 @@
+# Cache-Control Headers for Efficient Caching
+# This file is used by Netlify, Cloudflare Pages, and other hosting providers
+# For GitHub Pages, use query parameter cache-busting (already implemented in HTML files)
+
+# Static assets - cache for 1 year (31536000 seconds)
+/style.css
+  Cache-Control: public, max-age=31536000, immutable
+/*.js
+  Cache-Control: public, max-age=31536000, immutable
+/*.png
+  Cache-Control: public, max-age=31536000, immutable
+/*.jpg
+  Cache-Control: public, max-age=31536000, immutable
+/*.jpeg
+  Cache-Control: public, max-age=31536000, immutable
+/*.svg
+  Cache-Control: public, max-age=31536000, immutable
+/*.ico
+  Cache-Control: public, max-age=31536000, immutable
+/*.woff2
+  Cache-Control: public, max-age=31536000, immutable
+/*.woff
+  Cache-Control: public, max-age=31536000, immutable
+
+# HTML files - short cache (no-cache for freshness)
+/index.html
+  Cache-Control: no-cache, no-store, must-revalidate
+/all_announcements.html
+  Cache-Control: no-cache, no-store, must-revalidate
+/AlbumDesigner/auto-album.html
+  Cache-Control: no-cache, no-store, must-revalidate
+/blog/*.html
+  Cache-Control: no-cache, no-store, must-revalidate
+/announcement/*.html
+  Cache-Control: no-cache, no-store, must-revalidate
+/item/*/index.html
+  Cache-Control: no-cache, no-store, must-revalidate
+
+# XML and data files - short cache
+/sitemap.xml
+  Cache-Control: public, max-age=86400

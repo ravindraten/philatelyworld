@@ -98,7 +98,7 @@ stamps.forEach(stamp => {
 <body>
     <h1>${stamp.name}</h1>
     <p>${descText}</p>
-    <img src="${imgUrl}" alt="${stamp.name}" width="300" style="max-width:100%">
+    <img src="${imgUrl}" alt="${stamp.name}" width="300" height="300" loading="lazy" decoding="async" style="max-width:100%">
     <p><a href="https://philatelyworld.in/?item=${rnCode}">View full listing on Philately World &rarr;</a></p>
 </body>
 </html>`;
