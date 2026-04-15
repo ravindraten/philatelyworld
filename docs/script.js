@@ -31,12 +31,16 @@ document.addEventListener('DOMContentLoaded', () => {
     updateLiveExchangeRate();
     const urlParams = new URLSearchParams(window.location.search);
     const itemID = urlParams.get('item');
+    const tabParam = urlParams.get('tab');
 
-    // --- NEW PERSISTENCE LOGIC ---
-    // Check if we have a saved tab from this session, otherwise default to 'available'
-    const savedTab = sessionStorage.getItem('activeTab');
-    if (savedTab) {
-        state.statusFilter = savedTab;
+    // Check for localStorage navigation flag first, then URL param, else default to 'available'
+    const navTab = localStorage.getItem('navigateToTab');
+    localStorage.removeItem('navigateToTab');
+    
+    const effectiveTab = navTab || tabParam;
+    
+    if (effectiveTab && ['all', 'available', 'sold', 'blog'].includes(effectiveTab)) {
+        state.statusFilter = effectiveTab;
     } else {
         state.statusFilter = 'available';
     }
@@ -62,7 +66,19 @@ document.addEventListener('DOMContentLoaded', () => {
             tab.classList.remove('active');
         }
     });
-    // --- END NEW PERSISTENCE LOGIC ---
+    
+    // Handle navigation to specific tab (only if no item parameter)
+    if (effectiveTab && ['all', 'available', 'sold', 'blog'].includes(effectiveTab) && !itemID) {
+        const targetTab = document.querySelector(`.filter-tab[data-status="${effectiveTab}"]`);
+        if (targetTab) {
+            tabs.forEach(t => t.classList.remove('active'));
+            targetTab.classList.add('active');
+        }
+        const searchVal = document.getElementById('stampSearch').value;
+        filterStamps(searchVal);
+        return;
+    }
+    
     // 2. Handle Routing (Deep Links vs Default Load)
     if (itemID === 'promo') {
         updateMetaTags(null, 'promo');
@@ -423,25 +439,6 @@ function renderGallery(data) {
 
             let sidebarContent = '';
 
-            if (CONFIG.showAnnouncement && CONFIG.announcementFiles && CONFIG.announcementFiles.length > 0) {
-                // Feature the button AT THE TOP for better visibility on smaller screens
-                sidebarContent += `
-                <a href="all_announcements.html" class="buy-btn" style="display: block; width: 100%; text-align: center; margin-bottom: 20px; text-decoration: none; padding: 12px; border-radius: 8px;">View All Announcements</a>
-                
-                <div class="announcement-carousel-container stamp-card" style="position: relative; margin-bottom: 12px; width: 100%; overflow: hidden;">
-                    <div class="announcement-carousel-track" id="announcementCarouselTrack" style="display: flex; height: 100%; transition: transform 0.5s ease-in-out;">
-                    </div>
-                    
-                    ${CONFIG.announcementFiles.length > 1 ? `
-                    <div class="carousel-indicators" id="carouselIndicators" style="position: absolute; bottom: 15px; width: 100%; display: flex; justify-content: center; gap: 8px; z-index: 10;">
-                    </div>
-                    ` : ''}
-                </div>`;
-
-                // Trigger the carousel initialization
-                setTimeout(initAnnouncementCarousel, 0);
-            }
-
             if (CONFIG.showPromo) {
                 // Feature card in the sidebar utilizing the universal stamp-card format
                 sidebarContent += `
@@ -461,12 +458,19 @@ function renderGallery(data) {
             }
 
             sidebar.innerHTML = sidebarContent;
-            sidebar.style.display = "block";
+            if (sidebarContent.trim()) {
+                sidebar.style.display = "block";
+                document.querySelector('.layout-wrapper')?.classList.remove('no-sidebar');
+            } else {
+                sidebar.style.display = "none";
+                document.querySelector('.layout-wrapper')?.classList.add('no-sidebar');
+            }
         } else {
             sidebar.classList.remove('centered-view');
             if (mainContent) mainContent.style.display = "block"; // ENSURE SHOWN
             sidebar.innerHTML = "";
             sidebar.style.display = "none";
+            document.querySelector('.layout-wrapper')?.classList.add('no-sidebar');
         }
     }
 
@@ -579,7 +583,7 @@ function filterStamps(query) {
     const term = query.toLowerCase().trim();
 
     // Switch data source based on active tab
-    const activeData = (state.statusFilter === 'blog') ? blogPosts : stamps;
+    const activeData = (state.statusFilter === 'blog') ? (blogPosts || []) : stamps;
 
     const filtered = activeData.filter(item => {
         // 1. Text Search Match
@@ -984,3 +988,68 @@ async function renderAllAnnouncementsPage(searchTerm = '') {
 
     grid.innerHTML = cardsHTML;
 }
+
+function initAnnouncementNotification() {
+    const announcementBell = document.getElementById('announcementBell');
+    const announcementBadge = document.getElementById('announcementBadge');
+    const blogBell = document.getElementById('blogBell');
+    const blogBadge = document.getElementById('blogBadge');
+
+    const lastSeenAnnouncement = localStorage.getItem('lastSeenAnnouncement');
+    const lastSeenBlog = localStorage.getItem('lastSeenBlog');
+    
+    const latestAnnouncement = CONFIG.announcementFiles && CONFIG.announcementFiles.length > 0 
+        ? CONFIG.announcementFiles[0] 
+        : null;
+
+    const latestBlog = typeof blogPosts !== 'undefined' && blogPosts.length > 0
+        ? blogPosts[0].url
+        : null;
+
+    if (announcementBell && announcementBadge) {
+        if (latestAnnouncement && lastSeenAnnouncement !== latestAnnouncement) {
+            announcementBadge.style.display = 'flex';
+            announcementBell.setAttribute('data-tooltip', 'New Announcement!');
+        } else {
+            announcementBadge.style.display = 'none';
+            announcementBell.setAttribute('data-tooltip', 'Announcements');
+        }
+
+        announcementBell.addEventListener('click', (e) => {
+            e.preventDefault();
+            localStorage.setItem('lastSeenAnnouncement', latestAnnouncement);
+            announcementBadge.style.display = 'none';
+            announcementBell.setAttribute('data-tooltip', 'Announcements');
+            window.location.href = 'all_announcements.html';
+        });
+    }
+
+    if (blogBell && blogBadge) {
+        if (latestBlog && lastSeenBlog !== latestBlog) {
+            blogBadge.style.display = 'flex';
+            blogBell.setAttribute('data-tooltip', 'New Blog Post!');
+        } else {
+            blogBadge.style.display = 'none';
+            blogBell.setAttribute('data-tooltip', 'Blog');
+        }
+
+        blogBell.addEventListener('click', (e) => {
+            e.preventDefault();
+            localStorage.setItem('lastSeenBlog', latestBlog);
+            blogBadge.style.display = 'none';
+            blogBell.setAttribute('data-tooltip', 'Blog');
+            const blogTab = document.querySelector('.filter-tab[data-status="blog"]');
+            if (blogTab) {
+                blogTab.click();
+            } else {
+                window.location.href = 'index.html';
+            }
+        });
+    }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    if (typeof CONFIG !== 'undefined' && CONFIG.announcementFiles) {
+        initAnnouncementNotification();
+    }
+});

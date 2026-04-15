@@ -66,16 +66,7 @@
       ]
     }
     </script>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Philately World | Free Automated Stamp Album Designer</title>
-    <meta name="description"
-        content="Create professional, high-resolution PDF stamp albums automatically. Simply set your dimensions, upload images, and download your custom philatelic pages.">
-    <meta name="keywords"
-        content="stamp album designer, free philately tools, automated stamp album, virtual stamp album, stamp collection organizer, philately world">
-    <link rel="canonical" href="https://philatelyworld.in/AlbumDesigner/auto-album.html" />
 
-    <!-- Open Graph / Facebook -->
     <meta property="og:site_name" content="Philately World">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://philatelyworld.in/AlbumDesigner/auto-album.html">
@@ -89,9 +80,6 @@
     <meta property="og:image:width" content="1024">
     <meta property="og:image:height" content="1044">
     <meta property="og:image:type" content="image/png">
-
-    <!-- Twitter -->
-    <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Philately World | Automated Stamp Album Designer">
     <meta name="twitter:description"
         content="Turn your stamp collection into a premium PDF album in seconds. Free and automated.">
@@ -100,11 +88,20 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="icon" type="image/jpeg" href="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/logo.jpg">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;850&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://filedn.eu" crossorigin>
+    <link rel="icon" type="image/jpeg"
+        href="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/logo.jpg">
+    <link rel="apple-touch-icon" href="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/logo.jpg">
+    <link rel="preload" as="style"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap"
+        onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap">
+    </noscript>
+    <link rel="stylesheet" href="../style.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/heic2any@0.0.4/dist/heic2any.min.js"></script>
 
-    <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-0K58TP8LVP"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
@@ -112,8 +109,8 @@
         gtag('js', new Date());
         gtag('config', 'G-0K58TP8LVP');
     </script>
-    <!-- GoatCounter -->
     <script data-goatcounter="https://ravindraten.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+
     <style>
         /* --- INSTANT LOCKDOWN CSS --- */
         @media (max-width: 799px) {
@@ -199,45 +196,23 @@
             box-sizing: border-box;
         }
 
-        /* --- THEME & LAYOUT --- */
-        :root {
-            --bg: #f3f4f6;
-            --accent: #2563eb;
-            --panel: rgba(255, 255, 255, 0.8);
-            --border: #e5e7eb;
-            --text-main: #111827;
-            --text-muted: #4b5563;
-        }
-
-        body {
-            margin: 0;
-            font-family: 'Inter', system-ui, -apple-system, sans-serif;
-            background: var(--bg);
-            background-image: radial-gradient(circle at 50% 50%, #f9fafb 0%, #f3f4f6 100%);
+        .album-designer-wrapper {
             display: flex;
-            height: 100vh;
-            overflow: hidden;
-            color: var(--text-main);
-            min-width: 800px;
-            /* Tablet & Desktop focus */
+            gap: 20px;
+            height: 90vh;
         }
 
-        /* Left Panel: UI */
         #controls {
             width: 380px;
-            max-width: 25vw;
-            min-width: 320px;
-            background: var(--panel);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border-right: 1px solid var(--border);
+            flex-shrink: 0;
+            background: var(--card-bg);
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            padding: 24px;
+            overflow-y: auto;
             display: flex;
             flex-direction: column;
-            padding: 32px;
-            box-shadow: 10px 0 30px rgba(0, 0, 0, 0.02);
-            z-index: 10;
-            overflow-y: auto;
-            transition: width 0.3s ease;
+            gap: 16px;
         }
 
         #controls::-webkit-scrollbar {
@@ -247,140 +222,96 @@
         #controls::-webkit-scrollbar-thumb {
             background: #cbd5e1;
             border-radius: 10px;
-            transition: background 0.2s;
         }
 
-        #controls::-webkit-scrollbar-thumb:hover {
-            background: #94a3b8;
+        #preview {
+            flex: 1;
+            background: var(--card-bg);
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
         }
 
-        h2 {
+        #preview iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            background: white;
+        }
+
+        .designer-header {
+            text-align: center;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .designer-header h2 {
             font-size: 1.1rem;
-            margin-top: 0;
-            font-weight: 700;
+            margin: 0 0 4px;
+            color: var(--primary);
+        }
+
+        .designer-header p {
+            font-size: 0.75rem;
+            color: var(--text-light);
+            margin: 0;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
-            color: #111827;
+            letter-spacing: 1px;
         }
 
         .upload-card {
             border: 2px dashed #d1d5db;
-            border-radius: 16px;
-            padding: 30px 20px;
+            border-radius: 12px;
+            padding: 20px;
             text-align: center;
             cursor: pointer;
             transition: all 0.3s ease;
             background: rgba(255, 255, 255, 0.5);
-            margin-bottom: 24px;
         }
 
         .upload-card:hover {
             border-color: var(--accent);
             background: white;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
         }
 
-        .setting-group {
-            margin-bottom: 18px;
-        }
-
-        label {
+        .setting-group label {
             display: block;
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             font-weight: 600;
-            color: #6b7280;
+            color: var(--text-light);
             margin-bottom: 6px;
             text-transform: uppercase;
         }
 
-        input[type="text"],
-        input[type="number"],
-        select {
+        .setting-group input,
+        .setting-group select {
             width: 100%;
-            padding: 12px;
+            padding: 10px 12px;
             border: 1px solid var(--border);
-            border-radius: 10px;
-            box-sizing: border-box;
-            font-size: 0.95rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
             transition: all 0.2s;
             background: white;
         }
 
-        input:focus,
-        select:focus {
+        .setting-group input:focus,
+        .setting-group select:focus {
             outline: none;
             border-color: var(--accent);
-            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
+            box-shadow: 0 0 0 3px rgba(217, 119, 6, 0.15);
         }
 
-        #file-status {
-            font-size: 0.8rem;
-            color: #6b7280;
-            margin-top: 10px;
-            border-top: 1px solid #eee;
-            padding-top: 15px;
-            display: block;
-        }
-
-        .gallery-item {
+        .dimensions-row {
             display: flex;
-            align-items: center;
             gap: 12px;
-            background: white;
-            padding: 10px;
-            border-radius: 10px;
-            margin-bottom: 8px;
-            border: 1px solid var(--border);
-            transition: all 0.2s;
         }
 
-        .gallery-item:hover {
-            border-color: #cbd5e1;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-        }
-
-        .gallery-thumb {
-            width: 40px;
-            height: 40px;
-            object-fit: contain;
-            background: #f8fafc;
-            border-radius: 6px;
-            border: 1px solid #eee;
-        }
-
-        .gallery-info {
+        .dimensions-row .setting-group {
             flex: 1;
-            min-width: 0;
-        }
-
-        .gallery-name {
-            font-weight: 600;
-            color: var(--text-main);
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            font-size: 0.8rem;
-        }
-
-        .delete-btn {
-            background: #fee2e2;
-            color: #b91c1c;
-            border: none;
-            width: 28px;
-            height: 28px;
-            border-radius: 8px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.2s;
-        }
-
-        .delete-btn:hover {
-            background: #fecaca;
-            color: #991b1b;
-            transform: scale(1.1);
         }
 
         button#dl-btn {
@@ -389,52 +320,39 @@
             border: none;
             padding: 14px;
             width: 100%;
-            border-radius: 12px;
+            border-radius: 10px;
             font-weight: 700;
             cursor: pointer;
-            margin-top: auto;
             font-size: 0.95rem;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 0 4px 14px rgba(37, 99, 235, 0.2);
+            transition: all 0.3s;
+            margin-top: auto;
         }
 
         button#dl-btn:hover {
-            background: #1d4ed8;
+            background: #b45309;
             transform: translateY(-1px);
-            box-shadow: 0 6px 20px rgba(37, 99, 235, 0.3);
-        }
-
-        button#dl-btn:active {
-            transform: translateY(0);
-        }
-
-        .donate-section {
-            margin-top: 15px;
-            text-align: center;
         }
 
         .donate-btn {
             background: #f8fafc;
-            color: #475569;
+            color: var(--text-light);
             border: 1px solid var(--border);
             padding: 10px 16px;
-            border-radius: 12px;
+            border-radius: 10px;
             font-size: 0.8rem;
             font-weight: 600;
             cursor: pointer;
-            display: inline-flex;
+            display: flex;
             align-items: center;
+            justify-content: center;
             gap: 8px;
             transition: all 0.2s;
             width: 100%;
-            justify-content: center;
         }
 
         .donate-btn:hover {
             background: white;
-            border-color: #94a3b8;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-            transform: translateY(-1px);
+            border-color: var(--accent);
         }
 
         .donate-btn img {
@@ -442,7 +360,6 @@
             width: auto;
         }
 
-        /* Modal Styles */
         #donate-modal {
             display: none;
             position: fixed;
@@ -457,7 +374,7 @@
             justify-content: center;
         }
 
-        .modal-content {
+        .qr-modal-content {
             background: white;
             padding: 30px;
             border-radius: 20px;
@@ -466,6 +383,20 @@
             text-align: center;
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
             position: relative;
+        }
+
+        .qr-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: #f1f5f9;
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2rem;
+            color: #64748b;
         }
 
         .modal-tabs {
@@ -487,6 +418,7 @@
             transition: all 0.2s;
             border: none;
             color: #64748b;
+            background: transparent;
         }
 
         .modal-tab.active {
@@ -497,40 +429,10 @@
 
         .tab-content {
             display: none;
-            animation: fadeIn 0.3s ease-out;
         }
 
         .tab-content.active {
             display: block;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(5px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .modal-close {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            background: #f1f5f9;
-            border: none;
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.2rem;
-            color: #64748b;
         }
 
         .upi-box {
@@ -538,33 +440,102 @@
             border: 1px solid #e2e8f0;
             padding: 12px;
             border-radius: 10px;
-            font-family: 'JetBrains Mono', monospace;
             font-size: 0.85rem;
             color: #1e293b;
             margin-top: 20px;
             display: flex;
             align-items: center;
             justify-content: space-between;
+            font-weight: 600;
         }
 
-        #preview {
-            flex: 1;
-            background: #e5e7eb;
+        #file-status {
+            font-size: 0.8rem;
+            color: var(--text-light);
+            padding-top: 12px;
+            border-top: 1px solid var(--border);
+        }
+
+        .gallery-item {
             display: flex;
-            justify-content: center;
             align-items: center;
-            padding: 2vw;
-            position: relative;
-            min-width: 600px;
+            gap: 12px;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 10px;
+            margin-bottom: 8px;
+            border: 1px solid var(--border);
         }
 
-        iframe {
-            width: 100%;
-            height: 100%;
+        .gallery-thumb {
+            width: 50px;
+            height: 50px;
+            object-fit: cover;
+            border-radius: 6px;
+            border: 1px solid var(--border);
+        }
+
+        .gallery-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .gallery-name {
+            font-size: 0.75rem;
+            color: var(--text);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .delete-btn {
+            background: #fee2e2;
             border: none;
-            background: white;
-            box-shadow: 0 0 30px rgba(0, 0, 0, 0.25);
-            border-radius: 4px;
+            border-radius: 6px;
+            padding: 6px;
+            cursor: pointer;
+            color: #dc2626;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+
+        .delete-btn:hover {
+            background: #fecaca;
+            color: #b91c1c;
+        }
+
+        #file-status input[type="number"] {
+            -moz-appearance: textfield;
+        }
+
+        #file-status input[type="number"]::-webkit-outer-spin-button,
+        #file-status input[type="number"]::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        #file-status input[type="number"]:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 2px rgba(217, 119, 6, 0.15);
+        }
+
+        @media (max-width: 1000px) {
+            .album-designer-wrapper {
+                flex-direction: column;
+                height: auto;
+            }
+
+            #controls {
+                width: 100%;
+                max-height: 400px;
+            }
+
+            #preview {
+                height: 400px;
+            }
         }
     </style>
 </head>
@@ -573,238 +544,305 @@
 
     <div id="mobile-warning">
         <div class="warning-card">
-            <img src="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/logo.jpg" alt="Logo"
-                class="warning-logo">
+            <img src="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/logo.jpg"
+                alt="Philately World" class="warning-logo">
             <h2>Desktop View Required</h2>
-            <p>The Album Designer is a professional tool optimized for desktop precision. Please switch to a laptop or
-                computer to continue.</p>
+            <p>This tool works best on a desktop or laptop screen. Please switch to a larger device to continue designing your album.</p>
             <a href="../index.html" class="warning-back-btn">Return to Collection</a>
         </div>
     </div>
 
-    <div id="controls">
-        <div style="text-align: center; margin-bottom: 32px; position: relative;">
-            <div
-                style="position: relative; display: inline-block; padding: 4px; background: white; border-radius: 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); margin-bottom: 16px;">
-                <img src="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/logo.jpg"
-                    alt="Philately World Logo"
-                    style="max-width: 90px; height: auto; border-radius: 12px; display: block;">
-            </div>
-            <h1
-                style="font-size: 1.4rem; font-weight: 850; color: var(--text-main); margin: 0; letter-spacing: -0.8px;">
-                Philately World</h1>
-            <p
-                style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; margin-top: 6px; letter-spacing: 2px; font-weight: 600;">
-                Album Designer</p>
+    <header>
+        <div class="header-top-bar">
+            <span>Global Shipping Available • Expertly Authenticated</span>
         </div>
 
-        <div id="readme"
-            style="background: rgba(255, 255, 255, 0.6); padding: 20px; border-radius: 16px; font-size: 0.85rem; line-height: 1.6; border: 1px solid var(--border); margin-bottom: 24px; box-shadow: 0 4px 15px rgba(0,0,0,0.02);">
-            <h2 style="font-size: 0.95rem; color: var(--accent); margin-top: 0; margin-bottom: 12px; font-weight: 750;">
-                How to Use</h2>
-            <ul style="padding-left: 18px; margin: 0; color: var(--text-muted); list-style-type: '→ '; ">
-                <li style="margin-bottom: 10px; padding-left: 5px;"><strong>Set Album Details:</strong> Enter your title
-                    and stamp dimensions.</li>
-                <li style="margin-bottom: 10px; padding-left: 5px;"><strong>Rename Images:</strong> Format as <code
-                        style="background: #e2e8f0; padding: 3px 6px; border-radius: 6px; font-family: 'JetBrains Mono', monospace; font-size: 0.8rem;">Title_Date_Price.jpg</code><br>
-                    <span style="font-size: 0.75rem; color: #64748b;">Example: <code
-                            style="color: #475569;">Mahatma_1948_10.jpg</code> (Currency is added automatically)</span>
-                </li>
-                <li style="margin-bottom: 10px; padding-left: 5px;"><strong>Fair Usage:</strong> Progress is auto-saved.
-                    The 10-page limit only applies to final PDF exports.</li>
-            </ul>
-            <div
-                style="margin-top: 15px; padding: 10px; background: #f1f5f9; color: #fb5050; border-radius: 10px; font-weight: 600; font-size: 0.75rem; text-align: center; border: 1px solid #e2e8f0;">
-                FREE LIMIT: 10 total pages per lifetime.
-            </div>
-            <div style="margin-top: 10px; font-size: 0.7rem; color: #94a3b8; text-align: center; margin-bottom: 15px;">
-                💡 All data stays on your device. We never see your stamps.
+        <div class="header-main">
+            <div class="logo-wrapper">
+                <a href="../index.html">
+                    <img src="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/logo.jpg"
+                        alt="Philately World Logo" class="logo" width="80" height="80" loading="eager"
+                        fetchpriority="high">
+                </a>
             </div>
 
-            <button class="donate-btn" onclick="showDonate()">
-                <img src="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/BHIM.jpg" alt="BHIM">
-                Click here to Support Philately World
-            </button>
-        </div>
+            <a href="../index.html" class="brand-info" style="text-decoration: none; color: inherit;">
+                <h1><span class="VuuXrf">Philately World</span></h1>
+                <p>ESTABLISHED 2017 • PREMIUM STAMP CURATION</p>
+            </a>
 
-        <div class="setting-group">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-                <label style="margin-bottom: 0;">Album Title</label>
-                <button id="add-subtitle-btn" onclick="toggleSubtitle()"
-                    style="background: none; border: none; color: var(--accent); cursor: pointer; padding: 0; display: flex; align-items: center; gap: 4px; font-weight: 700; font-size: 0.7rem; transition: opacity 0.2s;">
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5"
-                        stroke-linecap="round" stroke-linejoin="round">
-                        <line x1="12" y1="5" x2="12" y2="19"></line>
-                        <line x1="5" y1="12" x2="19" y2="12"></line>
-                    </svg>
-                    ADD SUBTITLE
-                </button>
-            </div>
-            <input type="text" id="album-title" placeholder="e.g. Netherlands 2026 Birds" oninput="debounceRender()">
-
-            <div id="subtitle-container" style="display: none; margin-top: 14px; animation: slideDown 0.3s ease-out;">
-                <label>Album Subtitle</label>
-                <input type="text" id="album-subtitle" placeholder="e.g. Flora and Fauna Series"
-                    oninput="debounceRender()">
-            </div>
-        </div>
-
-        <div style="display: flex; gap: 15px; align-items: flex-start;">
-            <div class="setting-group" style="flex: 1;">
-                <label>Width (mm)</label>
-                <input type="number" id="stamp-w" value="40" min="10" step="1" oninput="debounceRender()"
-                    style="height: 46px;">
-            </div>
-            <div class="setting-group" style="flex: 1;">
-                <label>Height (mm)</label>
-                <input type="number" id="stamp-h" value="50" min="10" step="1" oninput="debounceRender()"
-                    style="height: 46px;">
-            </div>
-            <div class="setting-group" style="flex: 1;">
-                <label>Currency</label>
-                <select id="album-currency" onchange="debounceRender()"
-                    style="width: 100%; height: 46px; padding: 0 12px; border: 1px solid var(--border); border-radius: 10px; font-size: 0.95rem; background: white; cursor: pointer;">
-                    <option value="₹">₹ (INR)</option>
-                    <option value="$">$ (USD)</option>
-                    <option value="€" selected>€ (EUR)</option>
-                    <option value="£">£ (GBP)</option>
-                    <option value="¥">¥ (JPY)</option>
-                    <option value="CHF">CHF</option>
-                    <option value="AU$">AU$</option>
-                    <option value="CA$">CA$</option>
-                    <option value="None">None</option>
-                </select>
+            <div class="header-actions">
+                <div class="social-links-wrapper">
+                    <a href="../all_announcements.html" id="announcementBell" class="social-icon announcement-bell" aria-label="Announcements"
+                        data-tooltip="New Announcement">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                            <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+                        </svg>
+                        <span class="notification-badge announcement-badge" id="announcementBadge"
+                            style="display: none;">0</span>
+                    </a>
+                    <a href="../index.html?tab=blog" id="blogBell" class="social-icon blog-bell" aria-label="New Blog"
+                        data-tooltip="New Blog">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                            <polyline points="14 2 14 8 20 8"></polyline>
+                            <line x1="16" y1="13" x2="8" y2="13"></line>
+                            <line x1="16" y1="17" x2="8" y2="17"></line>
+                            <polyline points="10 9 9 9 8 9"></polyline>
+                        </svg>
+                        <span class="notification-badge blog-badge" id="blogBadge" style="display: none;">0</span>
+                    </a>
+                    <a href="https://www.facebook.com/PhilatelyWorld" target="_blank" class="social-icon facebook-icon"
+                        aria-label="Facebook" data-tooltip="Follow us on Facebook">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                            <path
+                                d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.469h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.469h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+                        </svg>
+                    </a>
+                    <a href="https://whatsapp.com/channel/0029VaafwRWAojYq5jzkJJ2u" target="_blank"
+                        class="social-icon whatsapp-icon" aria-label="WhatsApp"
+                        data-tooltip="Join my channel on WhatsApp">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                            <path
+                                d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" />
+                        </svg>
+                    </a>
+                    <a href="https://www.instagram.com/philatelyworld10" target="_blank"
+                        class="social-icon instagram-icon" aria-label="Instagram" data-tooltip="Follow us on Instagram">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                            <path
+                                d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" />
+                        </svg>
+                    </a>
+                    <a href="https://wa.me/31633467712" class="contact-pill" target="_blank"
+                        data-tooltip="Chat with us on WhatsApp">Chat</a>
+                    <a href="auto-album.html" class="social-icon designer-icon" aria-label="Album Designer"
+                        data-tooltip="Album Designer">
+                        <img src="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/designer-icon.png"
+                            alt="Album Designer Icon" class="designer-icon-img" width="24" height="24" loading="lazy">
+                    </a>
+                </div>
             </div>
         </div>
+    </header>
 
-        <div class="setting-group">
-            <label>Typography</label>
-            <select id="album-font" onchange="debounceRender()"
-                style="width: 100%; height: 46px; padding: 0 12px; border: 1px solid var(--border); border-radius: 10px; font-size: 0.95rem; background: white; cursor: pointer;">
-                <optgroup label="Sans-Serif (Modern)">
-                    <option value="arial">Arial</option>
-                    <option value="calibri">Calibri</option>
-                    <option value="helvetica" selected>Helvetica</option>
-                    <option value="roboto">Roboto</option>
-                    <option value="aptos">Aptos</option>
-                    <option value="verdana">Verdana</option>
-                    <option value="tahoma">Tahoma</option>
-                    <option value="trebuchet">Trebuchet MS</option>
-                    <option value="montserrat">Montserrat</option>
-                    <option value="open-sans">Open Sans</option>
-                    <option value="segoe">Segoe UI</option>
-                    <option value="lucida">Lucida Sans</option>
-                    <option value="franklin">Franklin Gothic</option>
-                </optgroup>
-                <optgroup label="Serif (Classic)">
-                    <option value="times">Times New Roman</option>
-                    <option value="georgia">Georgia</option>
-                    <option value="garamond">Garamond</option>
-                    <option value="baskerville">Baskerville</option>
-                    <option value="palatino">Palatino</option>
-                    <option value="cambria">Cambria</option>
-                    <option value="book-antiqua">Book Antiqua</option>
-                    <option value="century-schoolbook">Century Schoolbook</option>
-                    <option value="didot">Didot</option>
-                    <option value="playfair">Playfair Display</option>
-                    <option value="loratext">Lora</option>
-                </optgroup>
-                <optgroup label="Monospace">
-                    <option value="courier">Courier New</option>
-                </optgroup>
-            </select>
-        </div>
 
-        <div
-            style="display: flex; gap: 15px; align-items: center; margin-bottom: 24px; background: rgba(255, 255, 255, 0.4); padding: 12px 18px; border-radius: 12px; border: 1px solid var(--border);">
-            <div style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
-                <input type="checkbox" id="grayscale-opt" onchange="debounceRender()"
-                    style="width: 18px; height: 18px; cursor: pointer;">
-                <label for="grayscale-opt"
-                    style="margin-bottom: 0; cursor: pointer; text-transform: none; font-size: 0.9rem; color: var(--text-main);">Grayscale
-                    Images</label>
+
+    <main class="container">
+        <div class="layout-wrapper no-sidebar">
+            <div class="main-content">
+                <div class="album-designer-wrapper">
+                    <div id="controls">
+                        <div class="designer-header">
+                            <h2>Album Designer</h2>
+                            <p>Create Professional Album Pages</p>
+                        </div>
+
+                        <div id="readme"
+                            style="background: #f8fafc; padding: 16px; border-radius: 12px; font-size: 0.85rem; line-height: 1.5; border: 1px solid var(--border);">
+                            <ul
+                                style="padding-left: 18px; margin: 0; color: var(--text-muted); list-style-type: '→ '; ">
+                                <li style="margin-bottom: 10px; padding-left: 5px;"><strong>Set Album Details:</strong>
+                                    Enter your title. Set <strong>Default Width/Height</strong> as fallback for new
+                                    uploads. Customize each image's size individually after uploading.</li>
+                                <li style="margin-bottom: 10px; padding-left: 5px;"><strong>Rename Images:</strong>
+                                    Format as <code
+                                        style="background: #e2e8f0; padding: 3px 6px; border-radius: 6px; font-family: 'JetBrains Mono', monospace; font-size: 0.8rem;">Title_Date_Price.jpg</code><br>
+                                    <span style="font-size: 0.75rem; color: #64748b;">Example: <code
+                                            style="color: #475569;">Mahatma_1948_10.jpg</code> (Currency is added
+                                        automatically)</span>
+                                </li>
+                                <li style="margin-bottom: 10px; padding-left: 5px;"><strong>Fair Usage:</strong>
+                                    Progress is auto-saved.
+                                    The 10-page limit only applies to final PDF exports.</li>
+                            </ul>
+                            <div
+                                style="margin-top: 15px; padding: 10px; background: #f1f5f9; color: #fb5050; border-radius: 10px; font-weight: 600; font-size: 0.75rem; text-align: center; border: 1px solid #e2e8f0;">
+                                FREE LIMIT: 10 total pages per lifetime.
+                            </div>
+                            <div
+                                style="margin-top: 10px; font-size: 0.7rem; color: #94a3b8; text-align: center; margin-bottom: 15px;">
+                                💡 All data stays on your device. We never see your stamps.
+                            </div>
+                            <button class="donate-btn" onclick="showDonate()">
+                                Click here to Support Philately World
+                            </button>
+                        </div>
+
+                        <div class="setting-group">
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <label style="margin-bottom: 0;">Album Title</label>
+                                <button id="add-subtitle-btn" onclick="toggleSubtitle()"
+                                    style="background: none; border: none; color: var(--accent); cursor: pointer; padding: 0; display: flex; align-items: center; gap: 4px; font-weight: 700; font-size: 0.7rem; transition: opacity 0.2s;">
+                                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round">
+                                        <line x1="12" y1="5" x2="12" y2="19"></line>
+                                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                                    </svg>
+                                    ADD SUBTITLE
+                                </button>
+                            </div>
+                            <input type="text" id="album-title" placeholder="e.g. Netherlands 2026 Birds"
+                                oninput="debounceRender()">
+                            <div id="subtitle-container" style="display: none; margin-top: 10px;">
+                                <label>Subtitle</label>
+                                <input type="text" id="album-subtitle" placeholder="e.g. Flora and Fauna Series"
+                                    oninput="debounceRender()">
+                            </div>
+                        </div>
+
+                        <div class="dimensions-row">
+                            <div class="setting-group">
+                                <label>Default Width (mm)</label>
+                                <input type="number" id="stamp-w" value="40" min="10" oninput="debounceRender()">
+                            </div>
+                            <div class="setting-group">
+                                <label>Default Height (mm)</label>
+                                <input type="number" id="stamp-h" value="50" min="10" oninput="debounceRender()">
+                            </div>
+                            <div class="setting-group">
+                                <label>Currency</label>
+                                <select id="album-currency" onchange="debounceRender()">
+                                    <option value="₹">₹ (INR)</option>
+                                    <option value="$">$ (USD)</option>
+                                    <option value="€" selected>€ (EUR)</option>
+                                    <option value="£">£ (GBP)</option>
+                                    <option value="¥">¥ (JPY)</option>
+                                    <option value="CHF">CHF</option>
+                                    <option value="AU$">AU$</option>
+                                    <option value="CA$">CA$</option>
+                                    <option value="None">None</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="setting-group">
+                            <label>Typography</label>
+                            <select id="album-font" onchange="debounceRender()">
+                                <optgroup label="Sans-Serif (Modern)">
+                                    <option value="arial">Arial</option>
+                                    <option value="calibri">Calibri</option>
+                                    <option value="helvetica" selected>Helvetica</option>
+                                    <option value="roboto">Roboto</option>
+                                    <option value="aptos">Aptos</option>
+                                    <option value="verdana">Verdana</option>
+                                    <option value="tahoma">Tahoma</option>
+                                    <option value="trebuchet">Trebuchet MS</option>
+                                    <option value="montserrat">Montserrat</option>
+                                    <option value="open-sans">Open Sans</option>
+                                    <option value="segoe">Segoe UI</option>
+                                    <option value="lucida">Lucida Sans</option>
+                                    <option value="franklin">Franklin Gothic</option>
+                                </optgroup>
+                                <optgroup label="Serif (Classic)">
+                                    <option value="times">Times New Roman</option>
+                                    <option value="georgia">Georgia</option>
+                                    <option value="garamond">Garamond</option>
+                                    <option value="baskerville">Baskerville</option>
+                                    <option value="palatino">Palatino</option>
+                                    <option value="cambria">Cambria</option>
+                                    <option value="book-antiqua">Book Antiqua</option>
+                                    <option value="century-schoolbook">Century Schoolbook</option>
+                                    <option value="didot">Didot</option>
+                                    <option value="playfair">Playfair Display</option>
+                                    <option value="loratext">Lora</option>
+                                </optgroup>
+                                <optgroup label="Monospace">
+                                    <option value="courier">Courier New</option>
+                                </optgroup>
+                            </select>
+                        </div>
+
+                        <div
+                            style="display: flex; gap: 15px; align-items: center; margin-bottom: 4px; background: rgba(255,255,255,0.4); padding: 10px 14px; border-radius: 10px; border: 1px solid var(--border);">
+                            <div style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+                                <input type="checkbox" id="grayscale-opt" onchange="debounceRender()"
+                                    style="width: 16px; height: 16px; cursor: pointer; accent-color: var(--accent);">
+                                <label for="grayscale-opt"
+                                    style="margin-bottom: 0; cursor: pointer; text-transform: none; font-size: 0.88rem; color: var(--text);">Grayscale
+                                    Images</label>
+                            </div>
+                        </div>
+
+                        <div class="upload-card" onclick="document.getElementById('file-input').click()">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--accent)"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                <polyline points="17 8 12 3 7 8"></polyline>
+                                <line x1="12" y1="3" x2="12" y2="15"></line>
+                            </svg>
+                            <div style="font-weight: 600; margin-top: 8px;">Add Stamp Images</div>
+                            <div style="font-size: 0.8rem; color: var(--text-light);">Drag & drop or browse</div>
+                            <input type="file" id="file-input" multiple accept="image/*,.heic,.heif"
+                                style="display: none;" onchange="handleFiles(this.files)">
+                        </div>
+
+                        <div id="file-status"></div>
+                        <button id="dl-btn" onclick="downloadPDF()">Download High-Res PDF</button>
+                    </div>
+
+                    <div id="preview">
+                        <iframe id="pdf-viewer"></iframe>
+                    </div>
+                </div>
             </div>
         </div>
+    </main>
 
-        <div class="upload-card" onclick="document.getElementById('file-input').click()">
-            <div
-                style="background: #eff6ff; width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin: 0 auto 12px;">
-                <svg style="width:24px;height:24px;color:var(--accent);" fill="none" stroke="currentColor"
-                    viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
-                        d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v1m-4-4l-4-4m0 0l-4 4m4-4v12"></path>
-                </svg>
-            </div>
-            <div style="font-weight:700;font-size:1rem; color: var(--text-main);">Add Stamp Images</div>
-            <div style="font-size: 0.8rem; color: var(--text-muted); margin-top: 4px;">Drag & drop or browse files</div>
-            <input type="file" id="file-input" multiple accept="image/*" style="display:none"
-                onchange="handleFiles(this.files)">
-        </div>
-
-        <div id="file-status"></div>
-        <button id="dl-btn" onclick="downloadPDF()">Download High-Res PDF</button>
-
-        <a href="../index.html"
-            style="display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 16px; color: var(--text-muted); text-decoration: none; font-size: 0.85rem; font-weight: 600; padding: 10px; transition: color 0.2s;">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
-                stroke-linecap="round" stroke-linejoin="round">
-                <path d="M19 12H5M12 19l-7-7 7-7"></path>
-            </svg>
-            Back to Collection
-        </a>
-    </div>
-
-    <!-- Donate Modal -->
     <div id="donate-modal" onclick="hideDonate(event)">
-        <div class="modal-content" onclick="event.stopPropagation()">
-            <button class="modal-close" onclick="hideDonate(event)">&times;</button>
-            <h3 style="margin-top: 0; color: #1e293b; font-size: 1.1rem;">Support Philately World</h3>
-            <p style="font-size: 0.8rem; color: #64748b; margin-bottom: 20px;">Your contribution helps us keep this tool
-                free and server-less for everyone.</p>
+        <div class="qr-modal-content" onclick="event.stopPropagation()">
+            <button class="qr-close" onclick="hideDonate(event)">&times;</button>
+            <h3 style="margin-top: 0; color: var(--primary);">Support Philately World</h3>
 
             <div class="modal-tabs">
                 <button class="modal-tab active" onclick="switchTab('upi')">Domestic (UPI)</button>
                 <button class="modal-tab" onclick="switchTab('paypal')">International (PayPal)</button>
             </div>
 
-            <!-- UPI Tab -->
             <div id="upi-tab" class="tab-content active">
                 <img src="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/BHIM.jpg"
-                    style="width: 100%; border-radius: 12px; border: 1px solid #eee;" alt="BHIM QR">
+                    style="width: 100%; border-radius: 12px;" alt="BHIM QR">
                 <div class="upi-box">
-                    <span id="upi-id" style="font-weight: 700;">9900416731@upi</span>
-                    <button onclick="copyUPI()" id="copy-btn"
-                        style="background: var(--accent); color: white; border: none; padding: 6px 12px; border-radius: 8px; font-size: 0.7rem; cursor: pointer; font-weight: 700; transition: all 0.2s;">COPY</button>
+                    <span id="upi-id">9900416731@upi</span>
+                    <button onclick="copyUPI()"
+                        style="background: var(--accent); color: white; border: none; padding: 6px 12px; border-radius: 6px; font-size: 0.75rem; cursor: pointer; font-weight: 700;">COPY</button>
                 </div>
             </div>
 
-            <!-- PayPal Tab -->
             <div id="paypal-tab" class="tab-content">
                 <img src="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/paypal.jpg"
-                    style="width: 100%; border-radius: 12px; border: 1px solid #eee;" alt="PayPal QR">
-                <p style="font-size: 0.75rem; color: #64748b; margin-top: 15px;">Scan the QR code to contribute via
-                    PayPal.</p>
+                    style="width: 100%; border-radius: 12px;" alt="PayPal QR">
+                <p style="font-size: 0.8rem; color: var(--text-light); margin-top: 15px;">Scan to contribute via PayPal.
+                </p>
             </div>
         </div>
     </div>
 
-    <div id="preview">
-        <iframe id="pdf-viewer"></iframe>
-    </div>
-
+    <footer class="main-footer">
+        <p>&copy; 2017-2026 Philately World Gallery</p>
+        <p>
+            <a href="javascript:void(0)" id="privacyTrigger"
+                style="color: var(--text-light); font-size: 0.75rem; text-decoration: underline;">Privacy Policy</a>
+            <span style="color: var(--text-light); margin: 0 8px;">•</span>
+            <a href="javascript:void(0)" id="securityTrigger"
+                style="color: var(--text-light); font-size: 0.75rem; text-decoration: underline;">Security &
+                Guarantee</a>
+        </p>
+    </footer>
 
     <script>
         function toggleSubtitle() {
             const container = document.getElementById('subtitle-container');
             const btn = document.getElementById('add-subtitle-btn');
             const isHidden = container.style.display === 'none';
-
             container.style.display = isHidden ? 'block' : 'none';
             btn.style.opacity = isHidden ? '0.5' : '1';
             btn.innerHTML = isHidden ?
                 `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg> REMOVE SUBTITLE` :
                 `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg> ADD SUBTITLE`;
-
             if (!isHidden) {
                 document.getElementById('album-subtitle').value = '';
                 debounceRender();
@@ -822,7 +860,6 @@
         function switchTab(tab) {
             document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
             document.querySelectorAll('.modal-tab').forEach(el => el.classList.remove('active'));
-
             if (tab === 'upi') {
                 document.getElementById('upi-tab').classList.add('active');
                 document.querySelectorAll('.modal-tab')[0].classList.add('active');
@@ -835,7 +872,7 @@
         function copyUPI() {
             const upiId = document.getElementById('upi-id').innerText;
             navigator.clipboard.writeText(upiId).then(() => {
-                const btn = document.getElementById('copy-btn');
+                const btn = event.target.closest('button');
                 const oldText = btn.innerText;
                 btn.innerText = 'COPIED!';
                 btn.style.background = '#059669';
@@ -844,6 +881,10 @@
                     btn.style.background = 'var(--accent)';
                 }, 2000);
             });
+        }
+
+        function setCurrency(currency) {
+            console.log('Currency set to:', currency);
         }
     </script>
     <script src="engine.js"></script>

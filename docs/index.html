@@ -48,10 +48,15 @@
     <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com">
     <link rel="dns-prefetch" href="https://www.google-analytics.com">
     <link rel="dns-prefetch" href="https://www.googletagmanager.com">
-    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap"></noscript>
+    <link rel="preload" as="style"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap"
+        onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap">
+    </noscript>
     <link rel="stylesheet" href="style.css">
-    <link rel="icon" type="image/jpeg" href="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/logo.jpg">
+    <link rel="icon" type="image/jpeg"
+        href="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/logo.jpg">
     <link rel="apple-touch-icon" href="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/logo.jpg">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
@@ -78,17 +83,51 @@
 
         <div class="header-main">
             <div class="logo-wrapper">
-                <img src="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/logo.jpg"
-                    alt="Philately World Logo" class="logo" width="80" height="80" loading="eager" fetchpriority="high">
+                <a href="index.html">
+                    <img src="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/logo.jpg"
+                        alt="Philately World Logo" class="logo" width="80" height="80" loading="eager"
+                        fetchpriority="high">
+                </a>
             </div>
 
-            <div class="brand-info">
+            <a href="index.html" class="brand-info" style="text-decoration: none; color: inherit;">
                 <h1><span class="VuuXrf">Philately World</span></h1>
                 <p>ESTABLISHED 2017 • PREMIUM STAMP CURATION</p>
-            </div>
+            </a>
 
             <div class="header-actions">
                 <div class="social-links-wrapper">
+                    <!-- <a href="all_announcements.html" class="social-icon announcement-bell" id="announcementBell"
+                        aria-label="Announcements" data-tooltip="Announcements">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                            <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+                        </svg>
+                        <span class="notification-badge" id="notificationBadge" style="display: none;">0</span>
+                    </a> -->
+                    <a href="#" id="announcementBell" class="social-icon announcement-bell" aria-label="Announcements"
+                        data-tooltip="New Announcement">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                            <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+                        </svg>
+                        <span class="notification-badge announcement-badge" id="announcementBadge"
+                            style="display: none;">0</span>
+                    </a>
+                    <a href="#" id="blogBell" class="social-icon blog-bell" aria-label="New Blog"
+                        data-tooltip="New Blog">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                            <polyline points="14 2 14 8 20 8"></polyline>
+                            <line x1="16" y1="13" x2="8" y2="13"></line>
+                            <line x1="16" y1="17" x2="8" y2="17"></line>
+                            <polyline points="10 9 9 9 8 9"></polyline>
+                        </svg>
+                        <span class="notification-badge blog-badge" id="blogBadge" style="display: none;">0</span>
+                    </a>
                     <a href="https://www.facebook.com/PhilatelyWorld" target="_blank" class="social-icon facebook-icon"
                         aria-label="Facebook" data-tooltip="Follow us on Facebook">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
@@ -113,12 +152,14 @@
                     </a>
                     <a href="https://wa.me/31633467712" class="contact-pill" target="_blank"
                         data-tooltip="Chat with us on WhatsApp">Chat</a>
+                    <a href="AlbumDesigner/auto-album.html" class="social-icon designer-icon"
+                        aria-label="Album Designer" data-tooltip="Album Designer">
+                        <img src="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/designer-icon.png"
+                            alt="Album Designer Icon" class="designer-icon-img" width="24" height="24" loading="lazy">
+                    </a>
                 </div>
-                <a href="AlbumDesigner/auto-album.html" class="social-icon designer-icon" aria-label="Album Designer"
-                    data-tooltip="Album Designer">
-                    <img src="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/designer-icon.png"
-                        alt="Album Designer Icon" class="designer-icon-img" width="24" height="24" loading="lazy">
-                </a>
+
+
             </div>
     </header>
 
@@ -258,6 +299,14 @@
     </script>
     <script defer src="data.js"></script>
     <script defer src="blog.js"></script>
+    <script>
+        if (new URLSearchParams(window.location.search).get('tab') === 'blog') {
+            document.addEventListener('DOMContentLoaded', () => {
+                const blogTab = document.querySelector('.filter-tab[data-status="blog"]');
+                if (blogTab) blogTab.click();
+            });
+        }
+    </script>
     <script defer src="script.js"></script>
 </body>
 

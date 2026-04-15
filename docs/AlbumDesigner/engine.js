@@ -1,6 +1,9 @@
 const { jsPDF } = window.jspdf;
 let uploadedImages = [];
 let renderTimer;
+let isProcessing = false;
+let defaultWidth = 40;
+let defaultHeight = 50;
 
 // --- PERSISTENCE LOGIC (IndexedDB) ---
 const DB_NAME = "PhilatelyWorldDB";
@@ -36,50 +39,138 @@ async function loadProject() {
         const tx = db.transaction(STORE_NAME, "readonly");
         const store = tx.objectStore(STORE_NAME);
         const request = store.get("current_images");
-        
+
         request.onsuccess = () => {
             if (request.result && request.result.length > 0) {
-                uploadedImages = request.result;
+                uploadedImages = request.result.map(img => ({
+                    ...img,
+                    customW: img.customW || defaultWidth,
+                    customH: img.customH || defaultHeight
+                }));
                 renderGallery();
             }
             generatePreview(); // Always render (empty or restored)
         };
         request.onerror = () => generatePreview();
-    } catch (e) { 
-        console.error("Load failed:", e); 
+    } catch (e) {
+        console.error("Load failed:", e);
         generatePreview();
     }
 }
 
 /**
- * 1. File Handling: Converts uploads to Base64
+ * 1. File Handling: Converts uploads to PNG/JPEG Base64
  */
 function handleFiles(files) {
+    if (isProcessing) return;
+
+    isProcessing = true;
+    const uploadCard = document.querySelector('.upload-card');
     const status = document.getElementById('file-status');
+    uploadCard.style.pointerEvents = 'none';
+    uploadCard.style.opacity = '0.6';
+
+    const fileCount = files.length;
     status.style.display = 'block';
-    status.innerHTML = "<strong>Processing Images...</strong>";
+    status.innerHTML = `
+        <div style="text-align: center; padding: 20px;">
+            <div style="font-size: 1.5rem; margin-bottom: 10px;">🖼️</div>
+            <div style="font-weight: 600; color: var(--text); margin-bottom: 6px;">
+                Converting your ${fileCount} image${fileCount > 1 ? 's' : ''}...
+            </div>
+            <div style="font-size: 0.75rem; color: var(--text-light);">
+                HEIC, PNG, and other formats → JPEG/PNG
+            </div>
+            <div style="margin-top: 12px; height: 4px; background: #e2e8f0; border-radius: 2px; overflow: hidden;">
+                <div id="progress-bar" style="height: 100%; background: var(--accent); width: 0%; transition: width 0.3s;"></div>
+            </div>
+        </div>
+    `;
 
     let loadedCount = 0;
-    Array.from(files).forEach(file => {
-        const reader = new FileReader();
-        reader.onload = async (e) => {
-            const originalData = e.target.result;
-            const grayscaleData = await convertToGrayscale(originalData);
-            
-            uploadedImages.push({ 
-                name: file.name, 
-                data: originalData,
-                grayscale: grayscaleData 
-            });
-            
+    const totalFiles = files.length;
+
+    Array.from(files).forEach(async file => {
+        try {
+            let blob = file;
+            const isHeic = file.type === 'image/heic' || file.type === 'image/heif' ||
+                file.name.toLowerCase().endsWith('.heic') || file.name.toLowerCase().endsWith('.heif');
+
+            if (isHeic && typeof heic2any !== 'undefined') {
+                status.innerHTML = `
+                    <div style="text-align: center; padding: 20px;">
+                        <div style="font-size: 1.5rem; margin-bottom: 10px;">🍎</div>
+                        <div style="font-weight: 600; color: var(--text);">Converting HEIC to JPEG...</div>
+                        <div style="font-size: 0.75rem; color: var(--text-light); margin-top: 4px;">${file.name}</div>
+                    </div>
+                `;
+                blob = await heic2any({
+                    blob: file,
+                    toType: 'image/jpeg',
+                    quality: 0.85
+                });
+            }
+
+            const reader = new FileReader();
+            reader.onload = async (e) => {
+                const originalData = e.target.result;
+                const convertedData = await convertToStandardFormat(originalData, blob.type || 'image/jpeg');
+                const grayscaleData = await convertToGrayscale(convertedData);
+
+                const ext = (blob.type === 'image/png') ? '.png' : '.jpg';
+                const baseName = file.name.replace(/\.[^.]+$/, '');
+
+                uploadedImages.push({
+                    name: baseName + ext,
+                    data: convertedData,
+                    grayscale: grayscaleData,
+                    customW: defaultWidth,
+                    customH: defaultHeight
+                });
+
+                loadedCount++;
+                const progress = (loadedCount / totalFiles) * 100;
+                const progressBar = document.getElementById('progress-bar');
+                if (progressBar) progressBar.style.width = progress + '%';
+
+                if (loadedCount === totalFiles) {
+                    isProcessing = false;
+                    uploadCard.style.pointerEvents = 'auto';
+                    uploadCard.style.opacity = '1';
+                    renderGallery();
+                    generatePreview();
+                    saveProject();
+                }
+            };
+            reader.readAsDataURL(blob);
+        } catch (err) {
+            console.error('Error processing file:', file.name, err);
             loadedCount++;
-            if (loadedCount === files.length) {
+            if (loadedCount === totalFiles) {
+                isProcessing = false;
+                uploadCard.style.pointerEvents = 'auto';
+                uploadCard.style.opacity = '1';
                 renderGallery();
                 generatePreview();
-                saveProject(); // Persist to IndexedDB
+                saveProject();
             }
+        }
+    });
+}
+
+function convertToStandardFormat(dataUrl, originalMime) {
+    return new Promise((resolve) => {
+        const img = new Image();
+        img.onload = () => {
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            canvas.width = img.width;
+            canvas.height = img.height;
+            ctx.drawImage(img, 0, 0);
+            const targetMime = 'image/png';
+            resolve(canvas.toDataURL(targetMime));
         };
-        reader.readAsDataURL(file);
+        img.src = dataUrl;
     });
 }
 
@@ -89,7 +180,7 @@ function handleFiles(files) {
 function renderGallery() {
     const status = document.getElementById('file-status');
     status.style.display = 'block';
-    
+
     if (uploadedImages.length === 0) {
         status.innerHTML = `
             <h2 style="font-size: 0.8rem; margin-bottom: 12px; color: var(--accent);">Managed Stamps (0)</h2>
@@ -105,10 +196,23 @@ function renderGallery() {
     uploadedImages.forEach((img, index) => {
         const item = document.createElement('div');
         item.className = 'gallery-item';
+        item.style.flexWrap = 'wrap';
         item.innerHTML = `
             <img src="${img.data}" class="gallery-thumb" alt="thumb">
-            <div class="gallery-info">
+            <div class="gallery-info" style="flex: 1; min-width: 120px;">
                 <div class="gallery-name">${img.name}</div>
+                <div style="display: flex; gap: 6px; margin-top: 6px; align-items: center;">
+                    <input type="number" value="${img.customW || defaultWidth}" 
+                        onchange="updateImageDim(${index}, 'w', this.value)"
+                        style="width: 55px; padding: 4px 6px; border: 1px solid var(--border); border-radius: 4px; font-size: 0.7rem; text-align: center;"
+                        title="Width (mm)" min="5" max="150">
+                    <span style="font-size: 0.65rem; color: var(--text-light);">×</span>
+                    <input type="number" value="${img.customH || defaultHeight}" 
+                        onchange="updateImageDim(${index}, 'h', this.value)"
+                        style="width: 55px; padding: 4px 6px; border: 1px solid var(--border); border-radius: 4px; font-size: 0.7rem; text-align: center;"
+                        title="Height (mm)" min="5" max="200">
+                    <span style="font-size: 0.65rem; color: var(--text-light);">mm</span>
+                </div>
             </div>
             <button class="delete-btn" onclick="removeImage(${index})" title="Remove Stamp">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
@@ -116,6 +220,17 @@ function renderGallery() {
         `;
         status.appendChild(item);
     });
+}
+
+function updateImageDim(index, dim, value) {
+    const val = parseFloat(value) || (dim === 'w' ? defaultWidth : defaultHeight);
+    if (dim === 'w') {
+        uploadedImages[index].customW = val;
+    } else {
+        uploadedImages[index].customH = val;
+    }
+    saveProject();
+    debounceRender();
 }
 
 function removeImage(index) {
@@ -136,21 +251,21 @@ function convertToGrayscale(dataUrl) {
             const ctx = canvas.getContext('2d');
             canvas.width = img.width;
             canvas.height = img.height;
-            
+
             // Draw original
             ctx.drawImage(img, 0, 0);
-            
+
             // Apply grayscale filter
             const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
             const data = imageData.data;
             for (let i = 0; i < data.length; i += 4) {
                 const avg = (data[i] * 0.299 + data[i + 1] * 0.587 + data[i + 2] * 0.114);
-                data[i]     = avg; // R
+                data[i] = avg;     // R
                 data[i + 1] = avg; // G
                 data[i + 2] = avg; // B
             }
             ctx.putImageData(imageData, 0, 0);
-            
+
             resolve(canvas.toDataURL('image/jpeg', 0.85));
         };
         img.src = dataUrl;
@@ -180,20 +295,20 @@ function createPDF(isDownload = false, isActualDownload = false) {
     const sh = parseFloat(document.getElementById('stamp-h').value) || 50;
     const pageW = 210;
     const pageH = 297;
-    
+
     // Binding-aware Spacing
     const rightBorderSp = 10;
-    const leftBorderSp = rightBorderSp * 2; 
+    const leftBorderSp = rightBorderSp * 2;
     const topBorderSp = 10;
     const bottomBorderSp = 10;
-    const innerPageW = pageW - leftBorderSp - rightBorderSp; 
-    const centerX = leftBorderSp + (innerPageW / 2); 
+    const innerPageW = pageW - leftBorderSp - rightBorderSp;
+    const centerX = leftBorderSp + (innerPageW / 2);
 
     // Unified Mapping Logic for 25 Fonts
-    let pdfFont = "helvetica"; 
+    let pdfFont = "helvetica";
     const sans = ["arial", "calibri", "helvetica", "roboto", "aptos", "verdana", "tahoma", "trebuchet", "montserrat", "open-sans", "segoe", "lucida", "franklin"];
     const serif = ["times", "georgia", "garamond", "baskerville", "palatino", "cambria", "book-antiqua", "century-schoolbook", "didot", "playfair", "loratext"];
-    
+
     if (serif.includes(chosenFont)) pdfFont = "times";
     if (sans.includes(chosenFont)) pdfFont = "helvetica";
     if (chosenFont === "courier") pdfFont = "courier";
@@ -203,7 +318,7 @@ function createPDF(isDownload = false, isActualDownload = false) {
         doc.setDrawColor(80);
         doc.setLineWidth(0.5);
         doc.rect(leftBorderSp, topBorderSp, innerPageW, pageH - topBorderSp - bottomBorderSp);
-        
+
         addBrandedFooter(doc, pageW, pageH, centerX, pdfFont);
 
         if (isActualDownload) {
@@ -214,7 +329,7 @@ function createPDF(isDownload = false, isActualDownload = false) {
 
     setupPage();
 
-    const titleY = topBorderSp + 18; 
+    const titleY = topBorderSp + 18;
 
     // Render Title (Master Font)
     doc.setFont(pdfFont, "bold");
@@ -233,60 +348,80 @@ function createPDF(isDownload = false, isActualDownload = false) {
     if (uploadedImages.length === 0) return doc;
 
     const gap = 20;
-    const stampsPerRow = Math.max(1, Math.floor((innerPageW + gap) / (sw + gap)));
-    
-    // Dynamic vertical start position
+    const footerOffset = 20;
+    const isGrayscale = document.getElementById('grayscale-opt').checked;
+    const currency = document.getElementById('album-currency').value;
+
     let curY = titleY + (subtitle ? 28 : 22);
+    let i = 0;
 
-    for (let i = 0; i < uploadedImages.length; i += stampsPerRow) {
-        const rowImages = uploadedImages.slice(i, i + stampsPerRow);
+    while (i < uploadedImages.length) {
+        const rowImages = [];
+        let rowWidth = 0;
+        let rowMaxH = 0;
 
-        if (curY + sh > pageH - bottomBorderSp - 20) {
-            if (isActualDownload && totalPagesUsed >= MAX_LIFETIME_PAGES) {
-                break;
-            }
+        while (i < uploadedImages.length) {
+            const img = uploadedImages[i];
+            const iw = img.customW || sw;
+            const ih = img.customH || sh;
 
+            if (rowImages.length > 0 && rowWidth + gap + iw > innerPageW) break;
+
+            rowImages.push(img);
+            rowWidth += iw + (rowImages.length > 1 ? gap : 0);
+            rowMaxH = Math.max(rowMaxH, ih);
+            i++;
+        }
+
+        if (curY + rowMaxH + 25 > pageH - bottomBorderSp - footerOffset) {
+            if (isActualDownload && totalPagesUsed >= MAX_LIFETIME_PAGES) break;
             doc.addPage();
             setupPage();
             curY = topBorderSp + 15;
         }
 
-        const totalRowW = (rowImages.length * sw) + ((rowImages.length - 1) * gap);
-        let curX = leftBorderSp + (innerPageW - totalRowW) / 2;
+        const totalRowW = rowImages.reduce((sum, im, idx) => sum + (im.customW || sw) + (idx > 0 ? gap : 0), 0);
+        let rowX = leftBorderSp + (innerPageW - totalRowW) / 2;
 
-        rowImages.forEach(img => {
-            const parts = img.name.split('.')[0].split('_');
+        rowImages.forEach(rimg => {
+            const rsw = rimg.customW || sw;
+            const rsh = rimg.customH || sh;
+            const alignY = curY + (rowMaxH - rsh) / 2;
+
+            const parts = rimg.name.split('.')[0].split('_');
             const stampTitle = parts[0] || "";
             const releaseDate = parts[1] || "";
             const denomination = parts[2] || "";
 
             doc.setFont(pdfFont, "bold"); doc.setFontSize(9);
-            doc.text(stampTitle, curX + (sw / 2), curY - 3, { align: 'center' });
+            doc.text(stampTitle, rowX + (rsw / 2), alignY - 3, { align: 'center' });
 
             doc.setDrawColor(0); doc.setLineWidth(0.4);
-            doc.rect(curX, curY, sw, sh);
+            doc.rect(rowX, alignY, rsw, rsh);
 
             try {
                 const pad = 0.5;
-                const isGrayscale = document.getElementById('grayscale-opt').checked;
-                const imageData = isGrayscale ? (img.grayscale || img.data) : img.data;
-                doc.addImage(imageData, 'JPEG', curX + pad, curY + pad, sw - (pad * 2), sh - (pad * 2));
-            } catch (e) { }
+                const imageData = isGrayscale ? (rimg.grayscale || rimg.data) : rimg.data;
+                const imgFormat = imageData.startsWith('data:image/png') ? 'PNG' : 'JPEG';
+                doc.addImage(imageData, imgFormat, rowX + pad, alignY + pad, rsw - (pad * 2), rsh - (pad * 2));
+            } catch (e) {
+                console.error('Error adding image to PDF:', e, rimg.name);
+            }
 
             doc.setFontSize(8);
             if (releaseDate) {
                 doc.setFont(pdfFont, "normal"); doc.setTextColor(100);
-                doc.text(releaseDate, curX, curY + sh + 5, { align: 'left' });
+                doc.text(releaseDate, rowX, alignY + rsh + 5, { align: 'left' });
             }
             if (denomination) {
-                const currency = document.getElementById('album-currency').value;
                 const priceText = currency === "None" ? denomination : `${currency} ${denomination}`;
                 doc.setFont(pdfFont, "bold"); doc.setTextColor(0);
-                doc.text(priceText, curX + sw, curY + sh + 5, { align: 'right' });
+                doc.text(priceText, rowX + rsw, alignY + rsh + 5, { align: 'right' });
             }
-            curX += sw + gap;
+            rowX += rsw + gap;
         });
-        curY += sh + 25;
+
+        curY += rowMaxH + 25;
     }
     return doc;
 }
@@ -302,6 +437,7 @@ function addBrandedFooter(doc, w, h, x, font) {
     // Positioned 13mm from bottom (just above the border line), using the dynamic x (centerX)
     doc.text(footerText, x, h - 13, { align: 'center' });
 }
+
 /**
  * 4. UI Rendering Controllers
  */
