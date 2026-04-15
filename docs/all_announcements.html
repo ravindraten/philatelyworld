@@ -61,20 +61,34 @@
 
         <div class="header-main">
             <div class="logo-wrapper">
-                <img src="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/logo.jpg"
-                    alt="Philately World Logo" class="logo" width="80" height="80" loading="eager">
+                <a href="index.html">
+                    <img src="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/logo.jpg"
+                        alt="Philately World Logo" class="logo" width="80" height="80" loading="eager">
+                </a>
             </div>
 
-            <div class="brand-info">
+            <a href="index.html" class="brand-info" style="text-decoration: none; color: inherit;">
                 <h1><span class="VuuXrf">Philately World</span></h1>
                 <p>ESTABLISHED 2017 • PREMIUM STAMP CURATION</p>
-            </div>
+            </a>
 
             <div class="header-actions">
                 <div class="social-links-wrapper">
-                    <a href="javascript:void(0)" class="social-icon" id="bhimTrigger" data-tooltip="Pay via BHIM UPI">
-                        <img src="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/bhim-icon.png"
-                            alt="BHIM" style="width: 24px; height: 24px; border-radius: 4px;" loading="lazy">
+                    <a href="all_announcements.html" class="social-icon announcement-bell" id="announcementBell"
+                        aria-label="Announcements" data-tooltip="Announcements">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                            <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+                        </svg>
+                        <span class="notification-badge" id="notificationBadge" style="display: none;">0</span>
+                    </a>
+                    <a href="https://www.facebook.com/PhilatelyWorld" target="_blank" class="social-icon facebook-icon"
+                        aria-label="Facebook" data-tooltip="Follow us on Facebook">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                            <path
+                                d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.469h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.469h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+                        </svg>
                     </a>
                     <a href="https://whatsapp.com/channel/0029VaafwRWAojYq5jzkJJ2u" target="_blank"
                         class="social-icon whatsapp-icon" aria-label="WhatsApp"
@@ -96,6 +110,11 @@
                     <a href="https://wa.me/31633467712" class="contact-pill" target="_blank"
                         data-tooltip="Chat with us on WhatsApp">Chat</a>
                 </div>
+                <a href="AlbumDesigner/auto-album.html" class="social-icon designer-icon" aria-label="Album Designer"
+                    data-tooltip="Album Designer">
+                    <img src="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/designer-icon.png"
+                        alt="Album Designer Icon" class="designer-icon-img" width="24" height="24" loading="lazy">
+                </a>
             </div>
     </header>
 
@@ -226,6 +245,16 @@
             }
 
             renderAllAnnouncementsPage(initialQuery);
+
+            // Clear notification badge when visiting announcements page
+            const badge = document.getElementById('notificationBadge');
+            const bell = document.getElementById('announcementBell');
+            if (badge) badge.style.display = 'none';
+
+            // Mark announcements as seen
+            if (typeof CONFIG !== 'undefined' && CONFIG.announcementFiles && CONFIG.announcementFiles.length > 0) {
+                localStorage.setItem('lastSeenAnnouncement', CONFIG.announcementFiles[0]);
+            }
         });
     </script>
 </body>

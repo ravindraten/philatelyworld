@@ -423,25 +423,6 @@ function renderGallery(data) {
 
             let sidebarContent = '';
 
-            if (CONFIG.showAnnouncement && CONFIG.announcementFiles && CONFIG.announcementFiles.length > 0) {
-                // Feature the button AT THE TOP for better visibility on smaller screens
-                sidebarContent += `
-                <a href="all_announcements.html" class="buy-btn" style="display: block; width: 100%; text-align: center; margin-bottom: 20px; text-decoration: none; padding: 12px; border-radius: 8px;">View All Announcements</a>
-                
-                <div class="announcement-carousel-container stamp-card" style="position: relative; margin-bottom: 12px; width: 100%; overflow: hidden;">
-                    <div class="announcement-carousel-track" id="announcementCarouselTrack" style="display: flex; height: 100%; transition: transform 0.5s ease-in-out;">
-                    </div>
-                    
-                    ${CONFIG.announcementFiles.length > 1 ? `
-                    <div class="carousel-indicators" id="carouselIndicators" style="position: absolute; bottom: 15px; width: 100%; display: flex; justify-content: center; gap: 8px; z-index: 10;">
-                    </div>
-                    ` : ''}
-                </div>`;
-
-                // Trigger the carousel initialization
-                setTimeout(initAnnouncementCarousel, 0);
-            }
-
             if (CONFIG.showPromo) {
                 // Feature card in the sidebar utilizing the universal stamp-card format
                 sidebarContent += `
@@ -461,12 +442,19 @@ function renderGallery(data) {
             }
 
             sidebar.innerHTML = sidebarContent;
-            sidebar.style.display = "block";
+            if (sidebarContent.trim()) {
+                sidebar.style.display = "block";
+                document.querySelector('.layout-wrapper')?.classList.remove('no-sidebar');
+            } else {
+                sidebar.style.display = "none";
+                document.querySelector('.layout-wrapper')?.classList.add('no-sidebar');
+            }
         } else {
             sidebar.classList.remove('centered-view');
             if (mainContent) mainContent.style.display = "block"; // ENSURE SHOWN
             sidebar.innerHTML = "";
             sidebar.style.display = "none";
+            document.querySelector('.layout-wrapper')?.classList.add('no-sidebar');
         }
     }
 
@@ -984,3 +972,34 @@ async function renderAllAnnouncementsPage(searchTerm = '') {
 
     grid.innerHTML = cardsHTML;
 }
+
+function initAnnouncementNotification() {
+    const bell = document.getElementById('announcementBell');
+    const badge = document.getElementById('notificationBadge');
+    if (!bell || !badge) return;
+
+    const lastSeenAnnouncement = localStorage.getItem('lastSeenAnnouncement');
+    const latestAnnouncement = CONFIG.announcementFiles && CONFIG.announcementFiles.length > 0 
+        ? CONFIG.announcementFiles[0] 
+        : null;
+
+    if (latestAnnouncement && lastSeenAnnouncement !== latestAnnouncement) {
+        badge.textContent = '1';
+        badge.style.display = 'flex';
+    } else {
+        badge.style.display = 'none';
+    }
+
+    bell.addEventListener('click', () => {
+        if (latestAnnouncement) {
+            localStorage.setItem('lastSeenAnnouncement', latestAnnouncement);
+            badge.style.display = 'none';
+        }
+    });
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    if (typeof CONFIG !== 'undefined' && CONFIG.announcementFiles) {
+        initAnnouncementNotification();
+    }
+});
