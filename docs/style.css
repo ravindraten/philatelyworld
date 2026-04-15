@@ -285,7 +285,7 @@ header {
     text-decoration: none;
 }
 
-.announcement-bell {
+.announcement-bell, .blog-bell {
     position: relative;
     display: flex;
     align-items: center;
@@ -294,11 +294,11 @@ header {
     transition: color 0.3s ease, transform 0.2s ease;
 }
 
-.announcement-bell:hover {
+.announcement-bell:hover, .blog-bell:hover {
     transform: translateY(-2px);
 }
 
-.announcement-bell svg {
+.announcement-bell svg, .blog-bell svg {
     width: 22px;
     height: 22px;
 }
@@ -318,6 +318,14 @@ header {
     align-items: center;
     justify-content: center;
     border: 2px solid white;
+}
+
+.blog-bell {
+    color: #f381dc;
+}
+
+.blog-bell:hover {
+    color: #e11d91;
 }
 
 .search-container {

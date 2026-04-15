@@ -689,20 +689,25 @@ def test_announcement_carousel_limit(driver):
 
 
 def test_announcement_view_all_button(driver):
-    """Verify the announcement bell icon is present and links to the announcements page."""
+    """Verify the announcement and blog bell icons are present."""
     driver.get(URL)
     wait = WebDriverWait(driver, 10)
 
-    bell = wait.until(EC.presence_of_element_located((By.ID, "announcementBell")))
+    announcementBell = wait.until(
+        EC.presence_of_element_located((By.ID, "announcementBell"))
+    )
+    blogBell = wait.until(EC.presence_of_element_located((By.ID, "blogBell")))
 
     try:
-        assert bell.is_displayed()
-        assert "all_announcements.html" in bell.get_attribute("href")
+        assert announcementBell.is_displayed()
+        assert blogBell.is_displayed()
 
-        badge = driver.find_element(By.ID, "notificationBadge")
-        assert badge is not None
+        announcementBadge = driver.find_element(By.ID, "announcementBadge")
+        blogBadge = driver.find_element(By.ID, "blogBadge")
+        assert announcementBadge is not None
+        assert blogBadge is not None
     except Exception as e:
-        pytest.fail(f"Announcement bell icon not found: {str(e)}")
+        pytest.fail(f"Bell icons not found: {str(e)}")
 
 
 def test_all_announcements_page_render(driver):

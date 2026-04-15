@@ -32,14 +32,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const urlParams = new URLSearchParams(window.location.search);
     const itemID = urlParams.get('item');
 
-    // --- NEW PERSISTENCE LOGIC ---
-    // Check if we have a saved tab from this session, otherwise default to 'available'
-    const savedTab = sessionStorage.getItem('activeTab');
-    if (savedTab) {
-        state.statusFilter = savedTab;
-    } else {
-        state.statusFilter = 'available';
-    }
+    // Always default to 'available' tab
+    state.statusFilter = 'available';
 
     // 1. Initialize Event Listeners & UI First
     initEventListeners();
@@ -62,7 +56,6 @@ document.addEventListener('DOMContentLoaded', () => {
             tab.classList.remove('active');
         }
     });
-    // --- END NEW PERSISTENCE LOGIC ---
     // 2. Handle Routing (Deep Links vs Default Load)
     if (itemID === 'promo') {
         updateMetaTags(null, 'promo');
@@ -974,28 +967,62 @@ async function renderAllAnnouncementsPage(searchTerm = '') {
 }
 
 function initAnnouncementNotification() {
-    const bell = document.getElementById('announcementBell');
-    const badge = document.getElementById('notificationBadge');
-    if (!bell || !badge) return;
+    const announcementBell = document.getElementById('announcementBell');
+    const announcementBadge = document.getElementById('announcementBadge');
+    const blogBell = document.getElementById('blogBell');
+    const blogBadge = document.getElementById('blogBadge');
 
     const lastSeenAnnouncement = localStorage.getItem('lastSeenAnnouncement');
+    const lastSeenBlog = localStorage.getItem('lastSeenBlog');
+    
     const latestAnnouncement = CONFIG.announcementFiles && CONFIG.announcementFiles.length > 0 
         ? CONFIG.announcementFiles[0] 
         : null;
 
-    if (latestAnnouncement && lastSeenAnnouncement !== latestAnnouncement) {
-        badge.textContent = '1';
-        badge.style.display = 'flex';
-    } else {
-        badge.style.display = 'none';
+    const latestBlog = typeof blogPosts !== 'undefined' && blogPosts.length > 0
+        ? blogPosts[0].url
+        : null;
+
+    if (announcementBell && announcementBadge) {
+        if (latestAnnouncement && lastSeenAnnouncement !== latestAnnouncement) {
+            announcementBadge.style.display = 'flex';
+            announcementBell.setAttribute('data-tooltip', 'New Announcement!');
+        } else {
+            announcementBadge.style.display = 'none';
+            announcementBell.setAttribute('data-tooltip', 'Announcements');
+        }
+
+        announcementBell.addEventListener('click', (e) => {
+            e.preventDefault();
+            localStorage.setItem('lastSeenAnnouncement', latestAnnouncement);
+            announcementBadge.style.display = 'none';
+            announcementBell.setAttribute('data-tooltip', 'Announcements');
+            window.location.href = 'all_announcements.html';
+        });
     }
 
-    bell.addEventListener('click', () => {
-        if (latestAnnouncement) {
-            localStorage.setItem('lastSeenAnnouncement', latestAnnouncement);
-            badge.style.display = 'none';
+    if (blogBell && blogBadge) {
+        if (latestBlog && lastSeenBlog !== latestBlog) {
+            blogBadge.style.display = 'flex';
+            blogBell.setAttribute('data-tooltip', 'New Blog Post!');
+        } else {
+            blogBadge.style.display = 'none';
+            blogBell.setAttribute('data-tooltip', 'Blog');
         }
-    });
+
+        blogBell.addEventListener('click', (e) => {
+            e.preventDefault();
+            localStorage.setItem('lastSeenBlog', latestBlog);
+            blogBadge.style.display = 'none';
+            blogBell.setAttribute('data-tooltip', 'Blog');
+            const blogTab = document.querySelector('.filter-tab[data-status="blog"]');
+            if (blogTab) {
+                blogTab.click();
+            } else {
+                window.location.href = 'index.html';
+            }
+        });
+    }
 }
 
 document.addEventListener('DOMContentLoaded', () => {
