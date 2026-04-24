@@ -1,5 +1,16 @@
 const blogPosts = [
     {
+        name: "Dr. Ambedkar's Legacy Through Stamps",
+        year: "1966-2020",
+        country: "India",
+        desc: "A comprehensive catalog of Indian postage stamps, miniature sheets, and first-day covers (FDCs) honoring Dr. B.R. Ambedkar from 1966 to 2020.",
+        folder: "ambedkar",
+        customImage: "images/blog/ambedkar/1.jpg",
+        imageCount: 1,
+        url: "blog/dr-ambedkar-stamps-legacy.html",
+        isBlog: true
+    },
+    {
         name: "Apollo 11 – 30th Anniversary Commemorative Philatelic Collection",
         year: "1999",
         country: "Bahamas, Barbados, Solomon Islands",

@@ -513,7 +513,7 @@ function renderGallery(data) {
                 <div class="stamp-card blog-card">
                     <a href="${stamp.url || '#'}" class="blog-link-wrapper" style="text-decoration: none; color: inherit;">
                         <div class="img-container" style="cursor: pointer;">
-                            <img src="${CONFIG.baseImgPath}/${stamp.folder}/1.${stamp.extension || 'jpg'}" alt="${stamp.name}" loading="lazy" decoding="async" fetchpriority="low" width="300" height="300">
+                            <img src="${stamp.customImage || `${CONFIG.baseImgPath}/${stamp.folder}/1.${stamp.extension || 'jpg'}`}" alt="${stamp.name}" loading="lazy" decoding="async" fetchpriority="low" width="300" height="300">
                             <div class="photo-badge">Article</div>
                         </div>
                     </a>
@@ -1033,9 +1033,14 @@ function initAnnouncementNotification() {
         ? blogPosts[0].url
         : null;
 
+    const newBlogCount = typeof blogPosts !== 'undefined' && blogPosts.length > 0 && lastSeenBlog
+        ? blogPosts.filter(post => !lastSeenBlog.split(',').includes(post.url)).length
+        : (lastSeenBlog ? 0 : (blogPosts ? blogPosts.length : 0));
+
     if (announcementBell && announcementBadge) {
         if (latestAnnouncement && lastSeenAnnouncement !== latestAnnouncement) {
             announcementBadge.style.display = 'flex';
+            announcementBadge.textContent = '1';
             announcementBell.setAttribute('data-tooltip', 'New Announcement!');
         } else {
             announcementBadge.style.display = 'none';
@@ -1052,8 +1057,12 @@ function initAnnouncementNotification() {
     }
 
     if (blogBell && blogBadge) {
-        if (latestBlog && lastSeenBlog !== latestBlog) {
+        const seenBlogs = lastSeenBlog ? lastSeenBlog.split(',') : [];
+        const allSeen = blogPosts.every(post => seenBlogs.includes(post.url));
+        
+        if (latestBlog && !allSeen) {
             blogBadge.style.display = 'flex';
+            blogBadge.textContent = newBlogCount || '1';
             blogBell.setAttribute('data-tooltip', 'New Blog Post!');
         } else {
             blogBadge.style.display = 'none';
@@ -1062,7 +1071,8 @@ function initAnnouncementNotification() {
 
         blogBell.addEventListener('click', (e) => {
             e.preventDefault();
-            localStorage.setItem('lastSeenBlog', latestBlog);
+            const allBlogUrls = blogPosts.map(post => post.url).join(',');
+            localStorage.setItem('lastSeenBlog', allBlogUrls);
             blogBadge.style.display = 'none';
             blogBell.setAttribute('data-tooltip', 'Blog');
             const blogTab = document.querySelector('.filter-tab[data-status="blog"]');
