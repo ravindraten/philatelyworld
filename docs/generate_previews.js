@@ -113,11 +113,23 @@ console.log(`\n✅ Generated ${generatedCount} static preview pages.`);
 
 const baseUrl = 'https://philatelyworld.in';
 const itemDir = path.join(__dirname, 'item');
+const blogDir = path.join(__dirname, 'blog');
 
 // Collect all item folders
 const itemIds = fs.readdirSync(itemDir).filter(f =>
     fs.statSync(path.join(itemDir, f)).isDirectory()
 );
+
+// Collect all blog files
+const blogIds = fs.existsSync(blogDir) 
+    ? fs.readdirSync(blogDir).filter(f => f.endsWith('.html')) 
+    : [];
+
+// Collect all announcement files
+const announcementDir = path.join(__dirname, 'announcement');
+const announcementIds = fs.existsSync(announcementDir) 
+    ? fs.readdirSync(announcementDir).filter(f => f.endsWith('.html')) 
+    : [];
 
 const itemUrls = itemIds.map(id => `
   <url>
@@ -126,14 +138,28 @@ const itemUrls = itemIds.map(id => `
     <priority>0.8</priority>
   </url>`).join('');
 
+const blogUrls = blogIds.map(id => `
+  <url>
+    <loc>${baseUrl}/blog/${id}</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>`).join('');
+
+const announcementUrls = announcementIds.map(id => `
+  <url>
+    <loc>${baseUrl}/announcement/${id}</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>`).join('');
+
 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>${baseUrl}/</loc>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
-  </url>${itemUrls}
+  </url>${itemUrls}${blogUrls}${announcementUrls}
 </urlset>`;
 
 fs.writeFileSync(path.join(__dirname, 'sitemap.xml'), sitemap);
-console.log(`✅ sitemap.xml generated with ${itemIds.length} items.`);
+console.log(`✅ sitemap.xml generated with ${itemIds.length} items, ${blogIds.length} blogs, and ${announcementIds.length} announcements.`);
