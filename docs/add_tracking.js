@@ -1,5 +1,9 @@
-const fs = require('fs');
-const path = require('path');
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const dirs = ['blog', 'announcement'];
 
@@ -25,14 +29,14 @@ dirs.forEach(dir => {
     if (!fs.existsSync(dirPath)) return;
 
     const files = fs.readdirSync(dirPath).filter(f => f.endsWith('.html'));
-    
+
     files.forEach(file => {
         const filePath = path.join(dirPath, file);
         let content = fs.readFileSync(filePath, 'utf8');
-        
+
         let hasGtag = content.includes('googletagmanager.com/gtag');
         let hasGoatcounter = content.includes('goatcounter.com/count');
-        
+
         if (!hasGtag) {
             if (stylePattern.test(content)) {
                 content = content.replace(stylePattern, gtagScript + '\n    <style>');
@@ -40,7 +44,7 @@ dirs.forEach(dir => {
                 content = content.replace(headClosePattern, gtagScript + '\n</head>');
             }
         }
-        
+
         if (!hasGoatcounter) {
             if (stylePattern.test(content)) {
                 content = content.replace(stylePattern, goatcounterScript + '\n    <style>');
@@ -48,7 +52,7 @@ dirs.forEach(dir => {
                 content = content.replace(headClosePattern, goatcounterScript + '\n</head>');
             }
         }
-        
+
         if (!hasGtag || !hasGoatcounter) {
             fs.writeFileSync(filePath, content);
             updatedCount++;
