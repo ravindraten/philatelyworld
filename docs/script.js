@@ -10,21 +10,37 @@ const CONFIG = {
     // Feature Switches
     showAnnouncement: true,
     showPromo: false,
-    showSoldOut: false, // Set to true to show the Sold Out filter tab
-    announcementFiles: ['5.html', '4.html', '3.html', '2.html', '1.html'], // Place your HTML files in the 'announcement' folder
+    showSoldOut: false,
+    announcementFiles: ['5.html', '4.html', '3.html', '2.html', '1.html'],
 
-    // 2. CURRENCY CONFIGURATION
-    eurRate: 0.011, // Fallback rate
+    // Currency Configuration
+    eurRate: 0.011,
     apiURL: "https://open.er-api.com/v6/latest/EUR",
-    wuAdjustment: 1.02 // Adds 2% markup to simulate Western Union spread
+    wuAdjustment: 1.02
 };
 
 let state = {
     currency: 'INR',
     currentStampIdx: 0,
     currentImgIdx: 1,
-    statusFilter: 'available' // Keep track of the active tab
+    statusFilter: 'available', // Keep track of the active tab
+    isAiSearch: false,
+    aiLoading: false
 };
+
+function toggleAiKey() {
+    const keyInput = document.getElementById('aiApiKey');
+    if (keyInput.style.display === 'none') {
+        keyInput.style.display = 'block';
+        keyInput.focus();
+    } else {
+        keyInput.style.display = 'none';
+        if (keyInput.value.trim()) {
+            CONFIG.openaiApiKey = keyInput.value.trim();
+            showAiMessage('AI Search enabled! Press Enter to search.', true);
+        }
+    }
+}
 
 document.addEventListener('DOMContentLoaded', () => {
     // First, get the live exchange rate
@@ -193,6 +209,14 @@ function initEventListeners() {
     // Filter on input (conditionally routing to the correct grid renderer)
     searchInput.addEventListener('input', (e) => {
         const term = e.target.value;
+        
+        // Clear AI message when typing
+        if (state.isAiSearch) {
+            state.isAiSearch = false;
+            const aiBox = document.getElementById('aiMessageBox');
+            if (aiBox) aiBox.remove();
+        }
+        
         const urlParams = new URLSearchParams(window.location.search);
         if (term) urlParams.set('q', term); else urlParams.delete('q');
         window.history.replaceState({}, '', `${window.location.pathname}?${urlParams.toString()}`);
@@ -212,12 +236,30 @@ function initEventListeners() {
         }, 300);
     });
 
-    // Handle "Enter" key
+    // Handle "Enter" key - trigger Wikipedia search for stamp topics
     searchInput.addEventListener('keydown', (e) => {
         if (e.key === 'Enter') {
             e.preventDefault();
-            scrollToGrid();
-            searchInput.blur();
+            const term = searchInput.value.trim();
+            
+            if (term.length < 2) return;
+            
+            // First do normal filter to check results
+            const activeData = (state.statusFilter === 'blog') ? (blogPosts || []) : stamps;
+            const termLower = term.toLowerCase();
+            const hasResults = activeData.some(item => 
+                item.name.toLowerCase().includes(termLower) ||
+                item.country.toLowerCase().includes(termLower) ||
+                (item.desc && item.desc.toLowerCase().includes(termLower))
+            );
+            
+            if (!hasResults || e.ctrlKey || e.metaKey) {
+                // No local results OR Ctrl/Cmd+Enter - search Wikipedia
+                aiSearch(term);
+            } else {
+                scrollToGrid();
+                searchInput.blur();
+            }
         }
     });
 
@@ -341,17 +383,6 @@ function initEventListeners() {
             document.body.style.overflow = "auto";
         };
     }
-    // Close privacy modal if clicking outside the content
-    window.addEventListener('click', (event) => {
-        if (event.target === privacyModal) {
-            privacyModal.style.display = "none";
-            document.body.style.overflow = "auto";
-        }
-        if (event.target === securityModal) {
-            securityModal.style.display = "none";
-            document.body.style.overflow = "auto";
-        }
-    });
 
     // Inside initEventListeners() function:
 
@@ -631,6 +662,91 @@ function filterStamps(query) {
     });
 
     renderGallery(filtered);
+}
+
+async function aiSearch(query) {
+    state.aiLoading = true;
+    showAiMessage('Searching Wikipedia for stamp topics...');
+
+    // Block inappropriate search terms
+    const blockedTerms = ['porn', 'xxx', 'adult', 'sex', 'nude', 'explicit', 'nsfw', '18+', 'violence', 'gore', 'terrorist', 'extremist'];
+    const isBlocked = blockedTerms.some(term => query.toLowerCase().includes(term));
+    if (isBlocked) {
+        showAiMessage('🔍 Invalid search term. Only philately-related topics are allowed.');
+        state.aiLoading = false;
+        return;
+    }
+
+    // Check if query is philately-related
+    const philatelyTerms = ['stamp', 'philately', 'postage', 'postal', 'cover', 'fdc', 'mint', 'cancellation', 'perforation', 'engraving', '兵'];
+    const isPhilatelyRelated = philatelyTerms.some(term => query.toLowerCase().includes(term));
+    
+    if (!isPhilatelyRelated) {
+        showAiMessage('🔍 Only philately-related topics are allowed (stamp, philately, postage, postal, cover, fdc, mint, cancellation, perforation, engraving). Try searching for stamp topics like "Penny Black", "India stamps", or "First Day Cover".');
+        state.aiLoading = false;
+        return;
+    }
+
+    try {
+        const searchUrl = `https://en.wikipedia.org/w/api.php?action=query&list=search&srsearch=${encodeURIComponent(query)}&srlimit=10&format=json&origin=*`;
+        
+        const response = await fetch(searchUrl);
+        const data = await response.json();
+        
+        const pages = data.query?.search || [];
+        
+        if (pages.length === 0) {
+            showAiMessage('No results found. Try topics like "Penny Black", "India stamps", or "First Day Cover".');
+            return;
+        }
+        
+        const results = pages.slice(0, 5).map(p => ({
+            title: p.title,
+            description: p.snippet.replace(/<[^>]+>/g, '').substring(0, 150),
+            pageid: p.pageid
+        }));
+        
+        const html = `<div class="wiki-results">
+            <h4 style="margin:0 0 12px;color:var(--primary);">📚 Wikipedia Results for "${escapeHtml(query)}"</h4>
+            ${results.map(r => `
+                <div style="margin-bottom:12px;padding:10px;background:#f8f9fa;border-radius:6px;">
+                    <a href="https://en.wikipedia.org/wiki?curid=${r.pageid}" target="_blank" style="font-weight:600;color:var(--primary);text-decoration:none;">${escapeHtml(r.title)}</a>
+                    <p style="margin:4px 0 0;font-size:0.85rem;color:var(--text-light);">${escapeHtml(r.description)}...</p>
+                </div>
+            `).join('')}
+        </div>`;
+        
+        showAiMessage(html, true);
+        state.isAiSearch = true;
+    } catch (error) {
+        console.error('Wikipedia search error:', error);
+        showAiMessage('Error: Could not connect to Wikipedia. Please try again.');
+    }
+    
+    state.aiLoading = false;
+}
+
+function showAiMessage(message, isHtml = false) {
+    const grid = document.getElementById('stampGrid');
+    if (!grid) return;
+
+    const messageDiv = document.getElementById('aiMessageBox');
+    if (messageDiv) {
+        messageDiv.innerHTML = isHtml ? message : escapeHtml(message);
+    } else {
+        const div = document.createElement('div');
+        div.id = 'aiMessageBox';
+        div.className = 'ai-message';
+        div.style.cssText = 'background: #f0f9ff; border: 1px solid #0ea5e9; border-radius: 8px; padding: 16px; margin: 16px 0;';
+        div.innerHTML = isHtml ? message : escapeHtml(message);
+        grid.insertAdjacentElement('beforebegin', div);
+    }
+}
+
+function escapeHtml(text) {
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
 }
 
 function openLightbox(idx) {
