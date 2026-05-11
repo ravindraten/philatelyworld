@@ -11,6 +11,17 @@ const blogPosts = [
         isBlog: true
     },
     {
+        name: "Gold Stamp: Garfield – 24-Carat Gold Postage Stamp.",
+        year: "2026",
+        country: "Netherlands",
+        desc: "PostNL releases a unique 24-carat gold stamp featuring Garfield on 27 April 2026. Limited to 1,000 copies — a must-have for collectors.",
+        folder: "garfield",
+        imageCount: 1,
+        customImage: "https://shop.postnl.nl/media/catalog/product/1/7/1776774162_gouden-postzegel-garfield.jpg",
+        url: "blog/garfield-gold-stamp.html",
+        isBlog: true
+    },
+    {
         name: "PostEurop 70 Years – Netherlands 2026 (Postzegelvel 70 jaar PostEurop)",
         year: "2026",
         country: "Netherlands",
