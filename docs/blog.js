@@ -11,6 +11,17 @@ const blogPosts = [
         isBlog: true
     },
     {
+        name: "PostEurop 70 Years – Netherlands 2026 (Postzegelvel 70 jaar PostEurop)",
+        year: "2026",
+        country: "Netherlands",
+        desc: "Discover the Postzegelvel 70 jaar PostEurop issued by PostNL on 8 May 2026 — a sheet of 6 stamps celebrating seven decades of EUROPA stamps with a unified design by Klaus Welp and Sandra Smulders.",
+        folder: "posteurop",
+        customImage: "images/posteurop-banner.jpg",
+        imageCount: 1,
+        url: "blog/posteurop-70-years-netherlands.html",
+        isBlog: true
+    },
+    {
         name: "Dr. Ambedkar's Legacy Through Stamps",
         year: "1966-2020",
         country: "India",
