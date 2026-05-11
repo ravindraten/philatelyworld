@@ -5,6 +5,7 @@ const blogPosts = [
         country: "Netherlands",
         desc: "Discover the Postzegelvel Garfield issued by PostNL on 27 April 2026 — a sheet of 5 unique kaderpostzegels featuring the iconic comic cat, designed by Frank Janse.",
         folder: "garfield",
+        customImage: "https://shop.postnl.nl/media/wysiwyg/banners/garfield-postzegels.jpg",
         imageCount: 1,
         url: "blog/garfield-stamps-netherlands.html",
         isBlog: true
