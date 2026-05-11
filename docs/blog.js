@@ -1,5 +1,15 @@
 const blogPosts = [
     {
+        name: "Garfield Stamp Sheet – Netherlands 2026 (Kaderpostzegels)",
+        year: "2026",
+        country: "Netherlands",
+        desc: "Discover the Postzegelvel Garfield issued by PostNL on 27 April 2026 — a sheet of 5 unique kaderpostzegels featuring the iconic comic cat, designed by Frank Janse.",
+        folder: "garfield",
+        imageCount: 1,
+        url: "blog/garfield-stamps-netherlands.html",
+        isBlog: true
+    },
+    {
         name: "Dr. Ambedkar's Legacy Through Stamps",
         year: "1966-2020",
         country: "India",
