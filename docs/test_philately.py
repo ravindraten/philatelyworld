@@ -727,7 +727,48 @@ def test_sale_price_currency_eur(driver):
         assert "€" in old_price.text
 
 
-# --- 7. Blog Feature Tests ---
+# --- 7. Shipping Badge Tests ---
+
+
+def test_free_tracked_shipping_badge(driver):
+    """Verify green truck badge appears on stamps with freeTrackedShipping."""
+    driver.get(URL)
+    wait = WebDriverWait(driver, 10)
+
+    all_tab = wait.until(
+        EC.element_to_be_clickable((By.CSS_SELECTOR, ".filter-tab[data-status='all']"))
+    )
+    driver.execute_script("arguments[0].click();", all_tab)
+
+    wait.until(EC.presence_of_element_located((By.CLASS_NAME, "shipping-badge")))
+
+    badges = driver.find_elements(By.CLASS_NAME, "shipping-badge")
+    assert len(badges) >= 2
+    for badge in badges:
+        assert badge.is_displayed()
+        assert "FREE TRACKED SHIPPING" in badge.text
+
+
+def test_free_letter_post_shipping_badge(driver):
+    """Verify blue envelope badge appears on stamps with freeLetterPostShipping."""
+    driver.get(URL)
+    wait = WebDriverWait(driver, 10)
+
+    all_tab = wait.until(
+        EC.element_to_be_clickable((By.CSS_SELECTOR, ".filter-tab[data-status='all']"))
+    )
+    driver.execute_script("arguments[0].click();", all_tab)
+
+    wait.until(EC.presence_of_element_located((By.CLASS_NAME, "letter-badge")))
+
+    badges = driver.find_elements(By.CLASS_NAME, "letter-badge")
+    assert len(badges) >= 20
+    for badge in badges:
+        assert badge.is_displayed()
+        assert "FREE LETTER POST" in badge.text
+
+
+# --- 8. Blog Feature Tests ---
 
 
 def test_blog_tab_switching(driver):

@@ -426,6 +426,7 @@ function initEventListeners() {
             filterStamps(searchVal);
         });
     }
+
 }
 
 // Helper to reset view to the top of results
@@ -598,6 +599,8 @@ function renderGallery(data) {
             <div class="stamp-card ${stamp.isSoldOut ? 'sold-out' : ''}">
                 ${stamp.isSoldOut ? '<div class="sold-out-badge">Sold Out</div>' : ''}
                 ${stamp.onSale ? '<div class="on-sale-badge">On Sale</div>' : ''}
+                ${stamp.freeTrackedShipping ? '<div class="shipping-badge"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 4px;"><rect x="1" y="3" width="15" height="13"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle></svg>Free Tracked Shipping</div>' : ''}
+                ${stamp.freeLetterPostShipping ? '<div class="letter-badge"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 4px;"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>Free Letter Post</div>' : ''}
                 <div class="img-container">
                     <img src="${CONFIG.baseImgPath}/${stamp.folder}/1.${stamp.extension || 'jpg'}" 
                         alt="${stamp.name}" 
