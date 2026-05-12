@@ -23,7 +23,8 @@ let state = {
     currency: 'INR',
     currentStampIdx: 0,
     currentImgIdx: 1,
-    statusFilter: 'available' // Keep track of the active tab
+    statusFilter: 'available',
+    saleActive: false
 };
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -39,7 +40,10 @@ document.addEventListener('DOMContentLoaded', () => {
     
     const effectiveTab = navTab || tabParam;
     
-    if (effectiveTab && ['all', 'available', 'sold', 'blog'].includes(effectiveTab)) {
+    if (effectiveTab === 'sale') {
+        state.statusFilter = 'all';
+        state.saleActive = true;
+    } else if (effectiveTab && ['all', 'available', 'sold', 'blog'].includes(effectiveTab)) {
         state.statusFilter = effectiveTab;
     } else {
         state.statusFilter = 'available';
@@ -67,8 +71,14 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
     
+    // Activate sale icon UI if navigating via sale flag
+    if (state.saleActive) {
+        const saleBell = document.getElementById('saleBell');
+        if (saleBell) saleBell.classList.add('active');
+    }
+
     // Handle navigation to specific tab (only if no item parameter)
-    if (effectiveTab && ['all', 'available', 'sold', 'blog'].includes(effectiveTab) && !itemID) {
+    if (effectiveTab && ['all', 'available', 'sold', 'blog', 'sale'].includes(effectiveTab) && !itemID) {
         const targetTab = document.querySelector(`.filter-tab[data-status="${effectiveTab}"]`);
         if (targetTab) {
             tabs.forEach(t => t.classList.remove('active'));
@@ -383,6 +393,9 @@ function initEventListeners() {
 
             // Logic Update
             state.statusFilter = tab.getAttribute('data-status');
+            state.saleActive = false;
+            const saleBell = document.getElementById('saleBell');
+            if (saleBell) saleBell.classList.remove('active');
 
             // SAVE current tab to session storage so back-button works
             sessionStorage.setItem('activeTab', state.statusFilter);
@@ -391,6 +404,28 @@ function initEventListeners() {
             filterStamps(searchVal);
         });
     });
+
+    // Sale Icon Logic
+    const saleBell = document.getElementById('saleBell');
+    if (saleBell) {
+        saleBell.addEventListener('click', (e) => {
+            e.preventDefault();
+            const grid = document.getElementById('stampGrid');
+            if (!grid) {
+                localStorage.setItem('navigateToTab', 'sale');
+                window.location.href = 'index.html';
+                return;
+            }
+            state.saleActive = !state.saleActive;
+            saleBell.classList.toggle('active');
+            if (state.saleActive) {
+                state.statusFilter = 'all';
+                filterTabs.forEach(t => t.classList.remove('active'));
+            }
+            const searchVal = document.getElementById('stampSearch').value;
+            filterStamps(searchVal);
+        });
+    }
 }
 
 // Helper to reset view to the top of results
@@ -538,17 +573,31 @@ function renderGallery(data) {
         const shareUrl = `${window.location.origin}${basePath}item/${encodeURIComponent(itemID)}/`;
         // --- CURRENCY LOGIC ---
         let displayPrice;
-        if (state.currency === 'EUR') {
-            // Convert INR to EUR using the live/fallback rate
-            const priceEUR = stamp.priceINR * CONFIG.eurRate;
-            displayPrice = `€${priceEUR.toFixed(2)}`;
+        let displaySalePrice = '';
+        let displayOldPrice = '';
+        if (stamp.onSale) {
+            if (state.currency === 'EUR') {
+                const saleEUR = stamp.salePriceINR * CONFIG.eurRate;
+                const origEUR = stamp.priceINR * CONFIG.eurRate;
+                displaySalePrice = `€${saleEUR.toFixed(2)}`;
+                displayOldPrice = `€${origEUR.toFixed(2)}`;
+            } else {
+                displaySalePrice = `₹${stamp.salePriceINR}`;
+                displayOldPrice = `₹${stamp.priceINR}`;
+            }
         } else {
-            displayPrice = `₹${stamp.priceINR}`;
+            if (state.currency === 'EUR') {
+                const priceEUR = stamp.priceINR * CONFIG.eurRate;
+                displayPrice = `€${priceEUR.toFixed(2)}`;
+            } else {
+                displayPrice = `₹${stamp.priceINR}`;
+            }
         }
 
         return `
             <div class="stamp-card ${stamp.isSoldOut ? 'sold-out' : ''}">
                 ${stamp.isSoldOut ? '<div class="sold-out-badge">Sold Out</div>' : ''}
+                ${stamp.onSale ? '<div class="on-sale-badge">On Sale</div>' : ''}
                 <div class="img-container">
                     <img src="${CONFIG.baseImgPath}/${stamp.folder}/1.${stamp.extension || 'jpg'}" 
                         alt="${stamp.name}" 
@@ -579,7 +628,7 @@ function renderGallery(data) {
                     <div class="stamp-desc">${stamp.desc}</div>
                     
                     <div class="price-row">
-                        <div class="price">${displayPrice}</div>
+                        <div class="price ${stamp.onSale ? 'sale' : ''}">${stamp.onSale ? `${displaySalePrice}<br><span class="old-price">${displayOldPrice}</span>` : displayPrice}</div>
                         <div class="action-buttons">
                             <button class="share-icon-btn" onclick="copyShareLink('${shareUrl}', this)" title="Copy Share Link">
                                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path><polyline points="16 6 12 2 8 6"></polyline><line x1="12" y1="2" x2="12" y2="15"></line></svg>
@@ -609,8 +658,9 @@ function renderGallery(data) {
 function filterStamps(query) {
     const term = query.toLowerCase().trim();
 
-    // Switch data source based on active tab
-    const activeData = (state.statusFilter === 'blog') ? (blogPosts || []) : stamps;
+    // Switch data source based on active tab (sale overrides blog data source)
+    const useBlog = state.statusFilter === 'blog' && !state.saleActive;
+    const activeData = useBlog ? (blogPosts || []) : stamps;
 
     const filtered = activeData.filter(item => {
         // 1. Text Search Match
@@ -621,11 +671,14 @@ function filterStamps(query) {
         );
 
         // 2. Status Match (only applicable to stamps)
-        if (state.statusFilter === 'blog') return textMatch;
+        if (state.statusFilter === 'blog' && !state.saleActive) return textMatch;
 
         let statusMatch = true;
         if (state.statusFilter === 'available') statusMatch = !item.isSoldOut;
         if (state.statusFilter === 'sold') statusMatch = item.isSoldOut;
+
+        // 3. Sale filter override
+        if (state.saleActive) statusMatch = statusMatch && item.onSale === true;
 
         return textMatch && statusMatch;
     });
@@ -696,6 +749,7 @@ function updateFilterCounts() {
     const totalCount = stamps.length;
     const soldCount = stamps.filter(s => s.isSoldOut).length;
     const availableCount = totalCount - soldCount;
+    const saleCount = stamps.filter(s => s.onSale === true).length;
     const blogTotal = blogPosts.length;
 
     const tabs = document.querySelectorAll('.filter-tab[data-status]');
@@ -711,6 +765,11 @@ function updateFilterCounts() {
         }
         if (status === 'blog') tab.innerText = `Blog (${blogTotal})`;
     });
+
+    const saleBell = document.getElementById('saleBell');
+    if (saleBell) {
+        saleBell.setAttribute('data-tooltip', `On Sale (${saleCount})`);
+    }
 }
 function copyUPI() {
     const upiId = document.getElementById('upiIdText').innerText;
@@ -743,7 +802,9 @@ function updateMetaTags(stamp, id) {
     } else if (stamp) {
         title = `Philately World: ${stamp.name}`;
         const cleanYear = stamp.year.replace(/<\/?[^>]+(>|$)/g, "");
-        desc = `${stamp.country} | ${cleanYear} | Price: ₹${stamp.priceINR}`;
+        desc = stamp.onSale
+            ? `${stamp.country} | ${cleanYear} | ON SALE: ₹${stamp.salePriceINR} (was ₹${stamp.priceINR})`
+            : `${stamp.country} | ${cleanYear} | Price: ₹${stamp.priceINR}`;
         imgUrl = `${CONFIG.baseImgPath}/${stamp.folder}/1.jpg`;
     }
     // // 1. Clean up the title and description

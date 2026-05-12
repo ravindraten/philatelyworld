@@ -6,6 +6,8 @@ const stamps = [
         year: "<b>Year</b>: 1950-2000",
         priceINR: 14400,
         isSoldOut: false,
+        onSale: true,
+        salePriceINR: 12000,
         folder: "D77",
         imageCount: 22,
         desc: "RN4148: Collection of 360 Mint stamps from GB.\
@@ -42,6 +44,8 @@ const stamps = [
         year: "<b>Year</b>: 2026",
         priceINR: 21000,
         isSoldOut: false,
+        onSale: true,
+        salePriceINR: 17800,
         folder: "D74",
         imageCount: 6,
         desc: "RN4145: Small box with about 350 FDC covers UN.\
@@ -55,6 +59,8 @@ const stamps = [
         year: "<b>Year</b>: 2026",
         priceINR: 900,
         isSoldOut: false,
+        onSale: true,
+        salePriceINR: 700,
         folder: "D73",
         imageCount: 4,
         desc: "RN4144: Postset Birds Saba.The rugged, green island of Saba teems with extraordinary birds.\
@@ -89,6 +95,8 @@ const stamps = [
         year: "<b>Year</b>: 1948+",
         priceINR: 7250,
         isSoldOut: false,
+        onSale: true,
+        salePriceINR: 6000,
         folder: "D70",
         imageCount: 17,
         desc: "RN4141: Special issued Czechoslovakia album with collection about 180 mint hinged stamps.\

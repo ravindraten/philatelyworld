@@ -8,9 +8,8 @@ from selenium.webdriver.support import expected_conditions as EC
 from webdriver_manager.chrome import ChromeDriverManager
 import time
 
-# --- Configuration ---
 # Replace with your local dev URL or GitHub Pages URL
-URL = "http://localhost:5500/docs/index.html"
+URL = "http://localhost:5500/index.html"
 # URL = "http://127.0.0.1:8000/index.html"
 
 
@@ -156,21 +155,28 @@ def test_search_filtering_duplicate(driver):
 def test_currency_conversion_math(driver):
     """Switch to EUR and verify price is formatted correctly and value is reduced (INR > EUR)."""
     driver.get(URL)
-    # Get initial INR price from first card
-    inr_text = (
-        driver.find_element(By.CLASS_NAME, "price")
-        .text.replace("₹", "")
-        .replace(",", "")
-    )
+    wait = WebDriverWait(driver, 10)
+    
+    # Wait for prices to load
+    price_el = wait.until(EC.presence_of_element_located((By.CLASS_NAME, "price")))
+    
+    # Get initial INR price from first card. Handle sale prices (which have two lines)
+    inr_full_text = price_el.text
+    # If on sale, text is "SalePrice\nOldPrice". We take the first one.
+    inr_text = inr_full_text.split("\n")[0].replace("₹", "").replace(",", "")
     inr_val = float(inr_text)
 
     eur_btn = driver.find_element(By.ID, "btnEUR")
     eur_btn.click()
 
-    eur_text = driver.find_element(By.CLASS_NAME, "price").text.replace("€", "")
+    # Wait for the price to update to EUR
+    wait.until(EC.text_to_be_present_in_element((By.CLASS_NAME, "price"), "€"))
+    
+    eur_full_text = driver.find_element(By.CLASS_NAME, "price").text
+    eur_text = eur_full_text.split("\n")[0].replace("€", "")
     eur_val = float(eur_text)
 
-    assert "€" in driver.find_element(By.CLASS_NAME, "price").text
+    assert "€" in eur_full_text
     assert eur_val < inr_val  # EUR should be significantly lower than INR value
 
 
@@ -559,7 +565,169 @@ def test_status_filtering(driver):
     )
 
 
-# --- 6. Blog Feature Tests ---
+# --- 6. Sale Feature Tests ---
+
+
+def test_sale_bell_presence(driver):
+    """Verify the sale bell icon is present with correct tooltip count."""
+    driver.get(URL)
+    wait = WebDriverWait(driver, 10)
+
+    sale_bell = wait.until(EC.presence_of_element_located((By.ID, "saleBell")))
+    assert sale_bell.is_displayed()
+
+    tooltip = sale_bell.get_attribute("data-tooltip")
+    assert "On Sale" in tooltip
+    assert "4" in tooltip
+
+
+def test_on_sale_badge_on_cards(driver):
+    """Verify 'On Sale' badge appears on stamps marked onSale."""
+    driver.get(URL)
+    wait = WebDriverWait(driver, 10)
+
+    all_tab = wait.until(
+        EC.element_to_be_clickable((By.CSS_SELECTOR, ".filter-tab[data-status='all']"))
+    )
+    driver.execute_script("arguments[0].click();", all_tab)
+
+    wait.until(EC.presence_of_element_located((By.CLASS_NAME, "on-sale-badge")))
+
+    badges = driver.find_elements(By.CLASS_NAME, "on-sale-badge")
+    assert len(badges) == 4
+    for badge in badges:
+        assert badge.is_displayed()
+        assert "ON SALE" in badge.text
+
+
+def test_sale_price_shows_original_strikethrough(driver):
+    """Verify sale stamps show sale price with original price struck through."""
+    driver.get(URL)
+    wait = WebDriverWait(driver, 10)
+
+    all_tab = wait.until(
+        EC.element_to_be_clickable((By.CSS_SELECTOR, ".filter-tab[data-status='all']"))
+    )
+    driver.execute_script("arguments[0].click();", all_tab)
+
+    sale_price = wait.until(
+        EC.presence_of_element_located((By.CSS_SELECTOR, ".price.sale"))
+    )
+    assert sale_price.is_displayed()
+
+    price_text = sale_price.text
+    assert "₹" in price_text
+    assert "\n" in price_text
+
+    old_price = sale_price.find_element(By.CLASS_NAME, "old-price")
+    assert old_price.is_displayed()
+    assert "₹" in old_price.text
+
+
+def test_sale_filter_shows_only_sale_items(driver):
+    """Verify clicking sale bell filters to show only on-sale items."""
+    driver.get(URL)
+    wait = WebDriverWait(driver, 10)
+
+    wait.until(EC.presence_of_element_located((By.ID, "stampGrid")))
+
+    sale_bell = wait.until(EC.element_to_be_clickable((By.ID, "saleBell")))
+    driver.execute_script("arguments[0].click();", sale_bell)
+
+    wait.until(EC.presence_of_element_located((By.CLASS_NAME, "on-sale-badge")))
+
+    cards = driver.find_elements(By.CSS_SELECTOR, "#stampGrid .stamp-card")
+    badges = driver.find_elements(By.CLASS_NAME, "on-sale-badge")
+
+    assert len(cards) > 0
+    assert len(badges) == len(cards)
+    assert len(cards) == 4
+    assert "active" in sale_bell.get_attribute("class")
+
+
+def test_sale_filter_toggle_off(driver):
+    """Verify clicking sale bell again deactivates it and shows all items."""
+    driver.get(URL)
+    wait = WebDriverWait(driver, 10)
+
+    wait.until(EC.presence_of_element_located((By.ID, "stampGrid")))
+
+    sale_bell = wait.until(EC.element_to_be_clickable((By.ID, "saleBell")))
+    driver.execute_script("arguments[0].click();", sale_bell)
+    wait.until(lambda d: "active" in sale_bell.get_attribute("class"))
+    driver.execute_script("arguments[0].click();", sale_bell)
+    wait.until(lambda d: "active" not in sale_bell.get_attribute("class"))
+
+    cards = driver.find_elements(By.CSS_SELECTOR, "#stampGrid .stamp-card")
+    badges = driver.find_elements(By.CLASS_NAME, "on-sale-badge")
+    assert len(badges) < len(cards)
+
+
+def test_sale_filter_deactivates_on_tab_click(driver):
+    """Verify clicking a filter tab deactivates the sale filter."""
+    driver.get(URL)
+    wait = WebDriverWait(driver, 10)
+
+    wait.until(EC.presence_of_element_located((By.ID, "stampGrid")))
+
+    sale_bell = wait.until(EC.element_to_be_clickable((By.ID, "saleBell")))
+    driver.execute_script("arguments[0].click();", sale_bell)
+    wait.until(lambda d: "active" in sale_bell.get_attribute("class"))
+
+    all_tab = wait.until(
+        EC.element_to_be_clickable((By.CSS_SELECTOR, ".filter-tab[data-status='all']"))
+    )
+    driver.execute_script("arguments[0].click();", all_tab)
+
+    assert "active" not in sale_bell.get_attribute("class")
+
+    badges = driver.find_elements(By.CLASS_NAME, "on-sale-badge")
+    cards = driver.find_elements(By.CSS_SELECTOR, "#stampGrid .stamp-card")
+    assert len(badges) < len(cards)
+
+
+def test_sale_deep_link_via_tab_param(driver):
+    """Verify ?tab=sale URL parameter activates sale view."""
+    driver.get(f"{URL}?tab=sale")
+    wait = WebDriverWait(driver, 10)
+
+    wait.until(EC.presence_of_element_located((By.CLASS_NAME, "on-sale-badge")))
+
+    sale_bell = wait.until(EC.presence_of_element_located((By.ID, "saleBell")))
+    assert "active" in sale_bell.get_attribute("class")
+
+    cards = driver.find_elements(By.CSS_SELECTOR, "#stampGrid .stamp-card")
+    badges = driver.find_elements(By.CLASS_NAME, "on-sale-badge")
+    assert len(badges) == len(cards)
+    assert len(cards) == 4
+
+
+def test_sale_price_currency_eur(driver):
+    """Verify sale prices display correctly in EUR currency."""
+    driver.get(URL)
+    wait = WebDriverWait(driver, 10)
+
+    all_tab = wait.until(
+        EC.element_to_be_clickable((By.CSS_SELECTOR, ".filter-tab[data-status='all']"))
+    )
+    driver.execute_script("arguments[0].click();", all_tab)
+
+    eur_btn = wait.until(EC.element_to_be_clickable((By.ID, "btnEUR")))
+    eur_btn.click()
+
+    wait.until(EC.text_to_be_present_in_element((By.CLASS_NAME, "price"), "€"))
+
+    sale_prices = driver.find_elements(By.CSS_SELECTOR, ".price.sale")
+    assert len(sale_prices) > 0
+
+    for sale_price in sale_prices:
+        text = sale_price.text
+        assert "€" in text
+        old_price = sale_price.find_element(By.CLASS_NAME, "old-price")
+        assert "€" in old_price.text
+
+
+# --- 7. Blog Feature Tests ---
 
 
 def test_blog_tab_switching(driver):
@@ -620,7 +788,7 @@ def test_blog_indicator_click_navigation(driver):
     # We use a selector that specifically targets the <a> tag we created
     try:
         blog_link = wait.until(
-            EC.element_to_be_clickable((By.CLASS_NAME, "blog-indicator"))
+            EC.element_to_be_clickable((By.CLASS_NAME, "stamp-blog-indicator"))
         )
     except:
         pytest.skip("No stamps with blog indicators found in the current data.")
@@ -666,7 +834,7 @@ def test_blog_indicator_on_stamp_cards(driver):
         pytest.skip("No stamps currently have a blogUrl assigned in the data.")
 
 
-# --- 7. Announcements Feature Tests ---
+# --- 8. Announcements Feature Tests ---
 @pytest.mark.skip(reason="Announcement carousel is removed")
 def test_announcement_carousel_limit(driver):
     """Verify that the homepage carousel loads properly and contains no more than 3 visible items."""
@@ -787,7 +955,7 @@ def test_all_announcements_url_hydration(driver):
     assert search_input.get_attribute("value") == "ECTP"
 
 
-# --- 8. Album Designer Tests ---
+# --- 9. Album Designer Tests ---
 
 
 def test_album_designer_navigation(driver):
