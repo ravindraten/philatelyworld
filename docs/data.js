@@ -420,8 +420,7 @@ const stamps = [
                 Plus engros many duplicates blocks Spain and parts of sheets Uruguay.\
                 The pictures of wholesale lots only show a small part. There is a lot more.\
                 Total weight: 10 kg.\
-                <b>Price: Rs.100/- per stock card.</b>\
-                <b>Free Registered Shipping worldwide from Netherlands</b>. Can ship this immediately this week"
+                <b>Price: Rs.100/- per stock card.</b>"
     },
     {
         name: "International year of Child 1979 FDC's",
@@ -505,8 +504,7 @@ const stamps = [
         folder: "D45",
         imageCount: 6,
         desc: "RN4111: Collection of old and modern used/MNH stamps from Different countries,\
-         Suriname, Spain, Pakistan, Portugal.\
-         + Free letter post shipping worldwide"
+         Suriname, Spain, Pakistan, Portugal."
     },
     {
         name: "Collection of old and modern used/MNH stamps from France",
@@ -518,8 +516,7 @@ const stamps = [
         freeLetterPostShipping: true,
         folder: "D44",
         imageCount: 8,
-        desc: "RN4110: Collection of old and modern used/MNH stamps from France\
-         + Free letter post shipping worldwide"
+        desc: "RN4110: Collection of old and modern used/MNH stamps from France."
     },
     {
         name: "Definitive series from Belgian Congo",
@@ -535,7 +532,7 @@ const stamps = [
         from Belgian Congo depicting native flora, which was significantly modified \
         with a bold 'CONGO' overprint following the countrys independence that year. \
         These stamps are a perfect example of 'history in your hands'as they physically document \
-        the immediate transition from a colonial territory to a sovereign nation. + Free letter post shipping worldwide"
+        the immediate transition from a colonial territory to a sovereign nation."
     },
     {
         name: "Birds set from Suriname",
@@ -550,8 +547,7 @@ const stamps = [
         desc: "RN4108: These are postage stamps from Suriname, a country in South America renowned for its \
             immense biodiversity, specifically featuring its vibrant native bird species. \
             This particular series is an airmail set (noted by the word 'luchtpost') issued in the early 1980s, \
-            showcasing birds like the Red-billed Toucan and the Paradise Tanager.\
-             + Free letter post shipping worldwide"
+            showcasing birds like the Red-billed Toucan and the Paradise Tanager."
     },
     {
         name: "Europa CEPT Great Britain",
@@ -566,7 +562,7 @@ const stamps = [
         desc: "RN4107:European Posts and Telecommunications (CEPT). Each features the portrait of Queen Elizabeth II \
                 alongside symbolic designs like the 19 doves of 1961 or the stylized wheel of 1960, \
                 representing European unity and communication.\
-                (Free letter post shipping worldwide), <b>4 sets available</b>"
+                <b>4 sets available</b>"
     },
     {
         name: "Roses set from Hungary",
@@ -579,8 +575,7 @@ const stamps = [
         folder: "D40",
         imageCount: 1,
         desc: "RN4106:These are beautiful examples of Hungarian philately. You have a nearly complete set (7 out of 8) of the Roses series issued by Magyar Posta (Hungary's postal service) in 1962.\
-                They are highly regarded by collectors for their striking black background aesthetic, which makes the botanical illustrations pop. All MNH.\
-                (Free letter post shipping worldwide)"
+                They are highly regarded by collectors for their striking black background aesthetic, which makes the botanical illustrations pop. All MNH."
     },
     {
         name: "Shoebox with a lot MNH stamps Netherlands.",
@@ -607,8 +602,7 @@ const stamps = [
         folder: "D38",
         imageCount: 2,
         desc: "RN4103: MNH stamps from Belgium on theme birds.\
-                Check the photos. What you see is what you get.\
-                + Free letter post shipping from Netherlands in FDC.",
+                Check the photos. What you see is what you get.",
         blogUrl: "blog/buzin.html" // Adding this triggers the icon
     },
     {
@@ -623,7 +617,7 @@ const stamps = [
         imageCount: 48,
         desc: "RN4102: Thick stockbook with classic German Reich and DDR used/MH stamp collection.\
                 Check the photos. What you see is what you get.\
-                + Shipping inside India in April 2026, <b>Album for free</b>"
+                <b>Album for free</b>"
     },
     {
         name: "Great-Britain and spaceship themed stamps.",
@@ -636,8 +630,7 @@ const stamps = [
         folder: "D36",
         imageCount: 8,
         desc: "RN4101: Used stamps from Great-Britain and spaceship themed stamps.\
-                Check the photos. What you see is what you get.\
-                + Free letter post shipping from Netherlands in FDC."
+                Check the photos. What you see is what you get."
     }, {
         name: "Thick stockbook with stamp collection Italy. Old classic high CV.",
         country: "Italy",
@@ -664,7 +657,7 @@ const stamps = [
         imageCount: 29,
         desc: "RN4099: Thick stockbook with stamp collection Spain.\
                 Check the photos. What you see is what you get.\
-                + Shipping inside India in April 2026, <b>Album for free</b>"
+                <b>Album for free</b>"
     },
     {
         name: "Stockbook with stamp collection Australia.",
@@ -678,7 +671,7 @@ const stamps = [
         imageCount: 25,
         desc: "RN4098: Stockbook with stamp collection Australia.\
                 Check the photos. What you see is what you get.\
-                + Shipping inside India in April 2026, <b>Album for free</b>"
+                <b>Album for free</b>"
     },
     {
         name: "Several different definitive stamp sheets from India.",
@@ -691,8 +684,7 @@ const stamps = [
         folder: "D32",
         imageCount: 5,
         desc: "RN4097: Several different definitive stamp sheets from India.\
-                Check the photos. What you see is what you get.\
-                + Free letter post shipping from Netherlands"
+                Check the photos. What you see is what you get."
     },
     {
         name: "World various stamp collection , Mostly used stamps",
@@ -705,8 +697,7 @@ const stamps = [
         folder: "D31",
         imageCount: 8,
         desc: "RN4096: World various stamp collection , Mostly used stamps.\
-                Check the photos. What you see is what you get.\
-                + Free letter post shipping in FDC"
+                Check the photos. What you see is what you get."
     },
     {
         name: "World various stamp collection in stockbook, incl. Indonesia, Japan and China.",
@@ -720,7 +711,7 @@ const stamps = [
         imageCount: 32,
         desc: "RN4095: World various stamp collection in stockbook, incl. Indonesia, Japan and China.\
                 Check the photos. What you see is what you get.\
-                + Shipping inside India in April 2026 + <b>Thick album for free</b>"
+                <b>Thick album for free</b>"
     },
     {
         name: "Modern/Old used and MNH stamps from Great Britian",
@@ -733,8 +724,7 @@ const stamps = [
         folder: "D29",
         imageCount: 21,
         desc: "RN4094: Modern/Old used and MNH stamps from Great Britian.\
-                Check the photo. What you see is what you get.. \
-                + Free letter post shipping from Netherlands in FDC"
+                Check the photo. What you see is what you get.. "
     },
     {
         name: "Modern/Old used stamps from Europe.",
@@ -747,8 +737,7 @@ const stamps = [
         folder: "D28",
         imageCount: 7,
         desc: "RN4093: Modern/Old used stamps from Europe.\
-                Check the photo. What you see is what you get.. \
-                + Free letter post shipping from Netherlands in FDC"
+                Check the photo. What you see is what you get.. "
     },
     {
         name: "Hungary 1871-1980 with collection about 2900 stamps",
@@ -831,7 +820,7 @@ const stamps = [
         imageCount: 73,
         desc: "RN4087: Beautiful collection of Red Cross stamp booklets from France 1952-2005 in 2 albums, \
               containing 1952 3x (2x mint, 1x cancelled), 1953 (mint and cancelled), 1954, 1955 (2x mint, 2x cancelled) etc. \
-              High catalogue value! + shipping inside India in April 2026"
+              High catalogue value! "
     },
     {
         name: "Very well filled, mainly used stamp collection India 1854-1993",
@@ -846,8 +835,7 @@ const stamps = [
         blogUrl: "blog/bharat.html",
         desc: "RN4086: Very well filled, mainly used stamp collection India 1854-1993, \
                 including good stamps such as (Stanley Gibbons no's): 66, 119-147, 151-191, 247-264, 305-308 Gandhi), \
-                service 72, 102, etc. in 2 blank albums with slipcases.\
-                + shipping inside India in April 2026"
+                service 72, 102, etc. in 2 blank albums with slipcases."
     },
     {
         name: "Old used stamps from Africa. Mix of MNH and used.(around 500 stamps)",
@@ -860,8 +848,7 @@ const stamps = [
         folder: "D20",
         imageCount: 16,
         desc: "RN4085: Old used stamps from Africa. Mix of MNH and used.(<b>around 500 stamps</b>)\
-                Check the photo. What you see is what you get.. \
-                + Free letter post shipping from Netherlands in FDC"
+                Check the photo. What you see is what you get.. "
     },
     {
         name: "Old used stamps from Europe. Mix of MNH and used.(around 1000 stamps)",
@@ -874,8 +861,7 @@ const stamps = [
         folder: "D19",
         imageCount: 14,
         desc: "RN4084: Old used stamps from Europe. Mix of MNH and used.(<b>around 1000 stamps</b>)\
-                Check the photo. What you see is what you get.. \
-                + Free letter post shipping from Netherlands in FDC"
+                Check the photo. What you see is what you get.. "
     },
     {
         name: "Germany and Berlin stamp collection in 3 albums",
@@ -889,8 +875,7 @@ const stamps = [
         imageCount: 64,
         desc: "RN4083: 2 Davo and 1 Safe album Germany Bund and Berlin with a lot of stamps.\
                 Check the photos to see a small part, but there is a lot more than you can see here\
-                <b>All 3 Albums for free</b>\
-                + shipping inside India in April 2026"
+                <b>All 3 Albums for free</b>"
     },
     {
         name: "Asia incl. MNH Bhutan stamp collection",
@@ -903,8 +888,7 @@ const stamps = [
         folder: "D17",
         imageCount: 9,
         desc: "RN4082: Asia incl. MNH Bhutan stamp collection\
-                Check the photo. What you see is what you get.. \
-                + Free letter post shipping from Netherlands in FDC"
+                Check the photo. What you see is what you get.. "
     },
     {
         name: "German Reich set of 27 stamps(few repeated)",
@@ -917,8 +901,7 @@ const stamps = [
         folder: "D16",
         imageCount: 1,
         desc: "RN4081: German Reich set of 27 stamps(few repeated)\
-                Check the photo. What you see is what you get.. \
-                + Free letter post shipping from Netherlands in FDC"
+                Check the photo. What you see is what you get.. "
     },
     {
         name: "German Reich set of 22 stamps. (All Block of 2)",
@@ -931,8 +914,7 @@ const stamps = [
         folder: "D15",
         imageCount: 1,
         desc: "RN4080: German Reich set of 22 stamps. (All Block of 2)\
-                Check the photo. What you see is what you get.. \
-                + Free letter post shipping from Netherlands in FDC"
+                Check the photo. What you see is what you get.. "
     },
     {
         name: "France and territories stamp collection in stockbook",
@@ -959,8 +941,7 @@ const stamps = [
         folder: "D13",
         imageCount: 14,
         desc: "RN4078: Collection of used stamps from different eastern european countries.\
-            Check the photos. What you see is what you get. .\
-            Free letter post shipping from Netherlands in FDC"
+            Check the photos. What you see is what you get. ."
     },
     {
         name: "Germany Bayern postal item collection 2",
@@ -1015,7 +996,7 @@ const stamps = [
         imageCount: 41,
         desc: "RN4074: Davo album Germany 1946-2003 with very well filled used stamp collection.\
                 Check the photos to see a small part, but there is a lot more than you can see here.\
-                Stock Album for free + shipping inside India in April 2026"
+                Stock Album for free "
     },
     {
         name: "Around 550 FDC's from Netherlands",
@@ -1031,8 +1012,7 @@ const stamps = [
         desc: "RN4073: Around 550 FDCs from Netherlands Each FDC is atleast with 2 stamps on it.. \
         many are with whole miniature sheets. \
         Price: <b>Rs.40</b> per FDC. \
-        Total will be <b>Rs.22000</b> \
-        ( Free shipping worldwide with Track and Trace)"
+        Total will be <b>Rs.22000</b>"
     },
     {
         name: "Complete set of 11 MS from India 2025",
@@ -1059,7 +1039,7 @@ const stamps = [
         imageCount: 1,
         //images: ["https://picsum.photos/400/300?random=3"],
         desc: "RN4071:On March 31, 2025, PostNL will release Experience Nature - Butterflies of Sint Eustatius, \
-        a sheet of 10 stamps in 10 different designs. + shipping inside India in April 2026)"
+        a sheet of 10 stamps in 10 different designs. "
     },
     {
         name: "Experience Nature - Birds Sint Eustatius",
@@ -1073,7 +1053,7 @@ const stamps = [
         imageCount: 1,
         //images: ["https://picsum.photos/400/300?random=3"],
         desc: "RN4070:On January 2, 2025, PostNL will release Experience Nature - Birds Sint Eustatius, \
-        a sheet of 10 stamps in 10 different designs. + shipping inside India in April 2026)"
+        a sheet of 10 stamps in 10 different designs. "
     },
     {
         name: "Silver stamp – Dutch motorcycle brands – Eysink 1953",
@@ -1087,7 +1067,7 @@ const stamps = [
         imageCount: 2,
         //images: ["https://picsum.photos/400/300?random=3"],
         desc: "RN4069:Designer Frank Janse is commemorating this Dutch motorcycle classic with a silver stamp, \
-        presented in a luxurious mat. + shipping inside India in April 2026)"
+        presented in a luxurious mat. "
     },
     {
         name: "The Bull stamp sheet",
