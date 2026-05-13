@@ -1081,7 +1081,7 @@ const stamps = [
         imageCount: 6,
         //images: ["https://picsum.photos/400/300?random=3"],
         desc: "RN4066: On January 15, 2026, PostNL will issue the The Bull stamp sheet featuring \
-        the eponymous painting by Paulus Potter. + shipping inside India in April 2026)"
+        the eponymous painting by Paulus Potter. "
     },
     {
         name: "Experience nature - birds Saba",
@@ -1095,7 +1095,7 @@ const stamps = [
         imageCount: 1,
         //images: ["https://picsum.photos/400/300?random=3"],
         desc: "RN4067: On January 5, 2026, PostNL will release Experience Nature - Birds of Saba, \
-        a sheet of 10 stamps in 10 different designs + shipping inside India in April 2026)"
+        a sheet of 10 stamps in 10 different designs. "
     },
     {
         name: "New Dutch Design – Terugkerende Herinneringen (Returning Memories)",
@@ -1109,8 +1109,7 @@ const stamps = [
         imageCount: 3,
         //images: ["https://picsum.photos/400/300?random=3"],
         desc: "RN4068: On February 16, 2026, PostNL will issue the New Dutch Design – Terugkerende Herinneringen \
-        (Returning Memories) stamps, the first sheet of this year's New Dutch Design series.\
-        (+ shipping inside India in April 2026)"
+        (Returning Memories) stamps, the first sheet of this year's New Dutch Design series."
     },
     {
         name: "Bundle - Crypto Stamp Heroes of Mythology",
@@ -1125,7 +1124,7 @@ const stamps = [
         blogUrl: "blog/crypto.html", // Adding this triggers the icon
         //images: ["https://picsum.photos/400/300?random=3"],
         desc: "RN4002: Bundle - Crypto Stamp Heroes of Mythology Portugal, Austria Post, Post Luxembourg, \
-        bpost (Belgium) and PostNL (Netherlands).(Free shipping inside India in April 2026)"
+        bpost (Belgium) and PostNL (Netherlands)"
     },
     {
         name: "World stamps",
@@ -1139,7 +1138,7 @@ const stamps = [
         imageCount: 31,
         //images: ["https://picsum.photos/400/300?random=1", "https://picsum.photos/400/300?random=2"],
         desc: "RN4057: Thick stockbook with stamp collection various.Check the photos. \
-        What you see is what you get.(+ shipping Inside India in April 2026).Thick album for free"
+        What you see is what you get. Thick album for free"
     },
     {
         name: "350 different Dutch Antilles and Suriname FDC's",
@@ -1180,7 +1179,7 @@ const stamps = [
         //images: ["https://picsum.photos/400/300?random=3"],
         freeTrackedShipping: false,
         freeLetterPostShipping: true,
-        desc: "RN4051: 60 different FDC from Switzerland. (+ shipping inside India in April 2026)"
+        desc: "RN4051: 60 different FDC from Switzerland."
     },
     {
         name: "Used stamps lot",
