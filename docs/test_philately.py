@@ -9,7 +9,7 @@ from webdriver_manager.chrome import ChromeDriverManager
 import time
 
 # Replace with your local dev URL or GitHub Pages URL
-URL = "http://localhost:5500/index.html"
+URL = "http://localhost:5500/docs/index.html"
 # URL = "http://127.0.0.1:8000/index.html"
 
 
