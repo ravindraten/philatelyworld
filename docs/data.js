@@ -88,7 +88,7 @@ const stamps = [
         country: "Czechoslovakia",
         year: "<b>Year</b>: 1948+",
         priceINR: 7250,
-        isSoldOut: false,
+        isSoldOut: true,
         folder: "D70",
         imageCount: 17,
         desc: "RN4141: Special issued Czechoslovakia album with collection about 180 mint hinged stamps.\
@@ -233,7 +233,7 @@ const stamps = [
         country: "Germany",
         year: "<b>Year</b>: 1955-1990",
         priceINR: 11500,
-        isSoldOut: false,
+        isSoldOut: true,
         folder: "D60",
         imageCount: 19,
         desc: "RN4129:Leuchtturm album Berlin 1955-1990 with from 1960 almost complete MNH stamp collection.\
@@ -333,7 +333,7 @@ const stamps = [
         country: "International",
         year: "<b>Year</b>:Various",
         priceINR: 30000,
-        isSoldOut: false,
+        isSoldOut: true,
         folder: "D52",
         imageCount: 11,
         desc: "RN4121: Check this lot estimated over 750 FDC's, \
@@ -375,7 +375,7 @@ const stamps = [
         country: "France",
         year: "<b>Year</b>: 1900+",
         priceINR: 60000,
-        isSoldOut: false,
+        isSoldOut: true,
         folder: "D49",
         imageCount: 40,
         desc: "RN4115: Binder with very nice collection about 300 mostly old postal items France, used and unused.\
@@ -825,7 +825,7 @@ const stamps = [
         country: "Germany Bayern",
         year: "<b>Year</b>: 1870-1900",
         priceINR: 9000,
-        isSoldOut: false,
+        isSoldOut: true,
         folder: "D12",
         imageCount: 10,
         desc: "RN4077: Collection about 90 postal items with many postcards Bayern.\
@@ -971,7 +971,7 @@ const stamps = [
         country: "Portugal, Austria, Luxembourg, Belgium, Netherlands",
         year: "<b>Year</b>: 2025",
         priceINR: 9999,
-        isSoldOut: false,
+        isSoldOut: true,
         folder: "crypto",
         imageCount: 1,
         blogUrl: "blog/crypto.html", // Adding this triggers the icon
@@ -1019,7 +1019,7 @@ const stamps = [
         country: "Switzerland",
         year: "<b>Year</b>: various",
         priceINR: 3000,
-        isSoldOut: false,
+        isSoldOut: true,
         folder: "RN4051",
         imageCount: 1,
         //images: ["https://picsum.photos/400/300?random=3"],
