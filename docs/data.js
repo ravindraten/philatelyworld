@@ -1152,7 +1152,7 @@ const stamps = [
         imageCount: 23,
         //images: ["https://picsum.photos/400/300?random=3"],
         desc: "RN4059:3 Luxureous Importa albums in excellent condition with collection about 350 FDC covers Dutch Antilles and Suriname. \
-        Check the photos to see a small part, but there is a lot more than you can see here.Three albums for FREE + shipping inside India in April 2026"
+        Check the photos to see a small part, but there is a lot more than you can see here.Three albums for FREE "
     },
     {
         name: "TinTin FDC and MS",
@@ -1166,7 +1166,7 @@ const stamps = [
         imageCount: 1,
         //images: ["https://picsum.photos/400/300?random=3"],
         freeLetterPostShipping: true,
-        desc: "RN4043: FDC and miniature sheet from Netherlands.(Free letter post shipping worldwide)"
+        desc: "RN4043: FDC and miniature sheet from Netherlands."
     },
     {
         name: "60 FDC's from Switzerland",
@@ -1205,7 +1205,7 @@ const stamps = [
         //images: ["https://picsum.photos/400/300?random=3"],
         freeTrackedShipping: false,
         freeLetterPostShipping: true,
-        desc: "RN4060: MNH MS from India( Free letter post shipping worldwide from Netherlands)"
+        desc: "RN4060: MNH MS from India"
     },
     {
         name: "UPU Centenary",
@@ -1218,7 +1218,7 @@ const stamps = [
         //images: ["https://picsum.photos/400/300?random=3"],
         freeTrackedShipping: false,
         freeLetterPostShipping: true,
-        desc: "RN4062: MNH MS from India( Free letter post shipping worldwide from Netherlands)"
+        desc: "RN4062: MNH MS from India"
     },
     {
         name: "India 89' world philatelic exhibition",
@@ -1231,7 +1231,7 @@ const stamps = [
         //images: ["https://picsum.photos/400/300?random=3"],
         freeTrackedShipping: false,
         freeLetterPostShipping: true,
-        desc: "RN4063: MNH MS from India( Free letter post shipping worldwide from Netherlands)"
+        desc: "RN4063: MNH MS from India"
     },
     {
         name: "India 89' world philatelic exhibition MS2",
@@ -1244,7 +1244,7 @@ const stamps = [
         //images: ["https://picsum.photos/400/300?random=3"],
         freeTrackedShipping: false,
         freeLetterPostShipping: true,
-        desc: "RN4064: MNH MS from India( Free letter post shipping worldwide from Netherlands)"
+        desc: "RN4064: MNH MS from India"
     },
     {
         name: "Mahatma Gandhi South Africa joint issue",
@@ -1257,6 +1257,6 @@ const stamps = [
         //images: ["https://picsum.photos/400/300?random=3"],
         freeTrackedShipping: false,
         freeLetterPostShipping: true,
-        desc: "RN4065: MNH MS from India( Free letter post shipping worldwide from Netherlands)"
+        desc: "RN4065: MNH MS from India"
     }
 ];
