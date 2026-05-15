@@ -92,11 +92,8 @@ def test_lightbox_open_close(driver):
     close_btn = driver.find_element(By.ID, "closeModal")
     close_btn.click()
 
-    # 4. FIX: Wait until the modal is actually hidden from the DOM/View
-    # This replaces time.sleep(0.5)
     wait.until(EC.invisibility_of_element_located((By.ID, "myModal")))
-
-    assert not modal.is_displayed()
+    assert not driver.find_element(By.ID, "myModal").is_displayed()
 
 
 def test_sold_out_logic(driver):
@@ -578,7 +575,12 @@ def test_sale_bell_presence(driver):
 
     tooltip = sale_bell.get_attribute("data-tooltip")
     assert "On Sale" in tooltip
-    assert "4" in tooltip
+    sale_count = int(tooltip.split("(")[-1].split(")")[0])
+    assert sale_count > 0
+
+    # Verify count matches actual on-sale badges on the page
+    badges = wait.until(EC.presence_of_all_elements_located((By.CLASS_NAME, "on-sale-badge")))
+    assert len(badges) == sale_count
 
 
 def test_on_sale_badge_on_cards(driver):
@@ -591,10 +593,16 @@ def test_on_sale_badge_on_cards(driver):
     )
     driver.execute_script("arguments[0].click();", all_tab)
 
-    wait.until(EC.presence_of_element_located((By.CLASS_NAME, "on-sale-badge")))
+    sale_bell = wait.until(EC.presence_of_element_located((By.ID, "saleBell")))
+    tooltip = sale_bell.get_attribute("data-tooltip")
+    sale_count = int(tooltip.split("(")[-1].split(")")[0])
 
-    badges = driver.find_elements(By.CLASS_NAME, "on-sale-badge")
-    assert len(badges) == 4
+    badges = wait.until(
+        lambda d: d.find_elements(By.CLASS_NAME, "on-sale-badge")
+        if len(d.find_elements(By.CLASS_NAME, "on-sale-badge")) == sale_count
+        else False
+    )
+    assert len(badges) == sale_count
     for badge in badges:
         assert badge.is_displayed()
         assert "ON SALE" in badge.text
@@ -632,16 +640,21 @@ def test_sale_filter_shows_only_sale_items(driver):
     wait.until(EC.presence_of_element_located((By.ID, "stampGrid")))
 
     sale_bell = wait.until(EC.element_to_be_clickable((By.ID, "saleBell")))
+    tooltip = sale_bell.get_attribute("data-tooltip")
+    sale_count = int(tooltip.split("(")[-1].split(")")[0])
+
     driver.execute_script("arguments[0].click();", sale_bell)
 
-    wait.until(EC.presence_of_element_located((By.CLASS_NAME, "on-sale-badge")))
+    wait.until(
+        lambda d: len(d.find_elements(By.CLASS_NAME, "on-sale-badge")) == sale_count
+    )
 
     cards = driver.find_elements(By.CSS_SELECTOR, "#stampGrid .stamp-card")
     badges = driver.find_elements(By.CLASS_NAME, "on-sale-badge")
 
     assert len(cards) > 0
     assert len(badges) == len(cards)
-    assert len(cards) == 4
+    assert len(cards) == sale_count
     assert "active" in sale_bell.get_attribute("class")
 
 
@@ -691,15 +704,20 @@ def test_sale_deep_link_via_tab_param(driver):
     driver.get(f"{URL}?tab=sale")
     wait = WebDriverWait(driver, 10)
 
-    wait.until(EC.presence_of_element_located((By.CLASS_NAME, "on-sale-badge")))
-
     sale_bell = wait.until(EC.presence_of_element_located((By.ID, "saleBell")))
+    tooltip = sale_bell.get_attribute("data-tooltip")
+    sale_count = int(tooltip.split("(")[-1].split(")")[0])
+
+    wait.until(
+        lambda d: len(d.find_elements(By.CLASS_NAME, "on-sale-badge")) == sale_count
+    )
+
     assert "active" in sale_bell.get_attribute("class")
 
     cards = driver.find_elements(By.CSS_SELECTOR, "#stampGrid .stamp-card")
     badges = driver.find_elements(By.CLASS_NAME, "on-sale-badge")
     assert len(badges) == len(cards)
-    assert len(cards) == 4
+    assert len(cards) == sale_count
 
 
 def test_sale_price_currency_eur(driver):
