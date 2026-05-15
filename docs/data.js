@@ -1,6 +1,17 @@
 // 1. STAMP DATABASE
 const stamps = [
     {
+        name: "Davo deluxe album Germany Reich 1872-1945",
+        country: "German Reich",
+        year: "<b>Year</b>: 1872-1945",
+        priceINR: 40000,
+        isSoldOut: false,
+        folder: "D78",
+        imageCount: 51,
+        desc: "RN4149: Davo deluxe album Germany (German Reich 1872-1945) in very good condition very well filled with cancelled stamp collection.\
+            Check the photos to see a small part, but there is a lot more than you can see here."
+    },
+    {
         name: "Collection of 360 Mint stamps from GB in Stockbook.",
         country: "GB",
         year: "<b>Year</b>: 1950-2000",
@@ -10,8 +21,7 @@ const stamps = [
         imageCount: 22,
         desc: "RN4148: Collection of 360 Mint stamps from GB.\
             <b>Rs.40 per stamp.</b>\
-            Stock Album for free and Miniature sheets for free\
-            + Shipping Inside India in April 2026."
+            Stock Album for free and Miniature sheets for free"
     }, {
         name: "Collection of 280 First Day Covers (FDC) from around Europe. GB, Finland, Norway, Portugal, Marshall Islands, etc",
         country: "World",
