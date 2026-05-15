@@ -7,6 +7,8 @@ const stamps = [
         priceINR: 40000,
         isSoldOut: false,
         folder: "D78",
+        freeTrackedShipping: true,
+        freeLetterPostShipping: false,
         imageCount: 51,
         desc: "RN4149: Davo deluxe album Germany (German Reich 1872-1945) in very good condition very well filled with cancelled stamp collection.\
             Check the photos to see a small part, but there is a lot more than you can see here."
@@ -77,8 +79,6 @@ const stamps = [
         year: "<b>Year</b>: 2026",
         priceINR: 900,
         isSoldOut: false,
-        onSale: true,
-        salePriceINR: 700,
         freeTrackedShipping: false,
         freeLetterPostShipping: true,
         folder: "D73",
@@ -341,8 +341,8 @@ const stamps = [
         year: "<b>Year</b>:1960+",
         priceINR: 3250,
         isSoldOut: false,
-        freeTrackedShipping: false,
-        freeLetterPostShipping: true,
+        freeTrackedShipping: true,
+        freeLetterPostShipping: false,
         folder: "D56",
         imageCount: 2,
         desc: "RN4125: Collection over 130 registered travelled covers from DDR Germany.\
