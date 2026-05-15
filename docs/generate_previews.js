@@ -47,7 +47,9 @@ stamps.forEach(stamp => {
 
     // Prepare metadata[cite: 2]
     const cleanYear = stamp.year ? stamp.year.replace(/<\/?b>/g, "") : '';
-    const descText = `${stamp.country} | ${cleanYear.replace('Year: ', '')} | Price: ₹${stamp.priceINR}`;
+    const descText = stamp.onSale
+        ? `${stamp.country} | ${cleanYear.replace('Year: ', '')} | ON SALE: ₹${stamp.salePriceINR} (was ₹${stamp.priceINR})`
+        : `${stamp.country} | ${cleanYear.replace('Year: ', '')} | Price: ₹${stamp.priceINR}`;
     const imgUrl = `${baseImgPath}/${stamp.folder}/1.${stamp.extension || 'jpg'}`;
 
     // The HTML acts as a static OG/preview page for crawlers and redirects human users.
