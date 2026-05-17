@@ -1,34 +1,59 @@
 import os
+import io
+from PIL import Image
+
+try:
+    import pillow_heif
+    pillow_heif.register_heif_opener()
+except ImportError:
+    pass
+
+
+def compress_to_target(image, target_bytes=500*1024):
+    img = image.convert("RGB")
+    lo, hi = 1, 95
+    best = None
+    for _ in range(8):
+        q = (lo + hi) // 2
+        buf = io.BytesIO()
+        img.save(buf, format="JPEG", quality=q)
+        size = buf.tell()
+        if size <= target_bytes:
+            best = buf.getvalue()
+            lo = q + 1
+        else:
+            hi = q - 1
+    if best is not None:
+        return best
+    buf = io.BytesIO()
+    img.save(buf, format="JPEG", quality=1)
+    return buf.getvalue()
+
 
 def rename_files(target_directory):
-    # Change the working directory to the target folder
     try:
         os.chdir(target_directory)
     except FileNotFoundError:
         print("Error: The directory was not found.")
         return
 
-    # List files and filter for images (optional: add more extensions if needed)
-    extensions = ('.jpg', '.jpeg', '.png', '.bmp')
+    extensions = ('.jpg', '.jpeg', '.png', '.bmp', '.heic')
     files = [f for f in os.listdir() if f.lower().endswith(extensions)]
-    
-    # Sort files to ensure they follow a logical order (e.g., by date or name)
     files.sort()
 
     for index, filename in enumerate(files, start=1):
-        # Create the new name
         new_name = f"{index}.jpg"
-        
-        # Perform the rename
         try:
-            os.rename(filename, new_name)
-            print(f"Renamed: {filename} -> {new_name}")
+            img = Image.open(filename)
+            data = compress_to_target(img)
+            with open(new_name, "wb") as f:
+                f.write(data)
+            if filename != new_name:
+                os.remove(filename)
+            size_kb = len(data) / 1024
+            print(f"{filename} -> {new_name} ({size_kb:.0f} KB)")
         except Exception as e:
-            print(f"Could not rename {filename}: {e}")
+            print(f"Could not process {filename}: {e}")
 
-# Usage: Replace the path below with your folder path
-# Example: "C:/Users/Name/Pictures" or "/Users/Name/Pictures"
-rename_files("/Users/ravindra/workspace/GitHub/images/D77")
 
-# Usage to download files from smitsfilatly
-# wget -nd -r -l 1 -A jpg,jpeg,png,gif https://www.filatelie.net/images/kavels/36200%20kavels/36202/
+rename_files("/Users/ravindra/workspace/GitHub/images/D81")

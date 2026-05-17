@@ -1,6 +1,19 @@
 // 1. STAMP DATABASE
 const stamps = [
     {
+        name: "Used stamps of Belgium",
+        country: "Belgium",
+        year: "<b>Year</b>: Various",
+        priceINR: 900,
+        onSale: true,
+        salePriceINR: 800,
+        isSoldOut: false,
+        folder: "D79",
+        freeTrackedShipping: false,
+        freeLetterPostShipping: true,
+        imageCount: 6,
+        desc: "RN4150: Used stamps of Belgium.\n\nCheck the photos, what you see is what you get."
+    }, {
         name: "Davo deluxe album Germany Reich 1872-1945",
         country: "German Reich",
         year: "<b>Year</b>: 1872-1945",

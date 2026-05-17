@@ -1,5 +1,16 @@
 const blogPosts = [
     {
+        name: "Bald Eagle Stamps Take Flight – USPS 2026",
+        year: "2026",
+        country: "United States",
+        desc: "The U.S. Postal Service released a set of Forever stamps honoring the bald eagle, featuring five realistic illustrations by renowned ornithologist David Allen Sibley.",
+        folder: "bald-eagle",
+        customImage: "https://about.usps.com/newsroom/global/images/releases/bald-eagle-stamps.jpg",
+        imageCount: 1,
+        url: "blog/bald-eagle-stamps.html",
+        isBlog: true
+    },
+    {
         name: "Garfield Stamp Sheet – Netherlands 2026 (Kaderpostzegels)",
         year: "2026",
         country: "Netherlands",

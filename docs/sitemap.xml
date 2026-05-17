@@ -461,12 +461,22 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://philatelyworld.in/item/RN4150/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://philatelyworld.in/blog/Isro.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://philatelyworld.in/blog/apollo.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://philatelyworld.in/blog/bald-eagle-stamps.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
