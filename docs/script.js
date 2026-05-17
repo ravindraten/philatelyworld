@@ -37,9 +37,9 @@ document.addEventListener('DOMContentLoaded', () => {
     // Check for localStorage navigation flag first, then URL param, else default to 'available'
     const navTab = localStorage.getItem('navigateToTab');
     localStorage.removeItem('navigateToTab');
-    
+
     const effectiveTab = navTab || tabParam;
-    
+
     if (effectiveTab === 'sale') {
         state.statusFilter = 'all';
         state.saleActive = true;
@@ -70,7 +70,7 @@ document.addEventListener('DOMContentLoaded', () => {
             tab.classList.remove('active');
         }
     });
-    
+
     // Activate sale icon UI if navigating via sale flag
     if (state.saleActive) {
         const saleBell = document.getElementById('saleBell');
@@ -88,7 +88,7 @@ document.addEventListener('DOMContentLoaded', () => {
         filterStamps(searchVal);
         return;
     }
-    
+
     // 2. Handle Routing (Deep Links vs Default Load)
     if (itemID === 'promo') {
         updateMetaTags(null, 'promo');
@@ -643,7 +643,7 @@ function renderGallery(data) {
                     // 1. Extract the Item ID (e.g., RN4112) from the description
                     const itemID = stamp.desc.split(':')[0];
                     // 2. Construct the direct link to this listing
-                    const listingUrl = `https://philatelyworld.in/index.html?item=${itemID}`;
+                    const listingUrl = `https://philatelyworld.in/index.html/item/${itemID}`;
                     // 3. Create the encoded WhatsApp message
                     const message = encodeURIComponent(
                         `Hi, I am interested in buying :\n${stamp.name}\nLink: ${listingUrl}`
@@ -1088,9 +1088,9 @@ function initAnnouncementNotification() {
 
     const lastSeenAnnouncement = localStorage.getItem('lastSeenAnnouncement');
     const lastSeenBlog = localStorage.getItem('lastSeenBlog');
-    
-    const latestAnnouncement = CONFIG.announcementFiles && CONFIG.announcementFiles.length > 0 
-        ? CONFIG.announcementFiles[0] 
+
+    const latestAnnouncement = CONFIG.announcementFiles && CONFIG.announcementFiles.length > 0
+        ? CONFIG.announcementFiles[0]
         : null;
 
     const latestBlog = typeof blogPosts !== 'undefined' && blogPosts.length > 0
@@ -1123,7 +1123,7 @@ function initAnnouncementNotification() {
     if (blogBell && blogBadge) {
         const seenBlogs = lastSeenBlog ? lastSeenBlog.split(',') : [];
         const allSeen = blogPosts.every(post => seenBlogs.includes(post.url));
-        
+
         if (latestBlog && !allSeen) {
             blogBadge.style.display = 'flex';
             blogBadge.textContent = newBlogCount || '1';
