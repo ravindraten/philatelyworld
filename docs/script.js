@@ -643,7 +643,7 @@ function renderGallery(data) {
                     // 1. Extract the Item ID (e.g., RN4112) from the description
                     const itemID = stamp.desc.split(':')[0];
                     // 2. Construct the direct link to this listing
-                    const listingUrl = `https://philatelyworld.in/index.html/item/${itemID}`;
+                    const listingUrl = `https://philatelyworld.in/item/${itemID}`;
                     // 3. Create the encoded WhatsApp message
                     const message = encodeURIComponent(
                         `Hi, I am interested in buying :\n${stamp.name}\nLink: ${listingUrl}`
