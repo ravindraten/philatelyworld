@@ -7,7 +7,7 @@ const stamps = [
         priceINR: 900,
         onSale: true,
         salePriceINR: 800,
-        isSoldOut: false,
+        isSoldOut: true,
         folder: "D79",
         freeTrackedShipping: false,
         freeLetterPostShipping: true,
