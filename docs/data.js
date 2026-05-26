@@ -921,7 +921,7 @@ const stamps = [
         country: "German Reich",
         year: "<b>Year</b>:1942-1944",
         priceINR: 1199,
-        isSoldOut: false,
+        isSoldOut: true,
         freeTrackedShipping: false,
         freeLetterPostShipping: true,
         folder: "D15",
