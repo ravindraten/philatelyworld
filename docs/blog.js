@@ -272,5 +272,16 @@ const blogPosts = [
         imageCount: 3,
         url: "blog/lao-india-joint-issue-2026.html",
         isBlog: true
+    },
+    {
+        name: "How Belgium's Chocolate Postage Stamps Were Made",
+        year: "2013",
+        country: "Belgium",
+        desc: "Discover how bpost created the world's first stamps that both smell and taste of chocolate. A deep look into the 2013 Belgian chocolate stamp issue.",
+        folder: "belgian-chocolate",
+        imageCount: 1,
+        customImage: "https://www.postbeeld.com/media/catalog/product/b/e/bep31307.jpg",
+        url: "blog/belgian-chocolate-stamps.html",
+        isBlog: true
     }
 ];
