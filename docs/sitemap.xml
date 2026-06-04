@@ -531,6 +531,11 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://philatelyworld.in/blog/hackatao-freud-psyche.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://philatelyworld.in/blog/identify_watermark.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>

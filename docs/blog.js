@@ -1,5 +1,16 @@
 const blogPosts = [
     {
+        name: "Hackatao x Crypto Stamp Art – Psyche: Freud Collection 2026",
+        year: "2026",
+        country: "Austria",
+        desc: "Austrian Post and the artist duo Hackatao present the Psyche collection — four Crypto Stamp Art stamps dedicated to Sigmund Freud and the forces of the human psyche: Analytiker, Träumer, Eros, and Thanatos.",
+        folder: "hackatao",
+        customImage: "https://images.intellishop.cloud/fbab1092640cf1c0/J6q6KE-MENvlBnCPH6PVauonYf8JXWLCGmFKcz7TXRE/rs:fit:1000:1000:true/ex:true:ce/czM6Ly9pbnRlbGxpc2hvcC1wb3N0YXQtbGl2ZS1wdWJsaWMvYXBwL21lZGlhLWxpYnJhcnkvZTkvNjIvZTk2MmM2NWJkYjRhMGExM2FkOTc5Mzg2YWE4NTA3ZTMwZjc0YTVkZC5qcGc.webp?v=1779962181",
+        imageCount: 1,
+        url: "blog/hackatao-freud-psyche.html",
+        isBlog: true
+    },
+    {
         name: "Bald Eagle Stamps Take Flight – USPS 2026",
         year: "2026",
         country: "United States",
