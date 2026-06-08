@@ -1,5 +1,27 @@
 const blogPosts = [
     {
+        name: "Schrijf eens een taartje – PostNL Cake Stamps 2026",
+        year: "2026",
+        country: "Netherlands",
+        desc: "PostNL releases Schrijf eens een taartje on 8 June 2026 — a scented sheet of 6 fun, free-form cake stamps illustrated by Jose Luis Garcia Lechner.",
+        folder: "schrijf-eens-een-taartje",
+        customImage: "https://shop.postnl.nl/_next/image?url=https%3A%2F%2Fshop.postnl.nl%2Fmedia%2Fcatalog%2Fproduct%2Fcache%2Ffd7cdee4e454e4af1aac7f0add99035f%2F1%2F7%2F1780474040_schrijf-eens-een-taartje-pzv.jpg&w=1080&q=75",
+        imageCount: 1,
+        url: "blog/schrijf-eens-een-taartje.html",
+        isBlog: true
+    },
+    {
+        name: "Beleef de natuur – Onderwaterleven Saba (Postzegelvel) 2026",
+        year: "2026",
+        country: "Netherlands",
+        desc: "PostNL releases Beleef de natuur – onderwaterleven Saba on 8 June 2026, a sheet of 10 stamps showcasing the rich marine biodiversity of Saba in the Caribbean Netherlands.",
+        folder: "saba-underwater",
+        customImage: "https://shop.postnl.nl/_next/image?url=https%3A%2F%2Fshop.postnl.nl%2Fmedia%2Fcatalog%2Fproduct%2Fcache%2Ffd7cdee4e454e4af1aac7f0add99035f%2F1%2F7%2F1780491978_saba-onderwereld-pzv.jpg&w=1080&q=75",
+        imageCount: 1,
+        url: "blog/beleef-de-natuur-onderwaterleven-saba.html",
+        isBlog: true
+    },
+    {
         name: "Hackatao x Crypto Stamp Art – Psyche: Freud Collection 2026",
         year: "2026",
         country: "Austria",
