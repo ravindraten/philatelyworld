@@ -752,7 +752,7 @@ function updateFilterCounts() {
     const totalCount = stamps.length;
     const soldCount = stamps.filter(s => s.isSoldOut).length;
     const availableCount = totalCount - soldCount;
-    const saleCount = stamps.filter(s => s.onSale === true && !s.isSoldOut).length;
+    const saleCount = stamps.filter(s => s.onSale === true).length;
     const blogTotal = blogPosts.length;
 
     const tabs = document.querySelectorAll('.filter-tab[data-status]');

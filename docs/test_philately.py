@@ -578,6 +578,12 @@ def test_sale_bell_presence(driver):
     sale_count = int(tooltip.split("(")[-1].split(")")[0])
     assert sale_count > 0
 
+    # Switch to "All Items" to see all on-sale badges (default is "Available")
+    all_tab = wait.until(
+        EC.element_to_be_clickable((By.CSS_SELECTOR, ".filter-tab[data-status='all']"))
+    )
+    driver.execute_script("arguments[0].click();", all_tab)
+
     # Verify count matches actual on-sale badges on the page
     badges = wait.until(EC.presence_of_all_elements_located((By.CLASS_NAME, "on-sale-badge")))
     assert len(badges) == sale_count
