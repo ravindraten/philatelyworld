@@ -1,6 +1,17 @@
 // 1. STAMP DATABASE
 const stamps = [
     {
+        name: "France MNH stamp collection in stockbook",
+        country: "France",
+        year: "<b>Year</b>: Various",
+        priceINR: 8800,
+        isSoldOut: false,
+        folder: "D80",
+        freeTrackedShipping: false,
+        freeLetterPostShipping: true,
+        imageCount: 14,
+        desc: "RN4151: Stockbook with MNH stamp collection France. Check the photos. What you see is what you get."
+    },{
         name: "Used stamps of Belgium",
         country: "Belgium",
         year: "<b>Year</b>: Various",
