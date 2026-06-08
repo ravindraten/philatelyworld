@@ -1,5 +1,20 @@
 // 1. STAMP DATABASE
 const stamps = [
+   {
+        name: "German Reich set of 28 stamps",
+        country: "German Reich",
+        year: "<b>Year</b>:1941-1944",
+        priceINR: 3080,
+        onSale: true,
+        salePriceINR: 2080,
+        isSoldOut: false,
+        freeTrackedShipping: false,
+        freeLetterPostShipping: true,
+        folder: "D81",
+        imageCount: 1,
+        desc: "RN4152: German Reich set of 28 stamps\
+                Check the photo. What you see is what you get.. "
+    },
     {
         name: "France MNH stamp collection in stockbook",
         country: "France",
