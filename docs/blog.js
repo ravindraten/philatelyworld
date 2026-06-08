@@ -1,5 +1,16 @@
 const blogPosts = [
     {
+        name: "Postset Vlinders Saba – PostNL Butterfly Postset 2026",
+        year: "2026",
+        country: "Netherlands",
+        desc: "PostNL releases the Postset Vlinders Saba on 9 June 2026 — a postset featuring 3 frame stamps and 3 postcards illustrating the stunning butterflies of Saba, designed by Medy Oberendorff.",
+        folder: "postset-vlinders-saba",
+        customImage: "https://shop.postnl.nl/_next/image?url=https%3A%2F%2Fshop.postnl.nl%2Fmedia%2Fcatalog%2Fproduct%2Fcache%2Ffd7cdee4e454e4af1aac7f0add99035f%2F1%2F7%2F1780493848_postset-vlinders-saba.jpg&w=1080&q=75",
+        imageCount: 1,
+        url: "blog/postset-vlinders-saba.html",
+        isBlog: true
+    },
+    {
         name: "Schrijf eens een taartje – PostNL Cake Stamps 2026",
         year: "2026",
         country: "Netherlands",
