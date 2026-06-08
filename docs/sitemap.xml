@@ -470,7 +470,7 @@
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
-    <url>
+  <url>
     <loc>https://philatelyworld.in/item/RN4152/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
@@ -487,6 +487,11 @@
   </url>
   <url>
     <loc>https://philatelyworld.in/blog/bald-eagle-stamps.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://philatelyworld.in/blog/beleef-de-natuur-onderwaterleven-saba.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
