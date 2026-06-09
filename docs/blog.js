@@ -1,5 +1,16 @@
 const blogPosts = [
     {
+        name: "'t Oude Ambaght – PostNL Old Crafts Frame Stamps 2026",
+        year: "2026",
+        country: "Netherlands",
+        desc: "PostNL releases 't Oude Ambaght on 8 June 2026 — a frame stamp sheet of 10 designs featuring 17th-century etchings by Jan Luyken from the Rijksmuseum, designed by Studio026.",
+        folder: "t-oude-ambaght",
+        customImage: "https://shop.postnl.nl/_next/image?url=https%3A%2F%2Fshop.postnl.nl%2Fmedia%2Fcatalog%2Fproduct%2Fcache%2Ffd7cdee4e454e4af1aac7f0add99035f%2F1%2F7%2F1780328483_t-oude-ambaght-pzv.jpg&w=1080&q=75",
+        imageCount: 1,
+        url: "blog/t-oude-ambaght.html",
+        isBlog: true
+    },
+    {
         name: "Postset Vlinders Saba – PostNL Butterfly Postset 2026",
         year: "2026",
         country: "Netherlands",

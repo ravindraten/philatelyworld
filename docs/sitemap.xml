@@ -621,6 +621,11 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://philatelyworld.in/blog/t-oude-ambaght.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://philatelyworld.in/blog/valuableIndianStamps.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
