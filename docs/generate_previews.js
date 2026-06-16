@@ -82,19 +82,15 @@ stamps.forEach(stamp => {
     <meta name="twitter:description" content="${descText}">
     <meta name="twitter:image" content="${imgUrl}">
 
-    <!-- Redirect human users only — NOT inline JS (breaks WhatsApp crawler OG parsing) -->
-    <meta http-equiv="refresh" content="0; url=https://philatelyworld.in/?item=${rnCode}">
-
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-0K58TP8LVP"></script>
+    <!-- Deferred JS redirect: crawlers (WhatsApp, Facebook) don't execute JS and stay on this page with correct OG tags. Human users get redirected to the SPA after a short delay. -->
     <script>
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
         gtag('config', 'G-0K58TP8LVP');
-        // Deferred redirect: gives crawlers time to read OG tags before navigating away
         setTimeout(function(){ window.location.replace("https://philatelyworld.in/?item=${rnCode}"); }, 100);
     </script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-0K58TP8LVP"></script>
     <script data-goatcounter="https://ravindraten.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </head>
 <body>
