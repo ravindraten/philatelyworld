@@ -1,5 +1,16 @@
 const blogPosts = [
     {
+        name: "India Commemorative Stamps: Complete Visual Catalog (1947-2026)",
+        year: "1947-2026",
+        country: "India",
+        desc: "Complete visual catalog of every commemorative stamp issued by India Post from independence through 2026 — 3,863 stamps across 80 years.",
+        folder: "india-commemoratives",
+        customImage: "https://upload.wikimedia.org/wikipedia/en/3/32/India_Post.svg",
+        imageCount: 1,
+        url: "blog/india-commemoratives.html",
+        isBlog: true
+    },
+    {
         name: "'t Oude Ambaght – PostNL Old Crafts Frame Stamps 2026",
         year: "2026",
         country: "Netherlands",
@@ -166,6 +177,7 @@ const blogPosts = [
         url: "blog/miniature-sheets-India.html",
         isBlog: true
     },
+
     {
         name: "Compilation Innovation Exhibition Philately - Philately World",
         year: "2025",
