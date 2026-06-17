@@ -44,8 +44,12 @@
     }
     </script>
 
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
-        rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"></noscript>
+    <link rel="preconnect" href="https://filedn.eu" crossorigin>
+    <link rel="preload" as="image" href="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/1947-56/0001.jpg" fetchpriority="high">
 
     <style>
         * {
@@ -246,6 +250,8 @@
 
         .year-section {
             margin-bottom: 40px;
+            content-visibility: auto;
+            contain-intrinsic-size: auto 600px;
         }
 
         .year-heading {
@@ -590,7 +596,7 @@
                     <div class="ms-number">0001</div>
                     <div class="ms-image-placeholder">
                         <img src="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/1947-56/0001.jpg"
-                            alt="Independence 3½ Annas" loading="lazy">
+                            alt="Independence 3½ Annas" loading="eager" fetchpriority="high" decoding="sync">
                     </div>
                     <div class="ms-info">
                         <div class="ms-title">Independence — 3½ Annas</div>
@@ -601,7 +607,7 @@
                     <div class="ms-number">0002</div>
                     <div class="ms-image-placeholder">
                         <img src="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/1947-56/0002.jpg"
-                            alt="Independence 1½ Annas" loading="lazy">
+                            alt="Independence 1½ Annas" loading="eager" decoding="async">
                     </div>
                     <div class="ms-info">
                         <div class="ms-title">Independence — 1½ Annas</div>
@@ -46042,6 +46048,9 @@
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') lightbox.classList.remove('open');
         });
+
+        // === ASYNC IMAGE DECODING ===
+        document.querySelectorAll('img[loading="lazy"]').forEach(img => { img.decoding = 'async'; });
 
         // === BACK TO TOP ===
         const backToTop = document.getElementById('backToTop');
