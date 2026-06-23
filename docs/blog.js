@@ -361,5 +361,16 @@ const blogPosts = [
         customImage: "https://www.postbeeld.com/media/catalog/product/b/e/bep31307.jpg",
         url: "blog/belgian-chocolate-stamps.html",
         isBlog: true
+    },
+    {
+        name: "What is Postcrossing? A Beginner's Guide to Sending & Receiving Postcards Worldwide",
+        year: "-",
+        country: "Global",
+        desc: "Discover Postcrossing — the free global postcard exchange with 800,000+ members in 211 countries. Learn how it works, fun facts, and how to get started.",
+        folder: "postcrossing",
+        customImage: "https://www.postnl.nl/api/assets/blt43aa441bfc1e29f2/blt7feb2a1a4cd9ab77/63ce7523b89ee52d59e8f8e4/postcrossing-banner_tcm10-235060.jpg?width=1080&format=webp",
+        imageCount: 1,
+        url: "blog/postcrossing.html",
+        isBlog: true
     }
 ];
