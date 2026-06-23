@@ -55,6 +55,17 @@ const blogPosts = [
         isBlog: true
     },
     {
+        name: "Janneke Brinkman – Zomerpalet (Postzegelvel) 2026",
+        year: "2026",
+        country: "Netherlands",
+        desc: "PostNL releases Janneke Brinkman – Zomerpalet on 22 June 2026 — a frame stamp sheet of 5 botanical illustrations by Janneke Brinkman-Salentijn, designed by Yvonne Warmerdam.",
+        folder: "janneke-brinkman-zomerpalet",
+        customImage: "https://shop.postnl.nl/_next/image?url=https%3A%2F%2Fshop.postnl.nl%2Fmedia%2Fcatalog%2Fproduct%2Fcache%2Ffd7cdee4e454e4af1aac7f0add99035f%2F1%2F7%2F1781188069_janneke-brinkman-zomerpalet-pzv.jpg&w=1080&q=75",
+        imageCount: 1,
+        url: "blog/janneke-brinkman-zomerpalet.html",
+        isBlog: true
+    },
+    {
         name: "Hackatao x Crypto Stamp Art – Psyche: Freud Collection 2026",
         year: "2026",
         country: "Austria",
