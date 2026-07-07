@@ -11,7 +11,7 @@ const CONFIG = {
     showAnnouncement: true,
     showPromo: false,
     showSoldOut: false, // Set to true to show the Sold Out filter tab
-    announcementFiles: ['6.html', '5.html', '4.html', '3.html', '2.html', '1.html'], // Place your HTML files in the 'announcement' folder
+    announcementFiles: ['7.html', '6.html', '5.html', '4.html', '3.html', '2.html', '1.html'], // Place your HTML files in the 'announcement' folder
 
     // 2. CURRENCY CONFIGURATION
     eurRate: 0.011, // Fallback rate
