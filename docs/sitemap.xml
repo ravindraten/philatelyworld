@@ -651,32 +651,37 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://philatelyworld.in/announcement/1.html</loc>
+    <loc>https://philatelyworld.in/announcement/1</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://philatelyworld.in/announcement/2.html</loc>
+    <loc>https://philatelyworld.in/announcement/2</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://philatelyworld.in/announcement/3.html</loc>
+    <loc>https://philatelyworld.in/announcement/3</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://philatelyworld.in/announcement/4.html</loc>
+    <loc>https://philatelyworld.in/announcement/4</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://philatelyworld.in/announcement/5.html</loc>
+    <loc>https://philatelyworld.in/announcement/5</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://philatelyworld.in/announcement/6.html</loc>
+    <loc>https://philatelyworld.in/announcement/6</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://philatelyworld.in/announcement/7</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
