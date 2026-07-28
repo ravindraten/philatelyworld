@@ -1,6 +1,102 @@
 // 1. STAMP DATABASE
 const stamps = [
     {
+        name: "German Empire postcards collection - D89",
+        country: "German Empire",
+        year: "<b>Year</b>: 1900+",
+        priceINR: 500,
+        isSoldOut: false,
+        freeTrackedShipping: false,
+        freeLetterPostShipping: true,
+        folder: "D89",
+        imageCount: 2,
+        desc: "RN4159: German Empire time period postcards. Check the photo. What you see is what you get."
+    },
+    {
+        name: "German Empire postcards collection - D88",
+        country: "German Empire",
+        year: "<b>Year</b>: 1900+",
+        priceINR: 500,
+        isSoldOut: false,
+        freeTrackedShipping: false,
+        freeLetterPostShipping: true,
+        folder: "D88",
+        imageCount: 2,
+        desc: "RN4158: German Empire time period postcards. Check the photo. What you see is what you get."
+    },
+    {
+        name: "German Empire postcards collection - D87",
+        country: "German Empire",
+        year: "<b>Year</b>: 1900+",
+        priceINR: 500,
+        isSoldOut: false,
+        freeTrackedShipping: false,
+        freeLetterPostShipping: true,
+        folder: "D87",
+        imageCount: 2,
+        desc: "RN4157: German Empire time period postcards. Check the photo. What you see is what you get."
+    },
+    {
+        name: "German Empire postcards collection - D86",
+        country: "German Empire",
+        year: "<b>Year</b>: 1900+",
+        priceINR: 500,
+        isSoldOut: false,
+        freeTrackedShipping: false,
+        freeLetterPostShipping: true,
+        folder: "D86",
+        imageCount: 2,
+        desc: "RN4156: German Empire time period postcards. Check the photo. What you see is what you get."
+    },
+    {
+        name: "German Empire postcards collection - D85",
+        country: "German Empire",
+        year: "<b>Year</b>: 1900+",
+        priceINR: 500,
+        isSoldOut: false,
+        freeTrackedShipping: false,
+        freeLetterPostShipping: true,
+        folder: "D85",
+        imageCount: 2,
+        desc: "RN4155: German Empire time period postcards. Check the photo. What you see is what you get."
+    },
+    {
+        name: "German Empire postcards collection - D84",
+        country: "German Empire",
+        year: "<b>Year</b>: 1900+",
+        priceINR: 500,
+        isSoldOut: false,
+        freeTrackedShipping: false,
+        freeLetterPostShipping: true,
+        folder: "D84",
+        imageCount: 2,
+        desc: "RN4154: German Empire time period postcards. Check the photo. What you see is what you get."
+    },
+    {
+        name: "German Empire postcards collection - D83",
+        country: "German Empire",
+        year: "<b>Year</b>: 1900+",
+        priceINR: 500,
+        isSoldOut: false,
+        freeTrackedShipping: false,
+        freeLetterPostShipping: true,
+        folder: "D83",
+        imageCount: 2,
+        desc: "RN4153: German Empire time period postcards. Check the photo. What you see is what you get."
+    },
+    {
+        name: "German Empire postcards collection - D82",
+        country: "German Empire",
+        year: "<b>Year</b>: 1900+",
+        priceINR: 500,
+        isSoldOut: false,
+        freeTrackedShipping: false,
+        freeLetterPostShipping: true,
+        folder: "D82",
+        imageCount: 2,
+        desc: "RN4160: German Empire time period postcards. Check the photo. What you see is what you get."
+    },
+    {
         name: "German Reich set of 28 stamps",
         country: "German Reich",
         year: "<b>Year</b>:1941-1944",
