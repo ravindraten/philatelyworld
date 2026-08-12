@@ -340,6 +340,59 @@ header {
     transition: color 0.3s ease, transform 0.2s ease;
 }
 
+.giveaway-icon {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--gold, #fbbf24);
+    animation: giveaway-glow 1.6s ease-in-out infinite;
+}
+
+.giveaway-icon:hover {
+    transform: translateY(-2px) scale(1.1);
+    color: #fde68a;
+}
+
+.giveaway-icon svg {
+    width: 24px;
+    height: 24px;
+}
+
+.giveaway-ping {
+    position: absolute;
+    top: -2px;
+    right: -2px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #ef4444;
+    border: 2px solid white;
+    animation: giveaway-ping 1.6s ease-in-out infinite;
+}
+
+@keyframes giveaway-glow {
+    0%, 100% {
+        color: var(--gold, #fbbf24);
+        text-shadow: 0 0 4px rgba(251, 191, 36, 0.6);
+    }
+    50% {
+        color: #fde68a;
+        text-shadow: 0 0 14px rgba(251, 191, 36, 0.95);
+    }
+}
+
+@keyframes giveaway-ping {
+    0%, 100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(1.5);
+        opacity: 0.55;
+    }
+}
+
 .announcement-bell:hover,
 .blog-bell:hover {
     transform: translateY(-2px);
