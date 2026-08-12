@@ -561,6 +561,11 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://philatelyworld.in/blog/crypto-stamp-international-dragon.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://philatelyworld.in/blog/crypto.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
