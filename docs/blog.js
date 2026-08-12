@@ -11,6 +11,17 @@ const blogPosts = [
         isBlog: true
     },
     {
+        name: "The World's First Multilateral Crypto Stamp: The Dragon",
+        year: "2026",
+        country: "Austria, Netherlands, Luxembourg, Belgium",
+        desc: "Austrian Post, PostNL, POST Luxembourg and bpost join forces for the world's first multilateral Crypto stamp — four Dragons that fit together to form a single shared motif, with 20 digital twins on the blockchain.",
+        folder: "crypto-dragon",
+        customImage: "https://cryptostamp.com/static/CS_Drache_AT-DJHEwinf.jpg",
+        imageCount: 1,
+        url: "blog/crypto-stamp-international-dragon.html",
+        isBlog: true
+    },
+    {
         name: "'t Oude Ambaght – PostNL Old Crafts Frame Stamps 2026",
         year: "2026",
         country: "Netherlands",
