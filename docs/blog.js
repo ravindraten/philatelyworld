@@ -1,5 +1,16 @@
 const blogPosts = [
     {
+        name: "Crypto stamp Island – The Official Crypto stamp Comic Series",
+        year: "2026",
+        country: "Austria",
+        desc: "Crypto stamp Island is the official comic for the Crypto stamp. Discover the story, the collectible comic issues 'Return from the Darkness' and 'Battle of the Mirrors', the NFT surprises, and the Crypto stamp comic characters.",
+        folder: "crypto-stamp-island",
+        customImage: "https://cryptostamp.com/static/2401008_Cover_U1_Small-Df9AMxKC.png",
+        imageCount: 1,
+        url: "blog/crypto-stamp-island-comic.html",
+        isBlog: true
+    },
+    {
         name: "India Commemorative Stamps: Complete Visual Catalog (1947-2026)",
         year: "1947-2026",
         country: "India",
