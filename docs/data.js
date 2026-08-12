@@ -674,7 +674,7 @@ const stamps = [
         country: "Suriname",
         year: "<b>Year</b>: 1980",
         priceINR: 360,
-        isSoldOut: false,
+        isSoldOut: true,
         freeTrackedShipping: false,
         freeLetterPostShipping: true,
         folder: "D42",
