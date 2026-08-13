@@ -28,7 +28,7 @@ const stamps = [
         country: "Italy",
         year: "<b>Year</b>: 1960+",
         priceINR: 799,
-        isSoldOut: false,
+        isSoldOut: true,
         freeTrackedShipping: false,
         freeLetterPostShipping: true,
         folder: "D93",
