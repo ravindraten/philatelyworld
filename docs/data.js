@@ -17,7 +17,7 @@ const stamps = [
         country: "Great Britian",
         year: "<b>Year</b>: 1900+",
         priceINR: 999,
-        isSoldOut: false,
+        isSoldOut: true,
         freeTrackedShipping: false,
         freeLetterPostShipping: true,
         folder: "D94",
