@@ -1,6 +1,17 @@
 // 1. STAMP DATABASE
 const stamps = [
     {
+        name: "Birds/Animals stamps of various countries",
+        country: "Various Countries",
+        year: "<b>Year</b>: 1970+",
+        priceINR: 599,
+        isSoldOut: false,
+        freeTrackedShipping: false,
+        freeLetterPostShipping: true,
+        folder: "D92",
+        imageCount: 4,
+        desc: "RN4162: Stamps of various countries - Birds/Animals. Check the photo. What you see is what you get."
+    }, {
         name: "Birds stamps of various countries",
         country: "Various Countries",
         year: "<b>Year</b>: 1970+",
