@@ -1,6 +1,17 @@
 // 1. STAMP DATABASE
 const stamps = [
     {
+        name: "Stamps of Great Britian(used and MNH mix)",
+        country: "Great Britian",
+        year: "<b>Year</b>: 1900+",
+        priceINR: 899,
+        isSoldOut: false,
+        freeTrackedShipping: false,
+        freeLetterPostShipping: true,
+        folder: "D94",
+        imageCount: 9,
+        desc: "RN4164: Stamps from Great Britian(used and MNH mix). Check the photos. What you see is what you get."
+    }, {
         name: "Stamps of Italy",
         country: "Italy",
         year: "<b>Year</b>: 1960+",
