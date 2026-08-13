@@ -4,7 +4,7 @@ const stamps = [
         name: "Stamps of Great Britian(used and MNH mix)",
         country: "Great Britian",
         year: "<b>Year</b>: 1900+",
-        priceINR: 899,
+        priceINR: 999,
         isSoldOut: false,
         freeTrackedShipping: false,
         freeLetterPostShipping: true,
