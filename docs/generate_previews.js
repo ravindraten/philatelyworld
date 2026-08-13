@@ -46,10 +46,13 @@ stamps.forEach(stamp => {
     }
 
     // Prepare metadata[cite: 2]
+    const EUR_RATE = 0.011; // matches CONFIG.eurRate fallback in script.js
     const cleanYear = stamp.year ? stamp.year.replace(/<\/?b>/g, "") : '';
+    const priceEUR = (stamp.priceINR || 0) * EUR_RATE;
+    const saleEUR = (stamp.salePriceINR || 0) * EUR_RATE;
     const descText = stamp.onSale
-        ? `${stamp.country} | ${cleanYear.replace('Year: ', '')} | ON SALE: ₹${stamp.salePriceINR} (was ₹${stamp.priceINR})`
-        : `${stamp.country} | ${cleanYear.replace('Year: ', '')} | Price: ₹${stamp.priceINR}`;
+        ? `${stamp.country} | ${cleanYear.replace('Year: ', '')} | ON SALE: ₹${stamp.salePriceINR} / €${saleEUR.toFixed(2)} (was ₹${stamp.priceINR} / €${priceEUR.toFixed(2)})`
+        : `${stamp.country} | ${cleanYear.replace('Year: ', '')} | Price: ₹${stamp.priceINR} / €${priceEUR.toFixed(2)}`;
     const imgUrl = `${baseImgPath}/${stamp.folder}/1.${stamp.extension || 'jpg'}`;
 
     // The HTML acts as a static OG/preview page for crawlers and redirects human users.
