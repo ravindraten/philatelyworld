@@ -1,6 +1,18 @@
 // 1. STAMP DATABASE
 const stamps = [
     {
+        name: "Stamps of Italy",
+        country: "Italy",
+        year: "<b>Year</b>: 1960+",
+        priceINR: 799,
+        isSoldOut: false,
+        freeTrackedShipping: false,
+        freeLetterPostShipping: true,
+        folder: "D93",
+        imageCount: 5,
+        desc: "RN4163: Stamps from Italy. Check the photos. What you see is what you get."
+    },
+    {
         name: "Birds/Animals stamps of various countries",
         country: "Various Countries",
         year: "<b>Year</b>: 1970+",
