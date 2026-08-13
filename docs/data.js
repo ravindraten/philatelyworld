@@ -1,6 +1,18 @@
 // 1. STAMP DATABASE
 const stamps = [
     {
+        name: "Stamps on theme : Satellite and communication",
+        country: "Various Countries",
+        year: "<b>Year</b>: 1960+",
+        priceINR: 399,
+        isSoldOut: false,
+        freeTrackedShipping: false,
+        freeLetterPostShipping: true,
+        folder: "D95",
+        imageCount: 2,
+        desc: "RN4165: Stamps on theme - Satellite and communication. Check the photos. What you see is what you get."
+    },
+    {
         name: "Stamps of Great Britian(used and MNH mix)",
         country: "Great Britian",
         year: "<b>Year</b>: 1900+",
