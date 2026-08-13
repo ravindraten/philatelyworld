@@ -1,5 +1,16 @@
 const blogPosts = [
     {
+        name: "Marianengraben: Deutsche Post's 'Man as Explorer' Stamp Series Turns Into the Deep",
+        year: "2026",
+        country: "Germany",
+        desc: "Deutsche Post launches the 'Man as Explorer' series with the Marianas Trench — an AI-designed €1.80 stamp sheet and a Krypto-Briefmarke with four rarity levels plus NFT digital twins on the blockchain.",
+        folder: "marianengraben",
+        customImage: "https://shop.deutschepost.de/MEDIA/PROD_ProductCatalog/efim3850081_Z_1_150305588_Krypto_Briefmarke_1_2026_800x600.jpg",
+        imageCount: 1,
+        url: "blog/marianengraben-marianas-trench-stamp.html",
+        isBlog: true
+    },
+    {
         name: "Crypto stamp Island – The Official Crypto stamp Comic Series",
         year: "2026",
         country: "Austria",
