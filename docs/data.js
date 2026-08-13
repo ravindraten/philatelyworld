@@ -1,6 +1,18 @@
 // 1. STAMP DATABASE
 const stamps = [
     {
+        name: "Birds stamps of various countries",
+        country: "Various Countries",
+        year: "<b>Year</b>: 1970+",
+        priceINR: 649,
+        isSoldOut: false,
+        freeTrackedShipping: false,
+        freeLetterPostShipping: true,
+        folder: "D91",
+        imageCount: 3,
+        desc: "RN4161: Stamps of various countries - Birds. Check the photo. What you see is what you get."
+    },
+    {
         name: "German Empire postcards collection - D89",
         country: "German Empire",
         year: "<b>Year</b>: 1900+",
