@@ -946,7 +946,7 @@ const stamps = [
         country: "Germany, Sweden",
         year: "<b>Year</b>: Various",
         priceINR: 799,
-        isSoldOut: false,
+        isSoldOut: true,
         freeTrackedShipping: false,
         freeLetterPostShipping: true,
         folder: "D28",
