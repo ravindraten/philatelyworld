@@ -1,6 +1,22 @@
 // 1. STAMP DATABASE
 const stamps = [
     {
+        name: "Collection of 360 Mint stamps from GB in Stockbook and old stamps.",
+        country: "GB",
+        year: "<b>Year</b>: 1900-2000",
+        priceINR: 14400,
+        isSoldOut: false,
+        onSale: true,
+        salePriceINR: 8999,
+        freeTrackedShipping: true,
+        freeLetterPostShipping: false,
+        folder: "D102",
+        imageCount: 24,
+        desc: "RN4148: Collection of 360 Mint stamps from GB and old stamps.\
+            <b>Rs.40 per stamp.</b>\
+            Stock Album for free and Miniature sheets for free"
+    },
+    {
         name: "Classic collection from Romania",
         country: "Romania",
         year: "<b>Year</b>: 1920+",
@@ -275,21 +291,6 @@ const stamps = [
             Check the photos to see a small part, but there is a lot more than you can see here."
     },
     {
-        name: "Collection of 360 Mint stamps from GB in Stockbook.",
-        country: "GB",
-        year: "<b>Year</b>: 1950-2000",
-        priceINR: 14400,
-        isSoldOut: false,
-        onSale: true,
-        salePriceINR: 12000,
-        freeTrackedShipping: true,
-        freeLetterPostShipping: false,
-        folder: "D77",
-        imageCount: 22,
-        desc: "RN4148: Collection of 360 Mint stamps from GB.\
-            <b>Rs.40 per stamp.</b>\
-            Stock Album for free and Miniature sheets for free"
-    }, {
         name: "Collection of 280 First Day Covers (FDC) from around Europe. GB, Finland, Norway, Portugal, Marshall Islands, etc",
         country: "World",
         year: "<b>Year</b>: 1975",
