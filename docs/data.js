@@ -1,6 +1,18 @@
 // 1. STAMP DATABASE
 const stamps = [
     {
+        name: "Classic collection from Romania",
+        country: "Romania",
+        year: "<b>Year</b>: 1920+",
+        priceINR: 749,
+        isSoldOut: false,
+        freeTrackedShipping: false,
+        freeLetterPostShipping: true,
+        folder: "D101",
+        imageCount: 5,
+        desc: "RN4171: Classic collection from Romania. Check the photos. What you see is what you get."
+    },
+    {
         name: "9 sets of Stamps from Great Britain (MNH) (38 stamps)",
         country: "Great Britain",
         year: "<b>Year</b>: 1960+",
