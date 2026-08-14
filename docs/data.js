@@ -1,6 +1,17 @@
 // 1. STAMP DATABASE
 const stamps = [
     {
+        name: "Stamps from around Europe (Used) (Italy, Belgium, Germany, Sweden)",
+        country: "Various Countries",
+        year: "<b>Year</b>: 1960+",
+        priceINR: 699,
+        isSoldOut: false,
+        freeTrackedShipping: false,
+        freeLetterPostShipping: true,
+        folder: "D96",
+        imageCount: 6,
+        desc: "RN4166: Stamps from around Europe (Used) (Italy, Belgium, Germany, Sweden). Check the photos. What you see is what you get."
+    }, {
         name: "Stamps on theme : Satellite and communication",
         country: "Various Countries",
         year: "<b>Year</b>: 1960+",
