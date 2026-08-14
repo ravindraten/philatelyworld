@@ -1,6 +1,28 @@
 // 1. STAMP DATABASE
 const stamps = [
     {
+        name: "9 sets of Stamps from Great Britain (MNH) (38 stamps)",
+        country: "Great Britain",
+        year: "<b>Year</b>: 1960+",
+        priceINR: 949,
+        isSoldOut: false,
+        freeTrackedShipping: false,
+        freeLetterPostShipping: true,
+        folder: "D100",
+        imageCount: 1,
+        desc: "RN4170: 9 sets of Stamps from Great Britain (MNH) (38 stamps). Check the photos. What you see is what you get."
+    }, {
+        name: "11 sets of Stamps from Great Britain (MNH) (46 stamps)",
+        country: "Great Britain",
+        year: "<b>Year</b>: 1960+",
+        priceINR: 1199,
+        isSoldOut: false,
+        freeTrackedShipping: false,
+        freeLetterPostShipping: true,
+        folder: "D99",
+        imageCount: 2,
+        desc: "RN4169: 11 sets of Stamps from Great Britain (MNH) (46 stamps). Check the photos. What you see is what you get."
+    }, {
         name: "75 Stamps from around world (MNH) on theme EUROPA CEPT",
         country: "Various Countries",
         year: "<b>Year</b>: 1960+",
