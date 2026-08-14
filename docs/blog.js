@@ -1,5 +1,16 @@
 const blogPosts = [
     {
+        name: "Postzegelvel met zilver – nijntje en nina op vakantie (Silver Stamp Sheet) 2026",
+        year: "2026",
+        country: "Netherlands",
+        desc: "PostNL issues a limited silver stamp sheet featuring nijntje and nina on holiday on 14 July 2026 — the first PostNL stamp sheet with two silver stamps, in a luxury presentation with certificate of authenticity.",
+        folder: "nijntje",
+        customImage: "https://shop.postnl.nl/_next/image?url=https%3A%2F%2Fshop.postnl.nl%2Fpub%2Fmedia%2Fcatalog%2Fproduct%2Fcache%2F64387f8ec73f5c21c187496764f579a6%2F1%2F7%2F1786533220_nijntje-postzegelvel.jpg&w=1080&q=75",
+        imageCount: 1,
+        url: "blog/nijntje-nina-silver-stamp-sheet.html",
+        isBlog: true
+    },
+    {
         name: "Marianengraben: Deutsche Post's 'Man as Explorer' Stamp Series Turns Into the Deep",
         year: "2026",
         country: "Germany",
