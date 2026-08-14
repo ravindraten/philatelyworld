@@ -1,6 +1,18 @@
 // 1. STAMP DATABASE
 const stamps = [
     {
+        name: "75 Stamps from around world (MNH) on theme EUROPA CEPT",
+        country: "Various Countries",
+        year: "<b>Year</b>: 1960+",
+        priceINR: 699,
+        isSoldOut: false,
+        freeTrackedShipping: false,
+        freeLetterPostShipping: true,
+        folder: "D98",
+        imageCount: 2,
+        desc: "RN4168: 75 Stamps from around world (MNH) on theme EUROPA CEPT. Check the photos. What you see is what you get."
+    },
+    {
         name: "Stamps from around world (Used)",
         country: "Various Countries",
         year: "<b>Year</b>: 1960+",
