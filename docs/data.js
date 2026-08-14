@@ -4,7 +4,7 @@ const stamps = [
         name: "Stamps from around world (Used)",
         country: "Various Countries",
         year: "<b>Year</b>: 1960+",
-        priceINR: 999,
+        priceINR: 899,
         isSoldOut: false,
         freeTrackedShipping: false,
         freeLetterPostShipping: true,
