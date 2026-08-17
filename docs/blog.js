@@ -1,5 +1,16 @@
 const blogPosts = [
     {
+        name: "NL Crypto Stamp 5 – Demeter: A Goddess Takes Centre Stage",
+        year: "2026",
+        country: "Netherlands",
+        desc: "PostNL reveals the NL Crypto Stamp 5 – Demeter, the Greek goddess of agriculture, fertility and nature. Sales start 24 September at 10:00 exclusively via NLCryptoStamp.nl — part of the international 'Legends Meet Crypto Stamp – Horses and Heroes of Mythology' series.",
+        folder: "demeter",
+        customImage: "https://www.postnl.nl/api/assets/blt43aa441bfc1e29f2/blt51ccb1ccb1f333e0/6a7efa7c3c859ef27f4f524d/cryptostamp-5-demeter.jpg?width=2208&format=webp",
+        imageCount: 1,
+        url: "blog/nl-crypto-stamp-demeter.html",
+        isBlog: true
+    },
+    {
         name: "Postzegelvel met zilver – nijntje en nina op vakantie (Silver Stamp Sheet) 2026",
         year: "2026",
         country: "Netherlands",
