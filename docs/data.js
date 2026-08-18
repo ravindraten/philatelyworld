@@ -1,6 +1,17 @@
 // 1. STAMP DATABASE
 const stamps = [
     {
+        name: "Mixed stamps from Old Germany used and MNH.",
+        country: "Germany",
+        year: "<b>Year</b>: 1960+",
+        priceINR: 799,
+        isSoldOut: false,
+        freeTrackedShipping: false,
+        freeLetterPostShipping: true,
+        folder: "D105",
+        imageCount: 11,
+        desc: "RN4174: Mixed stamps from Old Germany used and MNH. Check the photos. What you see is what you get."
+    }, {
         name: "Dutch Antiles and Aruba lot 450 FDC covers",
         country: "Dutch Antiles and Aruba",
         year: "<b>Year</b>: 1990+",
