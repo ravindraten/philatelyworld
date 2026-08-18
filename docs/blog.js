@@ -1,5 +1,16 @@
 const blogPosts = [
     {
+        name: "bpost 2026 Stamp Collection: Small Formats, Big Emotions",
+        year: "2026",
+        country: "Belgium",
+        desc: "bpost unveils its 2026 stamp collection on 28 November — Pop Art by Andy Warhol, Belgian milliner Elvis Pompilio, singing woodpeckers, Princess Elisabeth's 25th birthday and a round Football World Cup stamp.",
+        folder: "bpost-2026",
+        customImage: "https://cdn.assets.prezly.com/e8555473-a885-4e89-b5d8-d9fef246e75a/-/format/auto/Collectieboekje%202026%20Cover%20A4.png",
+        imageCount: 1,
+        url: "blog/bpost-2026-stamp-collection.html",
+        isBlog: true
+    },
+    {
         name: "Austria Post 3D Printed Edelweiss Stamp 2025 – Printing Error Variety",
         year: "2025",
         country: "Austria",
