@@ -3,7 +3,8 @@
 
 <head>
     <meta property="og:site_name" content="Philately World">
-    <meta property="og:type" content="product">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="en_IN">
     <meta name="description"
         content="Philately World is a trusted online shop for authentic stamps, First Day Covers, and rare postal history. Based in India and serving collectors worldwide. Start your philatelic journey with us!">
     <meta id="og-url" property="og:url" content="https://philatelyworld.in/">
@@ -16,6 +17,8 @@
         content="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/logo.jpg">
     <meta id="twitter-image" name="twitter:image"
         content="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/logo.jpg">
+    <meta property="og:image:alt" content="Philately World logo">
+    <meta name="twitter:image:alt" content="Philately World logo">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Philately World | Authentic Stamps & Premium Postal History</title>
@@ -31,6 +34,14 @@
       "name": "Philately World",
       "url": "https://philatelyworld.in/",
       "description": "Trusted online shop for authentic stamps, First Day Covers, and rare postal history.",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": {
+          "@type": "EntryPoint",
+          "urlTemplate": "https://philatelyworld.in/?search={search_term_string}"
+        },
+        "query-input": "required name=search_term_string"
+      },
       "publisher": {
         "@type": "Organization",
         "name": "Philately World",
