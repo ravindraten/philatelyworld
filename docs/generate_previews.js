@@ -54,6 +54,9 @@ stamps.forEach(stamp => {
         ? `${stamp.country} | ${cleanYear.replace('Year: ', '')} | ON SALE: ₹${stamp.salePriceINR} / €${saleEUR.toFixed(2)} (was ₹${stamp.priceINR} / €${priceEUR.toFixed(2)})`
         : `${stamp.country} | ${cleanYear.replace('Year: ', '')} | Price: ₹${stamp.priceINR} / €${priceEUR.toFixed(2)}`;
     const imgUrl = `${baseImgPath}/${stamp.folder}/1.${stamp.extension || 'jpg'}`;
+    const currency = 'INR';
+    const price = stamp.onSale ? stamp.salePriceINR : stamp.priceINR;
+    const salePrice = stamp.onSale ? stamp.priceINR : null;
 
     // The HTML acts as a static OG/preview page for crawlers and redirects human users.
     // IMPORTANT: The JS redirect is intentionally deferred via setTimeout so WhatsApp's
@@ -71,6 +74,28 @@ stamps.forEach(stamp => {
     <meta property="og:description" content="${descText}">
     <meta property="og:url" content="https://philatelyworld.in/item/${rnCode}/">
     <meta property="og:type" content="product">
+    <link rel="canonical" href="https://philatelyworld.in/item/${rnCode}/" />
+
+    <!-- Product structured data for rich results -->
+    <script type="application/ld+json">
+    ${JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "Product",
+        "name": stamp.name,
+        "description": `Authenticated ${stamp.name}. Established 2017. Ships worldwide.`,
+        "image": imgUrl,
+        "url": `https://philatelyworld.in/item/${rnCode}/`,
+        "offers": {
+            "@type": "AggregateOffer",
+            "priceCurrency": "INR",
+            "lowPrice": price,
+            "highPrice": salePrice || price,
+            "offerCount": "1",
+            "availability": "https://schema.org/InStock",
+            "seller": { "@type": "Organization", "name": "Philately World" }
+        }
+    }, null, 2)}
+    </script>
 
     <!-- WhatsApp image: must be HTTPS, ideally under 300KB, 600x315 or square -->
     <meta property="og:image" content="${imgUrl}">
@@ -150,6 +175,7 @@ if (fs.existsSync(announcementDir)) {
     <meta property="og:description" content="${ogDesc}">
     <meta property="og:url" content="https://philatelyworld.in/announcement/${baseName}/">
     <meta property="og:type" content="article">
+    <link rel="canonical" href="https://philatelyworld.in/announcement/${baseName}/" />
     <meta property="og:image" content="${ogImage}">
     <meta property="og:image:secure_url" content="${ogImage}">
     <meta property="og:image:type" content="image/jpeg">
