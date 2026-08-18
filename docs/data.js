@@ -1,6 +1,19 @@
 // 1. STAMP DATABASE
 const stamps = [
     {
+        name: "Liechtenstein lot 750 FDC covers and maximumcaards",
+        country: "Liechtenstein",
+        year: "<b>Year</b>: 1990+",
+        priceINR: 26000,
+        isSoldOut: false,
+        onSale: true,
+        salePriceINR: 22999,
+        freeTrackedShipping: true,
+        freeLetterPostShipping: false,
+        folder: "D103",
+        imageCount: 6,
+        desc: "RN4172: Lot Liechtenstein about 450 FDC covers and 300 maximumcards. Rs.65 per FDC, Maximum cards all for Free\nCheck the photos to see a small part, but there is a lot more than you can see here."
+    }, {
         name: "Collection of 360 Mint stamps from GB in Stockbook and old stamps.",
         country: "GB",
         year: "<b>Year</b>: 1900-2000",
