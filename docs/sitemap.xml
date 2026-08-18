@@ -601,6 +601,11 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://philatelyworld.in/item/RN4177/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://philatelyworld.in/blog/Isro.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>

@@ -1,6 +1,17 @@
 // 1. STAMP DATABASE
 const stamps = [
     {
+        name: "Mixed stamps from from the world on theme.",
+        country: "Various Countries",
+        year: "<b>Year</b>: 1960+",
+        priceINR: 799,
+        isSoldOut: false,
+        freeTrackedShipping: false,
+        freeLetterPostShipping: true,
+        folder: "D108",
+        imageCount: 17,
+        desc: "RN4177: Many stamps from around the world on theme. Check the photos. What you see is what you get."
+    }, {
         name: "Mixed stamps from from the world on theme - Birds.",
         country: "Various Countries",
         year: "<b>Year</b>: 1960+",
