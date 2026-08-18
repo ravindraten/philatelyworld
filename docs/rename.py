@@ -56,4 +56,4 @@ def rename_files(target_directory):
             print(f"Could not process {filename}: {e}")
 
 
-rename_files("/Users/ravindra/workspace/GitHub/images/D107")
+rename_files("/Users/ravindra/workspace/GitHub/images/edelweiss")

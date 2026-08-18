@@ -1,5 +1,15 @@
 const blogPosts = [
     {
+        name: "Austria Post 3D Printed Edelweiss Stamp 2025 – Printing Error Variety",
+        year: "2025",
+        country: "Austria",
+        desc: "Austria Post issued the world's first 3D printed stamp on 18 October 2025 — a €6.50 Edelweiss stamp by Hammerle & Vogel. We offer examples of this historic issue showing an intriguing printing error.",
+        folder: "edelweiss",
+        imageCount: 3,
+        url: "blog/austria-3d-printed-edelweiss-stamp.html",
+        isBlog: true
+    },
+    {
         name: "Gefeliciteerd! – PostNL Congratulations Frame Stamp Sheet 2026",
         year: "2026",
         country: "Netherlands",
