@@ -1,5 +1,27 @@
 const blogPosts = [
     {
+        name: "Gefeliciteerd! – PostNL Congratulations Frame Stamp Sheet 2026",
+        year: "2026",
+        country: "Netherlands",
+        desc: "PostNL releases the kaderpostzegelvel Gefeliciteerd! on 10 August 2026 — a festive sheet of 5 congratulation stamps designed and illustrated by Matia Heesakkers (Matia Studio).",
+        folder: "felicitatie",
+        customImage: "https://shop.postnl.nl/_next/image?url=https%3A%2F%2Fshop.postnl.nl%2Fpub%2Fmedia%2Fcatalog%2Fproduct%2Fcache%2F64387f8ec73f5c21c187496764f579a6%2F1%2F7%2F1786350467_gefeliciteerd-postzegelvel.jpg&w=1080&q=75",
+        imageCount: 1,
+        url: "blog/pzv-felicitatie-momenten.html",
+        isBlog: true
+    },
+    {
+        name: "Beleef de natuur – Flora Saba (Postzegelvel) 2026",
+        year: "2026",
+        country: "Netherlands",
+        desc: "PostNL releases Beleef de natuur – flora Saba on 10 August 2026, a sheet of 10 stamps showcasing the unique plants and trees of Saba in the Caribbean Netherlands.",
+        folder: "flora-saba",
+        customImage: "https://shop.postnl.nl/_next/image?url=https%3A%2F%2Fshop.postnl.nl%2Fpub%2Fmedia%2Fcatalog%2Fproduct%2Fcache%2F64387f8ec73f5c21c187496764f579a6%2F1%2F7%2F1785829304_flora-saba-postzegelvel.jpg&w=1080&q=75",
+        imageCount: 1,
+        url: "blog/beleef-de-natuur-flora-saba.html",
+        isBlog: true
+    },
+    {
         name: "NL Crypto Stamp 5 – Demeter: A Goddess Takes Centre Stage",
         year: "2026",
         country: "Netherlands",

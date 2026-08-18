@@ -601,6 +601,11 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://philatelyworld.in/blog/beleef-de-natuur-flora-saba.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://philatelyworld.in/blog/beleef-de-natuur-onderwaterleven-saba.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
@@ -742,6 +747,11 @@
   </url>
   <url>
     <loc>https://philatelyworld.in/blog/postset-vlinders-saba.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://philatelyworld.in/blog/pzv-felicitatie-momenten.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
