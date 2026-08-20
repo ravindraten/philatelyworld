@@ -1,18 +1,17 @@
 // 1. STAMP DATABASE
 const stamps = [
-    // {
-    //     name: "Europa CEPT 1956-1969 large stamp collection in album.",
-    //     country: "Various Countries",
-    //     year: "<b>Year</b>: 1956-1969",
-    //     priceINR: 22499,
-    //     isSoldOut: false,
-    //     freeTrackedShipping: true,
-    //     freeLetterPostShipping: false,
-    //     folder: "D109",
-    //     imageCount: 37,
-    //     desc: "RN4178: Leuchtturm album Europa CEPT 1956-1969 with MNH as well as cancelled stamp collection, looking complete , some duplicates, extra sheets, etc. Check the photos to see a small part, but there is a lot more than you can see here."
-    // }, 
     {
+        name: "Europa CEPT 1956-1969 large stamp collection in album.",
+        country: "Various Countries",
+        year: "<b>Year</b>: 1956-1969",
+        priceINR: 22499,
+        isSoldOut: false,
+        freeTrackedShipping: true,
+        freeLetterPostShipping: false,
+        folder: "D109",
+        imageCount: 37,
+        desc: "RN4178: Leuchtturm album Europa CEPT 1956-1969 with MNH as well as cancelled stamp collection, looking complete , some duplicates, extra sheets, etc. Check the photos to see a small part, but there is a lot more than you can see here."
+    }, {
         name: "Mixed stamps from from the world on theme.",
         country: "Various Countries",
         year: "<b>Year</b>: 1960+",
