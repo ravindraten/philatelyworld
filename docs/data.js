@@ -1,6 +1,18 @@
 // 1. STAMP DATABASE
 const stamps = [
     {
+        name: "Germany 1993-2000 MNH stamp collection in 2 albums",
+        country: "Germany",
+        year: "<b>Year</b>: 1993-2000",
+        priceINR: 14999,
+        isSoldOut: false,
+        freeTrackedShipping: true,
+        freeLetterPostShipping: false,
+        folder: "D110",
+        imageCount: 38,
+        desc: "RN4179: 2 Safe dual albums Germany 1993-2000 with what looks like an (almost) complete MNH stamp collection with a lot of extra.Check the photos to see a small part, but there is a lot more than you can see here."
+    },
+    {
         name: "Europa CEPT 1956-1969 large stamp collection in album.",
         country: "Various Countries",
         year: "<b>Year</b>: 1956-1969",
