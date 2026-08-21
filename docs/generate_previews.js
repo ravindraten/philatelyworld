@@ -54,9 +54,8 @@ stamps.forEach(stamp => {
         ? `${stamp.country} | ${cleanYear.replace('Year: ', '')} | ON SALE: ₹${stamp.salePriceINR} / €${saleEUR.toFixed(2)} (was ₹${stamp.priceINR} / €${priceEUR.toFixed(2)})`
         : `${stamp.country} | ${cleanYear.replace('Year: ', '')} | Price: ₹${stamp.priceINR} / €${priceEUR.toFixed(2)}`;
     const imgUrl = `${baseImgPath}/${stamp.folder}/1.${stamp.extension || 'jpg'}`;
-    const currency = 'INR';
     const price = stamp.onSale ? stamp.salePriceINR : stamp.priceINR;
-    const salePrice = stamp.onSale ? stamp.priceINR : null;
+    const imageMimeType = stamp.extension === 'png' ? 'image/png' : 'image/jpeg';
 
     // The HTML acts as a static OG/preview page for crawlers and redirects human users.
     // IMPORTANT: The JS redirect is intentionally deferred via setTimeout so WhatsApp's
@@ -66,11 +65,11 @@ stamps.forEach(stamp => {
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Philately World - ${stamp.name}</title>
-    <meta name="description" content="Buy authenticated ${stamp.name}. Established 2017. Ships worldwide.">
+    <title>${stamp.name} | Buy Rare Stamps | Philately World</title>
+    <meta name="description" content="Buy authenticated ${stamp.name} stamp online. Philately World offers rare stamps, FDCs, and postal history. Worldwide shipping.">
     <!-- Open Graph (Facebook/WhatsApp/LinkedIn) -->
     <meta property="og:site_name" content="Philately World">
-    <meta property="og:title" content="Philately World: ${stamp.name}">
+    <meta property="og:title" content="${stamp.name} | Buy Rare Stamps | Philately World">
     <meta property="og:description" content="${descText}">
     <meta property="og:url" content="https://philatelyworld.in/item/${rnCode}/">
     <meta property="og:type" content="product">
@@ -82,17 +81,21 @@ stamps.forEach(stamp => {
         "@context": "https://schema.org",
         "@type": "Product",
         "name": stamp.name,
-        "description": `Authenticated ${stamp.name}. Established 2017. Ships worldwide.`,
+        "description": `Buy authenticated ${stamp.name} stamp. Rare stamp and postal history available at Philately World.`,
         "image": imgUrl,
         "url": `https://philatelyworld.in/item/${rnCode}/`,
         "offers": {
-            "@type": "AggregateOffer",
+            "@type": "Offer",
             "priceCurrency": "INR",
-            "lowPrice": price,
-            "highPrice": salePrice || price,
-            "offerCount": "1",
-            "availability": "https://schema.org/InStock",
-            "seller": { "@type": "Organization", "name": "Philately World" }
+            "price": price,
+            "availability": stamp.isSoldOut ? "https://schema.org/OutOfStock" : "https://schema.org/InStock",
+            "url": `https://philatelyworld.in/item/${rnCode}/`,
+            "priceValidUntil": "2027-12-31",
+            "seller": {
+                "@type": "Organization",
+                "name": "Philately World",
+                "url": "https://philatelyworld.in/"
+            }
         }
     }, null, 2)}
     </script>
@@ -100,13 +103,13 @@ stamps.forEach(stamp => {
     <!-- WhatsApp image: must be HTTPS, ideally under 300KB, 600x315 or square -->
     <meta property="og:image" content="${imgUrl}">
     <meta property="og:image:secure_url" content="${imgUrl}">
-    <meta property="og:image:type" content="image/jpeg">
+    <meta property="og:image:type" content="${imageMimeType}">
     <meta property="og:image:width" content="600">
     <meta property="og:image:height" content="600">
 
     <!-- Twitter Cards -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Philately World: ${stamp.name}">
+    <meta name="twitter:title" content="${stamp.name} | Buy Rare Stamps | Philately World">
     <meta name="twitter:description" content="${descText}">
     <meta name="twitter:image" content="${imgUrl}">
 
@@ -232,9 +235,12 @@ const announcementIds = fs.existsSync(announcementDir)
     }) 
     : [];
 
+const today = new Date().toISOString().split('T')[0];
+
 const itemUrls = itemIds.map(id => `
   <url>
     <loc>${baseUrl}/item/${id}/</loc>
+    <lastmod>${today}</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>`).join('');
@@ -242,6 +248,7 @@ const itemUrls = itemIds.map(id => `
 const blogUrls = blogIds.map(id => `
   <url>
     <loc>${baseUrl}/blog/${id}</loc>
+    <lastmod>${today}</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>`).join('');
@@ -249,6 +256,7 @@ const blogUrls = blogIds.map(id => `
 const announcementUrls = announcementIds.map(id => `
   <url>
     <loc>${baseUrl}/announcement/${id}</loc>
+    <lastmod>${today}</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>`).join('');
@@ -256,6 +264,7 @@ const announcementUrls = announcementIds.map(id => `
 const giveawayUrl = `
   <url>
     <loc>${baseUrl}/giveaway.html</loc>
+    <lastmod>${today}</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>`;
@@ -264,6 +273,7 @@ const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>${baseUrl}/</loc>
+    <lastmod>${today}</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>${giveawayUrl}${itemUrls}${blogUrls}${announcementUrls}
@@ -271,3 +281,63 @@ const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 
 fs.writeFileSync(path.join(__dirname, 'sitemap.xml'), sitemap);
 console.log(`✅ sitemap.xml generated with ${itemIds.length} items, ${blogIds.length} blogs, and ${announcementIds.length} announcements.`);
+
+// ---------------------------------------------------------------
+// 3. Pre-render stamps into index.html for non-JS crawlers
+// ---------------------------------------------------------------
+const indexHtmlPath = path.join(__dirname, 'index.html');
+if (fs.existsSync(indexHtmlPath)) {
+    let indexHtml = fs.readFileSync(indexHtmlPath, 'utf8');
+    
+    // Generate static stamp cards HTML (only available ones to keep payload optimized)
+    const staticStampCards = stamps.filter(s => !s.isSoldOut).map(stamp => {
+        if (!stamp.desc) return '';
+        const rnMatch = stamp.desc.match(/RN\d+/);
+        if (!rnMatch) return '';
+        const rnCode = rnMatch[0];
+        const shareUrl = `https://philatelyworld.in/item/${encodeURIComponent(rnCode)}/`;
+        const cleanYear = stamp.year ? stamp.year.replace(/<\/?b>/g, "") : '';
+        const imgUrl = `${baseImgPath}/${stamp.folder}/1.${stamp.extension || 'jpg'}`;
+        const priceText = stamp.onSale 
+            ? `₹${stamp.salePriceINR} (was ₹${stamp.priceINR})`
+            : `₹${stamp.priceINR}`;
+
+        return `
+                <div class="stamp-card">
+                    <div class="img-container">
+                        <img src="${imgUrl}" alt="${stamp.name}" loading="lazy" width="300" height="300">
+                        <div class="photo-badge">${stamp.imageCount} Photos</div>
+                    </div>
+                    <div class="details">
+                        <h3>${stamp.name}</h3>
+                        <div style="display: flex; gap: 8px; align-items: center;">
+                            <span class="stamp-year">${cleanYear}</span>
+                            <small style="color: var(--text-light)">${stamp.country}</small>
+                        </div>
+                        <div class="stamp-desc">${stamp.desc}</div>
+                        <div class="price-row">
+                            <div class="price">${priceText}</div>
+                            <div class="action-buttons">
+                                <a href="${shareUrl}" class="buy-btn" style="text-align: center;">View Listing</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>`;
+    }).join('\n');
+
+    const startTag = '<!-- STAMP_GRID_START -->';
+    const endTag = '<!-- STAMP_GRID_END -->';
+    
+    const startIndex = indexHtml.indexOf(startTag);
+    const endIndex = indexHtml.indexOf(endTag);
+    
+    if (startIndex !== -1 && endIndex !== -1) {
+        const before = indexHtml.substring(0, startIndex + startTag.length);
+        const after = indexHtml.substring(endIndex);
+        const newHtml = before + '\n' + staticStampCards + '\n' + after;
+        fs.writeFileSync(indexHtmlPath, newHtml, 'utf8');
+        console.log(`✅ Statically pre-rendered ${stamps.filter(s => !s.isSoldOut).length} stamps inside index.html`);
+    } else {
+        console.warn("⚠️ Warning: Could not find STAMP_GRID comment placeholders in index.html");
+    }
+}
