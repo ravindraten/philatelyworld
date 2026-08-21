@@ -1,6 +1,17 @@
 // 1. STAMP DATABASE
 const stamps = [
     {
+        name: "Stamps from around world (Used)",
+        country: "Various Countries",
+        year: "<b>Year</b>: 1920+",
+        priceINR: 699,
+        isSoldOut: false,
+        freeTrackedShipping: false,
+        freeLetterPostShipping: true,
+        folder: "D111",
+        imageCount: 5,
+        desc: "RN4180: Stamps from around world (Used). Check the photos. What you see is what you get."
+    }, {
         name: "Germany 1993-2000 MNH stamp collection in 2 albums",
         country: "Germany",
         year: "<b>Year</b>: 1993-2000",
