@@ -1,5 +1,15 @@
 const blogPosts = [
     {
+        name: "The Luxembourg 'Deluxe' Embroidered Stamp: A Masterpiece of Philatelic Craftsmanship",
+        year: "2025",
+        country: "Luxembourg",
+        desc: "Luxembourg Post (POST Philately) issued a remarkable 'Deluxe' embroidered stamp featuring the small coat of arms of Grand Duke Henri in June 2025, marking the 25th anniversary of his accession to the throne. This extraordinary philatelic product represents a fusion of traditional embroidery techniques and modern stamp production. Awarded 3rd place in UPU 'Best Stamps of the World 2025' competition.",
+        folder: "timbre-brode-deluxe-armoires",
+        customImage: "https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/deluxe.png",
+        imageCount: 1,
+        url: "blog/timbre-brode-deluxe-armoires.html",
+        isBlog: true
+    }, {
         name: "bpost 2026 Stamp Collection: Small Formats, Big Emotions",
         year: "2026",
         country: "Belgium",
