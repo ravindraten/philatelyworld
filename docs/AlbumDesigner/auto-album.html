@@ -55,11 +55,13 @@
       "itemListElement": [
         {
           "@type": "ListItem",
+          "position": 1,
           "name": "Philately World",
           "item": "https://philatelyworld.in/"
         },
         {
           "@type": "ListItem",
+          "position": 2,
           "name": "Stamp Album Designer",
           "item": "https://philatelyworld.in/AlbumDesigner/auto-album.html"
         }
@@ -807,7 +809,7 @@
                     style="width: 100%; border-radius: 12px;" alt="BHIM QR">
                 <div class="upi-box">
                     <span id="upi-id">9900416731@upi</span>
-                    <button onclick="copyUPI()"
+                    <button onclick="copyUPI(event)"
                         style="background: var(--accent); color: white; border: none; padding: 6px 12px; border-radius: 6px; font-size: 0.75rem; cursor: pointer; font-weight: 700;">COPY</button>
                 </div>
             </div>
@@ -869,7 +871,7 @@
             }
         }
 
-        function copyUPI() {
+        function copyUPI(event) {
             const upiId = document.getElementById('upi-id').innerText;
             navigator.clipboard.writeText(upiId).then(() => {
                 const btn = event.target.closest('button');
