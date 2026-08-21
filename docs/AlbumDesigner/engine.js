@@ -29,7 +29,6 @@ async function saveProject() {
         const tx = db.transaction(STORE_NAME, "readwrite");
         const store = tx.objectStore(STORE_NAME);
         store.put(uploadedImages, "current_images");
-        await tx.complete;
     } catch (e) { console.error("Save failed:", e); }
 }
 
@@ -87,6 +86,11 @@ function handleFiles(files) {
         </div>
     `;
 
+    const stampWInput = document.getElementById('stamp-w');
+    const stampHInput = document.getElementById('stamp-h');
+    const currentDefWidth = stampWInput ? parseFloat(stampWInput.value) || 40 : 40;
+    const currentDefHeight = stampHInput ? parseFloat(stampHInput.value) || 50 : 50;
+
     let loadedCount = 0;
     const totalFiles = files.length;
 
@@ -124,8 +128,8 @@ function handleFiles(files) {
                     name: baseName + ext,
                     data: convertedData,
                     grayscale: grayscaleData,
-                    customW: defaultWidth,
-                    customH: defaultHeight
+                    customW: currentDefWidth,
+                    customH: currentDefHeight
                 });
 
                 loadedCount++;
@@ -266,7 +270,7 @@ function convertToGrayscale(dataUrl) {
             }
             ctx.putImageData(imageData, 0, 0);
 
-            resolve(canvas.toDataURL('image/jpeg', 0.85));
+            resolve(canvas.toDataURL('image/png'));
         };
         img.src = dataUrl;
     });
@@ -373,11 +377,12 @@ function createPDF(isDownload = false, isActualDownload = false) {
             i++;
         }
 
-        if (curY + rowMaxH + 25 > pageH - bottomBorderSp - footerOffset) {
+        const topOfNewPageY = topBorderSp + 15;
+        if (curY > topOfNewPageY && curY + rowMaxH + 25 > pageH - bottomBorderSp - footerOffset) {
             if (isActualDownload && totalPagesUsed >= MAX_LIFETIME_PAGES) break;
             doc.addPage();
             setupPage();
-            curY = topBorderSp + 15;
+            curY = topOfNewPageY;
         }
 
         const totalRowW = rowImages.reduce((sum, im, idx) => sum + (im.customW || sw) + (idx > 0 ? gap : 0), 0);
@@ -394,7 +399,10 @@ function createPDF(isDownload = false, isActualDownload = false) {
             const denomination = parts[2] || "";
 
             doc.setFont(pdfFont, "bold"); doc.setFontSize(9);
-            doc.text(stampTitle, rowX + (rsw / 2), alignY - 3, { align: 'center' });
+            const wrappedTitle = doc.splitTextToSize(stampTitle, rsw);
+            const titleLineCount = wrappedTitle.length;
+            const textY = alignY - 3 - (titleLineCount - 1) * 3.5;
+            doc.text(wrappedTitle, rowX + (rsw / 2), textY, { align: 'center' });
 
             doc.setDrawColor(0); doc.setLineWidth(0.4);
             doc.rect(rowX, alignY, rsw, rsh);
@@ -441,12 +449,63 @@ function addBrandedFooter(doc, w, h, x, font) {
 /**
  * 4. UI Rendering Controllers
  */
+let currentPreviewUrl = null;
+
+function saveSettings() {
+    try {
+        const settings = {
+            title: document.getElementById('album-title').value,
+            subtitle: document.getElementById('album-subtitle').value,
+            width: document.getElementById('stamp-w').value,
+            height: document.getElementById('stamp-h').value,
+            currency: document.getElementById('album-currency').value,
+            font: document.getElementById('album-font').value,
+            grayscale: document.getElementById('grayscale-opt').checked,
+            subtitleVisible: document.getElementById('subtitle-container').style.display === 'block'
+        };
+        localStorage.setItem('album_designer_settings', JSON.stringify(settings));
+    } catch (e) {
+        console.error("Save settings failed:", e);
+    }
+}
+
+function loadSettings() {
+    try {
+        const stored = localStorage.getItem('album_designer_settings');
+        if (stored) {
+            const settings = JSON.parse(stored);
+            if (settings.title !== undefined) document.getElementById('album-title').value = settings.title;
+            if (settings.subtitle !== undefined) document.getElementById('album-subtitle').value = settings.subtitle;
+            if (settings.width !== undefined) document.getElementById('stamp-w').value = settings.width;
+            if (settings.height !== undefined) document.getElementById('stamp-h').value = settings.height;
+            if (settings.currency !== undefined) document.getElementById('album-currency').value = settings.currency;
+            if (settings.font !== undefined) document.getElementById('album-font').value = settings.font;
+            if (settings.grayscale !== undefined) document.getElementById('grayscale-opt').checked = settings.grayscale;
+            
+            if (settings.subtitleVisible) {
+                document.getElementById('subtitle-container').style.display = 'block';
+                const btn = document.getElementById('add-subtitle-btn');
+                if (btn) {
+                    btn.style.opacity = '0.5';
+                    btn.innerHTML = `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg> REMOVE SUBTITLE`;
+                }
+            }
+        }
+    } catch (e) {
+        console.error("Load settings failed:", e);
+    }
+}
+
 function generatePreview() {
     // isDownload = false, isActualDownload = false
     const doc = createPDF(false, false);
     const blob = doc.output('blob');
-    const url = URL.createObjectURL(blob);
-    document.getElementById('pdf-viewer').src = url;
+    if (currentPreviewUrl) {
+        URL.revokeObjectURL(currentPreviewUrl);
+    }
+    currentPreviewUrl = URL.createObjectURL(blob);
+    document.getElementById('pdf-viewer').src = currentPreviewUrl;
+    saveSettings(); // Save global preferences automatically on render
 }
 
 function debounceRender() {
@@ -464,4 +523,7 @@ function downloadPDF() {
 }
 
 // Ensure the preview renders empty state on load
-window.onload = loadProject;
+window.onload = () => {
+    loadSettings();
+    loadProject();
+};
