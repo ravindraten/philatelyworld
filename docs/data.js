@@ -5,7 +5,7 @@ const stamps = [
         country: "Germany",
         year: "<b>Year</b>: 1993-2000",
         priceINR: 14999,
-        isSoldOut: false,
+        isSoldOut: true,
         freeTrackedShipping: true,
         freeLetterPostShipping: false,
         folder: "D110",
