@@ -1,6 +1,28 @@
 // 1. STAMP DATABASE
 const stamps = [
     {
+        name: "Mixed stamps from from the world on theme - Birds.(lot2)",
+        country: "Various Countries",
+        year: "<b>Year</b>: 1960+",
+        priceINR: 599,
+        isSoldOut: false,
+        freeTrackedShipping: false,
+        freeLetterPostShipping: true,
+        folder: "D113",
+        imageCount: 1,
+        desc: "RN4182: 56 stamps from around the world on theme Birds. Check the photos. What you see is what you get."
+    }, {
+        name: "Mixed stamps from from the world on theme - Birds.(lot1",
+        country: "Various Countries",
+        year: "<b>Year</b>: 1960+",
+        priceINR: 599,
+        isSoldOut: false,
+        freeTrackedShipping: false,
+        freeLetterPostShipping: true,
+        folder: "D112",
+        imageCount: 1,
+        desc: "RN4181: 58 stamps from around the world on theme Birds. Check the photos. What you see is what you get."
+    }, {
         name: "Stamps from around world (Used)",
         country: "Various Countries",
         year: "<b>Year</b>: 1920+",
