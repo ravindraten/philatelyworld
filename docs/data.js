@@ -68,7 +68,7 @@ const stamps = [
         imageCount: 17,
         desc: "RN4177: Many stamps from around the world on theme. Check the photos. What you see is what you get."
     }, {
-        name: "Mixed stamps from from the world on theme - Birds.",
+        name: "Mixed stamps from from the world on theme - Birds.(lot3)",
         country: "Various Countries",
         year: "<b>Year</b>: 1960+",
         priceINR: 599,
@@ -79,7 +79,7 @@ const stamps = [
         imageCount: 1,
         desc: "RN4176: 57 stamps from around the world on theme Birds. Check the photos. What you see is what you get."
     }, {
-        name: "Mixed stamps from from the world on theme - Birds.",
+        name: "Mixed stamps from from the world on theme - Birds.(lot4)",
         country: "Various Countries",
         year: "<b>Year</b>: 1960+",
         priceINR: 599,
