@@ -20,3 +20,19 @@ When sharing, use the generated folder path:
 
 When sharing, use the generated folder path:
 `https://philatelyworld.in/announcement/6/`
+
+### Blog Post SEO (OG tags & structured data)
+Every blog page in `docs/blog/` needs a complete SEO `<head>`: canonical link, `og:type=article`, `og:site_name`, `article:*` meta tags, Twitter card, and full JSON-LD `Article` structured data. This is handled by an idempotent script, so it is safe to run any time.
+
+**When you create a new blog post:**
+1. Add your post's publish date to `scripts/blog_dates.json`, keyed by filename:
+   ```json
+   "my-new-post.html": "2026-08-24"
+   ```
+2. Run:
+   ```bash
+   node scripts/enhance_blog_seo.js
+   ```
+3. Commit the updated blog HTML along with your new post.
+
+Only files that are missing something get modified — re-running changes nothing if all posts are already up to date.
