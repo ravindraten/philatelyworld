@@ -4,7 +4,6 @@
 
 const CONFIG = {
     whatsappNumber: "31633467712",
-    eurRate: 0.00935,
     baseImgPath: "https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images",
 
     // Feature Switches
@@ -14,7 +13,8 @@ const CONFIG = {
     announcementFiles: ['7.html', '6.html', '5.html', '4.html', '3.html', '2.html', '1.html'], // Place your HTML files in the 'announcement' folder
 
     // 2. CURRENCY CONFIGURATION
-    eurRate: 0.011, // Fallback rate
+    rates: { INR: 1, EUR: 0.011, USD: 0.0115, GBP: 0.0099 }, // Fallback: foreign units per 1 INR
+    currencySymbols: { INR: "\u20B9", EUR: "\u20AC", USD: "$", GBP: "\u00A3" },
     apiURL: "https://open.er-api.com/v6/latest/EUR",
     wuAdjustment: 1.02 // Adds 2% markup to simulate Western Union spread
 };
@@ -48,6 +48,17 @@ document.addEventListener('DOMContentLoaded', () => {
     } else {
         state.statusFilter = 'available';
     }
+
+    // Restore preferred currency from a previous visit
+    try {
+        const savedCurrency = localStorage.getItem('preferredCurrency');
+        if (savedCurrency && CONFIG.currencySymbols[savedCurrency]) {
+            state.currency = savedCurrency;
+            document.querySelectorAll('.toggle-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.id.includes(savedCurrency));
+            });
+        }
+    } catch (e) { /* storage unavailable */ }
 
     // 1. Initialize Event Listeners & UI First
     initEventListeners();
@@ -136,25 +147,26 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 /**
- * Fetches Live EUR to INR rate and calculates the WU conversion
+ * Fetches Live FX rates (EUR/USD/GBP per INR) and calculates the WU conversion
  * Caches result in sessionStorage for 1 hour to avoid redundant API calls
  */
+const FX_CACHE_KEY = 'fxRatesCacheV2';
+
+function validFxRates(rates) {
+    return ['EUR', 'USD', 'GBP'].every(c =>
+        typeof rates[c] === 'number' && isFinite(rates[c]) && rates[c] > 0 && rates[c] < 0.5
+    );
+}
+
 async function updateLiveExchangeRate() {
-    const cacheKey = 'fxRateCache';
     const cacheDuration = 60 * 60 * 1000; // 1 hour
 
-    // Check cache first
     try {
-        const cached = sessionStorage.getItem(cacheKey);
+        const cached = sessionStorage.getItem(FX_CACHE_KEY);
         if (cached) {
-            const { rate, timestamp } = JSON.parse(cached);
-            if (Date.now() - timestamp < cacheDuration) {
-                CONFIG.eurRate = rate;
-                const statusEl = document.getElementById('lastUpdatedFXRate');
-                if (statusEl) {
-                    const date = new Date(timestamp).toLocaleDateString();
-                    statusEl.innerText = `Cached WU Rate: 1 INR = ${rate.toFixed(4)} EUR (Updated: ${date})`;
-                }
+            const parsed = JSON.parse(cached);
+            if (parsed.rates && validFxRates(parsed.rates) && Date.now() - parsed.timestamp < cacheDuration) {
+                applyRates(parsed.rates, parsed.timestamp, true);
                 return;
             }
         }
@@ -165,30 +177,48 @@ async function updateLiveExchangeRate() {
         const data = await response.json();
 
         if (data.result === "success") {
-            const marketRateINR = data.rates.INR;
-            const adjustedRateINR = marketRateINR * CONFIG.wuAdjustment;
-            CONFIG.eurRate = 1 / adjustedRateINR;
+            const liveRates = {};
+            ['EUR', 'USD', 'GBP'].forEach(code => {
+                liveRates[code] = data.rates[code] / (data.rates.INR * CONFIG.wuAdjustment);
+            });
 
-            // Cache the result
+            if (!validFxRates(liveRates)) {
+                console.error("FX API returned implausible rates, ignoring.");
+                showFallbackRateStatus();
+                return;
+            }
+
             try {
-                sessionStorage.setItem(cacheKey, JSON.stringify({
-                    rate: CONFIG.eurRate,
+                sessionStorage.setItem(FX_CACHE_KEY, JSON.stringify({
+                    rates: liveRates,
                     timestamp: Date.now()
                 }));
             } catch (e) { /* cache write failed */ }
 
-            const statusEl = document.getElementById('lastUpdatedFXRate');
-            if (statusEl) {
-                const date = new Date().toLocaleDateString();
-                statusEl.innerText = `Live WU Rate: 1 INR = ${CONFIG.eurRate.toFixed(4)} EUR (Updated: ${date})`;
-            }
+            applyRates(liveRates, Date.now(), false);
+        } else {
+            showFallbackRateStatus();
         }
     } catch (error) {
         console.error("FX fetch failed, using fallback.");
-        const statusEl = document.getElementById('lastUpdatedFXRate');
-        if (statusEl) {
-            statusEl.innerText = `Rate: 1 INR = ${CONFIG.eurRate.toFixed(4)} EUR (cached/fallback)`;
-        }
+        showFallbackRateStatus();
+    }
+}
+
+function applyRates(rates, timestamp, fromCache) {
+    Object.assign(CONFIG.rates, rates);
+    const statusEl = document.getElementById('lastUpdatedFXRate');
+    if (statusEl) {
+        const date = new Date(timestamp).toLocaleDateString();
+        const label = fromCache ? 'Cached WU Rates' : 'Live WU Rates';
+        statusEl.innerText = `${label}: 1 INR = ${CONFIG.currencySymbols.EUR}${CONFIG.rates.EUR.toFixed(4)} \u00B7 ${CONFIG.currencySymbols.USD}${CONFIG.rates.USD.toFixed(4)} \u00B7 ${CONFIG.currencySymbols.GBP}${CONFIG.rates.GBP.toFixed(4)} (Updated: ${date})`;
+    }
+}
+
+function showFallbackRateStatus() {
+    const statusEl = document.getElementById('lastUpdatedFXRate');
+    if (statusEl) {
+        statusEl.innerText = `Rates: 1 INR = ${CONFIG.currencySymbols.EUR}${CONFIG.rates.EUR.toFixed(4)} \u00B7 ${CONFIG.currencySymbols.USD}${CONFIG.rates.USD.toFixed(4)} \u00B7 ${CONFIG.currencySymbols.GBP}${CONFIG.rates.GBP.toFixed(4)} (cached/fallback)`;
     }
 }
 
@@ -443,6 +473,12 @@ function scrollToGrid() {
     });
 }
 
+function formatPrice(amountINR) {
+    const code = state.currency;
+    if (code === 'INR' || !CONFIG.rates[code]) return `\u20B9${amountINR}`;
+    return `${CONFIG.currencySymbols[code]}${(amountINR * CONFIG.rates[code]).toFixed(2)}`;
+}
+
 function setCurrency(type) {
     state.currency = type;
 
@@ -450,6 +486,8 @@ function setCurrency(type) {
     document.querySelectorAll('.toggle-btn').forEach(btn => {
         btn.classList.toggle('active', btn.id.includes(type));
     });
+
+    try { localStorage.setItem('preferredCurrency', type); } catch (e) { /* storage unavailable */ }
 
     // 2. Determine what is currently being displayed
     const urlParams = new URLSearchParams(window.location.search);
@@ -577,22 +615,10 @@ function renderGallery(data) {
         let displaySalePrice = '';
         let displayOldPrice = '';
         if (stamp.onSale) {
-            if (state.currency === 'EUR') {
-                const saleEUR = stamp.salePriceINR * CONFIG.eurRate;
-                const origEUR = stamp.priceINR * CONFIG.eurRate;
-                displaySalePrice = `€${saleEUR.toFixed(2)}`;
-                displayOldPrice = `€${origEUR.toFixed(2)}`;
-            } else {
-                displaySalePrice = `₹${stamp.salePriceINR}`;
-                displayOldPrice = `₹${stamp.priceINR}`;
-            }
+            displaySalePrice = formatPrice(stamp.salePriceINR);
+            displayOldPrice = formatPrice(stamp.priceINR);
         } else {
-            if (state.currency === 'EUR') {
-                const priceEUR = stamp.priceINR * CONFIG.eurRate;
-                displayPrice = `€${priceEUR.toFixed(2)}`;
-            } else {
-                displayPrice = `₹${stamp.priceINR}`;
-            }
+            displayPrice = formatPrice(stamp.priceINR);
         }
 
         return `
