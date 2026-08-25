@@ -121,6 +121,71 @@ header {
     padding: 0 20px;
 }
 
+/* Centered logo + brand lockup (index page): logo-wrapper sits inside
+   header-main as one visually unified group centered on the page */
+.header-main.header-centered {
+    justify-content: center;
+    align-items: center;
+    column-gap: 25px;
+    row-gap: 0;
+    flex-wrap: wrap;
+}
+
+/* Scaled-up lockup so the header fills more of the page (desktop only,
+   so the mobile view stays identical to philatelyworld.in) */
+@media (min-width: 801px) {
+    .header-main.header-centered {
+        max-width: 1500px;
+        padding: 20px 20px 10px;
+        column-gap: 32px;
+    }
+
+    .header-main.header-centered .logo-wrapper .logo {
+        width: 170px;
+        height: 170px;
+        /* visual nudge to the left, without disturbing the centered group */
+        transform: translateX(-14px);
+    }
+
+    .header-main.header-centered .brand-info h1 {
+        font-size: 4rem;
+    }
+
+    .header-main.header-centered .brand-info p {
+        font-size: 1rem;
+        margin-top: 6px;
+    }
+
+    .header-main.header-centered .social-icon {
+        width: 44px;
+        height: 44px;
+    }
+
+    .header-main.header-centered .social-icon svg {
+        width: 28px;
+        height: 28px;
+    }
+
+    .header-main.header-centered .designer-icon-img {
+        width: 42px;
+        height: 42px;
+    }
+
+    .header-main.header-centered .contact-pill {
+        font-size: 0.95rem;
+        padding: 8px 20px;
+    }
+}
+
+.header-main.header-centered .logo-wrapper {
+    flex: 0 0 auto;
+}
+
+.header-main.header-centered .brand-info {
+    min-width: 0;
+    text-align: center;
+}
+
 .header-actions {
     flex: 1;
     display: flex;
@@ -239,6 +304,11 @@ header {
         gap: 10px;
     }
 
+    .header-main.header-centered {
+        column-gap: 10px;
+        row-gap: 0;
+    }
+
     .search-sticky-container {
         padding: 5px 0 10px 0;
     }
@@ -247,6 +317,11 @@ header {
         order: 1;
         padding-left: 0;
         justify-content: center;
+    }
+
+    /* Icons row sits at the bottom of the header, right above the search bar */
+    .header-main .social-links-wrapper {
+        order: 3;
     }
 
     .header-actions {
@@ -295,6 +370,59 @@ header {
     align-items: center;
     gap: 0;
     white-space: nowrap;
+}
+
+/* Social icons row directly below the brand info (index page):
+   full flex-basis forces it onto its own centered line under the
+   logo + brand lockup. Desktop only — mobile keeps the original
+   philatelyworld.in layout via the max-width:800px rules below */
+@media (min-width: 801px) {
+    .header-main .social-links-wrapper {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        flex: 1 0 100%;
+    }
+}
+
+/* Anchor each tooltip to its own icon: some anchors (.contact-pill,
+   .facebook-icon, .whatsapp-icon, .instagram-icon) have no position of
+   their own, which made tooltips attach to the row instead */
+.header-main .social-links-wrapper > a {
+    position: relative;
+}
+
+/* Uniform icon colour matching the h1 (--primary): overrides the
+   per-brand colours (whatsapp green, facebook blue, instagram pink,
+   blog pink, sale red) and the gold giveaway glow animation */
+/* Softer slate for the icons (lighter shade of the brand black), with
+   a darker hover for feedback */
+.header-main .social-links-wrapper a.social-icon:not(.active) {
+    color: var(--text-light);
+}
+
+.header-main .social-links-wrapper a.social-icon:hover {
+    color: var(--primary);
+}
+
+.header-main .social-links-wrapper .giveaway-icon {
+    animation: none;
+}
+
+.header-main .social-links-wrapper .contact-pill {
+    background: var(--text-light);
+    border-color: var(--text-light);
+}
+
+.header-main .social-links-wrapper .contact-pill:hover {
+    background: var(--primary);
+    border-color: var(--primary);
+}
+
+.header-main .social-links-wrapper .sale-bell.active {
+    background: var(--text-light);
 }
 
 .social-icon.whatsapp-icon {
@@ -426,7 +554,7 @@ header {
 }
 
 .blog-badge {
-    background: #f381dc;
+    background: var(--primary);
 }
 
 .blog-bell {
