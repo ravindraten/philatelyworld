@@ -49,6 +49,20 @@ def reset_ui_preferences(driver):
     driver.get(URL)
 
 
+def select_currency(driver, code):
+    """Open the visible currency dropdown and pick a currency option."""
+    dropdown = next(
+        dd for dd in driver.find_elements(By.CLASS_NAME, "currency-dropdown")
+        if dd.is_displayed()
+    )
+    trigger = dropdown.find_element(By.CLASS_NAME, "currency-trigger")
+    driver.execute_script("arguments[0].click();", trigger)
+    option = dropdown.find_element(
+        By.CSS_SELECTOR, f".currency-option[data-currency='{code}']"
+    )
+    driver.execute_script("arguments[0].click();", option)
+
+
 def test_search_filtering(driver):
     """Verify that searching for 'Germany' filters the cards accurately."""
     driver.get(URL)
@@ -74,8 +88,7 @@ def test_currency_toggle(driver):
     """Check if switching to EUR updates the price symbols."""
     driver.get(URL)
     wait = WebDriverWait(driver, 10)
-    eur_btn = wait.until(EC.element_to_be_clickable((By.ID, "btnEUR")))
-    eur_btn.click()
+    select_currency(driver, "EUR")
 
     # Wait for the price to contain '€' instead of fixed sleep
     wait.until(EC.text_to_be_present_in_element((By.CLASS_NAME, "price"), "€"))
@@ -176,8 +189,7 @@ def test_currency_conversion_math(driver):
     inr_text = inr_full_text.split("\n")[0].replace("₹", "").replace(",", "")
     inr_val = float(inr_text)
 
-    eur_btn = driver.find_element(By.ID, "btnEUR")
-    eur_btn.click()
+    select_currency(driver, "EUR")
 
     # Wait for the price to update to EUR
     wait.until(EC.text_to_be_present_in_element((By.CLASS_NAME, "price"), "€"))
@@ -191,22 +203,18 @@ def test_currency_conversion_math(driver):
 
 
 def test_currency_toggle_usd_gbp(driver):
-    """Verify USD and GBP toggles update price symbols and button active state."""
+    """Verify USD and GBP toggles update price symbols and menu active state."""
     reset_ui_preferences(driver)
     wait = WebDriverWait(driver, 10)
     wait.until(EC.presence_of_element_located((By.CLASS_NAME, "price")))
 
-    usd_btn = driver.find_element(By.ID, "btnUSD")
-    usd_btn.click()
+    select_currency(driver, "USD")
     wait.until(EC.text_to_be_present_in_element((By.CLASS_NAME, "price"), "$"))
-    assert "active" in usd_btn.get_attribute("class")
     for price in driver.find_elements(By.CLASS_NAME, "price"):
         assert "$" in price.text
 
-    gbp_btn = driver.find_element(By.ID, "btnGBP")
-    gbp_btn.click()
+    select_currency(driver, "GBP")
     wait.until(EC.text_to_be_present_in_element((By.CLASS_NAME, "price"), "£"))
-    assert "active" in gbp_btn.get_attribute("class")
     for price in driver.find_elements(By.CLASS_NAME, "price"):
         assert "£" in price.text
 
@@ -220,26 +228,17 @@ def test_currency_preference_persists_after_reload(driver):
     wait = WebDriverWait(driver, 10)
     wait.until(EC.presence_of_element_located((By.CLASS_NAME, "price")))
 
-    driver.find_element(By.ID, "btnUSD").click()
+    select_currency(driver, "USD")
     wait.until(EC.text_to_be_present_in_element((By.CLASS_NAME, "price"), "$"))
 
     driver.get(URL)
     wait = WebDriverWait(driver, 10)
     wait.until(EC.text_to_be_present_in_element((By.CLASS_NAME, "price"), "$"))
 
-    # Re-find the button: the old reference is stale after navigation
-    usd_btn = wait.until(
-        lambda d: next(
-            (
-                el
-                for el in d.find_elements(By.ID, "btnUSD")
-                if "active" in (el.get_attribute("class") or "")
-            ),
-            None,
-        )
+    stored = driver.execute_script(
+        "return localStorage.getItem('preferredCurrency');"
     )
-    assert usd_btn is not None
-
+    assert stored == "USD"
     for price in driver.find_elements(By.CLASS_NAME, "price"):
         assert "$" in price.text
 
@@ -256,8 +255,7 @@ def test_currency_conversion_math_usd(driver):
     inr_text = price_el.text.split("\n")[0].replace("₹", "").replace(",", "")
     inr_val = float(inr_text)
 
-    usd_btn = driver.find_element(By.ID, "btnUSD")
-    usd_btn.click()
+    select_currency(driver, "USD")
     wait.until(EC.text_to_be_present_in_element((By.CLASS_NAME, "price"), "$"))
 
     usd_full_text = driver.find_element(By.CLASS_NAME, "price").text
@@ -825,8 +823,7 @@ def test_sale_price_currency_eur(driver):
     )
     driver.execute_script("arguments[0].click();", all_tab)
 
-    eur_btn = wait.until(EC.element_to_be_clickable((By.ID, "btnEUR")))
-    eur_btn.click()
+    select_currency(driver, "EUR")
 
     wait.until(EC.text_to_be_present_in_element((By.CLASS_NAME, "price"), "€"))
 

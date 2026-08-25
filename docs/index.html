@@ -253,11 +253,17 @@
             <div class="search-container">
                 <input type="search" id="stampSearch" placeholder="Search by theme, country, or year...">
             </div>
-            <div class="currency-toggle desktop-only">
-                <button onclick="setCurrency('INR')" id="btnINR" class="toggle-btn active">₹ INR</button>
-                <button onclick="setCurrency('EUR')" id="btnEUR" class="toggle-btn">€ EUR</button>
-                <button onclick="setCurrency('USD')" id="btnUSD" class="toggle-btn">$ USD</button>
-                <button onclick="setCurrency('GBP')" id="btnGBP" class="toggle-btn">£ GBP</button>
+            <div class="currency-dropdown desktop-only">
+                <button class="currency-trigger" aria-haspopup="listbox" aria-expanded="false">
+                    <span class="currency-label">₹ INR</span>
+                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                </button>
+                <div class="currency-menu">
+                    <button class="currency-option active" data-currency="INR"><span>₹ INR</span></button>
+                    <button class="currency-option" data-currency="EUR"><span>€ EUR</span></button>
+                    <button class="currency-option" data-currency="USD"><span>$ USD</span></button>
+                    <button class="currency-option" data-currency="GBP"><span>£ GBP</span></button>
+                </div>
             </div>
         </div>
         <p id="lastUpdated" class="header-status"></p>
@@ -270,11 +276,17 @@
                 <button class="filter-tab" data-status="blog">Blog</button>
             </div>
         </div>
-        <div class="currency-toggle mobile-only">
-            <button onclick="setCurrency('INR')" id="btnINR_m" class="toggle-btn active">₹ INR</button>
-            <button onclick="setCurrency('EUR')" id="btnEUR_m" class="toggle-btn">€ EUR</button>
-            <button onclick="setCurrency('USD')" id="btnUSD_m" class="toggle-btn">$ USD</button>
-            <button onclick="setCurrency('GBP')" id="btnGBP_m" class="toggle-btn">£ GBP</button>
+        <div class="currency-dropdown mobile-only">
+            <button class="currency-trigger" aria-haspopup="listbox" aria-expanded="false">
+                <span class="currency-label">₹ INR</span>
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </button>
+            <div class="currency-menu">
+                <button class="currency-option active" data-currency="INR"><span>₹ INR</span></button>
+                <button class="currency-option" data-currency="EUR"><span>€ EUR</span></button>
+                <button class="currency-option" data-currency="USD"><span>$ USD</span></button>
+                <button class="currency-option" data-currency="GBP"><span>£ GBP</span></button>
+            </div>
         </div>
     </div>
 
@@ -1533,7 +1545,7 @@ Check the photos to see a small part, but there is a lot more than you can see h
             });
         }
     </script>
-    <script defer src="script.js?v=20260824"></script>
+    <script defer src="script.js?v=20260825b"></script>
 </body>
 
 </html>

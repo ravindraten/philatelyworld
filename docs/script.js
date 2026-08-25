@@ -54,9 +54,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const savedCurrency = localStorage.getItem('preferredCurrency');
         if (savedCurrency && CONFIG.currencySymbols[savedCurrency]) {
             state.currency = savedCurrency;
-            document.querySelectorAll('.toggle-btn').forEach(btn => {
-                btn.classList.toggle('active', btn.id.includes(savedCurrency));
-            });
+            updateCurrencyUI();
         }
     } catch (e) { /* storage unavailable */ }
 
@@ -205,20 +203,26 @@ async function updateLiveExchangeRate() {
     }
 }
 
+function buildRateStatusText(label, dateStr) {
+    const inrPerEur = 1 / CONFIG.rates.EUR;
+    const usdPerEur = CONFIG.rates.USD / CONFIG.rates.EUR;
+    const gbpPerEur = CONFIG.rates.GBP / CONFIG.rates.EUR;
+    return `${label}: 1 EUR = ${CONFIG.currencySymbols.INR}${inrPerEur.toFixed(2)} \u00B7 ${CONFIG.currencySymbols.USD}${usdPerEur.toFixed(2)} \u00B7 ${CONFIG.currencySymbols.GBP}${gbpPerEur.toFixed(2)} (Updated: ${dateStr})`;
+}
+
 function applyRates(rates, timestamp, fromCache) {
     Object.assign(CONFIG.rates, rates);
     const statusEl = document.getElementById('lastUpdatedFXRate');
     if (statusEl) {
-        const date = new Date(timestamp).toLocaleDateString();
         const label = fromCache ? 'Cached WU Rates' : 'Live WU Rates';
-        statusEl.innerText = `${label}: 1 INR = ${CONFIG.currencySymbols.EUR}${CONFIG.rates.EUR.toFixed(4)} \u00B7 ${CONFIG.currencySymbols.USD}${CONFIG.rates.USD.toFixed(4)} \u00B7 ${CONFIG.currencySymbols.GBP}${CONFIG.rates.GBP.toFixed(4)} (Updated: ${date})`;
+        statusEl.innerText = buildRateStatusText(label, new Date(timestamp).toLocaleDateString());
     }
 }
 
 function showFallbackRateStatus() {
     const statusEl = document.getElementById('lastUpdatedFXRate');
     if (statusEl) {
-        statusEl.innerText = `Rates: 1 INR = ${CONFIG.currencySymbols.EUR}${CONFIG.rates.EUR.toFixed(4)} \u00B7 ${CONFIG.currencySymbols.USD}${CONFIG.rates.USD.toFixed(4)} \u00B7 ${CONFIG.currencySymbols.GBP}${CONFIG.rates.GBP.toFixed(4)} (cached/fallback)`;
+        statusEl.innerText = buildRateStatusText('Rates', new Date().toLocaleDateString());
     }
 }
 
@@ -229,6 +233,8 @@ function initGallery() {
 
 function initEventListeners() {
     const searchInput = document.getElementById('stampSearch');
+
+    initCurrencyDropdowns();
 
     // Filter on input (conditionally routing to the correct grid renderer)
     searchInput.addEventListener('input', (e) => {
@@ -479,15 +485,56 @@ function formatPrice(amountINR) {
     return `${CONFIG.currencySymbols[code]}${(amountINR * CONFIG.rates[code]).toFixed(2)}`;
 }
 
+function updateCurrencyUI() {
+    const sym = CONFIG.currencySymbols[state.currency] || '';
+    document.querySelectorAll('.currency-label').forEach(el => {
+        el.textContent = `${sym} ${state.currency}`;
+    });
+    document.querySelectorAll('.currency-option').forEach(opt => {
+        opt.classList.toggle('active', opt.dataset.currency === state.currency);
+    });
+}
+
+function closeAllCurrencyDropdowns() {
+    document.querySelectorAll('.currency-dropdown.open').forEach(dd => {
+        dd.classList.remove('open');
+        const trigger = dd.querySelector('.currency-trigger');
+        if (trigger) trigger.setAttribute('aria-expanded', 'false');
+    });
+}
+
+function initCurrencyDropdowns() {
+    document.querySelectorAll('.currency-dropdown').forEach(dd => {
+        const trigger = dd.querySelector('.currency-trigger');
+        trigger.addEventListener('click', e => {
+            e.stopPropagation();
+            const wasOpen = dd.classList.contains('open');
+            closeAllCurrencyDropdowns();
+            if (!wasOpen) {
+                dd.classList.add('open');
+                trigger.setAttribute('aria-expanded', 'true');
+            }
+        });
+        dd.querySelectorAll('.currency-option').forEach(opt => {
+            opt.addEventListener('click', e => {
+                e.stopPropagation();
+                setCurrency(opt.dataset.currency);
+                closeAllCurrencyDropdowns();
+            });
+        });
+    });
+    document.addEventListener('click', () => closeAllCurrencyDropdowns());
+    document.addEventListener('keydown', e => {
+        if (e.key === 'Escape') closeAllCurrencyDropdowns();
+    });
+}
+
 function setCurrency(type) {
     state.currency = type;
 
-    // 1. Update all toggle buttons (Desktop and Mobile)
-    document.querySelectorAll('.toggle-btn').forEach(btn => {
-        btn.classList.toggle('active', btn.id.includes(type));
-    });
-
     try { localStorage.setItem('preferredCurrency', type); } catch (e) { /* storage unavailable */ }
+
+    updateCurrencyUI();
 
     // 2. Determine what is currently being displayed
     const urlParams = new URLSearchParams(window.location.search);
