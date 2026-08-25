@@ -113,13 +113,19 @@ stamps.forEach(stamp => {
     <meta name="twitter:description" content="${descText}">
     <meta name="twitter:image" content="${imgUrl}">
 
-    <!-- Deferred JS redirect: crawlers (WhatsApp, Facebook) don't execute JS and stay on this page with correct OG tags. Human users get redirected to the SPA after a short delay. -->
+    <!-- Deferred JS redirect: crawlers (WhatsApp, Facebook, Googlebot...) don't execute JS or are excluded below,
+         so they stay on this page with correct OG tags and the page stays indexable.
+         Human users get redirected to the SPA after a short delay. -->
     <script>
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
         gtag('config', 'G-0K58TP8LVP');
-        setTimeout(function(){ window.location.replace("https://philatelyworld.in/?item=${rnCode}"); }, 100);
+        // Redirect only real human browsers; search/social crawlers stay
+        // on this page so it stays indexable and link previews keep working
+        if (!/Googlebot|Bingbot|DuckDuckBot|Yandex|Applebot|Baiduspider|facebookexternalhit|Facebot|WhatsApp|TelegramBot|Twitterbot|LinkedInBot|Pinterest|Slurp/i.test(navigator.userAgent)) {
+            setTimeout(function(){ window.location.replace("https://philatelyworld.in/?item=${rnCode}"); }, 100);
+        }
     </script>
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-0K58TP8LVP"></script>
     <script data-goatcounter="https://ravindraten.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
@@ -193,7 +199,11 @@ if (fs.existsSync(announcementDir)) {
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
         gtag('config', 'G-0K58TP8LVP');
-        setTimeout(function(){ window.location.replace("https://philatelyworld.in/announcement/${baseName}.html"); }, 100);
+        // Redirect only real human browsers; search/social crawlers stay
+        // on this page so it stays indexable and link previews keep working
+        if (!/Googlebot|Bingbot|DuckDuckBot|Yandex|Applebot|Baiduspider|facebookexternalhit|Facebot|WhatsApp|TelegramBot|Twitterbot|LinkedInBot|Pinterest|Slurp/i.test(navigator.userAgent)) {
+            setTimeout(function(){ window.location.replace("https://philatelyworld.in/announcement/${baseName}.html"); }, 100);
+        }
     </script>
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-0K58TP8LVP"></script>
     <script data-goatcounter="https://ravindraten.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
