@@ -36,6 +36,19 @@ def test_page_load(driver):
     assert len(cards) > 0
 
 
+def reset_ui_preferences(driver):
+    """Clear stored preferences (currency etc.) and reload so a test starts from defaults.
+
+    Needed because the module-scoped driver shares one browser profile across tests,
+    and script.js persists the chosen currency in localStorage.
+    """
+    driver.get(URL)
+    driver.execute_script(
+        "try { localStorage.clear(); sessionStorage.clear(); } catch (e) {}"
+    )
+    driver.get(URL)
+
+
 def test_search_filtering(driver):
     """Verify that searching for 'Germany' filters the cards accurately."""
     driver.get(URL)
@@ -151,7 +164,7 @@ def test_search_filtering_duplicate(driver):
 
 def test_currency_conversion_math(driver):
     """Switch to EUR and verify price is formatted correctly and value is reduced (INR > EUR)."""
-    driver.get(URL)
+    reset_ui_preferences(driver)
     wait = WebDriverWait(driver, 10)
     
     # Wait for prices to load
@@ -175,6 +188,82 @@ def test_currency_conversion_math(driver):
 
     assert "€" in eur_full_text
     assert eur_val < inr_val  # EUR should be significantly lower than INR value
+
+
+def test_currency_toggle_usd_gbp(driver):
+    """Verify USD and GBP toggles update price symbols and button active state."""
+    reset_ui_preferences(driver)
+    wait = WebDriverWait(driver, 10)
+    wait.until(EC.presence_of_element_located((By.CLASS_NAME, "price")))
+
+    usd_btn = driver.find_element(By.ID, "btnUSD")
+    usd_btn.click()
+    wait.until(EC.text_to_be_present_in_element((By.CLASS_NAME, "price"), "$"))
+    assert "active" in usd_btn.get_attribute("class")
+    for price in driver.find_elements(By.CLASS_NAME, "price"):
+        assert "$" in price.text
+
+    gbp_btn = driver.find_element(By.ID, "btnGBP")
+    gbp_btn.click()
+    wait.until(EC.text_to_be_present_in_element((By.CLASS_NAME, "price"), "£"))
+    assert "active" in gbp_btn.get_attribute("class")
+    for price in driver.find_elements(By.CLASS_NAME, "price"):
+        assert "£" in price.text
+
+    # Cleanup so later tests are not affected by the shared browser profile
+    driver.execute_script("try { localStorage.removeItem('preferredCurrency'); } catch (e) {}")
+
+
+def test_currency_preference_persists_after_reload(driver):
+    """Verify the chosen currency survives a page reload (localStorage)."""
+    reset_ui_preferences(driver)
+    wait = WebDriverWait(driver, 10)
+    wait.until(EC.presence_of_element_located((By.CLASS_NAME, "price")))
+
+    driver.find_element(By.ID, "btnUSD").click()
+    wait.until(EC.text_to_be_present_in_element((By.CLASS_NAME, "price"), "$"))
+
+    driver.get(URL)
+    wait = WebDriverWait(driver, 10)
+    wait.until(EC.text_to_be_present_in_element((By.CLASS_NAME, "price"), "$"))
+
+    # Re-find the button: the old reference is stale after navigation
+    usd_btn = wait.until(
+        lambda d: next(
+            (
+                el
+                for el in d.find_elements(By.ID, "btnUSD")
+                if "active" in (el.get_attribute("class") or "")
+            ),
+            None,
+        )
+    )
+    assert usd_btn is not None
+
+    for price in driver.find_elements(By.CLASS_NAME, "price"):
+        assert "$" in price.text
+
+    # Cleanup so later tests are not affected by the shared browser profile
+    driver.execute_script("try { localStorage.removeItem('preferredCurrency'); } catch (e) {}")
+
+
+def test_currency_conversion_math_usd(driver):
+    """Switch to USD and verify the converted value is plausible (0 < USD < INR)."""
+    reset_ui_preferences(driver)
+    wait = WebDriverWait(driver, 10)
+    price_el = wait.until(EC.presence_of_element_located((By.CLASS_NAME, "price")))
+
+    inr_text = price_el.text.split("\n")[0].replace("₹", "").replace(",", "")
+    inr_val = float(inr_text)
+
+    usd_btn = driver.find_element(By.ID, "btnUSD")
+    usd_btn.click()
+    wait.until(EC.text_to_be_present_in_element((By.CLASS_NAME, "price"), "$"))
+
+    usd_full_text = driver.find_element(By.CLASS_NAME, "price").text
+    usd_val = float(usd_full_text.split("\n")[0].replace("$", ""))
+
+    assert 0 < usd_val < inr_val
 
 
 # --- 3. Interaction (Modals & Lightbox) ---
@@ -616,7 +705,7 @@ def test_on_sale_badge_on_cards(driver):
 
 def test_sale_price_shows_original_strikethrough(driver):
     """Verify sale stamps show sale price with original price struck through."""
-    driver.get(URL)
+    reset_ui_preferences(driver)
     wait = WebDriverWait(driver, 10)
 
     all_tab = wait.until(
