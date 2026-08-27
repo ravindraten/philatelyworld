@@ -1,6 +1,17 @@
 // 1. STAMP DATABASE
 const stamps = [
     {
+        name: "Germany DDR 1948-1990 overcomplete often duplicate stamp collection in 2 albums",
+        country: "Germany",
+        year: "<b>Year</b>: 1948-1990",
+        priceINR: 41999,
+        isSoldOut: false,
+        freeTrackedShipping: true,
+        freeLetterPostShipping: false,
+        folder: "D114",
+        imageCount: 59,
+        desc: "RN4183: 2 Thick albums Germany DDR 1948-1990 with overcrowded often cancelled as well as MNH stamp collection. Check the photos to see a small part, but there is a lot more than you can see here."
+    }, {
         name: "Mixed stamps from from the world on theme - Birds.(lot2)",
         country: "Various Countries",
         year: "<b>Year</b>: 1960+",
