@@ -1,6 +1,17 @@
 // 1. STAMP DATABASE
 const stamps = [
     {
+        name: "Netherlands lot 500 FDC covers",
+        country: "Netherlands",
+        year: "<b>Year</b>: 1960+",
+        priceINR: 19999,
+        isSoldOut: false,
+        freeTrackedShipping: true,
+        freeLetterPostShipping: false,
+        folder: "D115",
+        imageCount: 4,
+        desc: "RN4184: Box with collection about 500 FDC covers Netherlands.<b> Rs.40 per cover</b>. Check the photos to see a small part, but there is a lot more than you can see here."
+    }, {
         name: "Germany DDR 1948-1990 overcomplete often duplicate stamp collection in 2 albums",
         country: "Germany",
         year: "<b>Year</b>: 1948-1990",
