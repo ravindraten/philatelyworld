@@ -21,6 +21,39 @@ const blogPosts = [
         isBlog: true
     },
     {
+        name: "Alle Kinderpostzegels van 1924 tot 2026: een complete postzegelcatalogus",
+        year: "1924-2026",
+        country: "Netherlands",
+        desc: "Een complete jaarlijkse visuele catalogus van elke Kinderpostzegel van 1924 tot 2026. Meer dan 90 uitgiften met ontwerperinformatie, van de eerste toeslagzegels van 1924 tot de serie 'Veilig opgroeien' van Blond Amsterdam in 2026.",
+        folder: "kinderpostzegels",
+        customImage: "https://kinderpostzegels.nl/cdn/shop/files/compilatie_zegels_2025_1200x1200.png?v=1758810893",
+        imageCount: 1,
+        url: "blog/all-kinderpostzegels-stamp-catalog-nl.html",
+        isBlog: true
+    },
+    {
+        name: "All Kinderpostzegels from 1924 to 2026: A Complete Stamp Catalog",
+        year: "1924-2026",
+        country: "Netherlands",
+        desc: "A complete year-by-year visual catalog of every Kinderpostzegels (Dutch children's stamp) from 1924 to 2026. Over 90 stamp issues with designer information — from the first 1924 royal decree surcharges to the 2026 Blond Amsterdam 'Growing up safely' series.",
+        folder: "kinderpostzegels",
+        customImage: "https://kinderpostzegels.nl/cdn/shop/files/compilatie_zegels_2025_1200x1200.png?v=1758810893",
+        imageCount: 1,
+        url: "blog/all-kinderpostzegels-stamp-catalog.html",
+        isBlog: true
+    },
+    {
+        name: "Kinderpostzegels 2026: Designed by Blond Amsterdam",
+        year: "2026",
+        country: "Netherlands",
+        desc: "Kinderpostzegels announces that the 2026 kinderpostzegels are designed by Blond Amsterdam. Discover the hand-drawn stamp series around the theme 'Veilig opgroeien. Dat moet gewoon.' with house-shaped self-adhesive stamps and extra decorative stickers.",
+        folder: "kinderpostzegels",
+        customImage: "https://kinderpostzegels.nl/cdn/shop/articles/Kinderpostzegels_2026_96d6b9a9-6f27-4f6b-9eb5-67f21637eac4_880x522_crop_center.jpg?v=1784124923",
+        imageCount: 1,
+        url: "blog/kinderpostzegels-2026-blond-amsterdam.html",
+        isBlog: true
+    },
+    {
         name: "Austria Post 3D Printed Edelweiss Stamp 2025 – Printing Error Variety",
         year: "2025",
         country: "Austria",
