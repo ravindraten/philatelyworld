@@ -1,6 +1,17 @@
 // 1. STAMP DATABASE
 const stamps = [
     {
+        name: "Czechoslovakia 1918-1992 stamp collection in album",
+        country: "Czechoslovakia",
+        year: "<b>Year</b>: 1918-1992",
+        priceINR: 28999,
+        isSoldOut: false,
+        freeTrackedShipping: true,
+        freeLetterPostShipping: false,
+        folder: "D116",
+        imageCount: 84,
+        desc: "RN4185: KaBe album (loose binder) Czechoslovakia 1918-1992 with very well filled stamp collection.Check the photos to see a small part, but there is a lot more than you can see here."
+    }, {
         name: "Netherlands lot 500 FDC covers",
         country: "Netherlands",
         year: "<b>Year</b>: 1960+",
