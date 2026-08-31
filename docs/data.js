@@ -16,7 +16,7 @@ const stamps = [
         country: "Netherlands",
         year: "<b>Year</b>: 1960+",
         priceINR: 19999,
-        isSoldOut: false,
+        isSoldOut: true,
         freeTrackedShipping: true,
         freeLetterPostShipping: false,
         folder: "D115",
