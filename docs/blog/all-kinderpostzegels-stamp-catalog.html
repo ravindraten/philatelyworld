@@ -348,19 +348,26 @@
             inset: 0;
             z-index: 9999;
             background: rgba(0, 0, 0, 0.92);
-            align-items: center;
-            justify-content: center;
-            padding: 24px;
             text-align: center;
         }
 
         #lbox.open {
+            display: block;
+        }
+
+        .lbox-inner {
             display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            min-height: 100dvh;
+            padding: 48px 24px 24px;
         }
 
         #lbox img {
             max-width: 92vw;
-            max-height: 88vh;
+            max-height: 80vh;
             width: auto;
             height: auto;
             border-radius: 6px;
@@ -386,6 +393,7 @@
             font-size: 0.9em;
             margin-top: 14px;
             opacity: 0.9;
+            max-width: 92vw;
         }
 
         .stat-bar {
@@ -482,6 +490,20 @@
             .stamp-grid {
                 grid-template-columns: repeat(2, 1fr);
                 gap: 10px;
+            }
+
+            #lbox .lbox-inner {
+                padding: 48px 10px 12px;
+            }
+
+            #lbox img {
+                max-width: 96vw;
+                max-height: 75vh;
+            }
+
+            #lbox .lbox-caption {
+                font-size: 0.82em;
+                padding: 0 4px;
             }
         }
     </style>
@@ -1264,8 +1286,10 @@
 
     <div id="lbox" role="dialog" aria-modal="true" aria-label="Image viewer">
         <span class="lbox-close" id="lbox-close">&times;</span>
-        <img id="lbox-img" src="" alt="">
-        <div class="lbox-caption" id="lbox-caption"></div>
+        <div class="lbox-inner">
+            <img id="lbox-img" src="" alt="">
+            <div class="lbox-caption" id="lbox-caption"></div>
+        </div>
     </div>
 
     <script>
