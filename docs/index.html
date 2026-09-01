@@ -144,7 +144,7 @@
 
     <header>
         <div class="header-top-bar">
-            <span>Global Shipping Available • Expertly Authenticated</span>
+            <span data-i18n="topBar">Global Shipping Available • Expertly Authenticated</span>
         </div>
 
         <div class="header-main header-centered">
@@ -158,7 +158,7 @@
 
             <a href="index.html" class="brand-info" style="text-decoration: none; color: inherit;">
                 <h1><span class="VuuXrf">Philately World</span></h1>
-                <p>ESTABLISHED 2017 • PREMIUM STAMP CURATION</p>
+                <p data-i18n="establishedSince">ESTABLISHED 2017 • PREMIUM STAMP CURATION</p>
             </a>
 
             <div class="social-links-wrapper">
@@ -234,7 +234,7 @@
                     </svg>
                 </a>
                 <a href="https://wa.me/31633467712" class="contact-pill" target="_blank"
-                    data-tooltip="Chat with us on WhatsApp">Chat</a>
+                    data-tooltip="Chat with us on WhatsApp" data-i18n="chat">Chat</a>
                 <a href="AlbumDesigner/auto-album.html" class="social-icon designer-icon" aria-label="Album Designer"
                     data-tooltip="Album Designer">
                     <img src="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/designer-icon.png"
@@ -249,26 +249,36 @@
             <img src="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/logo.jpg" alt="Logo"
                 class="sticky-logo" width="40" height="40" loading="lazy" decoding="async">
             <div class="search-container">
-                <input type="search" id="stampSearch" placeholder="Search stamps by theme, country, or year...">
+                <input type="search" id="stampSearch" placeholder="Search stamps by theme, country, or year..." data-i18n="searchPlaceholder" data-i18n-attr="placeholder">
             </div>
             <div class="currency-toggle desktop-only">
-                <button onclick="setCurrency('INR')" id="btnINR" class="toggle-btn active">₹ INR</button>
-                <button onclick="setCurrency('EUR')" id="btnEUR" class="toggle-btn">€ EUR</button>
+                <button onclick="setCurrency('INR')" id="btnINR" class="toggle-btn currency-btn active">₹ INR</button>
+                <button onclick="setCurrency('EUR')" id="btnEUR" class="toggle-btn currency-btn">€ EUR</button>
+            </div>
+            <div class="lang-toggle-grp desktop-only" role="group" aria-label="Language">
+                <button onclick="PW.setLang('en', true)" class="toggle-btn lang-btn active" data-lang="en" aria-pressed="true">EN</button>
+                <button onclick="PW.setLang('nl', true)" class="toggle-btn lang-btn" data-lang="nl">NL</button>
+                <button onclick="PW.setLang('de', true)" class="toggle-btn lang-btn" data-lang="de">DE</button>
             </div>
         </div>
         <p id="lastUpdated" class="header-status"></p>
-        <p id="lastUpdatedFXRate" class="header-status">Loading live exchange rates...</p>
+        <p id="lastUpdatedFXRate" class="header-status" data-i18n="loadingRates">Loading live exchange rates...</p>
         <div class="filter-sticky-bar">
             <div class="filter-tabs">
-                <button class="filter-tab active" data-status="all">All Items</button>
-                <button class="filter-tab" data-status="available">Available</button>
-                <button class="filter-tab" data-status="sold">Sold Out</button>
-                <button class="filter-tab" data-status="blog">Blog</button>
+                <button class="filter-tab active" data-status="all" data-i18n="tabAll">All Items</button>
+                <button class="filter-tab" data-status="available" data-i18n="tabAvailable">Available</button>
+                <button class="filter-tab" data-status="sold" data-i18n="tabSold">Sold Out</button>
+                <button class="filter-tab" data-status="blog" data-i18n="tabBlog">Blog</button>
             </div>
         </div>
         <div class="currency-toggle mobile-only">
-            <button onclick="setCurrency('INR')" id="btnINR_m" class="toggle-btn active">₹ INR</button>
-            <button onclick="setCurrency('EUR')" id="btnEUR_m" class="toggle-btn">€ EUR</button>
+            <button onclick="setCurrency('INR')" id="btnINR_m" class="toggle-btn currency-btn active">₹ INR</button>
+            <button onclick="setCurrency('EUR')" id="btnEUR_m" class="toggle-btn currency-btn">€ EUR</button>
+        </div>
+        <div class="lang-toggle-grp mobile-only" role="group" aria-label="Language">
+            <button onclick="PW.setLang('en', true)" class="toggle-btn lang-btn active" data-lang="en" aria-pressed="true">EN</button>
+            <button onclick="PW.setLang('nl', true)" class="toggle-btn lang-btn" data-lang="nl">NL</button>
+            <button onclick="PW.setLang('de', true)" class="toggle-btn lang-btn" data-lang="de">DE</button>
         </div>
     </div>
 
@@ -1437,10 +1447,11 @@ Check the photos to see a small part, but there is a lot more than you can see h
         <p>&copy; 2017-2026 Philately World Gallery</p>
         <p>
             <a href="#privacy-policy" id="privacyTrigger"
-                style="color: var(--text-light); font-size: 0.75rem; text-decoration: underline;">Privacy Policy</a>
+                style="color: var(--text-light); font-size: 0.75rem; text-decoration: underline;" data-i18n="privacyPolicy">Privacy Policy</a>
             <span style="color: var(--text-light); margin: 0 8px;">•</span>
             <a href="#security-guarantee" id="securityTrigger"
-                style="color: var(--text-light); font-size: 0.75rem; text-decoration: underline;">Security &
+                style="color: var(--text-light); font-size: 0.75rem; text-decoration: underline;"
+                data-i18n="securityGuarantee">Security &
                 Guarantee</a>
         </p>
     </footer>
@@ -1448,35 +1459,35 @@ Check the photos to see a small part, but there is a lot more than you can see h
     <div id="qrModal" class="qr-modal">
         <div class="qr-modal-content">
             <span class="qr-close" id="qrClose">&times;</span>
-            <h2 style="margin-top:0; color: var(--primary);">Scan to Pay</h2>
+            <h2 style="margin-top:0; color: var(--primary);" data-i18n="scanToPay">Scan to Pay</h2>
             <img src="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/BHIM.jpg"
                 alt="BHIM QR Code" class="qr-image" width="220" height="220" loading="lazy" decoding="async">
             <div class="upi-copy-box">
                 <span id="upiIdText">9900416731@upi</span>
-                <button onclick="copyUPI()" id="copyBtn">Copy</button>
+                <button onclick="copyUPI()" id="copyBtn" data-i18n="copy">Copy</button>
             </div>
         </div>
     </div>
     <div id="securityModal" class="qr-modal" data-anchor="security-guarantee">
         <div class="qr-modal-content" style="max-width: 600px; text-align: left; max-height: 80vh; overflow-y: auto;">
             <span class="qr-close" id="securityClose">&times;</span>
-            <h2 style="margin-top:0; color: var(--primary);">Security & Guarantee</h2>
+            <h2 style="margin-top:0; color: var(--primary);" data-i18n="securityGuarantee">Security &amp; Guarantee</h2>
             <p style="font-size: 0.85rem; color: var(--text-light);">Last Updated: March 2026</p>
             <div style="font-size: 0.9rem; color: var(--text-main); line-height: 1.5;">
-                <p><strong>1. Expert Authentication</strong><br>
+                <p><strong data-i18n="expertAuth">1. Expert Authentication</strong><br>
                     Every item in our collection is meticulously inspected and authenticated. We guarantee the
                     description and condition of the stamps as listed.</p>
 
-                <p><strong>2. Secure Payments</strong><br>
+                <p><strong data-i18n="securePayments">2. Secure Payments</strong><br>
                     We utilize secure payment methods including BHIM UPI and direct bank transfers. No sensitive
                     financial data is stored on our servers.</p>
 
-                <p><strong>3. Global Shipping Protection</strong><br>
+                <p><strong data-i18n="globalShipping">3. Global Shipping Protection</strong><br>
                     All shipments are expertly packed to prevent damage. We provide free letter post shipping worldwide
                     from the Netherlands for specific items.During shipment the buyer is responsible for loss or damage,
                     unless the shipment is sent by registered mail.</p>
 
-                <p><strong>4. Satisfaction Guarantee</strong><br>
+                <p><strong data-i18n="satisfaction">4. Satisfaction Guarantee</strong><br>
                     If you are not satisfied with your purchase, please contact us via WhatsApp at +31 633467712 within
                     48 hours of receipt for a resolution. There's a 100% guarantee on your purchases. Should any item be
                     different from the description, or not meet the quality described, kindly contact us.</p>
@@ -1486,24 +1497,24 @@ Check the photos to see a small part, but there is a lot more than you can see h
     <div id="privacyModal" class="qr-modal" data-anchor="privacy-policy">
         <div class="qr-modal-content" style="max-width: 600px; text-align: left; max-height: 80vh; overflow-y: auto;">
             <span class="qr-close" id="privacyClose">&times;</span>
-            <h2 style="margin-top:0; color: var(--primary);">Privacy Policy</h2>
+            <h2 style="margin-top:0; color: var(--primary);" data-i18n="privacyPolicy">Privacy Policy</h2>
             <p style="font-size: 0.85rem; color: var(--text-light);">Last Updated: March 2026</p>
 
             <div style="font-size: 0.9rem; color: var(--text-main); line-height: 1.5;">
-                <p><strong>1. Information We Collect</strong><br>
+                <p><strong data-i18n="infoWeCollect">1. Information We Collect</strong><br>
                     We collect information you provide directly via WhatsApp or BHIM UPI for order fulfillment. We also
                     use Google Analytics and GoatCounter to collect anonymous browsing data like IP addresses and site
                     interaction.</p>
 
-                <p><strong>2. Use of Data</strong><br>
+                <p><strong data-i18n="useOfData">2. Use of Data</strong><br>
                     Data is used solely to process your stamp orders, provide customer support, and improve website
                     performance.</p>
 
-                <p><strong>3. Third-Party Services</strong><br>
+                <p><strong data-i18n="thirdParty">3. Third-Party Services</strong><br>
                     We use Google Analytics and GoatCounter for traffic analysis. These services may use cookies. We do
                     not sell your personal data to third parties.</p>
 
-                <p><strong>4. Your Rights (GDPR)</strong><br>
+                <p><strong data-i18n="yourRights">4. Your Rights (GDPR)</strong><br>
                     As a European-focused service, you have the right to access, correct, or delete your personal data.
                     Contact us at +31 633467712 for any privacy requests.</p>
             </div>
@@ -1517,6 +1528,8 @@ Check the photos to see a small part, but there is a lot more than you can see h
     <script>
         (adsbygoogle = window.adsbygoogle || []).push({});
     </script>
+    <script defer src="translations.js?v=20260415"></script>
+    <script defer src="i18n.js?v=20260415"></script>
     <script defer src="data.js?v=20260415"></script>
     <script defer src="blog.js?v=20260415"></script>
     <script>

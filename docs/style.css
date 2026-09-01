@@ -211,11 +211,11 @@ header {
         padding: 5px 20px;
     }
 
-    /* Invisible spacer to balance the currency toggle so the search bar is truly centered */
+    /* Invisible spacer to balance the currency + language toggles so the search bar is truly centered */
     .sticky-wrapper::before {
         content: '';
         display: block;
-        min-width: 120px;
+        min-width: 250px;
         flex-shrink: 0;
     }
 
@@ -245,12 +245,12 @@ header {
     }
 
     .sticky-wrapper::before {
-        width: 140px;
+        width: 250px;
         flex-shrink: 0;
     }
 
     .search-sticky-container.is-pinned .sticky-wrapper::before {
-        width: 140px;
+        width: 250px;
     }
 
     .sticky-wrapper .search-container {
@@ -1667,4 +1667,34 @@ header {
 .carousel-dot.active {
     background: rgba(255, 255, 255, 1);
     transform: scale(1.2);
+}
+
+/* ------------------------------------------------------------------ *
+   Language Toggle (styled like the currency toggle)
+   ------------------------------------------------------------------ */
+.lang-toggle-grp {
+    background: #f1f5f9;
+    padding: 2px;
+    border-radius: 50px;
+    border: 1px solid var(--border);
+    gap: 1px;
+    flex-shrink: 0;
+}
+
+.lang-toggle-grp .toggle-btn {
+    min-width: 38px;
+    text-align: center;
+}
+
+.lang-toggle-grp .toggle-btn.active {
+    background: white;
+    color: var(--primary);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+@media (max-width: 800px) {
+    .lang-toggle-grp {
+        transform: scale(0.9);
+        margin-top: 0;
+    }
 }

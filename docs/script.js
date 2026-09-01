@@ -27,6 +27,53 @@ let state = {
     saleActive: false
 };
 
+// --- I18N HOOKS ---
+// Translate a copy of the global data for the current language so the
+// original (English) data stays untouched (used for search & SEO).
+let localizedStamps = null;
+let localizedBlogPosts = null;
+
+function getLocalizedStamps() {
+    if (!localizedStamps) {
+        localizedStamps = typeof window.PW !== 'undefined'
+            ? stamps.map(s => window.PW.translateStamp(s))
+            : stamps;
+    }
+    return localizedStamps;
+}
+
+function getLocalizedBlogPosts() {
+    if (!localizedBlogPosts) {
+        localizedBlogPosts = typeof window.PW !== 'undefined'
+            ? blogPosts.map(p => window.PW.translateBlog(p))
+            : blogPosts;
+    }
+    return localizedBlogPosts;
+}
+
+// Called by the i18n engine when language changes
+window.PWRefreshAll = function () {
+    localizedStamps = null;
+    localizedBlogPosts = null;
+    updateStatusLine();
+    updateFilterCounts();
+    const searchInput = document.getElementById('stampSearch');
+    const searchTerm = searchInput ? searchInput.value.trim() : "";
+    const itemID = new URLSearchParams(window.location.search).get('item');
+    if (itemID && !searchTerm) {
+        const selectedStamp = getLocalizedStamps().find(s => s.desc.includes(itemID));
+        if (selectedStamp) {
+            renderGallery([selectedStamp]);
+            return;
+        }
+    }
+    filterStamps(searchTerm);
+    if (typeof initAnnouncementCarousel === 'function') initAnnouncementCarousel();
+    if (typeof renderAllAnnouncementsPage === 'function' && document.getElementById('announcementsGrid')) {
+        renderAllAnnouncementsPage();
+    }
+};
+
 document.addEventListener('DOMContentLoaded', () => {
     // First, get the live exchange rate
     updateLiveExchangeRate();
@@ -97,16 +144,17 @@ document.addEventListener('DOMContentLoaded', () => {
         // Instead of grid, add the button to the sidebar/container so it's visible
         const container = document.querySelector('.container');
         if (container) {
+            const viewStampLabel = window.PW ? window.PW.t('viewStampCollection') : '← View Stamp Collection';
             container.insertAdjacentHTML('afterbegin',
                 `<div style="text-align:center; margin: 20px 0;">
                     <button onclick="window.location.href='index.html'" class="toggle-btn active" style="padding: 12px 24px; font-weight: bold; cursor: pointer;">
-                        ← View Stamp Collection
+                        ${viewStampLabel}
                     </button>
                 </div>`
             );
         }
     } else if (itemID) {
-        const selectedStamp = stamps.find(s => s.desc.includes(itemID));
+        const selectedStamp = getLocalizedStamps().find(s => s.desc.includes(itemID));
 
         if (selectedStamp) {
             updateMetaTags(selectedStamp, itemID);
@@ -118,10 +166,11 @@ document.addEventListener('DOMContentLoaded', () => {
             // Insert the button at the TOP of the results grid
             const grid = document.getElementById('stampGrid');
             if (grid) {
+                const viewFullLabel = window.PW ? window.PW.t('viewCollection') : '← View Full Collection';
                 grid.insertAdjacentHTML('beforebegin',
                     `<div style="text-align:center; margin: 20px 0;">
                         <button onclick="window.location.href='index.html'" class="toggle-btn active" style="padding: 12px 24px; font-weight: bold;">
-                            ← View Full Collection
+                            ${viewFullLabel}
                         </button>
                     </div>`
                 );
@@ -153,7 +202,8 @@ async function updateLiveExchangeRate() {
                 const statusEl = document.getElementById('lastUpdatedFXRate');
                 if (statusEl) {
                     const date = new Date(timestamp).toLocaleDateString();
-                    statusEl.innerText = `Cached WU Rate: 1 INR = ${rate.toFixed(4)} EUR (Updated: ${date})`;
+                    statusEl.innerText = (window.PW ? window.PW.t('cachedRate') : 'Cached WU Rate') +
+                        `: 1 INR = ${rate.toFixed(4)} EUR (${window.PW ? window.PW.t('updated') : 'Updated'}: ${date})`;
                 }
                 return;
             }
@@ -180,14 +230,16 @@ async function updateLiveExchangeRate() {
             const statusEl = document.getElementById('lastUpdatedFXRate');
             if (statusEl) {
                 const date = new Date().toLocaleDateString();
-                statusEl.innerText = `Live WU Rate: 1 INR = ${CONFIG.eurRate.toFixed(4)} EUR (Updated: ${date})`;
+                statusEl.innerText = (window.PW ? window.PW.t('liveRate') : 'Live WU Rate') +
+                    `: 1 INR = ${CONFIG.eurRate.toFixed(4)} EUR (${window.PW ? window.PW.t('updated') : 'Updated'}: ${date})`;
             }
         }
     } catch (error) {
         console.error("FX fetch failed, using fallback.");
         const statusEl = document.getElementById('lastUpdatedFXRate');
         if (statusEl) {
-            statusEl.innerText = `Rate: 1 INR = ${CONFIG.eurRate.toFixed(4)} EUR (cached/fallback)`;
+            statusEl.innerText = (window.PW ? window.PW.t('rate') : 'Rate') +
+                `: 1 INR = ${CONFIG.eurRate.toFixed(4)} EUR (${window.PW ? window.PW.t('cachedFallback') : 'cached/fallback'})`;
         }
     }
 }
@@ -446,8 +498,8 @@ function scrollToGrid() {
 function setCurrency(type) {
     state.currency = type;
 
-    // 1. Update all toggle buttons (Desktop and Mobile)
-    document.querySelectorAll('.toggle-btn').forEach(btn => {
+    // 1. Update all currency toggle buttons (Desktop and Mobile)
+    document.querySelectorAll('.currency-btn').forEach(btn => {
         btn.classList.toggle('active', btn.id.includes(type));
     });
 
@@ -459,7 +511,7 @@ function setCurrency(type) {
 
     if (itemID && !searchTerm) {
         // If viewing a specific shared item and NOT searching, only re-render that item
-        const selectedStamp = stamps.find(s => s.desc.includes(itemID));
+        const selectedStamp = getLocalizedStamps().find(s => s.desc.includes(itemID));
         if (selectedStamp) {
             renderGallery([selectedStamp]);
             return;
@@ -500,6 +552,9 @@ function renderGallery(data) {
             let sidebarContent = '';
 
             if (CONFIG.showPromo) {
+                const promoTitle = window.PW ? window.PW.t('promoFreeStamps') : 'Get 150 stamps for FREE!';
+                const promoDesc = window.PW ? window.PW.t('promoFollow') : 'Follow our social channels to claim yours.';
+                const inquireLabel = window.PW ? window.PW.t('inquire') : 'Inquire';
                 // Feature card in the sidebar utilizing the universal stamp-card format
                 sidebarContent += `
                 <div class="stamp-card" style="margin-bottom: 20px;">
@@ -508,10 +563,10 @@ function renderGallery(data) {
                         <span class="photo-badge" style="background: var(--primary);">Promotion</span>
                     </div>
                     <div class="details">
-                        <h3>Get 150 stamps for FREE!</h3>
-                        <p class="stamp-desc">Follow our social channels to claim yours.</p>
+                        <h3>${promoTitle}</h3>
+                        <p class="stamp-desc">${promoDesc}</p>
                         <div class="action-buttons" style="margin-top: auto; justify-content: flex-end;">
-                            <a href="${CONFIG.whatsappNumber}?text=Hi!%20I'm%20interested%20in%20The%20Royal%20Collection%20you%20featured." target="_blank" class="buy-btn" style="text-align: center;"><i class="fab fa-whatsapp"></i> Inquire</a>
+                            <a href="${CONFIG.whatsappNumber}?text=Hi!%20I'm%20interested%20in%20The%20Royal%20Collection%20you%20featured." target="_blank" class="buy-btn" style="text-align: center;"><i class="fab fa-whatsapp"></i> ${inquireLabel}</a>
                         </div>
                     </div>
                 </div>`;
@@ -536,7 +591,10 @@ function renderGallery(data) {
 
     // 2. Handle Stamp Grid
     if (data.length === 0) {
-        grid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; padding: 40px;">No stamps found.</p>';
+        const msg = window.PW
+            ? (state.statusFilter === 'blog' ? window.PW.t('noBlogFound') : window.PW.t('noStampsFound'))
+            : 'No stamps found.';
+        grid.innerHTML = `<p style="grid-column: 1/-1; text-align: center; padding: 40px;">${msg}</p>`;
         return;
     }
 
@@ -545,16 +603,19 @@ function renderGallery(data) {
         // --- REPLACE THIS SECTION INSIDE renderGallery in script.js ---
 
         if (state.statusFilter === 'blog') {
+            const articleLabel = window.PW ? window.PW.t('articleBadge') : 'Article';
+            const blogLabel = window.PW ? window.PW.t('phillyBlog') : 'Philately Blog';
+            const readPostLabel = window.PW ? window.PW.t('readPost') : 'Read Post';
             return `
                 <div class="stamp-card blog-card">
                     <a href="${stamp.url || '#'}" class="blog-link-wrapper" style="text-decoration: none; color: inherit;">
                         <div class="img-container" style="cursor: pointer;">
                             <img src="${stamp.customImage || `${CONFIG.baseImgPath}/${stamp.folder}/1.${stamp.extension || 'jpg'}`}" alt="${stamp.name}" loading="lazy" decoding="async" fetchpriority="low" width="300" height="300">
-                            <div class="photo-badge">Article</div>
+                            <div class="photo-badge">${articleLabel}</div>
                         </div>
                     </a>
                     <div class="details">
-                        <div class="promo-badge" style="background:#e0f2fe; margin-bottom:8px;">Philately Blog</div>
+                        <div class="promo-badge" style="background:#e0f2fe; margin-bottom:8px;">${blogLabel}</div>
                         <a href="${stamp.url || '#'}" style="text-decoration: none; color: inherit;">
                             <h3 style="cursor: pointer;">${stamp.name}</h3>
                         </a>
@@ -564,7 +625,7 @@ function renderGallery(data) {
                         </div>
                         <div class="stamp-desc">${stamp.desc}</div>
                         <div class="price-row" style="justify-content: flex-end;">
-                            <a href="${stamp.url || '#'}" class="buy-btn" style="background:#e0f2fe">Read Post</a>
+                            <a href="${stamp.url || '#'}" class="buy-btn" style="background:#e0f2fe">${readPostLabel}</a>
                         </div>
                     </div>
                 </div>`;
@@ -595,12 +656,22 @@ function renderGallery(data) {
             }
         }
 
+const i18nT = window.PW ? window.PW.t : (k) => k;
+        const soldOutLabel = i18nT('soldOutBtn');
+        const onSaleLabel = i18nT('onSaleBadge');
+        const trackLabel = i18nT('freeTrackedShipping');
+        const letterLabel = i18nT('freeLetterPost');
+        const photosLabel = i18nT('photoBadge');
+        const viewListingLabel = i18nT('viewListing');
+        const buyNowLabel = i18nT('buyNow');
+        const copyShareLabel = i18nT('copyShare');
+
         return `
             <div class="stamp-card ${stamp.isSoldOut ? 'sold-out' : ''}">
-                ${stamp.isSoldOut ? '<div class="sold-out-badge">Sold Out</div>' : ''}
-                ${stamp.onSale ? '<div class="on-sale-badge">On Sale</div>' : ''}
-                ${stamp.freeTrackedShipping ? '<div class="shipping-badge"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 4px;"><rect x="1" y="3" width="15" height="13"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle></svg>Free Tracked Shipping</div>' : ''}
-                ${stamp.freeLetterPostShipping ? '<div class="letter-badge"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 4px;"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>Free Letter Post</div>' : ''}
+                ${stamp.isSoldOut ? `<div class="sold-out-badge">${soldOutLabel}</div>` : ''}
+                ${stamp.onSale ? `<div class="on-sale-badge">${onSaleLabel}</div>` : ''}
+                ${stamp.freeTrackedShipping ? `<div class="shipping-badge"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 4px;"><rect x="1" y="3" width="15" height="13"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle></svg>${trackLabel}</div>` : ''}
+                ${stamp.freeLetterPostShipping ? `<div class="letter-badge"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 4px;"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>${letterLabel}</div>` : ''}
                 <div class="img-container">
                     <img src="${CONFIG.baseImgPath}/${stamp.folder}/1.${stamp.extension || 'jpg'}" 
                         alt="${stamp.name}" 
@@ -608,7 +679,7 @@ function renderGallery(data) {
                         decoding="async"
                         fetchpriority="low"
                         width="300" height="300"
-                        onclick="openLightbox(${stamps.indexOf(stamp)})">
+                        onclick="openLightbox(${getLocalizedStamps().indexOf(stamp)})">
                         ${stamp.blogUrl ? `
                         <a href="${stamp.blogUrl}" class="stamp-blog-indicator" title="Read related blog post" style="position: absolute; top: 10px; right: 10px; background: #f6bbbb; padding: 6px; border-radius: 50%; display: flex; box-shadow: 0 2px 8px rgba(0,0,0,0.3); border: 2px solid white;" onclick="event.stopPropagation();">
                             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
@@ -619,7 +690,7 @@ function renderGallery(data) {
                             </svg>
                         </a>
                     ` : ''}
-                    <div class="photo-badge">${stamp.imageCount} Photos</div>
+                    <div class="photo-badge">${stamp.imageCount} ${photosLabel}</div>
                 </div>
                 <div class="details">
                     <h3>${stamp.name}</h3>
@@ -633,12 +704,12 @@ function renderGallery(data) {
                     <div class="price-row">
                         <div class="price ${stamp.onSale ? 'sale' : ''}">${stamp.onSale ? `${displaySalePrice}<br><span class="old-price">${displayOldPrice}</span>` : displayPrice}</div>
                         <div class="action-buttons">
-                            <button class="share-icon-btn" onclick="copyShareLink('${shareUrl}', this)" title="Copy Share Link">
+                            <button class="share-icon-btn" onclick="copyShareLink('${shareUrl}', this)" title="${copyShareLabel}">
                                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path><polyline points="16 6 12 2 8 6"></polyline><line x1="12" y1="2" x2="12" y2="15"></line></svg>
                             </button>
                             
                             ${stamp.isSoldOut
-                ? `<button class="buy-btn disabled" disabled>Sold Out</button>`
+                ? `<button class="buy-btn disabled" disabled>${soldOutLabel}</button>`
                 : (() => {
                     // 1. Extract the Item ID (e.g., RN4112) from the description
                     const itemID = stamp.desc.split(':')[0];
@@ -649,7 +720,7 @@ function renderGallery(data) {
                         `Hi, I am interested in buying :\n${stamp.name}\nLink: ${listingUrl}`
                     );
                     return `<a href="https://wa.me/${CONFIG.whatsappNumber}?text=${message}" 
-                                        target="_blank" class="buy-btn">Buy Now</a>`;
+                                        target="_blank" class="buy-btn">${buyNowLabel}</a>`;
                 })()
             }
                         </div>
@@ -663,7 +734,7 @@ function filterStamps(query) {
 
     // Switch data source based on active tab (sale overrides blog data source)
     const useBlog = state.statusFilter === 'blog' && !state.saleActive;
-    const activeData = useBlog ? (blogPosts || []) : stamps;
+    const activeData = useBlog ? getLocalizedBlogPosts() : getLocalizedStamps();
 
     const filtered = activeData.filter(item => {
         // 1. Text Search Match
@@ -698,7 +769,8 @@ function openLightbox(idx) {
 }
 
 function updateLightbox() {
-    const stamp = stamps[state.currentStampIdx];
+    const localized = getLocalizedStamps();
+    const stamp = localized[state.currentStampIdx];
     const modalImg = document.getElementById("img01");
     const rnMatch = stamp.desc.match(/RN\d+/);
     const rnCode = rnMatch ? rnMatch[0] : "ref";
@@ -745,43 +817,65 @@ function updateStatusLine() {
     const el = document.getElementById('lastUpdated');
     if (el) {
         const date = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
-        el.textContent = `Catalog Updated: ${date} • ${stamps.length} Unique Pieces`;
+        const lang = (window.PW && window.PW.getLang()) || 'en';
+        const locale = lang === 'nl' ? 'nl-NL' : (lang === 'de' ? 'de-DE' : 'en-US');
+        const localDate = new Date().toLocaleDateString(locale, { year: 'numeric', month: 'long', day: 'numeric' });
+        const count = (window.PW ? window.PW.t('catalogCount') : null);
+        el.textContent = count
+            ? count.replace('{date}', localDate).replace('{count}', getLocalizedStamps().length)
+            : `Catalog Updated: ${localDate} • ${getLocalizedStamps().length} Unique Pieces`;
     }
 }
 function updateFilterCounts() {
-    const totalCount = stamps.length;
-    const soldCount = stamps.filter(s => s.isSoldOut).length;
+    const totalCount = getLocalizedStamps().length;
+    const soldCount = getLocalizedStamps().filter(s => s.isSoldOut).length;
     const availableCount = totalCount - soldCount;
-    const saleCount = stamps.filter(s => s.onSale === true).length;
-    const blogTotal = blogPosts.length;
+    const saleCount = getLocalizedStamps().filter(s => s.onSale === true).length;
+    const blogTotal = getLocalizedBlogPosts().length;
+
+    if (!window.PW) {
+        const tabs0 = document.querySelectorAll('.filter-tab[data-status]');
+        tabs0.forEach(tab => {
+            const st = tab.getAttribute('data-status');
+            if (st === 'all') tab.innerText = `All Items (${totalCount})`;
+            if (st === 'available') tab.innerText = `Available (${availableCount})`;
+            if (st === 'sold') { tab.innerText = `Sold Out (${soldCount})`; if (!CONFIG.showSoldOut) tab.style.display = 'none'; }
+            if (st === 'blog') tab.innerText = `Blog (${blogTotal})`;
+        });
+        const sb = document.getElementById('saleBell');
+        if (sb) sb.setAttribute('data-tooltip', `On Sale (${saleCount})`);
+        return;
+    }
 
     const tabs = document.querySelectorAll('.filter-tab[data-status]');
     tabs.forEach(tab => {
         const status = tab.getAttribute('data-status');
         if (status === 'all') {
-            tab.innerText = `All Items (${totalCount})`;
+            tab.innerText = `${window.PW.t('tabAll')} (${totalCount})`;
         }
-        if (status === 'available') tab.innerText = `Available (${availableCount})`;
+        if (status === 'available') tab.innerText = `${window.PW.t('tabAvailable')} (${availableCount})`;
         if (status === 'sold') {
-            tab.innerText = `Sold Out (${soldCount})`;
+            tab.innerText = `${window.PW.t('tabSold')} (${soldCount})`;
             if (!CONFIG.showSoldOut) tab.style.display = 'none';
         }
-        if (status === 'blog') tab.innerText = `Blog (${blogTotal})`;
+        if (status === 'blog') tab.innerText = `${window.PW.t('tabBlog')} (${blogTotal})`;
     });
 
     const saleBell = document.getElementById('saleBell');
     if (saleBell) {
-        saleBell.setAttribute('data-tooltip', `On Sale (${saleCount})`);
+        saleBell.setAttribute('data-tooltip', `${window.PW.t('tabOnSale')} (${saleCount})`);
     }
 }
 function copyUPI() {
     const upiId = document.getElementById('upiIdText').innerText;
     navigator.clipboard.writeText(upiId).then(() => {
         const btn = document.getElementById('copyBtn');
-        btn.innerText = "Copy";
+        const copiedLabel = window.PW ? window.PW.t('copiedDone') : 'Copied!';
+        const copyLabel = window.PW ? window.PW.t('copy') : 'Copy';
+        btn.innerText = copiedLabel;
         btn.style.background = "#22c55e";
         setTimeout(() => {
-            btn.innerText = "Copied!";
+            btn.innerText = copyLabel;
             btn.style.background = "";
         }, 10);
     });
@@ -790,8 +884,9 @@ function copyUPI() {
 // Add this helper function at the bottom of script.js
 function copyShareLink(url, btn) {
     navigator.clipboard.writeText(url).then(() => {
+        const copiedLabel = window.PW ? window.PW.t('copiedLabel') : 'COPIED';
         const originalSVG = btn.innerHTML;
-        btn.innerHTML = `<span style="font-size:10px; color:#059669; font-weight:bold;">COPIED</span>`;
+        btn.innerHTML = `<span style="font-size:10px; color:#059669; font-weight:bold;">${copiedLabel}</span>`;
         setTimeout(() => { btn.innerHTML = originalSVG; }, 2000);
     });
 }
@@ -873,12 +968,13 @@ async function initAnnouncementCarousel() {
             const descEl = Array.from(doc.querySelectorAll('p')).find(p => p.textContent.length > 30 && p !== categoryEl && !p.classList.contains('img-caption'));
             const imgEl = doc.querySelector('.img-wrap img');
 
-            const title = titleEl ? titleEl.textContent.trim() : 'Announcement';
-            const category = categoryEl ? categoryEl.textContent.trim() : 'News';
-            let desc = descEl ? descEl.textContent.trim() : 'Click to read more...';
+            const title = titleEl ? titleEl.textContent.trim() : (window.PW ? window.PW.t('announcement') : 'Announcement');
+            const category = categoryEl ? categoryEl.textContent.trim() : (window.PW ? window.PW.t('news') : 'News');
+            let desc = descEl ? descEl.textContent.trim() : (window.PW ? window.PW.t('clickReadMore') : 'Click to read more...');
             if (desc.length > 90) desc = desc.substring(0, 90) + '...';
 
             const imgSrc = imgEl ? imgEl.getAttribute('src') : 'https://placehold.co/400x300/e2e8f0/475569?text=Announcement';
+            const readMoreLabel = window.PW ? window.PW.t('readMore') : 'Read More';
 
             const slideInner = `
                 <div class="stamp-card" style="margin: 0; border: none; box-shadow: none; height: 100%; border-radius: 0;">
@@ -890,7 +986,7 @@ async function initAnnouncementCarousel() {
                         <h3>${title}</h3>
                         <p class="stamp-desc" style="display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden;">${desc}</p>
                         <div class="action-buttons" style="margin-top: auto; justify-content: flex-end;">
-                            <span class="buy-btn" style="text-align: center;">Read More</span>
+                            <span class="buy-btn" style="text-align: center;">${readMoreLabel}</span>
                         </div>
                     </div>
                 </div>
@@ -1000,10 +1096,12 @@ async function renderAllAnnouncementsPage(searchTerm = '') {
 
     // 1. Initial Data Fetch and Parse (only happens once)
     if (!window.announcementsCache) {
-        grid.innerHTML = '<p style="text-align:center; grid-column:1/-1; padding: 40px; color: var(--text-light);">Loading announcements...</p>';
+        const loadingLabel = window.PW ? window.PW.t('loadingAnnouncements') : 'Loading announcements...';
+        grid.innerHTML = `<p style="text-align:center; grid-column:1/-1; padding: 40px; color: var(--text-light);">${loadingLabel}</p>`;
 
         if (!CONFIG.announcementFiles || CONFIG.announcementFiles.length === 0) {
-            grid.innerHTML = '<p style="text-align:center; grid-column:1/-1; padding: 40px; color: var(--text-light);">No announcements presently available.</p>';
+            const noneLabel = window.PW ? window.PW.t('noAnnouncements') : 'No announcements presently available.';
+            grid.innerHTML = `<p style="text-align:center; grid-column:1/-1; padding: 40px; color: var(--text-light);">${noneLabel}</p>`;
             return;
         }
 
@@ -1028,9 +1126,9 @@ async function renderAllAnnouncementsPage(searchTerm = '') {
                 const descEl = Array.from(doc.querySelectorAll('p')).find(p => p.textContent.length > 30 && p !== categoryEl && !p.classList.contains('img-caption'));
                 const imgEl = doc.querySelector('.img-wrap img');
 
-                const title = titleEl ? titleEl.textContent.trim() : 'Announcement';
-                const category = categoryEl ? categoryEl.textContent.trim() : 'News';
-                let desc = descEl ? descEl.textContent.trim() : 'Click to read more about this announcement...';
+                const title = titleEl ? titleEl.textContent.trim() : (window.PW ? window.PW.t('announcement') : 'Announcement');
+                const category = categoryEl ? categoryEl.textContent.trim() : (window.PW ? window.PW.t('news') : 'News');
+                let desc = descEl ? descEl.textContent.trim() : (window.PW ? window.PW.t('clickReadMore') : 'Click to read more about this announcement...');
                 if (desc.length > 120) desc = desc.substring(0, 120) + '...';
 
                 const imgSrc = imgEl ? imgEl.getAttribute('src') : 'https://placehold.co/400x300/e2e8f0/475569?text=Announcement';
@@ -1039,7 +1137,8 @@ async function renderAllAnnouncementsPage(searchTerm = '') {
             });
         } catch (e) {
             console.error('Error rendering announcements page:', e);
-            grid.innerHTML = '<p style="text-align:center; grid-column:1/-1; padding: 40px; color: var(--text-light);">Error loading announcements. Please try again.</p>';
+            const errLabel = window.PW ? window.PW.t('errorLoading') : 'Error loading announcements. Please try again.';
+            grid.innerHTML = `<p style="text-align:center; grid-column:1/-1; padding: 40px; color: var(--text-light);">${errLabel}</p>`;
             return; // Abort
         }
     }
@@ -1053,7 +1152,8 @@ async function renderAllAnnouncementsPage(searchTerm = '') {
     );
 
     if (filtered.length === 0) {
-        grid.innerHTML = '<p style="text-align:center; grid-column:1/-1; padding: 40px; color: var(--text-light);">No announcements match your search.</p>';
+        const nomatchLabel = window.PW ? window.PW.t('noMatch') : 'No announcements match your search.';
+        grid.innerHTML = `<p style="text-align:center; grid-column:1/-1; padding: 40px; color: var(--text-light);">${nomatchLabel}</p>`;
         return;
     }
 
@@ -1070,7 +1170,7 @@ async function renderAllAnnouncementsPage(searchTerm = '') {
                     <h3>${item.title}</h3>
                     <p class="stamp-desc" style="display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; margin-bottom: 20px; flex-grow: 1;">${item.desc}</p>
                     <div class="action-buttons" style="margin-top: auto; justify-content: flex-end;">
-                        <a href="announcement/${item.file}" class="buy-btn" style="text-align: center; text-decoration: none; width: 100%;">Read More</a>
+                        <a href="announcement/${item.file}" class="buy-btn" style="text-align: center; text-decoration: none; width: 100%;">${window.PW ? window.PW.t('readMore') : 'Read More'}</a>
                     </div>
                 </div>
             </div>
@@ -1102,35 +1202,39 @@ function initAnnouncementNotification() {
         : (lastSeenBlog ? 0 : (blogPosts ? blogPosts.length : 0));
 
     if (announcementBell && announcementBadge) {
+        const annLabel = window.PW ? window.PW.t('announcements') : 'Announcements';
+        const newAnnLabel = window.PW ? window.PW.t('newAnnouncement') : 'New Announcement!';
         if (latestAnnouncement && lastSeenAnnouncement !== latestAnnouncement) {
             announcementBadge.style.display = 'flex';
             announcementBadge.textContent = '1';
-            announcementBell.setAttribute('data-tooltip', 'New Announcement!');
+            announcementBell.setAttribute('data-tooltip', newAnnLabel);
         } else {
             announcementBadge.style.display = 'none';
-            announcementBell.setAttribute('data-tooltip', 'Announcements');
+            announcementBell.setAttribute('data-tooltip', annLabel);
         }
 
         announcementBell.addEventListener('click', (e) => {
             e.preventDefault();
             localStorage.setItem('lastSeenAnnouncement', latestAnnouncement);
             announcementBadge.style.display = 'none';
-            announcementBell.setAttribute('data-tooltip', 'Announcements');
+            announcementBell.setAttribute('data-tooltip', annLabel);
             window.location.href = 'all_announcements.html';
         });
     }
 
     if (blogBell && blogBadge) {
+        const blogLabel = window.PW ? window.PW.t('tabBlog') : 'Blog';
+        const newBlogLabel = window.PW ? window.PW.t('newBlogPost') : 'New Blog Post!';
         const seenBlogs = lastSeenBlog ? lastSeenBlog.split(',') : [];
         const allSeen = blogPosts.every(post => seenBlogs.includes(post.url));
 
         if (latestBlog && !allSeen) {
             blogBadge.style.display = 'flex';
             blogBadge.textContent = newBlogCount || '1';
-            blogBell.setAttribute('data-tooltip', 'New Blog Post!');
+            blogBell.setAttribute('data-tooltip', newBlogLabel);
         } else {
             blogBadge.style.display = 'none';
-            blogBell.setAttribute('data-tooltip', 'Blog');
+            blogBell.setAttribute('data-tooltip', blogLabel);
         }
 
         blogBell.addEventListener('click', (e) => {
@@ -1138,7 +1242,7 @@ function initAnnouncementNotification() {
             const allBlogUrls = blogPosts.map(post => post.url).join(',');
             localStorage.setItem('lastSeenBlog', allBlogUrls);
             blogBadge.style.display = 'none';
-            blogBell.setAttribute('data-tooltip', 'Blog');
+            blogBell.setAttribute('data-tooltip', blogLabel);
             const blogTab = document.querySelector('.filter-tab[data-status="blog"]');
             if (blogTab) {
                 blogTab.click();
