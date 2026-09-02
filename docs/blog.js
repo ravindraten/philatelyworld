@@ -1,5 +1,15 @@
 const blogPosts = [
     {
+        name: "British Possessions and Colonies: An Album Across Five Continents",
+        year: "-",
+        country: "British Commonwealth",
+        desc: "A hand-assembled 86-page album documenting postage stamps and covers of British possessions and colonies across Europe, the Americas, Africa, Asia, and Oceania.",
+        folder: "british-empire-colonies-album",
+        customImage: "https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/cover-preview.jpg",
+        imageCount: 1,
+        url: "blog/british-empire-colonies-album.html",
+        isBlog: true
+    }, {
         name: "The Luxembourg 'Deluxe' Embroidered Stamp: A Masterpiece of Philatelic Craftsmanship",
         year: "2025",
         country: "Luxembourg",
