@@ -15,7 +15,7 @@ const blogPosts = [
         country: "Germany",
         desc: "Sixteen album leaves of franked, postmarked German covers — from Reichspost carmine numerals to Hindenburg definitives — a postal history walk through 1886–1940, read stamp by stamp, cover by cover.",
         folder: "german-empire-travelled-covers",
-        customImage: "https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/german-empire-travelled-covers/1.jpg",
+        customImage: "https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/D117/1.jpg",
         imageCount: 1,
         url: "blog/german-empire-travelled-covers.html",
         isBlog: true
