@@ -10,6 +10,16 @@ const blogPosts = [
         url: "blog/british-empire-colonies-album.html",
         isBlog: true
     }, {
+        name: "Travelled Covers of the Deutsches Reich: A Postal History Album, 1886–1940",
+        year: "1886-1940",
+        country: "Germany",
+        desc: "Sixteen album leaves of franked, postmarked German covers — from Reichspost carmine numerals to Hindenburg definitives — a postal history walk through 1886–1940, read stamp by stamp, cover by cover.",
+        folder: "german-empire-travelled-covers",
+        customImage: "https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/german-empire-travelled-covers/1.jpg",
+        imageCount: 1,
+        url: "blog/german-empire-travelled-covers.html",
+        isBlog: true
+    }, {
         name: "The Luxembourg 'Deluxe' Embroidered Stamp: A Masterpiece of Philatelic Craftsmanship",
         year: "2025",
         country: "Luxembourg",
