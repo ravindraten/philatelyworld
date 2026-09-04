@@ -20,6 +20,16 @@ const blogPosts = [
         url: "blog/german-empire-travelled-covers.html",
         isBlog: true
     }, {
+        name: "From Weimar to the Third Reich: A German Covers Album, 1927–1945",
+        year: "1927-1945",
+        country: "Germany",
+        desc: "Nine album pages of franked, postmarked German covers — from Hindenburg definitives and SAAR overprints to Hitler-head issues, Dienstmarke official mail and wartime Feldpost — a postal history walk through 1927–1945, read stamp by stamp, cover by cover.",
+        folder: "weimar-to-third-reich-covers",
+        customImage: "https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/D119/1.jpg",
+        imageCount: 1,
+        url: "blog/weimar-to-third-reich-covers.html",
+        isBlog: true
+    }, {
         name: "Stamps of the Princely States: Cochin to Patiala",
         year: "1867-1945",
         country: "India",
