@@ -1,5 +1,16 @@
 // 1. STAMP DATABASE
-const stamps = [
+const stamps = [{
+        name: "Great Britain 7 circulation booklets mostly Machin stamps; CV € 850",
+        country: "Great Britain",
+        year: "<b>Year</b>: various",
+        priceINR: 19000,
+        isSoldOut: false,
+        freeTrackedShipping: true,
+        freeLetterPostShipping: false,
+        folder: "D120",
+        imageCount: 12,
+        desc: "RN4186: 7 Circulation booklets with mostly Machin stamps Great Britain incl. regional. Former owner counted € 850 catalogue value.Check the photos to see a small part, but there is a lot more than you can see here."
+    },
     {
         name: "Czechoslovakia 1918-1992 stamp collection in album",
         country: "Czechoslovakia",
