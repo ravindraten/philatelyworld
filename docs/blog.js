@@ -20,6 +20,16 @@ const blogPosts = [
         url: "blog/german-empire-travelled-covers.html",
         isBlog: true
     }, {
+        name: "Stamps of the Princely States: Cochin to Patiala",
+        year: "1867-1945",
+        country: "India",
+        desc: "Ten album sheets of overprinted and native-issue stamps from the Indian princely states — from Cochin's elephant-flag definitives to the 'SERVICE' officials of Patiala — read set by set.",
+        folder: "princely-states-stamps",
+        customImage: "https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/princely-states-stamps/1.jpg",
+        imageCount: 1,
+        url: "blog/princely-states-stamps.html",
+        isBlog: true
+    }, {
         name: "The Luxembourg 'Deluxe' Embroidered Stamp: A Masterpiece of Philatelic Craftsmanship",
         year: "2025",
         country: "Luxembourg",
