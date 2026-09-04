@@ -25,7 +25,7 @@ const blogPosts = [
         country: "India",
         desc: "Ten album sheets of overprinted and native-issue stamps from the Indian princely states — from Cochin's elephant-flag definitives to the 'SERVICE' officials of Patiala — read set by set.",
         folder: "princely-states-stamps",
-        customImage: "https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/princely-states-stamps/1.jpg",
+        customImage: "https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/D118/1.jpg",
         imageCount: 1,
         url: "blog/princely-states-stamps.html",
         isBlog: true
