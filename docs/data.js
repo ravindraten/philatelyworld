@@ -16,7 +16,7 @@ const stamps = [{
         country: "Czechoslovakia",
         year: "<b>Year</b>: 1918-1992",
         priceINR: 28999,
-        isSoldOut: false,
+        isSoldOut: true,
         freeTrackedShipping: true,
         freeLetterPostShipping: false,
         folder: "D116",
