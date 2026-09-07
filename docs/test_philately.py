@@ -1102,3 +1102,30 @@ def test_album_designer_seo_meta(driver):
         By.XPATH, "//meta[@property='og:image']"
     ).get_attribute("content")
     assert "designer-icon.png" in og_image
+
+
+def test_blog_lightbox_clickable_images(driver):
+    """Verify images on the Delfts Blauw Keramiek blog open a lightbox on click."""
+    blog_url = URL.replace("index.html", "blog/delfts-blauw-keramiek-stamp.html")
+    driver.get(blog_url)
+    wait = WebDriverWait(driver, 10)
+
+    lightbox = driver.find_element(By.ID, "lightbox")
+    lightbox_img = driver.find_element(By.ID, "lightboxImg")
+    close_btn = driver.find_element(By.ID, "lightboxClose")
+
+    assert not lightbox.get_attribute("class").__contains__("open")
+
+    images = driver.find_elements(By.CSS_SELECTOR,
+        ".main-image, .gallery-item img, .hero-img")
+    assert len(images) >= 3
+
+    first = images[0]
+    src = first.get_attribute("src")
+    driver.execute_script("arguments[0].click();", first)
+    wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, ".lightbox.open")))
+    assert lightbox_img.get_attribute("src") == src
+
+    driver.execute_script("arguments[0].click();", close_btn)
+    wait.until(lambda d: "open" not in d.find_element(By.ID, "lightbox").get_attribute("class"))
+    assert "open" not in lightbox.get_attribute("class")

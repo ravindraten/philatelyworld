@@ -527,6 +527,63 @@
             }
         }
 
+        .lightbox {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.85);
+            z-index: 2000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s, visibility 0.3s;
+            cursor: zoom-out;
+            padding: 40px;
+        }
+
+        .lightbox.open {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .lightbox img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            border-radius: 8px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            cursor: default;
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 44px;
+            height: 44px;
+            background: rgba(255, 255, 255, 0.15);
+            border: none;
+            border-radius: 50%;
+            color: #fff;
+            font-size: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s;
+            z-index: 2001;
+        }
+
+        .lightbox-close:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .main-image,
+        .gallery-item img {
+            cursor: zoom-in;
+        }
+
         #backToTop {
             position: fixed;
             bottom: 20px;
@@ -803,6 +860,10 @@
         </div>
     </div>
 
+    <div class="lightbox" id="lightbox">
+        <button class="lightbox-close" id="lightboxClose" title="Close">&times;</button>
+        <img src="" alt="Image enlarged view" id="lightboxImg">
+    </div>
 
     <button id="backToTop" title="Go to top">&uarr;</button>
 
@@ -818,6 +879,31 @@
             }, { passive: true });
             backToTopBtn.addEventListener('click', function () {
                 window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        })();
+
+        // === LIGHTBOX ===
+        (function () {
+            var lightbox = document.getElementById('lightbox');
+            var lightboxImg = document.getElementById('lightboxImg');
+            var lightboxClose = document.getElementById('lightboxClose');
+
+            document.querySelectorAll('.main-image, .gallery-item img, .hero-img').forEach(function (img) {
+                img.addEventListener('click', function () {
+                    lightboxImg.src = img.src;
+                    lightboxImg.alt = img.alt || 'Image enlarged view';
+                    lightbox.classList.add('open');
+                });
+            });
+
+            lightbox.addEventListener('click', function (e) {
+                if (e.target === lightbox) lightbox.classList.remove('open');
+            });
+            lightboxClose.addEventListener('click', function () {
+                lightbox.classList.remove('open');
+            });
+            document.addEventListener('keydown', function (e) {
+                if (e.key === 'Escape') lightbox.classList.remove('open');
             });
         })();
     </script>
