@@ -1,5 +1,16 @@
 const blogPosts = [
     {
+        name: "Cartoon Characters on Stamps: Bugs Bunny, The Flintstones, SpongeBob & More",
+        year: "2024-2026",
+        country: "Germany",
+        desc: "Deutsche Post turns cartoon icons and comic superheroes into stamps: Bugs Bunny, Tom & Jerry, The Flintstones and SpongeBob from the 'Helden der Kindheit' series, plus Superman, Wonder Woman, The Flash, and LEGO & PLAYMOBIL special issues — all on 10er-Bogen sheets of ten.",
+        folder: "cartoon-characters-on-stamps",
+        customImage: "https://shop.deutschepost.de/MEDIA/PROD_ProductCatalog/efim3880015_Z_1_151105605_095_SPWZ_Familie_Feuerstein_800x600.jpg?profile=productDetails",
+        imageCount: 1,
+        url: "blog/cartoon-characters-on-stamps.html",
+        isBlog: true
+    },
+    {
         name: "Delfts Blauw Keramiekpostzegel 2026 – The World's First Delft Blue Ceramic Stamp",
         year: "2026",
         country: "Netherlands",
