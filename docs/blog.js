@@ -1,5 +1,15 @@
 const blogPosts = [
     {
+        name: "Delfts Blauw Keramiekpostzegel 2026 – The World's First Delft Blue Ceramic Stamp",
+        year: "2026",
+        country: "Netherlands",
+        desc: "PostNL and Royal Delft launch the world's first Delft Blue ceramic stamp on 7 September 2026 — a genuine 5×5 cm tile, 5 mm thick, on stamp format in a luxe passe-partout box. A true primeur in Dutch stamp history.",
+        folder: "delfts-blauw-keramiek",
+        customImage: "https://shop.postnl.nl/_next/image?url=https%3A%2F%2Fshop.postnl.nl%2Fpub%2Fmedia%2Fcatalog%2Fproduct%2F1%2F7%2F1788423169_delfs-blauw-keramiek-postzegel-verpakking.jpg&w=1080&q=75",
+        imageCount: 1,
+        url: "blog/delfts-blauw-keramiek-stamp.html",
+        isBlog: true
+    }, {
         name: "British Possessions and Colonies: An Album Across Five Continents",
         year: "-",
         country: "British Commonwealth",
