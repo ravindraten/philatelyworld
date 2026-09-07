@@ -1,5 +1,16 @@
 const blogPosts = [
     {
+        name: "Germany's Krypto-Briefmarken: Real Stamps + NFT on the Blockchain",
+        year: "2023-2026",
+        country: "Germany",
+        desc: "Deutsche Post's Krypto-Briefmarke combine a real self-adhesive stamp with an NFT twin on the blockchain — the four-colour 'Historische Bauwerke in Deutschland' series from the AI Brandenburger Tor to the Semperoper (2023–2025), the new 'Der Mensch als Entdecker' series and the official collector album.",
+        folder: "krypto-briefmarken",
+        customImage: "https://shop.deutschepost.de/MEDIA/PROD_ProductCatalog/efim3260031_Z_1_150305481_Krypto_Briefmarke_Brandenburger_Tor_800x600.jpg?profile=productDetails",
+        imageCount: 1,
+        url: "blog/krypto-briefmarken-deutschland-crypto-stamps.html",
+        isBlog: true
+    },
+    {
         name: "Cartoon Characters on Stamps: Bugs Bunny, The Flintstones, SpongeBob & More",
         year: "2024-2026",
         country: "Germany",
