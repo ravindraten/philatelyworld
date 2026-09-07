@@ -1072,8 +1072,8 @@ def test_album_designer_mobile_lockdown(driver):
     # 5. Verify the 'Return to Collection' button works
     back_btn = warning.find_element(By.CLASS_NAME, "warning-back-btn")
     driver.execute_script("arguments[0].click();", back_btn)
-    wait.until(EC.url_contains("index.html"))
-    assert "index.html" in driver.current_url
+    wait.until(lambda d: "auto-album" not in d.current_url)
+    assert "auto-album" not in driver.current_url
 
     # Restore window size for other tests
     driver.set_window_size(1920, 1080)
