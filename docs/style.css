@@ -1620,6 +1620,16 @@ header {
     border-left: 4px solid var(--secondary-color) !important;
 }
 
+.blog-card .img-container {
+    background: #eef2ff;
+}
+
+.blog-card .img-container img {
+    object-fit: contain;
+    padding: 8px;
+    cursor: pointer;
+}
+
 .blog-card .photo-badge {
     background: var(--secondary-color) !important;
 }

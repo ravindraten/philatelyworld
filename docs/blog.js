@@ -1,5 +1,17 @@
 const blogPosts = [
     {
+        name: "Private File Converter: Convert Files Online Without Uploading Them",
+        year: "2026",
+        country: "Digital Tools",
+        desc: "Convert files right here on this page — no uploads, no server. Drag and drop HEIC, PDF, WebP, SVG and image files and download the results instantly, processed 100% locally in your browser. Free, private and open source.",
+        folder: "file-converter",
+        customImage: "https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/file-converter.jpeg",
+        imageCount: 1,
+        url: "blog/file-converter.html",
+        isBlog: true
+    },
+    {
+        name: "Germany's Krypto-Briefmarken: Real Stamps + NFT on the Blockchain",
         name: "Germany's Krypto-Briefmarken: Real Stamps + NFT on the Blockchain",
         year: "2023-2026",
         country: "Germany",

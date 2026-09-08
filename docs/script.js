@@ -549,7 +549,7 @@ function renderGallery(data) {
                 <div class="stamp-card blog-card">
                     <a href="${stamp.url || '#'}" class="blog-link-wrapper" style="text-decoration: none; color: inherit;">
                         <div class="img-container" style="cursor: pointer;">
-                            <img src="${stamp.customImage || `${CONFIG.baseImgPath}/${stamp.folder}/1.${stamp.extension || 'jpg'}`}" alt="${stamp.name}" loading="lazy" decoding="async" fetchpriority="low" width="300" height="300">
+                            <img src="${stamp.customImage || `${CONFIG.baseImgPath}/${stamp.folder}/1.${stamp.extension || 'jpg'}`}" alt="${stamp.name}" loading="lazy" decoding="async" fetchpriority="low">
                             <div class="photo-badge">Article</div>
                         </div>
                     </a>

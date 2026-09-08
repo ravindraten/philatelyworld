@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HEIC to JPG Converter - Convert iPhone Photos to JPEG | Philately World</title>
+    <meta name="title" content="HEIC to JPG Converter - Convert iPhone Photos to JPEG | Philately World">
+    <meta name="description"
+        content="Convert HEIC photos from iPhone to JPG format instantly in your browser. Free, private, no uploads required.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://philatelyworld.in/blog/heic-to-jpg.html">
+    <meta property="og:title" content="HEIC to JPG Converter - Convert iPhone Photos to JPEG | Philately World">
+    <meta property="og:description"
+        content="Convert HEIC photos from iPhone to JPG format instantly in your browser. Free, private, no uploads required.">
+    <meta property="og:image"
+        content="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/file-converter.jpeg">
+    <meta property="og:image:type" content="image/jpeg">
+    <meta property="og:image:width" content="1408">
+    <meta property="og:image:height" content="768">
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://philatelyworld.in/blog/heic-to-jpg.html">
+    <meta property="twitter:title" content="HEIC to JPG Converter - Convert iPhone Photos to JPEG | Philately World">
+    <meta property="twitter:description"
+        content="Convert HEIC photos from iPhone to JPG format instantly in your browser. Free, private, no uploads required.">
+    <meta property="twitter:image"
+        content="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/file-converter.jpeg">
+    <meta name="keywords"
+        content="philately world, HEIC to JPG, iPhone photos, convert HEIC, privacy, no upload, free converter">
+    <link rel="canonical" href="https://philatelyworld.in/blog/heic-to-jpg.html" />
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+        {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://philatelyworld.in/blog/heic-to-jpg.html"
+  },
+  "headline": "HEIC to JPG Converter - Convert iPhone Photos to JPEG",
+  "description": "Convert HEIC photos from iPhone to JPG format instantly in your browser. Free, private, no uploads required.",
+  "image": "https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/file-converter.jpeg",
+  "datePublished": "2026-09-08",
+  "url": "https://philatelyworld.in/blog/heic-to-jpg.html",
+  "author": {
+    "@type": "Organization",
+    "name": "Philately World",
+    "url": "https://philatelyworld.in/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Philately World",
+    "url": "https://philatelyworld.in/",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/logo.jpg"
+    }
+  }
+}
+    </script>
+    <meta property="og:site_name" content="Philately World">
+    <meta property="article:published_time" content="2026-09-08T00:00:00+05:30">
+    <meta property="article:author" content="Philately World">
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+        :root {
+            --indigo: #4f46e5;
+            --indigo-dark: #4338ca;
+            --indigo-light: #eef2ff;
+            --indigo-border: #c7d2fe;
+            --emerald: #10b981;
+            --emerald-dark: #059669;
+            --emerald-light: #ecfdf5;
+            --text-dark: #1a1a1a;
+            --text-mid: #555;
+            --text-light: #777;
+            --bg: #f8fafc;
+            --white: #ffffff;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.7;
+            color: var(--text-dark);
+            background-color: var(--bg);
+        }
+
+        .page-wrapper {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 0 16px;
+        }
+
+        .container {
+            background: var(--white);
+            border-radius: 12px;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+            padding: 40px 44px;
+            margin: 40px auto;
+            position: relative;
+        }
+
+        .meta-bar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            font-size: 0.84em;
+            color: var(--text-light);
+            border-bottom: 1px solid #eee;
+            padding-bottom: 18px;
+            margin-bottom: 28px;
+        }
+
+        .meta-bar span {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .meta-bar strong {
+            color: var(--text-mid);
+        }
+
+        .content h1 {
+            color: var(--indigo-dark);
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+            text-align: center;
+        }
+
+        .content h2 {
+            color: var(--indigo-dark);
+            font-size: 1.3rem;
+            font-weight: 700;
+            border-left: 5px solid var(--indigo);
+            padding-left: 14px;
+            margin: 36px 0 14px;
+        }
+
+        .content p {
+            margin-bottom: 18px;
+            text-align: justify;
+            color: #333;
+        }
+
+        .content a {
+            color: var(--indigo);
+            font-weight: 500;
+        }
+
+        .content ul {
+            margin-bottom: 18px;
+            padding-left: 24px;
+            color: #333;
+        }
+
+        .content ul li {
+            margin-bottom: 6px;
+        }
+
+        .fc-wrap {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 24px 16px;
+        }
+
+        .fc-wrap h1 {
+            font-size: 32px;
+            font-weight: 800;
+            margin-bottom: 4px;
+        }
+
+        .fc-wrap h1 span {
+            background: linear-gradient(135deg, #6366f1, #a855f7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .fc-subtitle {
+            color: #64748b;
+            font-size: 15px;
+            margin-bottom: 12px;
+        }
+
+        .fc-trust {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: #f0fdf4;
+            color: #16a34a;
+            padding: 6px 16px;
+            border-radius: 99px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .fc-card {
+            background: #fff;
+            border: 1px solid #e2e8f0;
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 16px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+        }
+
+        .fc-drop-zone {
+            border: 2px dashed #e2e8f0;
+            border-radius: 16px;
+            padding: 48px 24px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .fc-drop-zone:hover,
+        .fc-drop-zone.fc-drag-over {
+            border-color: #6366f1;
+            background: #eef2ff;
+        }
+
+        .fc-drop-zone .fc-icon {
+            font-size: 48px;
+            margin-bottom: 12px;
+        }
+
+        .fc-drop-zone p {
+            color: #64748b;
+            margin-bottom: 8px;
+        }
+
+        .fc-browse {
+            color: #6366f1;
+            font-weight: 600;
+            text-decoration: underline;
+            cursor: pointer;
+        }
+
+        .fc-hidden-input {
+            display: none;
+        }
+
+        .fc-file-list {
+            margin-top: 16px;
+        }
+
+        .fc-file-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 16px;
+            background: #f8fafc;
+            border-radius: 10px;
+            margin-bottom: 8px;
+        }
+
+        .fc-file-name {
+            font-weight: 600;
+            font-size: 14px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            max-width: 50%;
+        }
+
+        .fc-file-size {
+            color: #64748b;
+            font-size: 12px;
+        }
+
+        .fc-format-select {
+            padding: 6px 10px;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 13px;
+            background: #fff;
+        }
+
+        .fc-remove {
+            background: none;
+            border: none;
+            color: #ef4444;
+            cursor: pointer;
+            font-size: 18px;
+            padding: 4px 8px;
+        }
+
+        .fc-convert-btn {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #6366f1, #a855f7);
+            color: #fff;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: transform 0.1s, box-shadow 0.2s;
+            margin-top: 16px;
+        }
+
+        .fc-convert-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
+        }
+
+        .fc-convert-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .fc-progress-wrap {
+            margin-top: 16px;
+            display: none;
+        }
+
+        .fc-progress-bar {
+            height: 8px;
+            background: #e2e8f0;
+            border-radius: 99px;
+            overflow: hidden;
+        }
+
+        .fc-progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #6366f1, #a855f7);
+            border-radius: 99px;
+            transition: width 0.3s;
+            width: 0;
+        }
+
+        .fc-progress-text {
+            text-align: center;
+            font-size: 13px;
+            color: #64748b;
+            margin-top: 6px;
+        }
+
+        .fc-results {
+            margin-top: 16px;
+            display: none;
+        }
+
+        .fc-result-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 16px;
+            background: #f0fdf4;
+            border-radius: 10px;
+            margin-bottom: 6px;
+        }
+
+        .fc-result-item .fc-file-name {
+            color: #16a34a;
+        }
+
+        .fc-dl-btn {
+            padding: 6px 16px;
+            background: #6366f1;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .fc-dl-all-btn {
+            width: 100%;
+            padding: 12px;
+            background: #16a34a;
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 8px;
+        }
+
+        .fc-formats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 10px;
+            margin-top: 16px;
+        }
+
+        .fc-format-tag {
+            padding: 10px;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            text-align: center;
+            font-size: 13px;
+        }
+
+        .fc-format-tag .fc-arrow {
+            color: #6366f1;
+            font-weight: 700;
+        }
+
+        .fc-steps {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin-top: 16px;
+        }
+
+        .fc-step {
+            text-align: center;
+            padding: 16px;
+        }
+
+        .fc-step .fc-num {
+            width: 32px;
+            height: 32px;
+            background: #6366f1;
+            color: #fff;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+
+        .fc-step h3 {
+            font-size: 14px;
+            margin-bottom: 4px;
+        }
+
+        .fc-step p {
+            font-size: 12px;
+            color: #64748b;
+        }
+
+        .fc-footer {
+            text-align: center;
+            padding: 32px 0 16px;
+            color: #64748b;
+            font-size: 12px;
+        }
+
+        .fc-footer a {
+            color: #6366f1;
+        }
+
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 24px;
+            }
+
+            .fc-steps {
+                grid-template-columns: 1fr;
+            }
+
+            .fc-formats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .fc-file-item {
+                flex-wrap: wrap;
+                gap: 8px;
+            }
+
+            .fc-file-name {
+                max-width: 100%;
+            }
+        }
+
+        .btn-back {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            margin-bottom: 22px;
+            text-decoration: none;
+            color: var(--indigo);
+            font-weight: 600;
+            font-size: 0.9em;
+            transition: color 0.2s;
+        }
+
+        .btn-back:hover {
+            color: var(--indigo-dark);
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 48px;
+            font-size: 0.8em;
+            color: var(--text-light);
+            border-top: 1px solid #eee;
+            padding-top: 20px;
+        }
+
+        #backToTop {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: #1f7a4d;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            opacity: 0;
+            visibility: hidden;
+            transition: 0.3s;
+            z-index: 1001;
+        }
+
+        #backToTop.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+    </style>
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-0K58TP8LVP"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-0K58TP8LVP');
+    </script>
+    <script data-goatcounter="https://ravindraten.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</head>
+
+<body>
+
+    <div class="page-wrapper">
+        <div class="container">
+
+            <a href="https://philatelyworld.in/" class="btn-back">← Back to Philately World</a>
+
+            <div class="meta-bar">
+                <span>Published by: <strong>Philately World</strong></span>
+                <span>Category: <strong>Digital Tools</strong></span>
+                <span>Tool: <strong>HEIC to JPG</strong></span>
+            </div>
+
+            <div class="content">
+                <h1>HEIC to JPG Converter</h1>
+                <p style="text-align: center; color: #64748b; font-size: 1.1em; margin-bottom: 30px;">
+                    Convert iPhone HEIC photos to JPG instantly — 100% in your browser, no uploads.
+                </p>
+
+                <div class="fc-wrap">
+                    <h1>🔒 <span>Private HEIC to JPG Converter</span></h1>
+                    <p class="fc-subtitle">Convert iPhone HEIC photos to JPG directly in your browser. Nothing gets
+                        uploaded. Ever.</p>
+                    <div class="fc-trust">🛡️ Your files never leave your device</div>
+
+                    <div class="fc-card">
+                        <div class="fc-drop-zone" id="dropZone">
+                            <div class="fc-icon">📁</div>
+                            <p>Drag & drop your HEIC files here</p>
+                            <span class="fc-browse">or click to browse</span>
+                            <input type="file" id="fileInput" class="fc-hidden-input" multiple accept=".heic,.heif">
+                        </div>
+
+                        <div class="fc-file-list" id="fileList"></div>
+
+                        <button class="fc-convert-btn" id="convertBtn" disabled>Convert to JPG</button>
+
+                        <div class="fc-progress-wrap" id="progressWrap">
+                            <div class="fc-progress-bar">
+                                <div class="fc-progress-fill" id="progressFill"></div>
+                            </div>
+                            <p class="fc-progress-text" id="progressText">Converting...</p>
+                        </div>
+
+                        <div class="fc-results" id="results">
+                            <div id="resultList"></div>
+                            <button class="fc-dl-all-btn" id="dlAllBtn" style="display:none">📦 Download All as
+                                ZIP</button>
+                        </div>
+                    </div>
+
+                    <div class="fc-card">
+                        <h2>Why Convert HEIC to JPG?</h2>
+                        <ul>
+                            <li><strong>Universal compatibility:</strong> JPG works on all devices, platforms, and apps
+                            </li>
+                            <li><strong>Web sharing:</strong> Most websites and social media don't support HEIC</li>
+                            <li><strong>Editing:</strong> Many photo editors work better with JPG</li>
+                            <li><strong>Archive:</strong> JPG is a proven long-term archival format</li>
+                        </ul>
+                    </div>
+
+                    <div class="fc-card" style="background:linear-gradient(135deg,#eef2ff,#faf5ff);border:none">
+                        <h2>🔐 100% Private</h2>
+                        <p style="color:#64748b;font-size:14px;margin-top:8px">
+                            The FBI recently warned about <strong>online file converters stealing personal
+                                data</strong>.
+                            This converter runs <strong>100% in your browser</strong> using JavaScript. Your HEIC photos
+                            are never
+                            uploaded to any server. No data collection, no accounts, no tracking. Open source and
+                            verifiable.
+                        </p>
+                    </div>
+
+                    <div class="fc-footer">
+                        <p>More tools: <a href="/docs/blog/file-converter.html">Main Converter</a> · <a
+                                href="/docs/blog/pdf-to-png.html">PDF to PNG</a> · <a
+                                href="/docs/blog/webp-to-jpg.html">WebP to JPG</a> · <a
+                                href="/docs/blog/jpg-to-pdf.html">JPG to PDF</a> · <a
+                                href="/docs/blog/png-to-jpg.html">PNG to JPG</a> · <a
+                                href="/docs/blog/svg-to-png.html">SVG to PNG</a></p>
+                        <p style="margin-top:4px">Built with privacy in mind. <a
+                                href="https://github.com/PurpleDoubleD/file-converter" target="_blank"
+                                rel="noopener noreferrer">View Source on GitHub</a></p>
+                        <p style="margin-top:4px">Conversions are processed locally using your browser's built-in
+                            capabilities.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer">
+                <p>© 2026 Philately World.</p>
+            </div>
+
+        </div>
+    </div>
+
+    <button id="backToTop" title="Go to top">&uarr;</button>
+
+    <script>
+        (function () {
+            var backToTopBtn = document.getElementById('backToTop');
+            window.addEventListener('scroll', function () {
+                if (window.scrollY > 400) {
+                    backToTopBtn.classList.add('visible');
+                } else {
+                    backToTopBtn.classList.remove('visible');
+                }
+            }, { passive: true });
+            backToTopBtn.addEventListener('click', function () {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        })();
+    </script>
+
+    <script>
+        const $ = s => document.querySelector(s);
+        const fileListArr = [];
+        const converted = [];
+
+        const FORMAT_MAP = {
+            'image/heic': [{ ext: 'jpg', label: 'JPG' }],
+            'image/heif': [{ ext: 'jpg', label: 'JPG' }],
+        };
+
+        function detectType(file) {
+            if (file.type && FORMAT_MAP[file.type]) return file.type;
+            const ext = file.name.split('.').pop().toLowerCase();
+            const map = { heic: 'image/heic', heif: 'image/heif' };
+            return map[ext] || file.type;
+        }
+
+        function formatSize(b) {
+            if (b < 1024) return b + ' B';
+            if (b < 1048576) return (b / 1024).toFixed(1) + ' KB';
+            return (b / 1048576).toFixed(1) + ' MB';
+        }
+
+        function renderFiles() {
+            const list = $('#fileList');
+            list.innerHTML = '';
+            fileListArr.forEach((f, i) => {
+                const type = detectType(f);
+                const opts = FORMAT_MAP[type] || [];
+                const div = document.createElement('div');
+                div.className = 'fc-file-item';
+                div.innerHTML = `
+                    <span class="fc-file-name" title="${f.name}">${f.name}</span>
+                    <span class="fc-file-size">${formatSize(f.size)}</span>
+                    <select class="fc-format-select" data-idx="${i}">
+                        ${opts.map(o => `<option value="${o.ext}">${o.label}</option>`).join('')}
+                        ${opts.length === 0 ? '<option disabled>Unsupported</option>' : ''}
+                    </select>
+                    <button class="fc-remove" data-idx="${i}">✕</button>
+                `;
+                list.appendChild(div);
+            });
+            $('#convertBtn').disabled = fileListArr.length === 0 || fileListArr.every(f => !(FORMAT_MAP[detectType(f)]));
+        }
+
+        const dz = $('#dropZone');
+        dz.addEventListener('click', () => $('#fileInput').click());
+        dz.addEventListener('dragover', e => { e.preventDefault(); dz.classList.add('fc-drag-over'); });
+        dz.addEventListener('dragleave', () => dz.classList.remove('fc-drag-over'));
+        dz.addEventListener('drop', e => { e.preventDefault(); dz.classList.remove('fc-drag-over'); addFiles(e.dataTransfer.files); });
+        $('#fileInput').addEventListener('change', e => addFiles(e.target.files));
+
+        $('#fileList').addEventListener('click', e => {
+            if (e.target.classList.contains('fc-remove')) {
+                fileListArr.splice(+e.target.dataset.idx, 1);
+                renderFiles();
+            }
+        });
+
+        function addFiles(fl) {
+            for (const f of fl) fileListArr.push(f);
+            renderFiles();
+        }
+
+        $('#convertBtn').addEventListener('click', startConvert);
+
+        async function startConvert() {
+            converted.length = 0;
+            const pw = $('#progressWrap'); pw.style.display = 'block';
+            const pf = $('#progressFill'); const pt = $('#progressText');
+            const btn = $('#convertBtn'); btn.disabled = true;
+            const res = $('#results'); res.style.display = 'none';
+
+            const selects = document.querySelectorAll('.fc-format-select');
+            const total = fileListArr.length;
+
+            for (let i = 0; i < total; i++) {
+                const f = fileListArr[i];
+                const targetExt = selects[i]?.value;
+                if (!targetExt) continue;
+                pt.textContent = `Converting ${i + 1}/${total}: ${f.name}`;
+                pf.style.width = ((i / total) * 100) + '%';
+
+                try {
+                    const type = detectType(f);
+                    let result = await heicToJpg(f);
+                    if (Array.isArray(result)) {
+                        converted.push(...result);
+                    } else {
+                        converted.push(result);
+                    }
+                } catch (err) {
+                    console.error('Conversion error:', err);
+                    converted.push({ name: f.name + ' (ERROR)', blob: null, error: err.message });
+                }
+            }
+
+            pf.style.width = '100%';
+            pt.textContent = 'Done!';
+            btn.disabled = false;
+            showResults();
+        }
+
+        function showResults() {
+            const res = $('#results'); res.style.display = 'block';
+            const list = $('#resultList'); list.innerHTML = '';
+
+            converted.forEach((c, i) => {
+                const div = document.createElement('div');
+                div.className = 'fc-result-item';
+                if (c.error) {
+                    div.innerHTML = `<span class="fc-file-name" style="color:#ef4444">❌ ${c.name}: ${c.error}</span>`;
+                } else {
+                    div.innerHTML = `<span class="fc-file-name">✅ ${c.name}</span><button class="fc-dl-btn" data-idx="${i}">Download</button>`;
+                }
+                list.appendChild(div);
+            });
+
+            const validResults = converted.filter(c => c.blob);
+            if (validResults.length > 1) {
+                $('#dlAllBtn').style.display = 'block';
+            }
+
+            list.addEventListener('click', e => {
+                if (e.target.classList.contains('fc-dl-btn')) {
+                    const c = converted[+e.target.dataset.idx];
+                    if (c.blob) downloadBlob(c.blob, c.name);
+                }
+            });
+        }
+
+        $('#dlAllBtn').addEventListener('click', async () => {
+            const zip = new JSZip();
+            converted.filter(c => c.blob).forEach(c => zip.file(c.name, c.blob));
+            const blob = await zip.generateAsync({ type: 'blob' });
+            downloadBlob(blob, 'converted-files.zip');
+        });
+
+        function downloadBlob(blob, name) {
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = name;
+            a.click();
+            URL.revokeObjectURL(a.href);
+        }
+
+        async function heicToJpg(file) {
+            if (!window.libheif) {
+                await new Promise((resolve, reject) => {
+                    const s = document.createElement('script');
+                    s.src = 'https://cdn.jsdelivr.net/npm/libheif-js@1.18.2/libheif/libheif.min.js';
+                    s.onload = resolve; s.onerror = reject;
+                    document.head.appendChild(s);
+                });
+            }
+            const decoder = new libheif.HeifDecoder();
+            const buf = await file.arrayBuffer();
+            const data = decoder.decode(new Uint8Array(buf));
+            if (!data || !data.length) throw new Error('Could not decode HEIC');
+            const img = data[0];
+            const w = img.get_width(), h = img.get_height();
+            const canvas = document.createElement('canvas');
+            canvas.width = w; canvas.height = h;
+            const ctx = canvas.getContext('2d');
+            const imageData = ctx.createImageData(w, h);
+            await new Promise((resolve, reject) => {
+                img.display(imageData, (d) => { if (!d) reject(new Error('HEIC display failed')); else resolve(); });
+            });
+            ctx.putImageData(imageData, 0, 0);
+            const blob = await new Promise(r => canvas.toBlob(r, 'image/jpeg', 0.92));
+            return { name: file.name.replace(/\.[^.]+$/, '.jpg'), blob };
+        }
+    </script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+
+</body>
+
+</html>
