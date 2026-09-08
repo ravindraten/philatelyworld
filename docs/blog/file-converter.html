@@ -608,7 +608,10 @@
       </div>
 
       <div class="fc-footer">
-        <p>Guides: <a href="/blog/heic-to-jpg.html">HEIC to JPG</a> · <a href="/blog/pdf-to-png.html">PDF to</a> · <a href="/blog/webp-to-jpg.html">WebP to JPG</a> · <a href="/blog/jpg-to-pdf.html">JPG to PDF</a> · <a href="/blog/png-to-jpg.html">PNG to JPG</a> · <a href="/blog/svg-to-png.html">SVG to PNG</a></p>
+        <p>Guides: <a href="/blog/heic-to-jpg.html">HEIC to JPG</a> · <a href="/blog/pdf-to-png.html">PDF to PNG</a> ·
+          <a href="/blog/webp-to-jpg.html">WebP to JPG</a> · <a href="/blog/jpg-to-pdf.html">JPG to PDF</a> · <a
+            href="/blog/png-to-jpg.html">PNG to JPG</a> · <a href="/blog/svg-to-png.html">SVG to PNG</a>
+        </p>
         <p style="margin-top:4px">Thanks to open source <a href="https://github.com/PurpleDoubleD/file-converter"
             target="_blank" rel="noopener noreferrer">PurpleDoubleD/file-converter</a></p>
         <p style="margin-top:4px">Conversions are processed locally using your browser's built-in capabilities.</p>
@@ -807,7 +810,7 @@
         if (!img || !img.width || !img.height) {
           throw new Error('Failed to load image: invalid image data');
         }
-        
+
         // Draw image to canvas to get proper image data for jsPDF
         const canvas = document.createElement('canvas');
         canvas.width = img.width;
@@ -816,14 +819,14 @@
         ctx.fillStyle = '#fff';
         ctx.fillRect(0, 0, canvas.width, canvas.height);
         ctx.drawImage(img, 0, 0);
-        
+
         const { jsPDF } = window.jspdf;
-        
+
         // Check if jsPDF is available
         if (!jsPDF) {
           throw new Error('jsPDF library not loaded');
         }
-        
+
         const pdf = new jsPDF({ orientation: img.width > img.height ? 'l' : 'p', unit: 'px', format: [img.width, img.height] });
         // Use the canvas toDataURL instead of the raw img element
         pdf.addImage(canvas.toDataURL('image/jpeg', 0.92), 'JPEG', 0, 0, img.width, img.height);
