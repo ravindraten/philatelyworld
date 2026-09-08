@@ -1,5 +1,17 @@
 // 1. STAMP DATABASE
-const stamps = [{
+const stamps = [
+    {
+        name: "Tunisia stamp collection in stockbook",
+        country: "Tunisia",
+        year: "<b>Year</b>: various",
+        priceINR: 15400,
+        isSoldOut: false,
+        freeTrackedShipping: false,
+        freeLetterPostShipping: true,
+        folder: "D121",
+        imageCount: 23,
+        desc: "RN4187: Thick stockbook with stamp collection Tunisia. Check the photos. What you see is what you get. Thick album for free"
+    }, {
         name: "Great Britain 7 circulation booklets mostly Machin stamps; CV € 850",
         country: "Great Britain",
         year: "<b>Year</b>: various",

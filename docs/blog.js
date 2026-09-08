@@ -72,6 +72,16 @@ const blogPosts = [
         url: "blog/princely-states-stamps.html",
         isBlog: true
     }, {
+        name: "Tunesië (Tunisia) Stamp Collection in Album",
+        year: "1888-",
+        country: "Tunisia",
+        desc: "A thick stockbook of Tunisia (Tunesië) postage stamps — a full photographic walk through every page of a single-collection album: 23 pages of mixed definitives, camel semi-postals, airmails and modern Republic issues, from the bey era to the crescent-and-star.",
+        folder: "D121",
+        imageCount: 1,
+        customImage: "https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/D121/1.jpg",
+        url: "blog/tunisia-collection-album.html",
+        isBlog: true
+    }, {
         name: "The Luxembourg 'Deluxe' Embroidered Stamp: A Masterpiece of Philatelic Craftsmanship",
         year: "2025",
         country: "Luxembourg",
