@@ -107,6 +107,8 @@ const stamps = [
         year: "<b>Year</b>: 1956-1969",
         priceINR: 22499,
         isSoldOut: false,
+        onSale: true,
+        salePriceINR: 18500,
         freeTrackedShipping: true,
         freeLetterPostShipping: false,
         folder: "D109",
