@@ -607,5 +607,16 @@ const blogPosts = [
         imageCount: 1,
         url: "blog/postcrossing.html",
         isBlog: true
+    },
+    {
+        name: "British Possessions and Colonies: An Album Across Five Continents",
+        year: "1886-1940",
+        country: "British Commonwealth",
+        desc: "A hand-assembled 86-page album documenting postage stamps and covers of British possessions and colonies across Europe, the Americas, Africa, Asia, and Oceania. From the early Penny Blacks to modern definitive issues, this album covers the comprehensive postal history of the British Empire.",
+        folder: "british-empire-colonies-album",
+        customImage: "https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/cover-preview.jpg",
+        imageCount: 1,
+        url: "blog/british-empire-colonies-album-detailed.html",
+        isBlog: true
     }
 ];
