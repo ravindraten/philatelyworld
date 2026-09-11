@@ -1,5 +1,15 @@
 const blogPosts = [
     {
+        name: "Stamps of the British Empire: A World Tour in Album Sheets",
+        year: "1854-1985",
+        country: "British Commonwealth",
+        desc: "From Helgoland to the New Hebrides: a page-by-page tour of a classic British Empire and Colonies stamp album, covering nearly 80 territories across six continents — paginated across 8 pages.",
+        folder: "d123-british-empire-stamps",
+        customImage: "https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/D123/61.jpg",
+        imageCount: 1,
+        url: "blog/d123-british-empire-stamps.html",
+        isBlog: true
+    }, {
         name: "Private File Converter: Convert Files Online Without Uploading Them",
         year: "2026",
         country: "Digital Tools",
@@ -43,17 +53,19 @@ const blogPosts = [
         imageCount: 1,
         url: "blog/delfts-blauw-keramiek-stamp.html",
         isBlog: true
-    }, {
-        name: "British Possessions and Colonies: An Album Across Five Continents",
-        year: "-",
-        country: "British Commonwealth",
-        desc: "A hand-assembled 86-page album documenting postage stamps and covers of British possessions and colonies across Europe, the Americas, Africa, Asia, and Oceania.",
-        folder: "british-empire-colonies-album",
-        customImage: "https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/cover-preview.jpg",
-        imageCount: 1,
-        url: "blog/british-empire-colonies-album.html",
-        isBlog: true
-    }, {
+    },
+    // {
+    //     name: "British Possessions and Colonies: An Album Across Five Continents",
+    //     year: "-",
+    //     country: "British Commonwealth",
+    //     desc: "A hand-assembled 86-page album documenting postage stamps and covers of British possessions and colonies across Europe, the Americas, Africa, Asia, and Oceania.",
+    //     folder: "british-empire-colonies-album",
+    //     customImage: "https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/cover-preview.jpg",
+    //     imageCount: 1,
+    //     url: "blog/british-empire-colonies-album.html",
+    //     isBlog: true
+    // }, 
+    {
         name: "Travelled Covers of the Deutsches Reich: A Postal History Album, 1886–1940",
         year: "1886-1940",
         country: "Germany",
@@ -83,7 +95,8 @@ const blogPosts = [
         imageCount: 1,
         url: "blog/princely-states-stamps.html",
         isBlog: true
-    }, {
+    },
+    {
         name: "Tunesië (Tunisia) Stamp Collection in Album",
         year: "1888-",
         country: "Tunisia",
