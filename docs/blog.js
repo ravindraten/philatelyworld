@@ -1,5 +1,16 @@
 const blogPosts = [
     {
+        name: "FIP, 100 Years — and the World's Smallest Stamp",
+        year: "2026",
+        country: "Romania",
+        desc: "To mark the centenary of the International Federation of Philately (FIP), Romfilatelia and the Romanian Post issue the world's smallest postage stamp — a 7.5 × 9 mm miniature of the 1858 'Bull's Head', a Guinness World Record, on 26 February 2026.",
+        folder: "fip-100-years-smallest-stamp",
+        customImage: "images/blog/fip-100-years-smallest-stamp/1.jpg",
+        imageCount: 2,
+        url: "blog/fip-100-years-worlds-smallest-stamp.html",
+        isBlog: true
+    },
+    {
         name: "Luxembourg 3D Printed Souvenir Sheet: HRH Grand Duke Guillaume",
         year: "2026",
         country: "Luxembourg",
