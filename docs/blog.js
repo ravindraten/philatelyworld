@@ -1,5 +1,16 @@
 const blogPosts = [
     {
+        name: "Unusual Postal Souvenirs – NFC and LED Stamps from the Rozewie Lighthouse Issue",
+        year: "2022",
+        country: "Poland",
+        desc: "The Polish Post marks the bicentenary of Rozewie, Poland's oldest lighthouse, with a 2022 souvenir block and FDC plus a 2023 folder that hides a polycarbonate NFC block which lights up with a microLED when held near any NFC reader.",
+        folder: "rozwie-lighthouse-200-years",
+        customImage: "images/blog/rozwie-lighthouse-200-years/1.jpg",
+        imageCount: 4,
+        url: "blog/rozwie-lighthouse-200-years-poland.html",
+        isBlog: true
+    },
+    {
         name: "FIP, 100 Years — and the World's Smallest Stamp",
         year: "2026",
         country: "Romania",
