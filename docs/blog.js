@@ -1,5 +1,27 @@
 const blogPosts = [
     {
+        name: "Luxembourg 3D Printed Souvenir Sheet: HRH Grand Duke Guillaume",
+        year: "2026",
+        country: "Luxembourg",
+        desc: "POST Philately issues Luxembourg's first 3D-printed stamp — a €30 souvenir sheet honouring HRH Grand Duke Guillaume with a flexible, soft-to-the-touch surface, printed by Gutenberg AG and 3D manufactured by Hämmerle & Vogel.",
+        folder: "luxembourg-3d-block-grand-duke-guillaume",
+        customImage: "https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/luxembourg-3d-block/1.jpg",
+        imageCount: 1,
+        url: "blog/luxembourg-3d-block-grand-duke-guillaume.html",
+        isBlog: true
+    },
+    {
+        name: "Austria Petit Point Embroidered \"Rose\" Stamp 2010 – Miniature Sheet",
+        year: "2010",
+        country: "Austria",
+        desc: "On 17 September 2010 Austria Post issued a miniature sheet with a real Petit Point embroidered flower \"Rose\" at its centre — Viennese needlework by Hammerle & Vogel on a postage stamp.",
+        folder: "austria-petit-point-rose-stamp",
+        customImage: "https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/petitPoint.jpeg",
+        imageCount: 1,
+        url: "blog/austria-petit-point-rose-stamp.html",
+        isBlog: true
+    },
+    {
         name: "World's Longest Stamp Released in Romania for National Cathedral Consecration",
         year: "2025",
         country: "Romania",
