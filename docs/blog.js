@@ -5,7 +5,7 @@ const blogPosts = [
         country: "Poland",
         desc: "The Polish Post marks the bicentenary of Rozewie, Poland's oldest lighthouse, with a 2022 souvenir block and FDC plus a 2023 folder that hides a polycarbonate NFC block which lights up with a microLED when held near any NFC reader.",
         folder: "rozwie-lighthouse-200-years",
-        customImage: "images/blog/rozwie-lighthouse-200-years/1.jpg",
+        customImage: "https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/rozwie-lighthouse-200-years/1.jpg",
         imageCount: 4,
         url: "blog/rozwie-lighthouse-200-years-poland.html",
         isBlog: true
