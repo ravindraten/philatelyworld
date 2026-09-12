@@ -1,5 +1,16 @@
 const blogPosts = [
     {
+        name: "World's Longest Stamp Released in Romania for National Cathedral Consecration",
+        year: "2025",
+        country: "Romania",
+        desc: "Romfilatelia and the Romanian Post release the world's longest postage stamp, measuring 252 mm, to mark the Consecration of Romania's National Cathedral — a miniature sheet with mosaic icons, two first-day covers and a maximum postcard.",
+        folder: "romania-longest-stamp",
+        customImage: "https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/longestStamp.jpg",
+        imageCount: 1,
+        url: "blog/worlds-longest-stamp-romania-national-cathedral.html",
+        isBlog: true
+    },
+    {
         name: "Stamps of the British Empire: A World Tour in Album Sheets",
         year: "1854-1985",
         country: "British Commonwealth",
