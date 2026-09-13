@@ -1,5 +1,16 @@
 const blogPosts = [
     {
+        name: "LUGA Luxembourg Urban Garden 2025: \"Under the Open Sky\" Stamp Sheet [E50g]",
+        year: "2025",
+        country: "Luxembourg",
+        desc: "POST Philately marks LUGA 2025, Luxembourg's first open-air garden exhibition, with a seed-capsule sheet of 10 by artist Chantal Maquet — the envelope even contains a packet of real wildflower seeds from the SICONA initiative.",
+        folder: "luga-luxembourg-urban-garden",
+        customImage: "https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/luga-luxembourg-urban-garden/1.jpg",
+        imageCount: 5,
+        url: "blog/luga-luxembourg-urban-garden.html",
+        isBlog: true
+    },
+    {
         name: "Christmas 2025 Stamps of Luxembourg: Luxembourg City & Esch-sur-Alzette",
         year: "2025",
         country: "Luxembourg",
