@@ -1,5 +1,16 @@
 const blogPosts = [
     {
+        name: "Christmas 2025 Stamps of Luxembourg: Luxembourg City & Esch-sur-Alzette",
+        year: "2025",
+        country: "Luxembourg",
+        desc: "POST Philately's 2025 Christmas stamps by Ben Carter capture the magic of Luxembourg's Christmas markets — the Winterlights Ferris wheel of Luxembourg City and Esch-sur-Alzette's Christmas pyramid, printed with a glow-in-the-dark finish.",
+        folder: "christmas-2025-luxembourg",
+        customImage: "https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/christmas-2025-luxembourg/1.jpg",
+        imageCount: 6,
+        url: "blog/christmas-2025-luxembourg.html",
+        isBlog: true
+    },
+    {
         name: "Unusual Postal Souvenirs – NFC and LED Stamps from the Rozewie Lighthouse Issue",
         year: "2022",
         country: "Poland",
