@@ -1,5 +1,16 @@
 const blogPosts = [
     {
+        name: "Liechtenstein's Playable Vinyl Stamp: \"S'isch egal\" – Songs from the Attic (Issue 2/2026)",
+        year: "2026",
+        country: "Liechtenstein",
+        desc: "Philatelie Liechtenstein turns a stamp into a record: the CHF 6.80 souvenir sheet of Issue 2/2026 is a real playable vinyl disc — the folk song \"S'isch egal\", preserved by pioneer Pepi Frommelt, remixed in 2023 by PEPS, with a QR code for digital listening.",
+        folder: "liechtenstein-music-songs-from-the-attic",
+        customImage: "https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/liechtenstein-music-songs-from-the-attic/1.jpg",
+        imageCount: 9,
+        url: "blog/liechtenstein-music-songs-from-the-attic.html",
+        isBlog: true
+    },
+    {
         name: "LUGA Luxembourg Urban Garden 2025: \"Under the Open Sky\" Stamp Sheet [E50g]",
         year: "2025",
         country: "Luxembourg",
