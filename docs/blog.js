@@ -1,5 +1,16 @@
 const blogPosts = [
     {
+        name: "SpongeBob tiptoi Stamp Set 2026: Interactive Music from Bikini Bottom (Deutsche Post)",
+        year: "2026",
+        country: "Germany",
+        desc: "Deutsche Post's SpongeBob & Friends stamps (first day 2 March 2026) hide interactive tiptoi® codes — touch them with a Ravensburger tiptoi pen and the music of SpongeBob's world at Bikini Bottom comes alive.",
+        folder: "spongebob-tiptoi-stamp",
+        customImage: "https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/spongebob-tiptoi-stamp/1.jpg",
+        imageCount: 1,
+        url: "blog/spongebob-tiptoi-stamp.html",
+        isBlog: true
+    },
+    {
         name: "Liechtenstein's Playable Vinyl Stamp: \"S'isch egal\" – Songs from the Attic (Issue 2/2026)",
         year: "2026",
         country: "Liechtenstein",
