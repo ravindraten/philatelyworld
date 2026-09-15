@@ -214,12 +214,14 @@ function initEventListeners() {
         }
     });
 
-    // Reset view when the search bar is selected (tapped/clicked)
+    // Reset view when the search bar is selected (tapped/clicked) on mobile only
     searchInput.addEventListener('focus', () => {
-        // Delay slightly to allow the mobile keyboard to appear first
-        setTimeout(() => {
-            scrollToGrid();
-        }, 300);
+        if (window.matchMedia('(max-width: 800px)').matches) {
+            // Delay slightly to allow the mobile keyboard to appear first
+            setTimeout(() => {
+                scrollToGrid();
+            }, 300);
+        }
     });
 
     // Handle "Enter" key
@@ -788,12 +790,32 @@ function copyUPI() {
 }
 
 // Add this helper function at the bottom of script.js
-function copyShareLink(url, btn) {
-    navigator.clipboard.writeText(url).then(() => {
+async function copyShareLink(url, btn) {
+    // Prefer the native share sheet so the user can pick any app (WhatsApp,
+    // Messenger, email, etc.) to send the link. Fall back to copying the URL.
+    if (navigator.share) {
         const originalSVG = btn.innerHTML;
-        btn.innerHTML = `<span style="font-size:10px; color:#059669; font-weight:bold;">COPIED</span>`;
-        setTimeout(() => { btn.innerHTML = originalSVG; }, 2000);
-    });
+        try {
+            await navigator.share({
+                title: document.title,
+                text: 'Check out this stamp at Philately World:',
+                url: url
+            });
+        } catch (err) {
+            // AbortError = user cancelled the share sheet; nothing to do.
+            if (err && err.name === 'AbortError') return;
+            // Fallback: copy to clipboard
+            btn.innerHTML = `<span style="font-size:10px; color:#059669; font-weight:bold;">COPIED</span>`;
+            navigator.clipboard.writeText(url);
+            setTimeout(() => { btn.innerHTML = originalSVG; }, 2000);
+        }
+    } else {
+        const originalSVG = btn.innerHTML;
+        navigator.clipboard.writeText(url).then(() => {
+            btn.innerHTML = `<span style="font-size:10px; color:#059669; font-weight:bold;">COPIED</span>`;
+            setTimeout(() => { btn.innerHTML = originalSVG; }, 2000);
+        });
+    }
 }
 
 function updateMetaTags(stamp, id) {

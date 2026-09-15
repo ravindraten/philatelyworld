@@ -233,6 +233,34 @@ def test_qr_modal_copy(driver):
     assert driver.find_element(By.ID, "copyBtn").text == "Copied!"
 
 
+def test_stamp_card_share_link(driver):
+    """Stamp-card share button copies the share link (native share sheet is
+    unavailable in headless mode, so it must fall back to copying)."""
+    driver.get(URL)
+    wait = WebDriverWait(driver, 10)
+
+    share_btn = wait.until(
+        EC.element_to_be_clickable(
+            (By.CSS_SELECTOR, "#stampGrid .stamp-card .share-icon-btn")
+        )
+    )
+
+    # A sticky overlay can intercept a WebDriver click; dispatch the click via
+    # JavaScript (the convention used across this suite).
+    driver.execute_script("arguments[0].click();", share_btn)
+
+    # The button flashes a 'COPIED' indicator when the native share sheet is
+    # unavailable (headless) and the fallback clipboard path runs.
+    wait.until(
+        EC.text_to_be_present_in_element(
+            (By.CSS_SELECTOR, "#stampGrid .stamp-card .share-icon-btn"), "COPIED"
+        )
+    )
+    assert "COPIED" in driver.find_element(
+        By.CSS_SELECTOR, "#stampGrid .stamp-card .share-icon-btn"
+    ).get_attribute("innerHTML")
+
+
 # --- 4. Deep Linking Scenario ---
 
 
