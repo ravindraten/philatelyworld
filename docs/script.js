@@ -27,6 +27,107 @@ let state = {
     saleActive: false
 };
 
+/**
+ * Donate / Support modal — top-level on purpose.
+ * Tab switching must keep working even if other init code throws,
+ * the script is cached, or DOMContentLoaded ordering changes.
+ */
+function showDonateModal() {
+    const qrModal = document.getElementById("donate-modal");
+    if (!qrModal) return;
+    qrModal.style.display = "flex";
+    document.body.style.overflow = "hidden";
+}
+
+function hideDonateModal() {
+    const qrModal = document.getElementById("donate-modal");
+    if (!qrModal) return;
+    qrModal.style.display = "none";
+    document.body.style.overflow = "auto";
+}
+
+function switchDonateTab(tab) {
+    const qrModal = document.getElementById("donate-modal");
+    const scope = qrModal || document;
+    scope.querySelectorAll('.tab-content').forEach((el) => el.classList.remove('active'));
+    scope.querySelectorAll('.modal-tab').forEach((el) => el.classList.remove('active'));
+    const showPaypal = tab === 'paypal';
+    const panel = document.getElementById(showPaypal ? 'paypal-tab' : 'upi-tab');
+    if (panel) panel.classList.add('active');
+    const btn = scope.querySelector('[data-donate-tab="' + (showPaypal ? 'paypal' : 'upi') + '"]');
+    if (btn) btn.classList.add('active');
+}
+
+window.showDonate = showDonateModal;
+window.hideDonate = function (e) {
+    if (e) {
+        if (e.preventDefault) e.preventDefault();
+        if (e.stopPropagation) e.stopPropagation();
+    }
+    hideDonateModal();
+};
+window.switchTab = switchDonateTab;
+
+function initDonateModal() {
+    const qrModal = document.getElementById("donate-modal");
+    if (!qrModal || qrModal.dataset.wired === "1") return;
+    qrModal.dataset.wired = "1";
+
+    const bhimBtn = document.getElementById("bhimTrigger");
+    if (bhimBtn) {
+        bhimBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            showDonateModal();
+        });
+    }
+    document.getElementById("qrClose")?.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        hideDonateModal();
+    });
+    // Click on dark backdrop closes (clicks inside content stop below)
+    qrModal.addEventListener('click', (e) => {
+        if (e.target === qrModal) hideDonateModal();
+    });
+    qrModal.querySelector('.qr-modal-content')?.addEventListener('click', (e) => {
+        e.stopPropagation();
+    });
+    qrModal.querySelectorAll('[data-donate-tab]').forEach((btn) => {
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            switchDonateTab(btn.getAttribute('data-donate-tab'));
+        });
+    });
+    document.getElementById('upiCopyBtn')?.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        if (typeof copyUPI === 'function') copyUPI();
+    });
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && qrModal.style.display === 'flex') hideDonateModal();
+    });
+}
+
+// Delegated fallback: tab clicks work even if initDonateModal hasn't run yet
+// or another init routine threw before wiring the modal.
+document.addEventListener('click', (e) => {
+    const tabBtn = e.target && e.target.closest ? e.target.closest('[data-donate-tab]') : null;
+    if (!tabBtn) return;
+    const modal = tabBtn.closest ? tabBtn.closest('#donate-modal') : null;
+    if (!modal) return;
+    e.preventDefault();
+    e.stopPropagation();
+    switchDonateTab(tabBtn.getAttribute('data-donate-tab'));
+});
+
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initDonateModal);
+} else {
+    initDonateModal();
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     // First, get the live exchange rate
     updateLiveExchangeRate();
@@ -293,22 +394,12 @@ function initEventListeners() {
             closeModal();
         }
     });
-    // BHIM Modal Controls
-    const qrModal = document.getElementById("qrModal");
-    const bhimBtn = document.getElementById("bhimTrigger");
-    const qrClose = document.getElementById("qrClose");
-
-    if (bhimBtn) {
-        bhimBtn.onclick = () => {
-            qrModal.style.display = "flex";
-            document.body.style.overflow = "hidden";
-        };
-    }
-    if (qrClose) {
-        qrClose.onclick = () => {
-            qrModal.style.display = "none";
-            document.body.style.overflow = "auto";
-        };
+    // BHIM / Donate modal wiring lives at top level (see initDonateModal);
+    // call it here too so ordering with other listeners stays the same.
+    try {
+        initDonateModal();
+    } catch (err) {
+        console.error("Donate modal init failed:", err);
     }
 
     // Privacy Policy Modal Controls
@@ -777,17 +868,23 @@ function updateFilterCounts() {
     }
 }
 function copyUPI() {
-    const upiId = document.getElementById('upiIdText').innerText;
+    const upiEl = document.getElementById('upi-id') || document.getElementById('upiIdText');
+    if (!upiEl) return;
+    const upiId = (upiEl.innerText || upiEl.textContent || '').trim();
+    if (!upiId || !navigator.clipboard) return;
+    const btn = document.getElementById('upiCopyBtn') || document.getElementById('copyBtn');
+    const originalText = btn ? btn.innerText : '';
     navigator.clipboard.writeText(upiId).then(() => {
-        const btn = document.getElementById('copyBtn');
-        btn.innerText = "Copy";
+        if (!btn) return;
+        btn.innerText = "Copied!";
         btn.style.background = "#22c55e";
         setTimeout(() => {
-            btn.innerText = "Copied!";
+            btn.innerText = originalText || "COPY";
             btn.style.background = "";
-        }, 10);
-    });
+        }, 1500);
+    }).catch(() => { /* clipboard unavailable */ });
 }
+window.copyUPI = copyUPI;
 
 // Add this helper function at the bottom of script.js
 async function copyShareLink(url, btn) {
