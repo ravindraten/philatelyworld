@@ -1132,7 +1132,8 @@ header {
 }
 
 /* QR Modal */
-.qr-modal {
+.qr-modal,
+#donate-modal {
     display: none;
     position: fixed;
     z-index: 3000;
@@ -1187,6 +1188,61 @@ header {
     top: 10px;
     font-size: 28px;
     cursor: pointer;
+    background: none;
+    border: none;
+    color: inherit;
+    line-height: 1;
+    padding: 0;
+}
+
+.modal-tabs {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    background: #f1f5f9;
+    padding: 4px;
+    border-radius: 12px;
+}
+
+.modal-tab {
+    flex: 1;
+    padding: 8px;
+    border-radius: 9px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+    border: none;
+    color: #64748b;
+    background: transparent;
+}
+
+.modal-tab.active {
+    background: white;
+    color: var(--accent);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+.upi-box {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    padding: 12px;
+    border-radius: 10px;
+    font-size: 0.85rem;
+    color: #1e293b;
+    margin-top: 20px;
 }
 
 @media (min-width: 801px) {
