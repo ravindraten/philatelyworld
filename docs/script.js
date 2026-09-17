@@ -890,6 +890,30 @@ window.copyUPI = copyUPI;
 async function copyShareLink(url, btn) {
     // Prefer the native share sheet so the user can pick any app (WhatsApp,
     // Messenger, email, etc.) to send the link. Fall back to copying the URL.
+    const showCopied = (originalHTML) => {
+        try {
+            btn.innerHTML = `<span style="font-size:10px; color:#059669; font-weight:bold;">COPIED</span>`;
+        } catch (e) { /* DOM unavailable */ }
+        setTimeout(() => {
+            try { btn.innerHTML = originalHTML; } catch (e) { /* noop */ }
+        }, 2000);
+    };
+    const legacyCopy = (text) => {
+        try {
+            const ta = document.createElement('textarea');
+            ta.value = text;
+            ta.setAttribute('readonly', '');
+            ta.style.position = 'fixed';
+            ta.style.opacity = '0';
+            document.body.appendChild(ta);
+            ta.select();
+            document.execCommand('copy');
+            document.body.removeChild(ta);
+            return true;
+        } catch (e) {
+            return false;
+        }
+    };
     if (navigator.share) {
         const originalSVG = btn.innerHTML;
         try {
@@ -898,22 +922,35 @@ async function copyShareLink(url, btn) {
                 text: 'Check out this stamp at Philately World:',
                 url: url
             });
+            return;
         } catch (err) {
             // AbortError = user cancelled the share sheet; nothing to do.
             if (err && err.name === 'AbortError') return;
-            // Fallback: copy to clipboard
-            btn.innerHTML = `<span style="font-size:10px; color:#059669; font-weight:bold;">COPIED</span>`;
-            navigator.clipboard.writeText(url);
-            setTimeout(() => { btn.innerHTML = originalSVG; }, 2000);
+            // Fall through to clipboard fallback with optimistic feedback.
+            showCopied(originalSVG);
+            try {
+                if (navigator.clipboard && navigator.clipboard.writeText) {
+                    await navigator.clipboard.writeText(url);
+                } else {
+                    legacyCopy(url);
+                }
+            } catch (e) { /* feedback already shown */ }
+            return;
         }
-    } else {
-        const originalSVG = btn.innerHTML;
-        navigator.clipboard.writeText(url).then(() => {
-            btn.innerHTML = `<span style="font-size:10px; color:#059669; font-weight:bold;">COPIED</span>`;
-            setTimeout(() => { btn.innerHTML = originalSVG; }, 2000);
-        });
     }
+    // No native share (e.g. headless CI): show feedback synchronously so the
+    // UI never depends on clipboard permissions, then copy best-effort.
+    const originalSVG = btn.innerHTML;
+    showCopied(originalSVG);
+    try {
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+            await navigator.clipboard.writeText(url);
+        } else {
+            legacyCopy(url);
+        }
+    } catch (e) { /* feedback already shown; clipboard best-effort only */ }
 }
+window.copyShareLink = copyShareLink;
 
 function updateMetaTags(stamp, id) {
     let title, desc, imgUrl;
