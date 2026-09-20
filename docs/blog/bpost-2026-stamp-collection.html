@@ -903,7 +903,7 @@
                         <a href="https://cdn.assets.prezly.com/9d6a8b78-1ab4-4834-9ca0-8b9d8d7b0398/-/format/auto/12%20SkateArt%20zegel2.jpg"><img src="https://cdn.assets.prezly.com/9d6a8b78-1ab4-4834-9ca0-8b9d8d7b0398/-/preview/1000x500/-/format/auto/12%20SkateArt%20zegel2.jpg" alt="Skate Art stamp 2" loading="lazy"></a>
                         <a href="https://cdn.assets.prezly.com/b983158c-fb14-4757-a2fe-835abf789002/-/format/auto/12%20SkateArt%20zegel3.jpg"><img src="https://cdn.assets.prezly.com/b983158c-fb14-4757-a2fe-835abf789002/-/preview/1000x500/-/format/auto/12%20SkateArt%20zegel3.jpg" alt="Skate Art stamp 3" loading="lazy"></a>
                         <a href="https://cdn.assets.prezly.com/1359c6fb-5427-430c-a547-cfdea605ddcf/-/format/auto/12%20SkateArt%20zegel4.jpg"><img src="https://cdn.assets.prezly.com/1359c6fb-5427-430c-a547-cfdea605ddcf/-/preview/1000x500/-/format/auto/12%20SkateArt%20zegel4.jpg" alt="Skate Art stamp 4" loading="lazy"></a>
-                        <a href="https://cdn.assets.prezly.com/54f22312-0473-4672-9868-190124d0edcb/-/format/auto/12%20SkateArt%20zegel5.jpg"><img src="https://cdn.assets.prezly.com/54f22312-0473-4672-9868-190124d0edcb/-/preview/1000x500/-/format/auto/12%20SkateArt%20zegel5.jpg" alt="Skate Art stamp 5" loading="lazy"></a>
+                        <a href="https://cdn.assets.prezly.com/54f22312-'3-4672-9868-190124d0edcb/-/format/auto/12%20SkateArt%20zegel5.jpg"><img src="https://cdn.assets.prezly.com/54f22312-'3-4672-9868-190124d0edcb/-/preview/1000x500/-/format/auto/12%20SkateArt%20zegel5.jpg" alt="Skate Art stamp 5" loading="lazy"></a>
                     </div>
                 </div>
 
@@ -1110,6 +1110,19 @@
     })();
   </script>
 
-</body>
+  <script>
+    (function () {
+      var canonical = document.querySelector('link[rel="canonical"]');
+      var currentUrl = encodeURIComponent(canonical ? canonical.href : window.location.href);
+      document.querySelectorAll('a[href^="https://wa.me/31633467712"]').forEach(function(link) {
+        var href = link.getAttribute('href');
+        if (href.indexOf('text=') !== -1) {
+          link.setAttribute('href', href + '%0A%0A' + currentUrl);
+        } else {
+          link.setAttribute('href', href + '?text=' + currentUrl);
+        }
+      });
+    })();
+  </script></body>
 
 </html>

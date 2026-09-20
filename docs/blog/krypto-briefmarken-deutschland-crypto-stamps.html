@@ -1088,6 +1088,19 @@
         })();
     </script>
 
-</body>
+  <script>
+    (function () {
+      var canonical = document.querySelector('link[rel="canonical"]');
+      var currentUrl = encodeURIComponent(canonical ? canonical.href : window.location.href);
+      document.querySelectorAll('a[href^="https://wa.me/31633467712"]').forEach(function(link) {
+        var href = link.getAttribute('href');
+        if (href.indexOf('text=') !== -1) {
+          link.setAttribute('href', href + '%0A%0A' + currentUrl);
+        } else {
+          link.setAttribute('href', href + '?text=' + currentUrl);
+        }
+      });
+    })();
+  </script></body>
 
 </html>
