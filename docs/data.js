@@ -1,6 +1,17 @@
 // 1. STAMP DATABASE
 const stamps = [
     {
+        name: "Bundle Crypto Stamp - Heroes of Mythology",
+        country: "Austria, Netherlands, Belgium, Portgual",
+        year: "<b>Year</b>: 2026",
+        priceINR: 9999,
+        isSoldOut: false,
+        freeTrackedShipping: false,
+        freeLetterPostShipping: true,
+        folder: "D122",
+        imageCount: 1,
+        desc: "RN4188: <b>2026 Crypto Stamp: Heroes of Mythology (Austria, Belgium, Netherlands, Portugal)</b><br> Bundle of 5 stamps. All stamps are in Mint Never Used (MNU) condition and come with their original wallets."
+    }, {
         name: "Tunisia stamp collection in stockbook",
         country: "Tunisia",
         year: "<b>Year</b>: various",
@@ -436,7 +447,7 @@ const stamps = [
         folder: "D81",
         imageCount: 1,
         desc: "RN4152: German Reich set of 28 stamps\
-                Check the photo. What you see is what you get.. "
+            Check the photo. What you see is what you get.. "
     },
     {
         name: "France MNH stamp collection in stockbook",
@@ -531,8 +542,8 @@ const stamps = [
         folder: "D73",
         imageCount: 4,
         desc: "RN4144: Postset Birds Saba.The rugged, green island of Saba teems with extraordinary birds.\
-        <b>Muliple Sets available</b>\
-        "
+            <b>Muliple Sets available</b>\
+            "
     }, {
         name: "Collection of 29 GB Postal History Covers (1940-1960s) - Registered, First Flight, High-Value Castles & Wildings",
         country: "Commonwealth",
@@ -544,9 +555,9 @@ const stamps = [
         folder: "D72",
         imageCount: 29,
         desc: "RN4143: A diverse and high-quality collection of 29 British Postal History covers, spanning the late King George VI and early Queen Elizabeth II \"Wilding\" eras. \
-        This lot is an excellent opportunity for a postal history specialist or a collector of international commercial mail.\
-        <b>Rs.400 per cover.</b> \
-        "
+            This lot is an excellent opportunity for a postal history specialist or a collector of international commercial mail.\
+            <b>Rs.400 per cover.</b> \
+            "
     }, {
         name: "Hyperinflation stamps from the definitive series of Weimar Republic",
         country: "Germany",
@@ -558,7 +569,7 @@ const stamps = [
         folder: "D71",
         imageCount: 1,
         desc: "RN4142: Fascinating piece of history from the Weimar Republic in Germany, specifically from the hyperinflation period of 1923.\
-                "
+            "
     },
     {
         name: "Special issued Czechoslovakia album with collection about 180 mint hinged stamps",
@@ -569,8 +580,8 @@ const stamps = [
         folder: "D70",
         imageCount: 17,
         desc: "RN4141: Special issued Czechoslovakia album with collection about 180 mint hinged stamps.\
-                Check the photos to see a small part, but there is a lot more than you can see here.\
-                "
+            Check the photos to see a small part, but there is a lot more than you can see here.\
+            "
     },
     {
         name: "Large lot hundreds stamp sheets and some blocks, a lot topical",
@@ -583,8 +594,8 @@ const stamps = [
         folder: "D69",
         imageCount: 11,
         desc: "RN4140: Large lot hundreds stamp sheets and some blocks, a lot mostly topical.\
-                Check the photos. but there is a lot more than you can see here. \
-                "
+            Check the photos. but there is a lot more than you can see here. \
+            "
     },
     {
         name: "AIR Mail Covers travelled from around the world to West Germany",
@@ -597,9 +608,9 @@ const stamps = [
         folder: "D68",
         imageCount: 39,
         desc: "RN4139: 153 different AIR Mail Covers travelled from around the world to West Germany.\
-                Check the photos. What you see is what you get.\
-                <b>Rs.100 per cover </b> \
-                "
+            Check the photos. What you see is what you get.\
+            <b>Rs.100 per cover </b> \
+            "
     }, {
         name: "70 Years of Diplomatic Ties: Lao PDR & India Joint Postage Stamp Issue",
         country: "Lao PDR & India",
@@ -612,8 +623,8 @@ const stamps = [
         imageCount: 3,
         blogUrl: "blog/lao-india-joint-issue-2026.html",
         desc: "RN4138: Commemorating 70 years of friendship between Laos and India (1956-2026). \
-        Features deep cultural ties including Buddhism and the Ramayana heritage. \
-        Limited edition of 3,000 sets. (+ shipping inside India in April 2026)"
+            Features deep cultural ties including Buddhism and the Ramayana heritage. \
+            Limited edition of 3,000 sets. (+ shipping inside India in April 2026)"
     },
     {
         name: "France stamp collection in stockbook",
@@ -626,8 +637,8 @@ const stamps = [
         folder: "D67",
         imageCount: 19,
         desc: "RN4137: Stockbook with stamp collection France.\
-                Check the photos. What you see is what you get.<b> Stock Album for Free</b>\
-                "
+            Check the photos. What you see is what you get.<b> Stock Album for Free</b>\
+            "
     },
     {
         name: "12 Reichspfennig stamp from the definitive series of Nazi Germany",
@@ -640,7 +651,7 @@ const stamps = [
         folder: "D66",
         imageCount: 3,
         desc: "RN4136: 12 Reichspfennig stamp from the definitive series of Nazi Germany. Sheet of 81 stamps\
-                "
+            "
     },
     {
         name: "4 Reichspfennig stamp from the definitive series of Nazi Germany",
@@ -653,7 +664,7 @@ const stamps = [
         folder: "D65",
         imageCount: 3,
         desc: "RN4135: 4 Reichspfennig stamp from the definitive series of Nazi Germany. Sheet of 72 stamps \
-                "
+            "
     },
     {
         name: "3 Reichspfennig stamp from the definitive series of Nazi Germany",
@@ -666,8 +677,8 @@ const stamps = [
         folder: "D64",
         imageCount: 3,
         desc: "RN4134: 3 Reichspfennig stamp from the definitive series of Nazi Germany. Sheet of 90 stamps\
-                <b> 5 copies available.</b> \
-                "
+            <b> 5 copies available.</b> \
+            "
     },
     {
         name: "The Dutch Water Defence Line",
@@ -682,8 +693,8 @@ const stamps = [
         desc: "RN4133: On 30 March 2026, PostNL issued the Dutch Water Defence Line stamp sheetlet, which contains photos and plans of 19th- and early 20th-century \
             defences in the Netherlands. The Dutch Water Defence Lines is the collective name for the New Dutch Water Line and the Defence Line of Amsterdam. \
             By flooding land in war situations, these defense lines could protect the west of the Netherlands against the enemy.\
-                <b> muliple copies available.</b> \
-                "
+            <b> muliple copies available.</b> \
+            "
     },
     {
         name: "Experience Nature - Butterflies Saba",
@@ -696,8 +707,8 @@ const stamps = [
         folder: "D62",
         imageCount: 1,
         desc: "RN4132: On 30 March 2026, PostNL issued Experience Nature - Butterflies Saba, a sheet with 10 stamps in 10 different designs\
-                <b> muliple copies available.</b> \
-                "
+            <b> muliple copies available.</b> \
+            "
     },
     {
         name: "40 Years of André Buzin’s Birds – “From Pen to Brush”",
@@ -710,8 +721,8 @@ const stamps = [
         folder: "Buzin2025",
         imageCount: 1,
         desc: "RN4131: 40 Years of André Buzin’s Birds  'From Pen to Brush'\
-                <b> 5 copies available.</b> \
-                "
+            <b> 5 copies available.</b> \
+            "
     },
     {
         name: "1 Reichspfennig stamp from the definitive series of Nazi Germany",
@@ -724,8 +735,8 @@ const stamps = [
         folder: "D61",
         imageCount: 3,
         desc: "RN4130: 1 Reichspfennig stamp from the definitive series of Nazi Germany. Sheet of 90 stamps\
-                <b> 5 copies available.</b> \
-                "
+            <b> 5 copies available.</b> \
+            "
     },
     {
         name: "Berlin 1955-1990 MNH stamp collection in album",
@@ -736,9 +747,9 @@ const stamps = [
         folder: "D60",
         imageCount: 19,
         desc: "RN4129:Leuchtturm album Berlin 1955-1990 with from 1960 almost complete MNH stamp collection.\
-                Check the photos to see a small part, but there is a lot more than you can see here.\
-                <b> Album for FREE.</b> \
-                "
+            Check the photos to see a small part, but there is a lot more than you can see here.\
+            <b> Album for FREE.</b> \
+            "
     },
     {
         name: "MS OF Indian Masks Series 15 APRIL 1974",
@@ -751,8 +762,8 @@ const stamps = [
         folder: "D59",
         imageCount: 1,
         desc: "RN4128: MS OF Indian Masks Series 15 APRIL 1974.\
-                <b> 3 copies available.</b> \
-                "
+            <b> 3 copies available.</b> \
+            "
     },
     {
         name: "Souvenir sheet from Netherlands 1994",
@@ -765,7 +776,7 @@ const stamps = [
         folder: "D58",
         imageCount: 1,
         desc: "RN4127: Souvenir sheet from Netherlands 1994.\
-                "
+            "
     },
     {
         name: "Collection over 135 registered travelled covers from DDR Germany",
@@ -778,9 +789,9 @@ const stamps = [
         folder: "D57",
         imageCount: 2,
         desc: "RN4126: Collection over 135 registered travelled covers from DDR Germany.\
-                Check the photos. What you see is what you get.\
-                <b>Price: Rs.25/- per cover</b>\
-                "
+            Check the photos. What you see is what you get.\
+            <b>Price: Rs.25/- per cover</b>\
+            "
     },
     {
         name: "Collection over 130 registered travelled covers from DDR Germany",
@@ -793,9 +804,9 @@ const stamps = [
         folder: "D56",
         imageCount: 2,
         desc: "RN4125: Collection over 130 registered travelled covers from DDR Germany.\
-                Check the photos. What you see is what you get.\
-                <b>Price: Rs.25/- per cover</b>\
-                "
+            Check the photos. What you see is what you get.\
+            <b>Price: Rs.25/- per cover</b>\
+            "
     },
     {
         name: "Collection over 205 FDC from DDR Germany",
@@ -808,9 +819,9 @@ const stamps = [
         folder: "D55",
         imageCount: 2,
         desc: "RN4124: Collection over 205 FDC from DDR Germany.\
-                Check the photos. What you see is what you get.\
-                <b>Price: Rs.40/- per cover</b>\
-                "
+            Check the photos. What you see is what you get.\
+            <b>Price: Rs.40/- per cover</b>\
+            "
     },
     {
         name: "World various postal item collection in stockbook, mostly older incl. Netherlands",
@@ -823,9 +834,9 @@ const stamps = [
         folder: "D54",
         imageCount: 16,
         desc: "RN4123: Collection over 100 covers and postal items various.\
-                Check the photos. What you see is what you get.\
-                <b>Price: Rs.90/- per cover</b>\
-                "
+            Check the photos. What you see is what you get.\
+            <b>Price: Rs.90/- per cover</b>\
+            "
     },
     {
         name: "32 FDC's from Deutsche Bundespost Berlin",
@@ -838,8 +849,8 @@ const stamps = [
         folder: "D53",
         imageCount: 8,
         desc: "RN4122: 32 different FDC's from Deutsche Bundespost Berlin. Various thematics\
-                <b>Price: Rs.60/- per cover</b>\
-                "
+            <b>Price: Rs.60/- per cover</b>\
+            "
     },
     {
         name: "Box with lot estimated over 750 FDC's",
@@ -850,10 +861,10 @@ const stamps = [
         folder: "D52",
         imageCount: 11,
         desc: "RN4121: Check this lot estimated over 750 FDC's, \
-                covers and postal items world including old. Nice treasure hunting for the coverlover.\
-                Check the photos to see a small part, but there is a lot more than you can see here.\
-                <b>Price: Rs.40/- per cover</b>\
-                <b>Free Registered Shipping worldwide from Netherlands</b>. Can ship this immediately this week"
+            covers and postal items world including old. Nice treasure hunting for the coverlover.\
+            Check the photos to see a small part, but there is a lot more than you can see here.\
+            <b>Price: Rs.40/- per cover</b>\
+            <b>Free Registered Shipping worldwide from Netherlands</b>. Can ship this immediately this week"
     },
     {
         name: "Box with about 450 stockcards with good stamp variation. A lot Europe and Congo",
@@ -866,10 +877,10 @@ const stamps = [
         folder: "D51",
         imageCount: 26,
         desc: "RN4120: Box with about 450 stockcards with good stamp variation. A lot Europe and Congo, all ready to sell, only few duplicates.\
-                Plus engros many duplicates blocks Spain and parts of sheets Uruguay.\
-                The pictures of wholesale lots only show a small part. There is a lot more.\
-                Total weight: 10 kg.\
-                <b>Price: Rs.100/- per stock card.</b>"
+            Plus engros many duplicates blocks Spain and parts of sheets Uruguay.\
+            The pictures of wholesale lots only show a small part. There is a lot more.\
+            Total weight: 10 kg.\
+            <b>Price: Rs.100/- per stock card.</b>"
     },
     {
         name: "International year of Child 1979 FDC's",
@@ -897,7 +908,7 @@ const stamps = [
         desc: "RN4115: Binder with very nice collection about 300 mostly old postal items France, used and unused.\
             Check the photos. What you see is what you get.\
             <b>Rs.200/- per item.</b> Very unique and huge lot.\
-             <b> Album for FREE</b>  "
+            <b> Album for FREE</b>  "
     },
     {
         name: "Czechoslovakia sheetbinder with lot stamp blocks and sheets",
@@ -910,8 +921,8 @@ const stamps = [
         folder: "D48",
         imageCount: 27,
         desc: "RN4114: Lindner sheetbinder with lot blocks and some sheets Czechoslovakia.\
-                Check the photos. What you see is what you get.\
-             <b> Album for FREE</b>  "
+            Check the photos. What you see is what you get.\
+            <b> Album for FREE</b>  "
     },
     {
         name: "France 1849-1983 stamp collection in album",
@@ -925,7 +936,7 @@ const stamps = [
         imageCount: 52,
         desc: "RN4113: Davo album France 1849-1983 with collection about 1350 stamps.\
             Check the photos to see a small part, but there is a lot more than you can see here.\
-             <b> Davo Album for FREE</b>  "
+            <b> Davo Album for FREE</b>  "
     },
     {
         name: "Collection of 100 FDC's from Sweden",
@@ -938,7 +949,7 @@ const stamps = [
         folder: "D46",
         imageCount: 1,
         desc: "RN4112: Collection of 100 FDC's from Sweden. <b>Rs.35/- per cover</b>\
-         "
+            "
     },
     {
         name: "Collection of old and modern used/MNH stamps from Different countries",
@@ -951,7 +962,7 @@ const stamps = [
         folder: "D45",
         imageCount: 6,
         desc: "RN4111: Collection of old and modern used/MNH stamps from Different countries,\
-         Suriname, Spain, Pakistan, Portugal."
+            Suriname, Spain, Pakistan, Portugal."
     },
     {
         name: "Collection of old and modern used/MNH stamps from France",
@@ -976,10 +987,10 @@ const stamps = [
         folder: "D43",
         imageCount: 1,
         desc: "RN4109: This collection features a colorful 1960 definitive series \
-        from Belgian Congo depicting native flora, which was significantly modified \
-        with a bold 'CONGO' overprint following the countrys independence that year. \
-        These stamps are a perfect example of 'history in your hands'as they physically document \
-        the immediate transition from a colonial territory to a sovereign nation."
+            from Belgian Congo depicting native flora, which was significantly modified \
+            with a bold 'CONGO' overprint following the countrys independence that year. \
+            These stamps are a perfect example of 'history in your hands'as they physically document \
+            the immediate transition from a colonial territory to a sovereign nation."
     },
     {
         name: "Birds set from Suriname",
@@ -1007,9 +1018,9 @@ const stamps = [
         folder: "D41",
         imageCount: 1,
         desc: "RN4107:European Posts and Telecommunications (CEPT). Each features the portrait of Queen Elizabeth II \
-                alongside symbolic designs like the 19 doves of 1961 or the stylized wheel of 1960, \
-                representing European unity and communication.\
-                <b>4 sets available</b>"
+            alongside symbolic designs like the 19 doves of 1961 or the stylized wheel of 1960, \
+            representing European unity and communication.\
+            <b>4 sets available</b>"
     },
     {
         name: "Roses set from Hungary",
@@ -1022,7 +1033,7 @@ const stamps = [
         folder: "D40",
         imageCount: 1,
         desc: "RN4106:These are beautiful examples of Hungarian philately. You have a nearly complete set (7 out of 8) of the Roses series issued by Magyar Posta (Hungary's postal service) in 1962.\
-                They are highly regarded by collectors for their striking black background aesthetic, which makes the botanical illustrations pop. All MNH."
+            They are highly regarded by collectors for their striking black background aesthetic, which makes the botanical illustrations pop. All MNH."
     },
     {
         name: "Shoebox with a lot MNH stamps Netherlands.",
@@ -1035,8 +1046,8 @@ const stamps = [
         folder: "D39",
         imageCount: 14,
         desc: "RN4104: Shoebox with a lot MNH stamps Netherlands, parts of sheets, etc.\
-                Check the photos to see a small part, but there is a lot more than you can see here..\
-                "
+            Check the photos to see a small part, but there is a lot more than you can see here..\
+            "
     },
     {
         name: "Buzin birds collection from Belgium.",
@@ -1049,7 +1060,7 @@ const stamps = [
         folder: "D38",
         imageCount: 2,
         desc: "RN4103: MNH stamps from Belgium on theme birds.\
-                Check the photos. What you see is what you get.",
+            Check the photos. What you see is what you get.",
         blogUrl: "blog/buzin.html" // Adding this triggers the icon
     },
     {
@@ -1063,8 +1074,8 @@ const stamps = [
         folder: "D37",
         imageCount: 48,
         desc: "RN4102: Thick stockbook with classic German Reich and DDR used/MH stamp collection.\
-                Check the photos. What you see is what you get.\
-                <b>Album for free</b>"
+            Check the photos. What you see is what you get.\
+            <b>Album for free</b>"
     },
     {
         name: "Great-Britain and spaceship themed stamps.",
@@ -1077,7 +1088,7 @@ const stamps = [
         folder: "D36",
         imageCount: 8,
         desc: "RN4101: Used stamps from Great-Britain and spaceship themed stamps.\
-                Check the photos. What you see is what you get."
+            Check the photos. What you see is what you get."
     }, {
         name: "Thick stockbook with stamp collection Italy. Old classic high CV.",
         country: "Italy",
@@ -1089,8 +1100,8 @@ const stamps = [
         folder: "D35",
         imageCount: 29,
         desc: "RN4100: Thick stockbook with stamp collection Italy.\
-                Check the photos. What you see is what you get.\
-                + Shipping inside India in April 2026, <b>Album for free</b>"
+            Check the photos. What you see is what you get.\
+            + Shipping inside India in April 2026, <b>Album for free</b>"
     },
     {
         name: "Thick stockbook with stamp collection Spain. Old classic high CV.",
@@ -1103,8 +1114,8 @@ const stamps = [
         folder: "D34",
         imageCount: 29,
         desc: "RN4099: Thick stockbook with stamp collection Spain.\
-                Check the photos. What you see is what you get.\
-                <b>Album for free</b>"
+            Check the photos. What you see is what you get.\
+            <b>Album for free</b>"
     },
     {
         name: "Stockbook with stamp collection Australia.",
@@ -1117,8 +1128,8 @@ const stamps = [
         folder: "D33",
         imageCount: 25,
         desc: "RN4098: Stockbook with stamp collection Australia.\
-                Check the photos. What you see is what you get.\
-                <b>Album for free</b>"
+            Check the photos. What you see is what you get.\
+            <b>Album for free</b>"
     },
     {
         name: "Several different definitive stamp sheets from India.",
@@ -1131,7 +1142,7 @@ const stamps = [
         folder: "D32",
         imageCount: 5,
         desc: "RN4097: Several different definitive stamp sheets from India.\
-                Check the photos. What you see is what you get."
+            Check the photos. What you see is what you get."
     },
     {
         name: "World various stamp collection , Mostly used stamps",
@@ -1144,7 +1155,7 @@ const stamps = [
         folder: "D31",
         imageCount: 8,
         desc: "RN4096: World various stamp collection , Mostly used stamps.\
-                Check the photos. What you see is what you get."
+            Check the photos. What you see is what you get."
     },
     {
         name: "World various stamp collection in stockbook, incl. Indonesia, Japan and China.",
@@ -1157,8 +1168,8 @@ const stamps = [
         folder: "D30",
         imageCount: 32,
         desc: "RN4095: World various stamp collection in stockbook, incl. Indonesia, Japan and China.\
-                Check the photos. What you see is what you get.\
-                <b>Thick album for free</b>"
+            Check the photos. What you see is what you get.\
+            <b>Thick album for free</b>"
     },
     {
         name: "Modern/Old used and MNH stamps from Great Britian",
@@ -1171,7 +1182,7 @@ const stamps = [
         folder: "D29",
         imageCount: 21,
         desc: "RN4094: Modern/Old used and MNH stamps from Great Britian.\
-                Check the photo. What you see is what you get.. "
+            Check the photo. What you see is what you get.. "
     },
     {
         name: "Modern/Old used stamps from Europe.",
@@ -1184,7 +1195,7 @@ const stamps = [
         folder: "D28",
         imageCount: 7,
         desc: "RN4093: Modern/Old used stamps from Europe.\
-                Check the photo. What you see is what you get.. "
+            Check the photo. What you see is what you get.. "
     },
     {
         name: "Hungary 1871-1980 with collection about 2900 stamps",
@@ -1197,8 +1208,8 @@ const stamps = [
         folder: "D27",
         imageCount: 33,
         desc: "RN4092: 2 Albums Hungary 1871-1980 with collection about 2900 stamps.\
-                Check the photos to see a small part, but there is a lot more than you can see here.\
-                <b>Rs.5/- per stamp</b>\
+            Check the photos to see a small part, but there is a lot more than you can see here.\
+            <b>Rs.5/- per stamp</b>\
             Check the photos. What you see is what you get.  <b> 2 Thick Album for FREE</b>"
     },
     {
@@ -1225,7 +1236,7 @@ const stamps = [
         folder: "D25",
         imageCount: 28,
         desc: "RN4090: Thick stockbook with stamp collection Great Britain.\
-               Check the photos. What you see is what you get.  <b> Thick Album for FREE</b>"
+            Check the photos. What you see is what you get.  <b> Thick Album for FREE</b>"
     },
     {
         name: "Huge lot : Extensive mint and used/cancelled thematic Red Cross stamp collection 1917-1980.",
@@ -1238,7 +1249,7 @@ const stamps = [
         folder: "D24",
         imageCount: 487,
         desc: "RN4089: Extensive mint and cancelled thematic stamp collection Red Cross 1917-1980, including covers and first-day covers, imperforate stamps, varieties, etc., in 8 albums. \
-              High catalogue value!  <b> All 8 Albums for FREE</b>",
+            High catalogue value!  <b> All 8 Albums for FREE</b>",
         blogUrl: "blog/redcross.html"
     },
     {
@@ -1253,7 +1264,7 @@ const stamps = [
         imageCount: 363,
         blogUrl: "blog/europa_cept.html",
         desc: "RN4088: 99% complete, mint (year 1956 stamped) stamp collection Europa CEPT 1956-2000 in 3 Leuchtturm albums.. \
-              High catalogue value!  <b> All 3 Albums for FREE</b>"
+            High catalogue value!  <b> All 3 Albums for FREE</b>"
     },
     {
         name: "France Red Cross booklets 1952-2005",
@@ -1266,8 +1277,8 @@ const stamps = [
         folder: "D22",
         imageCount: 73,
         desc: "RN4087: Beautiful collection of Red Cross stamp booklets from France 1952-2005 in 2 albums, \
-              containing 1952 3x (2x mint, 1x cancelled), 1953 (mint and cancelled), 1954, 1955 (2x mint, 2x cancelled) etc. \
-              High catalogue value! "
+            containing 1952 3x (2x mint, 1x cancelled), 1953 (mint and cancelled), 1954, 1955 (2x mint, 2x cancelled) etc. \
+            High catalogue value! "
     },
     {
         name: "Very well filled, mainly used stamp collection India 1854-1993",
@@ -1281,8 +1292,8 @@ const stamps = [
         imageCount: 105,
         blogUrl: "blog/bharat.html",
         desc: "RN4086: Very well filled, mainly used stamp collection India 1854-1993, \
-                including good stamps such as (Stanley Gibbons no's): 66, 119-147, 151-191, 247-264, 305-308 Gandhi), \
-                service 72, 102, etc. in 2 blank albums with slipcases."
+            including good stamps such as (Stanley Gibbons no's): 66, 119-147, 151-191, 247-264, 305-308 Gandhi), \
+            service 72, 102, etc. in 2 blank albums with slipcases."
     },
     {
         name: "Old used stamps from Africa. Mix of MNH and used.(around 500 stamps)",
@@ -1295,7 +1306,7 @@ const stamps = [
         folder: "D20",
         imageCount: 16,
         desc: "RN4085: Old used stamps from Africa. Mix of MNH and used.(<b>around 500 stamps</b>)\
-                Check the photo. What you see is what you get.. "
+            Check the photo. What you see is what you get.. "
     },
     {
         name: "Old used stamps from Europe. Mix of MNH and used.(around 1000 stamps)",
@@ -1308,7 +1319,7 @@ const stamps = [
         folder: "D19",
         imageCount: 14,
         desc: "RN4084: Old used stamps from Europe. Mix of MNH and used.(<b>around 1000 stamps</b>)\
-                Check the photo. What you see is what you get.. "
+            Check the photo. What you see is what you get.. "
     },
     {
         name: "Germany and Berlin stamp collection in 3 albums",
@@ -1321,8 +1332,8 @@ const stamps = [
         folder: "D18",
         imageCount: 64,
         desc: "RN4083: 2 Davo and 1 Safe album Germany Bund and Berlin with a lot of stamps.\
-                Check the photos to see a small part, but there is a lot more than you can see here\
-                <b>All 3 Albums for free</b>"
+            Check the photos to see a small part, but there is a lot more than you can see here\
+            <b>All 3 Albums for free</b>"
     },
     {
         name: "Asia incl. MNH Bhutan stamp collection",
@@ -1335,7 +1346,7 @@ const stamps = [
         folder: "D17",
         imageCount: 9,
         desc: "RN4082: Asia incl. MNH Bhutan stamp collection\
-                Check the photo. What you see is what you get.. "
+            Check the photo. What you see is what you get.. "
     },
     {
         name: "German Reich set of 27 stamps(few repeated)",
@@ -1348,7 +1359,7 @@ const stamps = [
         folder: "D16",
         imageCount: 1,
         desc: "RN4081: German Reich set of 27 stamps(few repeated)\
-                Check the photo. What you see is what you get.. "
+            Check the photo. What you see is what you get.. "
     },
     {
         name: "German Reich set of 22 stamps. (All Block of 2)",
@@ -1361,7 +1372,7 @@ const stamps = [
         folder: "D15",
         imageCount: 1,
         desc: "RN4080: German Reich set of 22 stamps. (All Block of 2)\
-                Check the photo. What you see is what you get.. "
+            Check the photo. What you see is what you get.. "
     },
     {
         name: "France and territories stamp collection in stockbook",
@@ -1374,8 +1385,8 @@ const stamps = [
         folder: "D14",
         imageCount: 19,
         desc: "RN4079: Stockbook with stamp collection France and territories\
-                Check the photos. What you see is what you get.. <b>Stock Album for free</b>\
-                + shipping inside India in April 2026"
+            Check the photos. What you see is what you get.. <b>Stock Album for free</b>\
+            + shipping inside India in April 2026"
     },
     {
         name: "Eastern European used stamp collection",
@@ -1440,8 +1451,8 @@ const stamps = [
         folder: "D9",
         imageCount: 41,
         desc: "RN4074: Davo album Germany 1946-2003 with very well filled used stamp collection.\
-                Check the photos to see a small part, but there is a lot more than you can see here.\
-                Stock Album for free "
+            Check the photos to see a small part, but there is a lot more than you can see here.\
+            Stock Album for free "
     },
     {
         name: "Around 550 FDC's from Netherlands",
@@ -1455,9 +1466,9 @@ const stamps = [
         imageCount: 3,
         //images: ["https://picsum.photos/400/300?random=3"],
         desc: "RN4073: Around 550 FDCs from Netherlands Each FDC is atleast with 2 stamps on it.. \
-        many are with whole miniature sheets. \
-        Price: <b>Rs.40</b> per FDC. \
-        Total will be <b>Rs.22000</b>"
+            many are with whole miniature sheets. \
+            Price: <b>Rs.40</b> per FDC. \
+            Total will be <b>Rs.22000</b>"
     },
     {
         name: "Complete set of 11 MS from India 2025",
@@ -1484,7 +1495,7 @@ const stamps = [
         imageCount: 1,
         //images: ["https://picsum.photos/400/300?random=3"],
         desc: "RN4071:On March 31, 2025, PostNL will release Experience Nature - Butterflies of Sint Eustatius, \
-        a sheet of 10 stamps in 10 different designs. "
+            a sheet of 10 stamps in 10 different designs. "
     },
     {
         name: "Experience Nature - Birds Sint Eustatius",
@@ -1498,7 +1509,7 @@ const stamps = [
         imageCount: 1,
         //images: ["https://picsum.photos/400/300?random=3"],
         desc: "RN4070:On January 2, 2025, PostNL will release Experience Nature - Birds Sint Eustatius, \
-        a sheet of 10 stamps in 10 different designs. "
+            a sheet of 10 stamps in 10 different designs. "
     },
     {
         name: "Silver stamp – Dutch motorcycle brands – Eysink 1953",
@@ -1512,7 +1523,7 @@ const stamps = [
         imageCount: 2,
         //images: ["https://picsum.photos/400/300?random=3"],
         desc: "RN4069:Designer Frank Janse is commemorating this Dutch motorcycle classic with a silver stamp, \
-        presented in a luxurious mat. "
+            presented in a luxurious mat. "
     },
     {
         name: "The Bull stamp sheet",
@@ -1526,7 +1537,7 @@ const stamps = [
         imageCount: 6,
         //images: ["https://picsum.photos/400/300?random=3"],
         desc: "RN4066: On January 15, 2026, PostNL will issue the The Bull stamp sheet featuring \
-        the eponymous painting by Paulus Potter. "
+            the eponymous painting by Paulus Potter. "
     },
     {
         name: "Experience nature - birds Saba",
@@ -1540,7 +1551,7 @@ const stamps = [
         imageCount: 1,
         //images: ["https://picsum.photos/400/300?random=3"],
         desc: "RN4067: On January 5, 2026, PostNL will release Experience Nature - Birds of Saba, \
-        a sheet of 10 stamps in 10 different designs. "
+            a sheet of 10 stamps in 10 different designs. "
     },
     {
         name: "New Dutch Design – Terugkerende Herinneringen (Returning Memories)",
@@ -1554,7 +1565,7 @@ const stamps = [
         imageCount: 3,
         //images: ["https://picsum.photos/400/300?random=3"],
         desc: "RN4068: On February 16, 2026, PostNL will issue the New Dutch Design – Terugkerende Herinneringen \
-        (Returning Memories) stamps, the first sheet of this year's New Dutch Design series."
+            (Returning Memories) stamps, the first sheet of this year's New Dutch Design series."
     },
     {
         name: "Bundle - Crypto Stamp Heroes of Mythology",
@@ -1567,7 +1578,7 @@ const stamps = [
         blogUrl: "blog/crypto.html", // Adding this triggers the icon
         //images: ["https://picsum.photos/400/300?random=3"],
         desc: "RN4002: Bundle - Crypto Stamp Heroes of Mythology Portugal, Austria Post, Post Luxembourg, \
-        bpost (Belgium) and PostNL (Netherlands)"
+            bpost (Belgium) and PostNL (Netherlands)"
     },
     {
         name: "World stamps",
@@ -1581,7 +1592,7 @@ const stamps = [
         imageCount: 31,
         //images: ["https://picsum.photos/400/300?random=1", "https://picsum.photos/400/300?random=2"],
         desc: "RN4057: Thick stockbook with stamp collection various.Check the photos. \
-        What you see is what you get. Thick album for free"
+            What you see is what you get. Thick album for free"
     },
     {
         name: "350 different Dutch Antilles and Suriname FDC's",
@@ -1595,7 +1606,7 @@ const stamps = [
         imageCount: 23,
         //images: ["https://picsum.photos/400/300?random=3"],
         desc: "RN4059:3 Luxureous Importa albums in excellent condition with collection about 350 FDC covers Dutch Antilles and Suriname. \
-        Check the photos to see a small part, but there is a lot more than you can see here.Three albums for FREE "
+            Check the photos to see a small part, but there is a lot more than you can see here.Three albums for FREE "
     },
     {
         name: "TinTin FDC and MS",
