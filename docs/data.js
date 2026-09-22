@@ -16,7 +16,7 @@ const stamps = [
         country: "Tunisia",
         year: "<b>Year</b>: various",
         priceINR: 15400,
-        isSoldOut: false,
+        isSoldOut: true,
         freeTrackedShipping: false,
         freeLetterPostShipping: true,
         folder: "D121",
