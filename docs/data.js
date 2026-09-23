@@ -117,7 +117,7 @@ const stamps = [
         country: "Various Countries",
         year: "<b>Year</b>: 1956-1969",
         priceINR: 22499,
-        isSoldOut: false,
+        isSoldOut: true,
         onSale: true,
         salePriceINR: 18500,
         freeTrackedShipping: true,
