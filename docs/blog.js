@@ -710,14 +710,14 @@ const blogPosts = [
         isBlog: true
     },
     {
-        name: "What is Postcrossing? A Beginner's Guide to Sending & Receiving Postcards Worldwide",
-        year: "-",
-        country: "Global",
-        desc: "Discover Postcrossing — the free global postcard exchange with 800,000+ members in 211 countries. Learn how it works, fun facts, and how to get started.",
-        folder: "postcrossing",
-        customImage: "https://static1.postcrossing.com/images/logos/logo-824x108.png",
-        imageCount: 1,
-        url: "blog/postcrossing.html",
+        name: "PostNL Stoomlocomotieven: Five Iconic Dutch Steam Locomotives Stamp Sheet",
+        year: "2026",
+        country: "Netherlands",
+        desc: "PostNL releases the Stoomlocomotieven kaderpostzegelvel on 28 September 2026, featuring five legendary Dutch steam locomotives — Nestor, Blauwe Brabander, Blikken Tinus, De Beul, and Grote Jumbo — each depicted in both photograph and technical drawing. Designed by Jan van Mechelen with illustrations by Iwo Tuleya, in consultation with the Spoorwegmuseum.",
+        folder: "stoomlocomotieven",
+        customImage: "https://shop.postnl.nl/pub/media/catalog/product/cache/64387f8ec73f5c21c187496764f579a6/1/7/1790085621_stoomlocomotieven-postzegelvel.jpg",
+        imageCount: 3,
+        url: "blog/pzv-stoomlocomotieven-steam-locomotives.html",
         isBlog: true
     }
 ];
