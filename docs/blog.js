@@ -719,5 +719,16 @@ const blogPosts = [
         imageCount: 3,
         url: "blog/pzv-stoomlocomotieven-steam-locomotives.html",
         isBlog: true
+    },
+    {
+        name: "Austria 2026 Coffee Bean: World's First Coffee-Scented Coffee Leather Stamp",
+        year: "2026",
+        country: "Austria",
+        desc: "Austrian Post issues the world's first coffee-scented stamp made from real coffee leather (recycled coffee grounds) on 1 October 2026. Designed by Anja Derkits with DTF transfer printing, this innovative miniature sheet is shaped like a coffee bean, has a grainy leather-like texture, and naturally smells of coffee — a genuine upcycling philatelic product.",
+        folder: "coffee-bean",
+        customImage: "https://images.intellishop.cloud/fbab1092640cf1c0/ShUQuoPYEQz83WhF2nWlklnSW-LPWIL1aM800EAgENo/rs:fit:1000:1000:true/ex:true:ce/czM6Ly9pbnRlbGxpc2hvcC1wb3N0YXQtbGl2ZS1wdWJsaWMvYXBwL21lZGlhLWxpYnJhcnkvZjcvYWYvZjdhZjViZmFkMDYwNTY1MTU1ZGQ5MzM5MWU3MTYzNDNlMzg2YzcwYi5qcGc.webp?v=1790322855",
+        imageCount: 1,
+        url: "blog/austria-2026-coffee-bean-scented-stamp.html",
+        isBlog: true
     }
 ];
