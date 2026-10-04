@@ -1,6 +1,17 @@
 // 1. STAMP DATABASE
 const stamps = [
     {
+        name: "Minature sheet folder from India. Shri Ram Janambhoomi. Ayodhya",
+        country: "India",
+        year: "<b>Year</b>: 2024",
+        priceINR: 899,
+        isSoldOut: false,
+        freeTrackedShipping: false,
+        freeLetterPostShipping: true,
+        folder: "D131",
+        imageCount: 3,
+        desc: "RN4190: Shri Ram Janambhoomi. Ayodhya. MS Folder. This is an olfactory issue (smells of sandalwood). Check the photos. What you see is what you get.<br>"
+    }, {
         name: "MNH stamps from Germany",
         country: "Germany",
         year: "<b>Year</b>: 1987,88,89",
