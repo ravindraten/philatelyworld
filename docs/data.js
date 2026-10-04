@@ -1,6 +1,17 @@
 // 1. STAMP DATABASE
 const stamps = [
     {
+        name: "MNH stamps from Germany",
+        country: "Germany",
+        year: "<b>Year</b>: 1987,88,89",
+        priceINR: 1300,
+        isSoldOut: false,
+        freeTrackedShipping: false,
+        freeLetterPostShipping: true,
+        folder: "D130",
+        imageCount: 3,
+        desc: "RN4189: <b>MNH stamps from Germany (1987,88,89). Check the photos. What you see is what you get.</b><br>"
+    }, {
         name: "Bundle Crypto Stamp - Heroes of Mythology",
         country: "Austria, Netherlands, Belgium, Portgual",
         year: "<b>Year</b>: 2026",
