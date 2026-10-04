@@ -65,11 +65,11 @@ stamps.forEach(stamp => {
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>${stamp.name} | Buy Rare Stamps | Philately World</title>
+    <title>${stamp.name} | Buy Genuine Stamps | Philately World</title>
     <meta name="description" content="Buy authenticated ${stamp.name} stamp online. Philately World offers rare stamps, FDCs, and postal history. Worldwide shipping.">
     <!-- Open Graph (Facebook/WhatsApp/LinkedIn) -->
     <meta property="og:site_name" content="Philately World">
-    <meta property="og:title" content="${stamp.name} | Buy Rare Stamps | Philately World">
+    <meta property="og:title" content="${stamp.name} | Buy Genuine Stamps | Philately World">
     <meta property="og:description" content="${descText}">
     <meta property="og:url" content="https://philatelyworld.in/item/${rnCode}/">
     <meta property="og:type" content="product">
@@ -109,7 +109,7 @@ stamps.forEach(stamp => {
 
     <!-- Twitter Cards -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="${stamp.name} | Buy Rare Stamps | Philately World">
+    <meta name="twitter:title" content="${stamp.name} | Buy Genuine Stamps | Philately World">
     <meta name="twitter:description" content="${descText}">
     <meta name="twitter:image" content="${imgUrl}">
 
