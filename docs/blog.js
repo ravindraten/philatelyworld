@@ -1,5 +1,16 @@
 const blogPosts = [
     {
+        name: "EUROPA Stamps 70th Anniversary 2026: Klaus Welp's Common Design",
+        year: "2026",
+        country: "Europe",
+        desc: "EUROPA stamps celebrate their 70th anniversary in 2026 with a rare common design by Klaus Welp of Posti Finland — the winning competition artwork, what the seven dots mean, and all 55 anniversary issues from across Europe with images, dates and designers.",
+        folder: "europa-70-years",
+        customImage: "https://europastamps.eu/img/Product_Image_67826a8b-d1d1-452a-9899-a9b7c1a226fc.jpg",
+        imageCount: 55,
+        url: "blog/europa-70-years-2026.html",
+        isBlog: true
+    },
+    {
         name: "Deltawerken – Nederland en het water: PostNL Delta Works Stamp Sheet 2026",
         year: "2026",
         country: "Netherlands",
