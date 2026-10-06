@@ -1,5 +1,16 @@
 const blogPosts = [
     {
+        name: "Deltawerken – Nederland en het water: PostNL Delta Works Stamp Sheet 2026",
+        year: "2026",
+        country: "Netherlands",
+        desc: "PostNL issues the Deltawerken stamp sheet on 5 October 2026 — 6 stamps designed by Hans Gremmen celebrating the Delta Works, the flood defences built after the 1953 Watersnoodramp and one of the 7 modern wonders of the world.",
+        folder: "deltawerken",
+        customImage: "https://shop.postnl.nl/_next/image?url=https%3A%2F%2Fshop.postnl.nl%2Fpub%2Fmedia%2Fcatalog%2Fproduct%2F1%2F7%2F1790937527_deltawerken-postzegelvel-2026.jpg&w=1080&q=75",
+        imageCount: 2,
+        url: "blog/deltawerken-stamp-sheet.html",
+        isBlog: true
+    },
+    {
         name: "SpongeBob tiptoi Stamp Set 2026: Interactive Music from Bikini Bottom (Deutsche Post)",
         year: "2026",
         country: "Germany",
