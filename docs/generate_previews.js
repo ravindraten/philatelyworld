@@ -49,6 +49,28 @@ function stampImageUrl(stamp, index) {
     return `${baseImgPath}/logo.jpg`;
 }
 
+// Read width/height/type of a local image file without extra dependencies.
+function localImageMeta(filePath) {
+    try {
+        const buf = fs.readFileSync(filePath);
+        if (buf.length > 24 && buf[0] === 0x89 && buf[1] === 0x50) {
+            return { width: buf.readUInt32BE(16), height: buf.readUInt32BE(20), type: 'image/png' };
+        }
+        if (buf.length > 4 && buf[0] === 0xFF && buf[1] === 0xD8) {
+            let i = 2;
+            while (i < buf.length - 9) {
+                if (buf[i] !== 0xFF) { i++; continue; }
+                const marker = buf[i + 1];
+                const isSOF = marker >= 0xC0 && marker <= 0xCF && marker !== 0xC4 && marker !== 0xC8 && marker !== 0xCC;
+                if (isSOF) return { width: buf.readUInt16BE(i + 7), height: buf.readUInt16BE(i + 5), type: 'image/jpeg' };
+                if (marker === 0xD8 || marker === 0xD9 || (marker >= 0xD0 && marker <= 0xD7)) { i += 2; continue; }
+                i += 2 + buf.readUInt16BE(i + 2);
+            }
+        }
+    } catch (e) { /* fall through */ }
+    return null;
+}
+
 function imageMimeType(url) {
     if (/\.png(\?|$)/i.test(url)) return 'image/png';
     if (/\.webp(\?|$)/i.test(url)) return 'image/webp';
@@ -89,6 +111,21 @@ stamps.forEach(stamp => {
     const price = stamp.onSale ? stamp.salePriceINR : stamp.priceINR;
     const ogImageMimeType = imageMimeType(imgUrl);
 
+    // Optional per-item OG image: drop an `og.jpg` / `og.png` into docs/item/<RN>/
+    // to override the preview image shown by WhatsApp, Facebook and Twitter.
+    const localOgFile = ['og.jpg', 'og.jpeg', 'og.png', 'og.webp']
+        .map(f => path.join(stampDir, f))
+        .find(f => fs.existsSync(f));
+    const localOgMeta = localOgFile ? localImageMeta(localOgFile) : null;
+    const ogImageUrl = localOgFile
+        ? `https://philatelyworld.in/item/${rnCode}/${path.basename(localOgFile)}`
+        : imgUrl;
+    const ogContentType = localOgMeta ? localOgMeta.type : ogImageMimeType;
+    const ogSizeTags = localOgMeta
+        ? `<meta property="og:image:width" content="${localOgMeta.width}">
+    <meta property="og:image:height" content="${localOgMeta.height}">`
+        : '';
+
     // The HTML acts as a static OG/preview page for crawlers and redirects human users.
     // IMPORTANT: The JS redirect is intentionally deferred via setTimeout so WhatsApp's
     // crawler can fully parse the <head> OG tags before any redirect fires.
@@ -114,7 +151,7 @@ stamps.forEach(stamp => {
         "@type": "Product",
         "name": stamp.name,
         "description": `Buy authenticated ${stamp.name} stamp. Rare stamp and postal history available at Philately World.`,
-        "image": imgUrl,
+        "image": ogImageUrl,
         "url": `https://philatelyworld.in/item/${rnCode}/`,
         "offers": {
             "@type": "Offer",
@@ -133,17 +170,16 @@ stamps.forEach(stamp => {
     </script>
 
     <!-- WhatsApp image: must be HTTPS, ideally under 300KB, 600x315 or square -->
-    <meta property="og:image" content="${imgUrl}">
-    <meta property="og:image:secure_url" content="${imgUrl}">
-    <meta property="og:image:type" content="${ogImageMimeType}">
-    <meta property="og:image:width" content="600">
-    <meta property="og:image:height" content="600">
+    <meta property="og:image" content="${ogImageUrl}">
+    <meta property="og:image:secure_url" content="${ogImageUrl}">
+    <meta property="og:image:type" content="${ogContentType}">
+    ${ogSizeTags}
 
     <!-- Twitter Cards -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="${stamp.name} | Buy Genuine Stamps | Philately World">
     <meta name="twitter:description" content="${descText}">
-    <meta name="twitter:image" content="${imgUrl}">
+    <meta name="twitter:image" content="${ogImageUrl}">
 
     <!-- Deferred JS redirect: crawlers (WhatsApp, Facebook, Googlebot...) don't execute JS or are excluded below,
          so they stay on this page with correct OG tags and the page stays indexable.
