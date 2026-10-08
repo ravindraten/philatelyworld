@@ -1,6 +1,30 @@
 // 1. STAMP DATABASE
 const stamps = [
     {
+        name: "Stamps from Iraq(Used and MNH)",
+        country: "Iraq",
+        year: "<b>Year</b>: 1920+",
+        priceINR: 4500,
+        isSoldOut: false,
+        freeTrackedShipping: false,
+        freeLetterPostShipping: true,
+        folder: "D132",
+        imageCount: 12,
+        //images: "https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/worldStamps.jpeg",
+        desc: "RN4192: Stamps from Iraq(Used and MNH). Check the photos. What you see is what you get."
+    }, {
+        name: "Used Stamps from around world around 30gms.(500+ stamps",
+        country: "Various Countries",
+        year: "<b>Year</b>: 1920+",
+        priceINR: 999,
+        isSoldOut: false,
+        freeTrackedShipping: false,
+        freeLetterPostShipping: true,
+        //folder: "D132",
+        //imageCount: 3,
+        images: "https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/worldStamps.jpeg",
+        desc: "RN4191: Used Stamps from around world around 30gms.(500+ stamps). Check the photos. What you see is what you get. Small album for free"
+    }, {
         name: "Minature sheet folder from India. Shri Ram Janambhoomi. Ayodhya",
         country: "India",
         year: "<b>Year</b>: 2024",

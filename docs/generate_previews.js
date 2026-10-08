@@ -23,6 +23,38 @@ if (!stamps || !Array.isArray(stamps)) {
 }
 
 const baseImgPath = "https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images";
+
+// Image support: `images` may be a single URL string or an array of URLs.
+// Otherwise images are built from `folder` + index (1.jpg…).
+function stampImageCount(stamp) {
+    if (!stamp) return 0;
+    if (stamp.images != null) {
+        if (typeof stamp.images === 'string') return stamp.images.trim() ? 1 : 0;
+        if (Array.isArray(stamp.images)) return stamp.images.filter(u => typeof u === 'string' && u.trim()).length;
+    }
+    if (!stamp.folder) return 0;
+    const parsed = parseInt(stamp.imageCount, 10);
+    return parsed > 0 ? parsed : 1;
+}
+
+function stampImageUrl(stamp, index) {
+    if (!stamp) return '';
+    const i = Math.max(parseInt(index, 10) || 1, 1);
+    if (typeof stamp.images === 'string' && stamp.images.trim()) return stamp.images.trim();
+    if (Array.isArray(stamp.images)) {
+        const list = stamp.images.filter(u => typeof u === 'string' && u.trim());
+        if (list.length) return list[Math.min(i, list.length) - 1];
+    }
+    if (stamp.folder) return `${baseImgPath}/${stamp.folder}/${i}.${stamp.extension || 'jpg'}`;
+    return `${baseImgPath}/logo.jpg`;
+}
+
+function imageMimeType(url) {
+    if (/\.png(\?|$)/i.test(url)) return 'image/png';
+    if (/\.webp(\?|$)/i.test(url)) return 'image/webp';
+    if (/\.gif(\?|$)/i.test(url)) return 'image/gif';
+    return 'image/jpeg';
+}
 const outputDir = path.join(__dirname, 'item');
 
 // Ensure the outer 'item' directory exists[cite: 2]
@@ -53,9 +85,9 @@ stamps.forEach(stamp => {
     const descText = stamp.onSale
         ? `${stamp.country} | ${cleanYear.replace('Year: ', '')} | ON SALE: ₹${stamp.salePriceINR} / €${saleEUR.toFixed(2)} (was ₹${stamp.priceINR} / €${priceEUR.toFixed(2)})`
         : `${stamp.country} | ${cleanYear.replace('Year: ', '')} | Price: ₹${stamp.priceINR} / €${priceEUR.toFixed(2)}`;
-    const imgUrl = `${baseImgPath}/${stamp.folder}/1.${stamp.extension || 'jpg'}`;
+    const imgUrl = stampImageUrl(stamp, 1);
     const price = stamp.onSale ? stamp.salePriceINR : stamp.priceINR;
-    const imageMimeType = stamp.extension === 'png' ? 'image/png' : 'image/jpeg';
+    const ogImageMimeType = imageMimeType(imgUrl);
 
     // The HTML acts as a static OG/preview page for crawlers and redirects human users.
     // IMPORTANT: The JS redirect is intentionally deferred via setTimeout so WhatsApp's
@@ -103,7 +135,7 @@ stamps.forEach(stamp => {
     <!-- WhatsApp image: must be HTTPS, ideally under 300KB, 600x315 or square -->
     <meta property="og:image" content="${imgUrl}">
     <meta property="og:image:secure_url" content="${imgUrl}">
-    <meta property="og:image:type" content="${imageMimeType}">
+    <meta property="og:image:type" content="${ogImageMimeType}">
     <meta property="og:image:width" content="600">
     <meta property="og:image:height" content="600">
 
@@ -307,7 +339,7 @@ if (fs.existsSync(indexHtmlPath)) {
         const rnCode = rnMatch[0];
         const shareUrl = `https://philatelyworld.in/item/${encodeURIComponent(rnCode)}/`;
         const cleanYear = stamp.year ? stamp.year.replace(/<\/?b>/g, "") : '';
-        const imgUrl = `${baseImgPath}/${stamp.folder}/1.${stamp.extension || 'jpg'}`;
+        const imgUrl = stampImageUrl(stamp, 1);
         const priceText = stamp.onSale 
             ? `₹${stamp.salePriceINR} (was ₹${stamp.priceINR})`
             : `₹${stamp.priceINR}`;
@@ -316,7 +348,7 @@ if (fs.existsSync(indexHtmlPath)) {
                 <div class="stamp-card">
                     <div class="img-container">
                         <img src="${imgUrl}" alt="${stamp.name}" loading="lazy" width="300" height="300">
-                        <div class="photo-badge">${stamp.imageCount} Photos</div>
+                        <div class="photo-badge">${stampImageCount(stamp)} Photos</div>
                     </div>
                     <div class="details">
                         <h3>${stamp.name}</h3>

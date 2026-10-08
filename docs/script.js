@@ -28,6 +28,33 @@ let state = {
 };
 
 /**
+ * Image support: an entry may set `images` as a single URL string or an
+ * array of URLs. Otherwise images are built from `folder` + index (1.jpg…).
+ */
+function stampImageCount(stamp) {
+    if (!stamp) return 0;
+    if (stamp.images != null) {
+        if (typeof stamp.images === 'string') return stamp.images.trim() ? 1 : 0;
+        if (Array.isArray(stamp.images)) return stamp.images.filter(u => typeof u === 'string' && u.trim()).length;
+    }
+    if (!stamp.folder) return 0;
+    const parsed = parseInt(stamp.imageCount, 10);
+    return parsed > 0 ? parsed : 1;
+}
+
+function stampImageUrl(stamp, index) {
+    if (!stamp) return '';
+    const i = Math.max(parseInt(index, 10) || 1, 1);
+    if (typeof stamp.images === 'string' && stamp.images.trim()) return stamp.images.trim();
+    if (Array.isArray(stamp.images)) {
+        const list = stamp.images.filter(u => typeof u === 'string' && u.trim());
+        if (list.length) return list[Math.min(i, list.length) - 1];
+    }
+    if (stamp.folder) return `${CONFIG.baseImgPath}/${stamp.folder}/${i}.${stamp.extension || 'jpg'}`;
+    return `${CONFIG.baseImgPath}/logo.jpg`;
+}
+
+/**
  * Donate / Support modal — top-level on purpose.
  * Tab switching must keep working even if other init code throws,
  * the script is cached, or DOMContentLoaded ordering changes.
@@ -642,7 +669,7 @@ function renderGallery(data) {
                 <div class="stamp-card blog-card">
                     <a href="${stamp.url || '#'}" class="blog-link-wrapper" style="text-decoration: none; color: inherit;">
                         <div class="img-container" style="cursor: pointer;">
-                            <img src="${stamp.customImage || `${CONFIG.baseImgPath}/${stamp.folder}/1.${stamp.extension || 'jpg'}`}" alt="${stamp.name}" loading="lazy" decoding="async" fetchpriority="low">
+                            <img src="${stamp.customImage || stampImageUrl(stamp, 1)}" alt="${stamp.name}" loading="lazy" decoding="async" fetchpriority="low">
                             <div class="photo-badge">Article</div>
                         </div>
                     </a>
@@ -688,6 +715,9 @@ function renderGallery(data) {
             }
         }
 
+        const photoCount = stampImageCount(stamp);
+        const photoLabel = `${photoCount} Photo${photoCount === 1 ? '' : 's'}`;
+
         return `
             <div class="stamp-card ${stamp.isSoldOut ? 'sold-out' : ''}">
                 ${stamp.isSoldOut ? '<div class="sold-out-badge">Sold Out</div>' : ''}
@@ -695,7 +725,7 @@ function renderGallery(data) {
                 ${stamp.freeTrackedShipping ? '<div class="shipping-badge"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 4px;"><rect x="1" y="3" width="15" height="13"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle></svg>Free Tracked Shipping</div>' : ''}
                 ${stamp.freeLetterPostShipping ? '<div class="letter-badge"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 4px;"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>Free Letter Post</div>' : ''}
                 <div class="img-container">
-                    <img src="${CONFIG.baseImgPath}/${stamp.folder}/1.${stamp.extension || 'jpg'}" 
+                    <img src="${stampImageUrl(stamp, 1)}" 
                         alt="${stamp.name}" 
                         loading="lazy"
                         decoding="async"
@@ -712,7 +742,7 @@ function renderGallery(data) {
                             </svg>
                         </a>
                     ` : ''}
-                    <div class="photo-badge">${stamp.imageCount} Photos</div>
+                    <div class="photo-badge">${photoLabel}</div>
                 </div>
                 <div class="details">
                     <h3>${stamp.name}</h3>
@@ -801,24 +831,26 @@ function updateLightbox() {
         .toLowerCase()
         .replace(/[^a-z0-9]/g, '-'); // Turn "India Stamp!" into "india-stamp"
 
-    modalImg.src = `${CONFIG.baseImgPath}/${stamp.folder}/${state.currentImgIdx}.${stamp.extension || 'jpg'}`;
+    const total = stampImageCount(stamp);
+    modalImg.src = stampImageUrl(stamp, state.currentImgIdx);
 
     // SEO Trick: The 'alt' and 'title' are key for dynamic ranking
     modalImg.alt = `${stamp.name} - Photo ${state.currentImgIdx}`;
     modalImg.title = `Philately World: ${stamp.name} (${rnCode})`;
 
-    document.getElementById("caption").textContent = `${stamp.name} (${state.currentImgIdx}/${stamp.imageCount})`;
+    document.getElementById("caption").textContent = `${stamp.name} (${state.currentImgIdx}/${total})`;
 
-    const display = stamp.imageCount <= 1 ? "none" : "block";
+    const display = total <= 1 ? "none" : "block";
     document.getElementById("prevBtn").style.display = display;
     document.getElementById("nextBtn").style.display = display;
 }
 
 function changeSlide(n) {
     const stamp = stamps[state.currentStampIdx];
+    const total = stampImageCount(stamp);
     state.currentImgIdx += n;
-    if (state.currentImgIdx > stamp.imageCount) state.currentImgIdx = 1;
-    if (state.currentImgIdx < 1) state.currentImgIdx = stamp.imageCount;
+    if (state.currentImgIdx > total) state.currentImgIdx = 1;
+    if (state.currentImgIdx < 1) state.currentImgIdx = total;
     updateLightbox();
 }
 
@@ -964,7 +996,7 @@ function updateMetaTags(stamp, id) {
         desc = stamp.onSale
             ? `${stamp.country} | ${cleanYear} | ON SALE: ₹${stamp.salePriceINR} (was ₹${stamp.priceINR})`
             : `${stamp.country} | ${cleanYear} | Price: ₹${stamp.priceINR}`;
-        imgUrl = `${CONFIG.baseImgPath}/${stamp.folder}/1.jpg`;
+        imgUrl = stampImageUrl(stamp, 1);
     }
     // // 1. Clean up the title and description
     // const title = `Philately World: ${stamp.name}`;
