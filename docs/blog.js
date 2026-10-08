@@ -1,5 +1,16 @@
 const blogPosts = [
     {
+        name: "PostNL Postzegelcode Explained: How to Write a Stamp Code on Your Envelope",
+        year: "2026",
+        country: "Netherlands",
+        desc: "No stamps at home? PostNL's postzegelcode is a prepaid code you write by hand where the stamp goes — letters and cards up to 50 g worldwide, valid 5 days. How to buy it, the handwriting rules and every FAQ explained.",
+        folder: "postnl-postzegelcode",
+        customImage: "https://www.postnl.nl/api/assets/blt43aa441bfc1e29f2/bltae2ee7b2d2fd561b/667bdfdae01493c66a495b8e/postzegelcode-telefoon-temp.jpg",
+        imageCount: 4,
+        url: "blog/postnl-postzegelcode.html",
+        isBlog: true
+    },
+    {
         name: "EUROPA Stamps 70th Anniversary 2026: Klaus Welp's Common Design",
         year: "2026",
         country: "Europe",
