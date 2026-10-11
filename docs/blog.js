@@ -1,5 +1,15 @@
 const blogPosts = [
     {
+        name: "Flag Stamps: Learn the Flags of the World (Free Game)",
+        year: "2026",
+        country: "World",
+        desc: "A free flag stamps game for kids aged 4 to 10. Explore the flags of nearly 200 countries with clear pictures, fun facts and spoken names, then test yourself with a 10-question quiz - the playful first step into stamp collecting.",
+        customImage: "https://flagcdn.com/w640/in.png",
+        imageCount: 1,
+        url: "blog/flag-stamps-learn-flags.html",
+        isBlog: true
+    },
+    {
         name: "PostNL Postzegelcode Explained: How to Write a Stamp Code on Your Envelope",
         year: "2026",
         country: "Netherlands",
