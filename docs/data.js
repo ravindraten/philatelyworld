@@ -389,7 +389,7 @@ const stamps = [
         country: "German Empire",
         year: "<b>Year</b>: 1900+",
         priceINR: 500,
-        isSoldOut: false,
+        isSoldOut: true,
         freeTrackedShipping: false,
         freeLetterPostShipping: true,
         folder: "D89",
