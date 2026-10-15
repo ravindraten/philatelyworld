@@ -774,4 +774,16 @@ const blogPosts = [
         url: "blog/austria-2026-coffee-bean-scented-stamp.html",
         isBlog: true
     }
+    ,
+    {
+        name: "Netherlands 2026: Siervogels, kleurrijk en elegant (Ornamental Birds)",
+        year: "2026",
+        country: "Netherlands",
+        desc: "PostNL 2026 Siervogels, kleurrijk en elegant stamp sheet issued 14 October 2026, designed by Sandra Smulders for Dag van de Postzegel.",
+        folder: "siervogels-netherlands-2026",
+        customImage: "https://shop.postnl.nl/pub/media/catalog/product/cache/64387f8ec73f5c21c187496764f579a6/1/7/1791551777_siervogels-postzegelvel.jpg",
+        imageCount: 1,
+        url: "blog/siervogels-netherlands-2026.html",
+        isBlog: true
+    }
 ];
