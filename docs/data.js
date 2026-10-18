@@ -11,8 +11,22 @@ const stamps = [
         //folder: "D132",
         //imageCount: 12,
         images: "https://shop.postnl.nl/_next/image?url=https%3A%2F%2Fshop.postnl.nl%2Fpub%2Fmedia%2Fcatalog%2Fproduct%2F1%2F7%2F1791551777_siervogels-postzegelvel.jpg&w=1920&q=75",
-        desc: "RN4192: <b>Ornamentaal birds stamp sheet from Netherlands.</b> Check the photos. What you see is what you get."
-    }, {
+        desc: "RN4193: <b>Ornamentaal birds stamp sheet from Netherlands.</b> Check the photos. What you see is what you get."
+    },
+    {
+        name: "Stamps from Iraq(Used and MNH)",
+        country: "Iraq",
+        year: "<b>Year</b>: 1920+",
+        priceINR: 4500,
+        isSoldOut: false,
+        freeTrackedShipping: false,
+        freeLetterPostShipping: true,
+        folder: "D132",
+        imageCount: 12,
+        //images: "https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/worldStamps.jpeg",
+        desc: "RN4192: <b>Stamps from Iraq(Used and MNH).</b> Check the photos. What you see is what you get."
+    },
+    {
         name: "Used Stamps from around world around 30gms.(500+ stamps",
         country: "Various Countries",
         year: "<b>Year</b>: 1920+",

@@ -1,5 +1,15 @@
 const blogPosts = [
     {
+        name: "Postzegel met Goud – Delfts Blauw 2026: The 24-Carat Gold Delft Blue Stamp",
+        year: "2026",
+        country: "Netherlands",
+        desc: "PostNL issues the Postzegel met Goud – Delfts Blauw on 28 September 2026 — a 24-carat gold stamp by Frank Janse showing Royal Delft's floral-and-bird design, limited to 1,000 pieces in a luxe passe-partout presentation with a certificate of authenticity.",
+        folder: "delfts-blauw-gold",
+        customImage: "https://shop.postnl.nl/_next/image?url=https%3A%2F%2Fshop.postnl.nl%2Fpub%2Fmedia%2Fcatalog%2Fproduct%2F1%2F7%2F1790578273_delfts-blauw-gouden-postzegel.jpg&w=1080&q=75",
+        imageCount: 2,
+        url: "blog/delfts-blauw-gold-stamp.html",
+        isBlog: true
+    }, {
         name: "Flag Stamps: Learn the Flags of the World (Free Game)",
         year: "2026",
         country: "World",
