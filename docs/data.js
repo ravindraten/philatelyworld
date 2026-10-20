@@ -1,7 +1,18 @@
 // 1. STAMP DATABASE
 const stamps = [
     {
-        name: "FGermany states, Reich etc. stamp collection in binder",
+        name: "Europa MNH stamp collection in stockbook; Catalogue Value € 1400",
+        country: "Europe",
+        year: "<b>Year</b>: 1900-1945",
+        priceINR: 99999,
+        isSoldOut: false,
+        freeTrackedShipping: true,
+        freeLetterPostShipping: false,
+        folder: "D137",
+        imageCount: 18,
+        desc: "RN4196: <b>Europa MNH stamp collection in stockbook; Catalogue Value € 1400.</b> Check the photos to see a small part, but there is a lot more than you can see here. Stockbook for free."
+    }, {
+        name: "Germany states, Reich etc. stamp collection in binder",
         country: "Germany",
         year: "<b>Year</b>: 1900-1945",
         priceINR: 24500,
