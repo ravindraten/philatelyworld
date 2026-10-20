@@ -1,6 +1,17 @@
 // 1. STAMP DATABASE
 const stamps = [
     {
+        name: "French territories large stamp collection in 13 albums",
+        country: "French territories",
+        year: "<b>Year</b>: various",
+        priceINR: 287000,
+        isSoldOut: false,
+        freeTrackedShipping: true,
+        freeLetterPostShipping: false,
+        folder: "D139",
+        imageCount: 69,
+        desc: "RN4198: 13 Leuchtturm binders with stamp collection French territories, countries A-Z, a lot of stamps. Check the photos to see a small part, but there is a lot more than you can see here. Shipment in 2 boxes. 13 Albums for free."
+    }, {
         name: "Ukraine cover and postal item collection in 2 albums",
         country: "Ukraine",
         year: "<b>Year</b>: 1992-1994",

@@ -1,5 +1,33 @@
 const blogPosts = [
     {
+        name: "Canada 2026 Truth and Reconciliation Stamps: T-Shirt Shaped Orange Shirt Issue",
+        year: "2026",
+        country: "Canada",
+        desc: "Canada Post issues four self-adhesive T-shirt shaped stamps on 29 September 2026 for Truth and Reconciliation — orange shirts honouring Survivors, First Nations, Inuit and Métis communities, and Mother Earth, issued in a booklet of 8 Permanent stamps.",
+        customImage: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi_VHve2fFvcGOiesy9a08d7MbXUYKXlErWjCfWZi-Jqr0_w19-T2joAcEIQ0UaXxmb4PTFtx-zv6vNlsrAp9f8Ae3834h5soWqIBYQ8AR7VeOO7a-TndIxFTIlau39ZPG8t9Sqt8da-5Di3jQB_4g3y2qW8jjXkUhfqczoJD8idzKEohthrxbtiXoVOKyH/w640-h416/canada%202026.jpg",
+        imageCount: 7,
+        url: "blog/canada-2026-truth-reconciliation-tshirt-stamps.html",
+        isBlog: true
+    }, {
+        name: "Austria 2026 Rax Cable Car Stamp: A Miniature with Moving Doors",
+        year: "2026",
+        country: "Austria",
+        desc: "Austrian Post issues a special moving-parts stamp for the 100th anniversary of the Rax Cable Car. The miniature sheet is shaped like a modern cable car cabin with doors that open to reveal a historic stamp.",
+        customImage: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjJ5qkB5QGuuA7O7YVhl0s_W2NypR1OZbJoSQEgHyabrj5c_Run9-7_GY3t2j1F7-6Q597EUNpdPsgk0TiR8G-SIJsME5D3RFyRgCXqE2POnzp7nDhEryd0BciqVGSpnTZmiiH8xfMyXEbgbrR7kAd-OgPCCtlTrbK4YRuabO-7uuoLaMynPbTftMZVjnYt/w446-h640/austria%202026%20RAX.jpg",
+        imageCount: 1,
+        url: "blog/austria-2026-rax-cable-car-moving-parts-stamp.html",
+        isBlog: true
+    }, {
+        name: "Shaun the Sheep Glow Stamp from Swiss Post",
+        year: "2026",
+        country: "Switzerland",
+        desc: "On 3 September 2026, Swiss Post issued a delightfully whimsical miniature sheet starring Shaun the Sheep.",
+        folder: "ShauntheSheep",
+        customImage: "https://apis.shop.post.ch/medias/sys_master/images/h56/hd9/11277789495326/380Wx380H_Default-WorkingFormat_886533/380Wx380H-Default-WorkingFormat-886533.png",
+        imageCount: 1,
+        url: "blog/switzerland-2026-shaun-the-sheep-glow-stamp.html",
+        isBlog: true
+    }, {
         name: "Postzegel met Goud – Delfts Blauw 2026: The 24-Carat Gold Delft Blue Stamp",
         year: "2026",
         country: "Netherlands",
