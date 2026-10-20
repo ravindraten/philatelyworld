@@ -1,18 +1,29 @@
 // 1. STAMP DATABASE
 const stamps = [
-    //{
-        //name: "Ornamentaal birds stamp sheet from Netherlands.",
-        //country: "Netherlands",
-        //year: "<b>Year</b>: 2026",
-        //priceINR: 1800,
-        //isSoldOut: false,
-        //freeTrackedShipping: false,
-        //freeLetterPostShipping: true,
+    {
+        name: "Fundgrube box: Excellent sorting-box stamps, part of chaotic estate",
+        country: "worldwide",
+        year: "<b>Year</b>: various",
+        priceINR: 25000,
+        isSoldOut: false,
+        freeTrackedShipping: true,
+        freeLetterPostShipping: false,
+        folder: "D135",
+        imageCount: 4,
+        desc: "RN4194: This is a mixed estate lot from a collectoror small dealer, split into about a dozen unique Fundgrube (treasure-trove) boxes that were barely examined and priced only as a rough indication of possible value. Each box holds a random mix of sorted and unsorted material, such as stockbooks, booklets, stamps on pages, covers, glassines, and even unopened new purchases, so surprises can turn up anywhere. Only a few photos show a small part of each box's contents, and this particular box weighs about 5 kg"
+    }, {
+        name: "Ornamentaal birds stamp sheet from Netherlands.",
+        country: "Netherlands",
+        year: "<b>Year</b>: 2026",
+        priceINR: 1800,
+        isSoldOut: false,
+        freeTrackedShipping: false,
+        freeLetterPostShipping: true,
         //folder: "D132",
         //imageCount: 12,
-        //images: "https://shop.postnl.nl/_next/image?url=https%3A%2F%2Fshop.postnl.nl%2Fpub%2Fmedia%2Fcatalog%2Fproduct%2F1%2F7%2F1791551777_siervogels-postzegelvel.jpg&w=1920&q=75",
-        //desc: "RN4193: <b>Ornamentaal birds stamp sheet from Netherlands.</b> Check the photos. What you see is what you get."
-    //},
+        images: "https://shop.postnl.nl/_next/image?url=https%3A%2F%2Fshop.postnl.nl%2Fpub%2Fmedia%2Fcatalog%2Fproduct%2F1%2F7%2F1791551777_siervogels-postzegelvel.jpg&w=1920&q=75",
+        desc: "RN4193: <b>Ornamentaal birds stamp sheet from Netherlands.</b> Check the photos. What you see is what you get."
+    },
     {
         name: "Stamps from Iraq(Used and MNH)",
         country: "Iraq",
