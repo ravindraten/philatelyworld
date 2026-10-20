@@ -1,6 +1,17 @@
 // 1. STAMP DATABASE
 const stamps = [
     {
+        name: "Ukraine cover and postal item collection in 2 albums",
+        country: "Ukraine",
+        year: "<b>Year</b>: 1992-1994",
+        priceINR: 18500,
+        isSoldOut: false,
+        freeTrackedShipping: true,
+        freeLetterPostShipping: false,
+        folder: "D138",
+        imageCount: 42,
+        desc: "RN4197: 2 Luxureous and expensive Leuchtturm albums with collection about 280 covers and postal items Ukraine, also from Russia. Period 1992-1994. Check the photos to see a small part, but there is a lot more than you can see here. 2 Albums for free."
+    }, {
         name: "Europa MNH stamp collection in stockbook; Catalogue Value € 1400",
         country: "Europe",
         year: "<b>Year</b>: 1900-1945",
