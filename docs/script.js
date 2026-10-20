@@ -421,6 +421,26 @@ function initEventListeners() {
             closeModal();
         }
     });
+
+    // 4. Keyboard navigation: Escape closes, arrow keys move between photos
+    document.addEventListener('keydown', (e) => {
+        const modalEl = document.getElementById("myModal");
+        if (!modalEl || modalEl.style.display !== "flex") return;
+
+        // Don't hijack keys while typing in a field
+        const tag = (e.target && e.target.tagName) || '';
+        if (tag === 'INPUT' || tag === 'TEXTAREA' || (e.target && e.target.isContentEditable)) return;
+
+        if (e.key === 'Escape') {
+            closeModal(e);
+        } else if (e.key === 'ArrowLeft') {
+            e.preventDefault();
+            changeSlide(-1);
+        } else if (e.key === 'ArrowRight') {
+            e.preventDefault();
+            changeSlide(1);
+        }
+    });
     // BHIM / Donate modal wiring lives at top level (see initDonateModal);
     // call it here too so ordering with other listeners stays the same.
     try {

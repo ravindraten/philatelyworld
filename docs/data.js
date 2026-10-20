@@ -1,6 +1,17 @@
 // 1. STAMP DATABASE
 const stamps = [
     {
+        name: "FGermany states, Reich etc. stamp collection in binder",
+        country: "Germany",
+        year: "<b>Year</b>: 1900-1945",
+        priceINR: 24500,
+        isSoldOut: false,
+        freeTrackedShipping: true,
+        freeLetterPostShipping: false,
+        folder: "D136",
+        imageCount: 47,
+        desc: "RN4195: Binder with stamp collection Germany up to 1945 on about 70 pages. Check the photos to see a small part, but there is a lot more than you can see here. Binder for free. Rs.350 per page"
+    }, {
         name: "Fundgrube box: Excellent sorting-box stamps, part of chaotic estate",
         country: "worldwide",
         year: "<b>Year</b>: various",
