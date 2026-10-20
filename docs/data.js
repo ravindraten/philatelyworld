@@ -4,7 +4,7 @@ const stamps = [
         name: "Europa MNH stamp collection in stockbook; Catalogue Value € 1400",
         country: "Europe",
         year: "<b>Year</b>: 1900-1945",
-        priceINR: 99999,
+        priceINR: 9999,
         isSoldOut: false,
         freeTrackedShipping: true,
         freeLetterPostShipping: false,
