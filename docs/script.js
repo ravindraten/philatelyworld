@@ -800,6 +800,18 @@ function renderGallery(data) {
                 </div>
             </div>`;
     }).join('');
+
+    // 3. Deep-link focus: when arriving via ?item=RNxxxx (or /item/RNxxxx/), bring
+    // the single shared stamp card into view on mobile and highlight it.
+    const deepItemID = urlParams.get('item') || (window.location.pathname.match(/\/item\/(RN\d+)/i) || [])[1];
+    if (deepItemID && deepItemID !== 'promo' && data.length === 1) {
+        requestAnimationFrame(() => {
+            const card = grid.querySelector('.stamp-card');
+            if (!card) return;
+            card.classList.add('focused');
+            try { card.scrollIntoView({ behavior: 'smooth', block: 'center' }); } catch (e) { card.scrollIntoView(); }
+        });
+    }
 }
 function filterStamps(query) {
     const term = query.toLowerCase().trim();

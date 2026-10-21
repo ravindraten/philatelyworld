@@ -821,6 +821,13 @@ header {
     opacity: 0.8;
 }
 
+/* Deep-linked stamp card (via ?item=RNxxxx / /item/RNxxxx/): bring attention to it */
+.stamp-card.focused {
+    border-color: var(--gold, #d4a017);
+    box-shadow: 0 0 0 3px rgba(212, 160, 23, 0.45), 0 8px 28px rgba(0, 0, 0, 0.18);
+    scroll-margin-top: 90px;
+}
+
 .img-container {
     position: relative;
     height: 240px;
