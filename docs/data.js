@@ -1,6 +1,17 @@
 // 1. STAMP DATABASE
 const stamps = [
     {
+        name: "2 albums of Russia (1954-1965) & (1965-1976)",
+        country: "Russia",
+        year: "<b>Year</b>: 1954-1976",
+        priceINR: 40000,
+        isSoldOut: false,
+        freeTrackedShipping: true,
+        freeLetterPostShipping: false,
+        folder: "D141",
+        imageCount: 60,
+        desc: "RN4200: <b>Russia 1954-1965 stamp collection in album, Russia 1965-1976 stamp collection in album</b>. Check the photos to see a small part, but there is a lot more than you can see here.2 Album for free."
+    }, {
         name: "India (part of Commonwealth and old states) stamp collection in album",
         country: "India",
         year: "<b>Year</b>: various",
