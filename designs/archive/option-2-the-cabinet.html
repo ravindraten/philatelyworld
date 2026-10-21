@@ -1,0 +1,2357 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Philately World — The Cabinet | A Catalogue of Stamps &amp; Postal History</title>
+    <meta name="description"
+        content="Design concept 2 — The Cabinet. A light, editorial, catalogue-inspired redesign with a working filter cabinet.">
+    <link rel="icon" type="image/jpeg"
+        href="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/logo.jpg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://filedn.eu" crossorigin>
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Inter:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+    <style>
+        /* ============================================================
+           THE CABINET — Design concept 02
+           Paper / letterpress catalogue direction with a filter cabinet.
+           ============================================================ */
+
+        :root {
+            --paper: #f5f1e8;
+            --paper-2: #efe9dc;
+            --card: #fffdf7;
+            --ink: #191a17;
+            --ink-2: #35372f;
+            --muted: #6f6c62;
+            --muted-2: #97938a;
+            --line: #ddd6c6;
+            --line-2: #cbc2ae;
+            --forest: #1f4d3d;
+            --forest-lt: #e4ece7;
+            --clay: #a4552c;
+            --clay-lt: #f6e8de;
+            --gold: #9a7b21;
+            --gold-lt: #f7efd8;
+            --red: #a3352c;
+            --wa: #25d366;
+            --serif: 'Fraunces', Georgia, serif;
+            --sans: 'Inter', system-ui, sans-serif;
+            --mono: 'IBM Plex Mono', ui-monospace, monospace;
+            --shadow-sm: 0 1px 2px rgba(25, 26, 23, .06), 0 4px 14px rgba(25, 26, 23, .05);
+            --shadow-md: 0 2px 6px rgba(25, 26, 23, .07), 0 18px 40px rgba(25, 26, 23, .09);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            background: var(--paper);
+            color: var(--ink);
+            font-family: var(--sans);
+            font-size: 15px;
+            line-height: 1.62;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+            opacity: .55;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='p'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23p)' opacity='.04'/%3E%3C/svg%3E");
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        img {
+            display: block;
+            max-width: 100%;
+        }
+
+        button {
+            font-family: inherit;
+            cursor: pointer;
+        }
+
+        .wrap {
+            max-width: 1380px;
+            margin: 0 auto;
+            padding: 0 28px;
+        }
+
+        .serif {
+            font-family: var(--serif);
+        }
+
+        .label {
+            font-family: var(--mono);
+            font-size: 10px;
+            letter-spacing: .18em;
+            text-transform: uppercase;
+            color: var(--muted-2);
+        }
+
+        /* ---------- Top strip ---------- */
+        .topstrip {
+            background: var(--ink);
+            color: #efece3;
+            font-size: 12px;
+            letter-spacing: .04em;
+        }
+
+        .topstrip .wrap {
+            display: flex;
+            align-items: center;
+            gap: 22px;
+            height: 38px;
+            overflow: hidden;
+        }
+
+        .topstrip b {
+            color: #e3c56a;
+            font-weight: 600;
+        }
+
+        .topstrip .push {
+            margin-left: auto;
+            display: flex;
+            gap: 18px;
+            align-items: center;
+        }
+
+        .topstrip a:hover {
+            color: #e3c56a;
+        }
+
+        /* ---------- Header ---------- */
+        .header {
+            position: sticky;
+            top: 0;
+            z-index: 900;
+            background: rgba(245, 241, 232, .92);
+            backdrop-filter: blur(14px);
+            border-bottom: 1px solid var(--line);
+        }
+
+        .head-row {
+            display: flex;
+            align-items: center;
+            gap: 22px;
+            height: 82px;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 13px;
+            flex: 0 0 auto;
+        }
+
+        .brand img {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            border: 1px solid var(--line-2);
+            padding: 3px;
+            background: var(--card);
+        }
+
+        .brand h1 {
+            margin: 0;
+            font-family: var(--serif);
+            font-weight: 500;
+            font-size: 24px;
+            letter-spacing: -.01em;
+            line-height: 1.05;
+        }
+
+        .brand p {
+            margin: 2px 0 0;
+            font-family: var(--mono);
+            font-size: 9px;
+            letter-spacing: .2em;
+            text-transform: uppercase;
+            color: var(--muted-2);
+        }
+
+        .nav {
+            display: flex;
+            gap: 24px;
+            margin-left: 20px;
+            font-size: 13.5px;
+            color: var(--ink-2);
+        }
+
+        .nav a {
+            padding: 4px 0;
+            border-bottom: 1px solid transparent;
+        }
+
+        .nav a:hover {
+            border-color: var(--forest);
+            color: var(--forest);
+        }
+
+        .tools {
+            margin-left: auto;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .tool {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            border: 1px solid var(--line);
+            background: var(--card);
+            color: var(--ink-2);
+            display: grid;
+            place-items: center;
+            position: relative;
+            transition: .22s;
+        }
+
+        .tool:hover {
+            border-color: var(--forest);
+            color: var(--forest);
+            transform: translateY(-1px);
+        }
+
+        .tool svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        .tool .dot {
+            position: absolute;
+            top: -4px;
+            right: -4px;
+            min-width: 17px;
+            height: 17px;
+            border-radius: 9px;
+            background: var(--clay);
+            color: #fff;
+            font-size: 9px;
+            font-weight: 700;
+            display: grid;
+            place-items: center;
+            border: 2px solid var(--paper);
+        }
+
+        .tool.on {
+            background: var(--clay);
+            border-color: var(--clay);
+            color: #fff;
+        }
+
+        .tool.on .dot {
+            display: none;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 11px 19px;
+            border-radius: 2px;
+            border: 1px solid var(--ink);
+            background: var(--ink);
+            color: #f7f3ea;
+            font-size: 12px;
+            letter-spacing: .08em;
+            text-transform: uppercase;
+            transition: .22s;
+        }
+
+        .btn:hover {
+            background: var(--forest);
+            border-color: var(--forest);
+        }
+
+        .btn.line {
+            background: transparent;
+            color: var(--ink);
+        }
+
+        .btn.line:hover {
+            background: var(--ink);
+            color: #f7f3ea;
+            border-color: var(--ink);
+        }
+
+        .btn.forest {
+            background: var(--forest);
+            border-color: var(--forest);
+        }
+
+        .btn.forest:hover {
+            background: #16382c;
+        }
+
+        .btn.wa {
+            background: var(--wa);
+            border-color: var(--wa);
+            color: #05240f;
+            font-weight: 600;
+        }
+
+        .btn.wa:hover {
+            filter: brightness(1.05);
+            background: var(--wa);
+            border-color: var(--wa);
+        }
+
+        .btn.clay {
+            background: var(--clay);
+            border-color: var(--clay);
+        }
+
+        .btn.clay:hover {
+            background: #8d4723;
+            border-color: #8d4723;
+        }
+
+        .btn.sm {
+            padding: 8px 13px;
+            font-size: 11px;
+        }
+
+        /* ---------- Hero ---------- */
+        .hero {
+            position: relative;
+            z-index: 1;
+            padding: 66px 0 60px;
+            border-bottom: 1px solid var(--line);
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1.05fr .95fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .hero h2 {
+            font-family: var(--serif);
+            font-weight: 400;
+            font-size: clamp(38px, 5.2vw, 72px);
+            line-height: 1.02;
+            letter-spacing: -.025em;
+            margin: 16px 0 20px;
+        }
+
+        .hero h2 i {
+            font-style: italic;
+            color: var(--forest);
+        }
+
+        .hero p {
+            color: var(--muted);
+            font-size: 16px;
+            max-width: 50ch;
+            margin: 0 0 28px;
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 11px;
+            flex-wrap: wrap;
+        }
+
+        .hero-facts {
+            display: flex;
+            gap: 34px;
+            margin-top: 38px;
+            padding-top: 26px;
+            border-top: 1px solid var(--line);
+        }
+
+        .hero-facts div b {
+            display: block;
+            font-family: var(--serif);
+            font-size: 27px;
+            font-weight: 500;
+            line-height: 1;
+        }
+
+        .hero-facts div span {
+            font-family: var(--mono);
+            font-size: 9.5px;
+            letter-spacing: .16em;
+            text-transform: uppercase;
+            color: var(--muted-2);
+        }
+
+        /* specimen plate */
+        .plate {
+            background: var(--card);
+            border: 1px solid var(--line);
+            border-radius: 2px;
+            padding: 16px;
+            box-shadow: var(--shadow-md);
+            transform: rotate(-1.1deg);
+        }
+
+        .plate img {
+            width: 100%;
+            aspect-ratio: 4/3;
+            object-fit: cover;
+            border: 1px solid var(--line);
+            background: var(--paper-2);
+        }
+
+        .plate figcaption {
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+            padding: 14px 4px 4px;
+            font-family: var(--mono);
+            font-size: 9.5px;
+            letter-spacing: .13em;
+            text-transform: uppercase;
+            color: var(--muted-2);
+        }
+
+        .plate figcaption b {
+            color: var(--forest);
+            font-weight: 500;
+        }
+
+        /* ---------- Toolbar ---------- */
+        .toolbar {
+            position: sticky;
+            top: 82px;
+            z-index: 800;
+            background: rgba(245, 241, 232, .95);
+            backdrop-filter: blur(14px);
+            border-bottom: 1px solid var(--line);
+        }
+
+        .toolbar .wrap {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 12px 28px;
+        }
+
+        .search {
+            position: relative;
+            flex: 1 1 auto;
+            max-width: 430px;
+        }
+
+        .search input {
+            width: 100%;
+            background: var(--card);
+            border: 1px solid var(--line-2);
+            border-radius: 2px;
+            padding: 11px 14px 11px 38px;
+            font-size: 14px;
+            color: var(--ink);
+        }
+
+        .search input::placeholder {
+            color: var(--muted-2);
+        }
+
+        .search input:focus {
+            outline: none;
+            border-color: var(--forest);
+            box-shadow: 0 0 0 3px rgba(31, 77, 61, .12);
+        }
+
+        .search svg {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 15px;
+            height: 15px;
+            color: var(--muted-2);
+        }
+
+        .tabs {
+            display: flex;
+            gap: 2px;
+            background: var(--paper-2);
+            border: 1px solid var(--line);
+            border-radius: 2px;
+            padding: 3px;
+        }
+
+        .tab {
+            background: transparent;
+            border: 0;
+            border-radius: 1px;
+            padding: 8px 14px;
+            font-size: 12.5px;
+            color: var(--muted);
+            display: flex;
+            align-items: baseline;
+            gap: 7px;
+        }
+
+        .tab:hover {
+            color: var(--ink);
+        }
+
+        .tab.active {
+            background: var(--card);
+            color: var(--ink);
+            font-weight: 600;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .tab .n {
+            font-family: var(--mono);
+            font-size: 10px;
+            color: var(--muted-2);
+        }
+
+        .currency {
+            margin-left: auto;
+            display: flex;
+            border: 1px solid var(--line-2);
+            border-radius: 2px;
+            overflow: hidden;
+            background: var(--card);
+        }
+
+        .currency button {
+            background: transparent;
+            border: 0;
+            padding: 9px 13px;
+            font-size: 11.5px;
+            color: var(--muted);
+        }
+
+        .currency button.active {
+            background: var(--forest);
+            color: #f2f6f3;
+            font-weight: 600;
+        }
+
+        .tickerline {
+            border-top: 1px solid var(--line);
+            background: var(--paper-2);
+            font-family: var(--mono);
+            font-size: 10px;
+            letter-spacing: .11em;
+            text-transform: uppercase;
+            color: var(--muted-2);
+        }
+
+        .tickerline .wrap {
+            display: flex;
+            gap: 24px;
+            padding: 8px 28px;
+            flex-wrap: wrap;
+        }
+
+        .tickerline b {
+            color: var(--forest);
+            font-weight: 500;
+        }
+
+        /* ---------- Layout: cabinet + content ---------- */
+        .layout {
+            position: relative;
+            z-index: 1;
+            display: grid;
+            grid-template-columns: 268px 1fr;
+            gap: 42px;
+            padding: 42px 0 20px;
+        }
+
+        .cabinet {
+            position: sticky;
+            top: 172px;
+            align-self: start;
+            max-height: calc(100vh - 200px);
+            overflow-y: auto;
+            padding-right: 6px;
+        }
+
+        .cabinet::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        .cabinet::-webkit-scrollbar-thumb {
+            background: var(--line-2);
+        }
+
+        .cabinet h4 {
+            font-family: var(--serif);
+            font-size: 17px;
+            font-weight: 500;
+            margin: 0 0 14px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--line);
+        }
+
+        .fgroup {
+            margin-bottom: 26px;
+        }
+
+        .fgroup > .label {
+            display: block;
+            margin-bottom: 11px;
+        }
+
+        .fitem {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 6px 0;
+            font-size: 13.5px;
+            color: var(--ink-2);
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .fitem:hover {
+            color: var(--forest);
+        }
+
+        .fitem input {
+            appearance: none;
+            width: 15px;
+            height: 15px;
+            border: 1px solid var(--line-2);
+            border-radius: 1px;
+            background: var(--card);
+            display: grid;
+            place-items: center;
+            flex: 0 0 auto;
+        }
+
+        .fitem input:checked {
+            background: var(--forest);
+            border-color: var(--forest);
+        }
+
+        .fitem input:checked::after {
+            content: '';
+            width: 4px;
+            height: 8px;
+            border: solid #fff;
+            border-width: 0 1.5px 1.5px 0;
+            transform: rotate(45deg) translate(-1px, -1px);
+        }
+
+        .fitem .count {
+            margin-left: auto;
+            font-family: var(--mono);
+            font-size: 10.5px;
+            color: var(--muted-2);
+        }
+
+        .range {
+            width: 100%;
+            accent-color: var(--forest);
+        }
+
+        .rangeflex {
+            display: flex;
+            justify-content: space-between;
+            font-family: var(--mono);
+            font-size: 10.5px;
+            color: var(--muted);
+            margin-top: 4px;
+        }
+
+        .clear {
+            background: none;
+            border: 0;
+            border-bottom: 1px solid var(--line-2);
+            color: var(--muted);
+            font-size: 12px;
+            padding: 0 0 2px;
+        }
+
+        .clear:hover {
+            color: var(--clay);
+            border-color: var(--clay);
+        }
+
+        /* ---------- Result header ---------- */
+        .res-head {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            gap: 20px;
+            padding-bottom: 16px;
+            border-bottom: 2px solid var(--ink);
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+        }
+
+        .res-head h3 {
+            font-family: var(--serif);
+            font-weight: 400;
+            font-size: 32px;
+            margin: 4px 0 0;
+            letter-spacing: -.015em;
+        }
+
+        .sortrow {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 12.5px;
+            color: var(--muted);
+        }
+
+        select {
+            font-family: inherit;
+            font-size: 12.5px;
+            padding: 8px 10px;
+            border: 1px solid var(--line-2);
+            border-radius: 2px;
+            background: var(--card);
+            color: var(--ink);
+        }
+
+        /* ---------- Entry card ---------- */
+        .entries {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(390px, 1fr));
+            gap: 22px;
+        }
+
+        .entry {
+            background: var(--card);
+            border: 1px solid var(--line);
+            border-radius: 2px;
+            display: grid;
+            grid-template-columns: 168px 1fr;
+            overflow: hidden;
+            transition: .25s;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .entry:hover {
+            box-shadow: var(--shadow-md);
+            border-color: var(--line-2);
+            transform: translateY(-2px);
+        }
+
+        .entry.focus {
+            border-color: var(--forest);
+            box-shadow: 0 0 0 2px rgba(31, 77, 61, .3), var(--shadow-md);
+        }
+
+        .entry.sold {
+            opacity: .72;
+        }
+
+        .entry.sold:hover {
+            opacity: .95;
+        }
+
+        .thumb {
+            position: relative;
+            background: var(--paper-2);
+            border-right: 1px solid var(--line);
+            cursor: zoom-in;
+        }
+
+        .thumb img {
+            width: 100%;
+            height: 100%;
+            min-height: 210px;
+            object-fit: cover;
+        }
+
+        .entry.sold .thumb img {
+            filter: grayscale(.9);
+        }
+
+        .entry-body {
+            padding: 16px 18px 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 9px;
+        }
+
+        .rid {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+            font-family: var(--mono);
+            font-size: 9.5px;
+            letter-spacing: .13em;
+            text-transform: uppercase;
+            color: var(--muted-2);
+        }
+
+        .entry h4 {
+            font-family: var(--serif);
+            font-weight: 500;
+            font-size: 16.5px;
+            line-height: 1.28;
+            margin: 0;
+        }
+
+        .specs {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 3px 12px;
+            font-size: 12px;
+            color: var(--muted);
+            border-top: 1px dashed var(--line);
+            border-bottom: 1px dashed var(--line);
+            padding: 9px 0;
+        }
+
+        .specs dt {
+            font-family: var(--mono);
+            font-size: 9.5px;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+            color: var(--muted-2);
+            padding-top: 2px;
+        }
+
+        .specs dd {
+            margin: 0;
+            color: var(--ink-2);
+        }
+
+        .entry-foot {
+            margin-top: auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+        }
+
+        .price {
+            font-family: var(--serif);
+            font-size: 23px;
+            font-weight: 500;
+            line-height: 1;
+        }
+
+        .price s {
+            font-size: 12.5px;
+            color: var(--muted-2);
+            margin-right: 6px;
+        }
+
+        .price small {
+            font-family: var(--mono);
+            font-size: 9px;
+            letter-spacing: .14em;
+            text-transform: uppercase;
+            color: var(--muted-2);
+            display: block;
+            margin-top: 3px;
+        }
+
+        .acts {
+            display: flex;
+            gap: 6px;
+        }
+
+        .ico {
+            width: 34px;
+            height: 34px;
+            border-radius: 2px;
+            border: 1px solid var(--line-2);
+            background: transparent;
+            color: var(--muted);
+            display: grid;
+            place-items: center;
+            transition: .2s;
+        }
+
+        .ico:hover {
+            background: var(--ink);
+            border-color: var(--ink);
+            color: #f7f3ea;
+        }
+
+        .ico:disabled {
+            opacity: .35;
+            cursor: default;
+        }
+
+        .ico.wa:hover {
+            background: var(--wa);
+            border-color: var(--wa);
+            color: #05240f;
+        }
+
+        .ico svg {
+            width: 15px;
+            height: 15px;
+        }
+
+        .ico.done {
+            background: var(--forest);
+            border-color: var(--forest);
+            color: #fff;
+        }
+
+        /* chips */
+        .chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+        }
+
+        .chip {
+            font-family: var(--mono);
+            font-size: 9px;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+            padding: 3px 7px;
+            border-radius: 2px;
+            border: 1px solid var(--line-2);
+            color: var(--muted);
+            background: var(--paper);
+        }
+
+        .chip.sale {
+            background: var(--clay);
+            border-color: var(--clay);
+            color: #fff;
+        }
+
+        .chip.sold {
+            background: var(--ink-2);
+            border-color: var(--ink-2);
+            color: #f2ede2;
+        }
+
+        .chip.tracked {
+            background: var(--forest-lt);
+            border-color: #b9cfc3;
+            color: var(--forest);
+        }
+
+        .chip.letter {
+            background: var(--gold-lt);
+            border-color: #e0cf9a;
+            color: var(--gold);
+        }
+
+        .chip.blog {
+            background: var(--clay-lt);
+            border-color: #e3c3ad;
+            color: var(--clay);
+        }
+
+        /* ---------- Blog list ---------- */
+        .article {
+            display: grid;
+            grid-template-columns: 220px 1fr;
+            gap: 24px;
+            padding: 22px 0;
+            border-bottom: 1px solid var(--line);
+        }
+
+        .article .aimg {
+            aspect-ratio: 4/3;
+            overflow: hidden;
+            border: 1px solid var(--line);
+            background: var(--paper-2);
+        }
+
+        .article .aimg img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform .7s;
+        }
+
+        .article:hover .aimg img {
+            transform: scale(1.05);
+        }
+
+        .article h4 {
+            font-family: var(--serif);
+            font-weight: 500;
+            font-size: 21px;
+            margin: 6px 0 8px;
+            line-height: 1.25;
+        }
+
+        .article p {
+            margin: 0 0 12px;
+            color: var(--muted);
+            font-size: 13.5px;
+        }
+
+        .readlink {
+            font-family: var(--mono);
+            font-size: 10.5px;
+            letter-spacing: .16em;
+            text-transform: uppercase;
+            color: var(--forest);
+            border-bottom: 1px solid var(--forest);
+            padding-bottom: 2px;
+        }
+
+        .readlink:hover {
+            color: var(--clay);
+            border-color: var(--clay);
+        }
+
+        /* ---------- Notice ---------- */
+        .notice {
+            margin: 40px 0 10px;
+            border: 1px solid var(--line-2);
+            border-left: 4px solid var(--forest);
+            background: var(--card);
+            padding: 26px 28px;
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 24px;
+            align-items: center;
+            border-radius: 2px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .notice h4 {
+            font-family: var(--serif);
+            font-weight: 500;
+            font-size: 22px;
+            margin: 6px 0 8px;
+        }
+
+        .notice p {
+            margin: 0;
+            color: var(--muted);
+            font-size: 13.5px;
+            max-width: 70ch;
+        }
+
+        .notice-dots {
+            display: flex;
+            gap: 6px;
+            margin-top: 14px;
+        }
+
+        .notice-dots i {
+            width: 20px;
+            height: 3px;
+            background: var(--line-2);
+            display: block;
+            cursor: pointer;
+        }
+
+        .notice-dots i.on {
+            background: var(--forest);
+            width: 34px;
+        }
+
+        /* ---------- CTA ---------- */
+        .cta {
+            margin: 56px 0 10px;
+            background: var(--forest);
+            color: #eef3f0;
+            padding: 54px 46px;
+            border-radius: 2px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image: radial-gradient(rgba(255, 255, 255, .13) 1px, transparent 1px);
+            background-size: 16px 16px;
+            opacity: .5;
+        }
+
+        .cta > * {
+            position: relative;
+        }
+
+        .cta h3 {
+            font-family: var(--serif);
+            font-weight: 400;
+            font-size: 38px;
+            margin: 10px 0 12px;
+        }
+
+        .cta p {
+            max-width: 56ch;
+            margin: 0 auto 24px;
+            color: #cbd9d2;
+        }
+
+        .cta .btn {
+            background: #f4f1e8;
+            color: var(--forest);
+            border-color: #f4f1e8;
+        }
+
+        .cta .btn:hover {
+            background: #fff;
+        }
+
+        /* ---------- Footer ---------- */
+        footer {
+            position: relative;
+            z-index: 1;
+            margin-top: 66px;
+            border-top: 1px solid var(--line);
+            background: var(--paper-2);
+            padding: 52px 0 26px;
+        }
+
+        .foot {
+            display: grid;
+            grid-template-columns: 1.5fr repeat(3, 1fr);
+            gap: 40px;
+            margin-bottom: 36px;
+        }
+
+        .foot h5 {
+            font-family: var(--serif);
+            font-weight: 500;
+            font-size: 16px;
+            margin: 0 0 14px;
+        }
+
+        .foot ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: grid;
+            gap: 8px;
+            font-size: 13px;
+            color: var(--muted);
+        }
+
+        .foot ul a:hover {
+            color: var(--forest);
+        }
+
+        .foot-note {
+            border-top: 1px solid var(--line);
+            padding-top: 20px;
+            display: flex;
+            justify-content: space-between;
+            gap: 16px;
+            flex-wrap: wrap;
+            font-size: 11.5px;
+            color: var(--muted-2);
+        }
+
+        /* ---------- Lightbox ---------- */
+        .lightbox {
+            position: fixed;
+            inset: 0;
+            z-index: 1200;
+            background: rgba(20, 19, 16, .96);
+            display: none;
+            flex-direction: column;
+        }
+
+        .lightbox.open {
+            display: flex;
+        }
+
+        .lb-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 26px;
+            color: #cfc9ba;
+            font-family: var(--mono);
+            font-size: 10px;
+            letter-spacing: .15em;
+            text-transform: uppercase;
+        }
+
+        .lb-top button {
+            background: none;
+            border: 0;
+            color: #cfc9ba;
+            font-size: 26px;
+            line-height: 1;
+        }
+
+        .lb-top button:hover {
+            color: #fff;
+        }
+
+        .lb-stage {
+            flex: 1;
+            position: relative;
+            display: grid;
+            place-items: center;
+            padding: 16px;
+        }
+
+        .lb-stage img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            border: 1px solid rgba(255, 255, 255, .12);
+        }
+
+        .lb-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: #f4f1e8;
+            border: 0;
+            color: var(--ink);
+            display: grid;
+            place-items: center;
+        }
+
+        .lb-nav:hover {
+            background: var(--forest);
+            color: #fff;
+        }
+
+        .lb-nav.prev {
+            left: 20px;
+        }
+
+        .lb-nav.next {
+            right: 20px;
+        }
+
+        .lb-foot {
+            padding: 14px 26px 24px;
+            text-align: center;
+            color: #cfc9ba;
+        }
+
+        .lb-foot strong {
+            font-family: var(--serif);
+            font-weight: 400;
+            font-size: 17px;
+            color: #f4f1e8;
+            display: block;
+        }
+
+        /* ---------- Modals ---------- */
+        .modal {
+            position: fixed;
+            inset: 0;
+            z-index: 1300;
+            background: rgba(25, 26, 23, .55);
+            backdrop-filter: blur(3px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 22px;
+        }
+
+        .modal.open {
+            display: flex;
+        }
+
+        .modal-card {
+            position: relative;
+            width: 100%;
+            max-width: 580px;
+            max-height: 88vh;
+            overflow-y: auto;
+            background: var(--card);
+            border: 1px solid var(--line-2);
+            border-radius: 2px;
+            padding: 36px 34px;
+            box-shadow: var(--shadow-md);
+        }
+
+        .modal-card h3 {
+            font-family: var(--serif);
+            font-weight: 500;
+            font-size: 28px;
+            margin: 6px 0 8px;
+        }
+
+        .modal-card h4 {
+            font-family: var(--mono);
+            font-size: 10px;
+            letter-spacing: .16em;
+            text-transform: uppercase;
+            color: var(--forest);
+            margin: 22px 0 6px;
+        }
+
+        .modal-card p {
+            font-size: 13.5px;
+            color: var(--muted);
+        }
+
+        .modal-card .x {
+            position: absolute;
+            top: 14px;
+            right: 16px;
+            background: none;
+            border: 0;
+            font-size: 24px;
+            color: var(--muted);
+            line-height: 1;
+        }
+
+        .modal-card .x:hover {
+            color: var(--clay);
+        }
+
+        .mtabs {
+            display: flex;
+            gap: 20px;
+            border-bottom: 1px solid var(--line);
+            margin: 20px 0 18px;
+        }
+
+        .mtab {
+            background: none;
+            border: 0;
+            border-bottom: 2px solid transparent;
+            color: var(--muted);
+            padding: 9px 2px;
+            font-family: var(--mono);
+            font-size: 10.5px;
+            letter-spacing: .14em;
+            text-transform: uppercase;
+        }
+
+        .mtab.active {
+            color: var(--ink);
+            border-color: var(--forest);
+        }
+
+        .mpane {
+            display: none;
+        }
+
+        .mpane.active {
+            display: block;
+        }
+
+        .qr {
+            width: 100%;
+            border: 1px solid var(--line);
+        }
+
+        .upi {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            margin-top: 14px;
+            padding: 12px 15px;
+            border: 1px dashed var(--line-2);
+            background: var(--paper);
+            font-family: var(--mono);
+            font-size: 13px;
+        }
+
+        .totop {
+            position: fixed;
+            right: 24px;
+            bottom: 24px;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            border: 0;
+            background: var(--ink);
+            color: #f5f1e8;
+            display: grid;
+            place-items: center;
+            opacity: 0;
+            pointer-events: none;
+            transform: translateY(12px);
+            transition: .28s;
+            z-index: 700;
+            box-shadow: var(--shadow-md);
+        }
+
+        .totop.show {
+            opacity: 1;
+            pointer-events: auto;
+            transform: none;
+        }
+
+        .empty {
+            grid-column: 1/-1;
+            text-align: center;
+            padding: 80px 20px;
+            font-family: var(--serif);
+            font-size: 22px;
+            color: var(--muted);
+        }
+
+        /* ---------- Responsive ---------- */
+        @media (max-width: 1120px) {
+            .layout {
+                grid-template-columns: 1fr;
+            }
+
+            .cabinet {
+                position: static;
+                max-height: none;
+                border: 1px solid var(--line);
+                background: var(--card);
+                border-radius: 2px;
+                padding: 20px 22px;
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+                gap: 22px;
+            }
+
+            .cabinet h4 {
+                grid-column: 1/-1;
+                margin: 0;
+            }
+
+            .hero-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .foot {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .nav {
+                display: none;
+            }
+        }
+
+        @media (max-width: 780px) {
+            .wrap {
+                padding: 0 16px;
+            }
+
+            .toolbar .wrap,
+            .tickerline .wrap {
+                padding: 10px 16px;
+            }
+
+            .toolbar {
+                top: 64px;
+            }
+
+            .head-row {
+                height: 64px;
+            }
+
+            .entries {
+                grid-template-columns: 1fr;
+            }
+
+            .entry {
+                grid-template-columns: 132px 1fr;
+            }
+
+            .article {
+                grid-template-columns: 1fr;
+            }
+
+            .notice {
+                grid-template-columns: 1fr;
+            }
+
+            .topstrip .push {
+                display: none;
+            }
+
+            .hero {
+                padding: 44px 0 40px;
+            }
+
+            .hero-facts {
+                gap: 22px;
+                flex-wrap: wrap;
+            }
+
+            .tools {
+                gap: 6px;
+                min-width: 0;
+                overflow-x: auto;
+                scrollbar-width: none;
+                -ms-overflow-style: none;
+            }
+
+            .tools::-webkit-scrollbar {
+                display: none;
+            }
+
+            .tools .tool,
+            .tools .btn {
+                flex: 0 0 auto;
+            }
+
+            .tools .tool {
+                width: 33px;
+                height: 33px;
+            }
+
+            .tools .mast-social {
+                display: none;
+            }
+
+            .tools .btn.wa {
+                padding: 0 11px;
+                font-size: 0;
+            }
+
+            .toolbar .wrap {
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+
+            .search {
+                order: -1;
+                max-width: none;
+                flex: 1 1 100%;
+            }
+
+            .tabs {
+                flex: 1 1 auto;
+                min-width: 0;
+                overflow-x: auto;
+                scrollbar-width: none;
+                -ms-overflow-style: none;
+            }
+
+            .tabs::-webkit-scrollbar {
+                display: none;
+            }
+
+            .tabs .tab {
+                flex: 0 0 auto;
+            }
+
+            .currency {
+                flex: 0 0 auto;
+                margin-left: auto;
+            }
+
+            .brand {
+                min-width: 0;
+                flex: 0 1 auto;
+                gap: 10px;
+            }
+
+            .brand img {
+                width: 38px;
+                height: 38px;
+            }
+
+            .brand h1 {
+                font-size: 19px;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+
+            .brand p {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="topstrip">
+        <div class="wrap">
+            <span>Free tracked shipping on selected lots · <b>Every piece authenticated</b> · Shipped from the Netherlands</span>
+            <span class="push">
+                <a href="https://wa.me/31633467712" target="_blank">+31 6 3346 7712</a>
+                <a href="giveaway.html">Giveaway</a>
+                <a href="AlbumDesigner/auto-album.html">Album Designer</a>
+            </span>
+        </div>
+    </div>
+
+    <header class="header">
+        <div class="wrap head-row">
+            <a class="brand" href="#top">
+                <img src="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/logo.jpg"
+                    alt="Philately World">
+                <span>
+                    <h1>Philately World</h1>
+                    <p>Est. 2017 · Stamp &amp; Postal History</p>
+                </span>
+            </a>
+
+            <nav class="nav">
+                <a href="#catalogue">Catalogue</a>
+                <a href="#journal">Journal</a>
+                <a href="#announce">Announcements</a>
+                <a href="AlbumDesigner/auto-album.html">Album Designer</a>
+                <a href="giveaway.html">Giveaway</a>
+            </nav>
+
+            <div class="tools">
+                <button class="tool" id="supportBtn" title="Support Philately World" aria-label="Support">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+                    </svg>
+                </button>
+                <button class="tool" id="announceBtn" title="Announcements" aria-label="Announcements">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                        <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
+                        <path d="M13.73 21a2 2 0 0 1-3.46 0" />
+                    </svg>
+                    <span class="dot" id="announceDot">1</span>
+                </button>
+                <button class="tool" id="saleBtn" title="Show on-sale lots" aria-label="On sale">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                        <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z" />
+                        <line x1="7" y1="7" x2="7.01" y2="7" />
+                    </svg>
+                    <span class="dot" id="saleDot">7</span>
+                </button>
+                <button class="tool" id="blogBtn" title="Journal" aria-label="Journal">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                        <polyline points="14 2 14 8 20 8" />
+                        <line x1="16" y1="13" x2="8" y2="13" />
+                    </svg>
+                    <span class="dot" id="blogDot">77</span>
+                </button>
+                <a class="tool mast-social" href="https://www.instagram.com/philatelyworld10" target="_blank" title="Instagram"
+                    aria-label="Instagram">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                        <rect x="2" y="2" width="20" height="20" rx="5" />
+                        <circle cx="12" cy="12" r="4" />
+                    </svg>
+                </a>
+                <a class="tool mast-social" href="https://www.facebook.com/PhilatelyWorld" target="_blank" title="Facebook"
+                    aria-label="Facebook">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                        <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
+                    </svg>
+                </a>
+                <a class="btn wa sm" href="https://wa.me/31633467712" target="_blank">Chat</a>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero" id="top">
+        <div class="wrap hero-grid">
+            <div>
+                <span class="label">A catalogue of stamps &amp; postal history</span>
+                <h2>Open the cabinet<br>of <i>forgotten post</i></h2>
+                <p>Albums, first-day covers and single rarities — each photographed in full, described plainly and
+                    priced in your currency. Order in one tap over WhatsApp.</p>
+                <div class="hero-cta">
+                    <a class="btn" href="#catalogue">Browse the catalogue</a>
+                    <a class="btn line" href="#journal">Read the journal</a>
+                </div>
+                <div class="hero-facts">
+                    <div><b>143</b><span>Pieces</span></div>
+                    <div><b>40+</b><span>Countries</span></div>
+                    <div><b>9</b><span>Years</span></div>
+                    <div><b>48h</b><span>Guarantee</span></div>
+                </div>
+            </div>
+            <figure class="plate">
+                <img src="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/D142/1.jpg"
+                    alt="Albania and North Ingria and Georgia stamp collection">
+                <figcaption><span><b>RN4201</b> · Plate I</span><span>Albania / N. Ingria / Georgia</span></figcaption>
+            </figure>
+        </div>
+    </section>
+
+    <div class="toolbar" id="catalogue">
+        <div class="wrap">
+            <div class="search">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="11" cy="11" r="8" />
+                    <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                </svg>
+                <input type="search" id="q" placeholder="Search country, theme, year or catalogue no.">
+            </div>
+            <div class="tabs" id="tabs">
+                <button class="tab active" data-tab="available">Available <span class="n" id="nAvail">0</span></button>
+                <button class="tab" data-tab="all">All <span class="n" id="nAll">0</span></button>
+                <button class="tab" data-tab="sold">Sold <span class="n" id="nSold">0</span></button>
+                <button class="tab" data-tab="sale">On sale <span class="n" id="nSale">0</span></button>
+                <button class="tab" data-tab="blog">Journal <span class="n" id="nBlog">0</span></button>
+            </div>
+            <div class="currency" id="currency">
+                <button class="active" data-cur="INR">₹ INR</button>
+                <button data-cur="EUR">€ EUR</button>
+            </div>
+        </div>
+        <div class="tickerline">
+            <div class="wrap">
+                <span>Catalogue updated <b id="upd">21 Oct 2026</b></span>
+                <span>Live rate <b id="fx">1 INR = 0.0093 EUR</b></span>
+                <span id="fxNote">Fetching exchange rate…</span>
+                <span><b id="shown">0</b> entries shown</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="layout">
+        <!-- ---------- CABINET (filters) ---------- -->
+        <aside class="cabinet">
+            <h4>The Cabinet</h4>
+
+            <div class="fgroup">
+                <span class="label">Availability</span>
+                <label class="fitem"><input type="checkbox" id="fAvail" checked> In stock <span class="count"
+                        id="cAvail"></span></label>
+                <label class="fitem"><input type="checkbox" id="fSold"> Sold &amp; archived <span class="count"
+                        id="cSold"></span></label>
+                <label class="fitem"><input type="checkbox" id="fSale"> Reduced <span class="count" id="cSale"></span></label>
+            </div>
+
+            <div class="fgroup">
+                <span class="label">Country / region</span>
+                <div id="countryList"></div>
+            </div>
+
+            <div class="fgroup">
+                <span class="label">Shipping</span>
+                <label class="fitem"><input type="checkbox" id="fTracked"> Free tracked shipping <span class="count"
+                        id="cTracked"></span></label>
+                <label class="fitem"><input type="checkbox" id="fLetter"> Free letter post <span class="count"
+                        id="cLetter"></span></label>
+            </div>
+
+            <div class="fgroup">
+                <span class="label">Maximum price</span>
+                <input type="range" class="range" id="fPrice" min="500" max="300000" step="500" value="300000">
+                <div class="rangeflex"><span>₹500</span><span id="priceOut">₹300,000</span></div>
+            </div>
+
+            <button class="clear" id="clearFilters">Clear all filters</button>
+        </aside>
+
+        <!-- ---------- RESULTS ---------- -->
+        <main>
+            <div class="res-head">
+                <div>
+                    <span class="label" id="resLabel">Catalogue</span>
+                    <h3 id="resTitle">Available now</h3>
+                </div>
+                <div class="sortrow">
+                    <span>Sort</span>
+                    <select id="sort">
+                        <option value="recent">Newest first</option>
+                        <option value="low">Price: low to high</option>
+                        <option value="high">Price: high to low</option>
+                        <option value="photos">Most photographs</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="entries" id="entries"></div>
+            <div id="journal" style="display:none"></div>
+
+            <div class="notice" id="announce">
+                <div>
+                    <span class="label">Latest announcement</span>
+                    <h4 id="annTitle">Philately Forward — FEPA's €1,000 Competition</h4>
+                    <p id="annText">FEPA invites new collectors to enter its €1,000 prize competition — open to
+                        collectors under 30 across Europe. A great way to begin collecting with us as your guide.</p>
+                    <div class="notice-dots" id="annDots"></div>
+                </div>
+                <div style="display:flex;gap:10px;flex-wrap:wrap">
+                    <a class="btn sm" href="all_announcements.html">All announcements</a>
+                    <a class="btn line sm" href="announcement/7.html">Read</a>
+                </div>
+            </div>
+
+            <div class="cta">
+                <span class="label" style="color:#a9c3b7">Start here</span>
+                <h3>Tell us what you collect</h3>
+                <p>Send us the countries, themes or decades you love on WhatsApp and we will pull a shortlist from the
+                    cabinet — including pieces that are not listed publicly.</p>
+                <div style="display:flex;gap:11px;justify-content:center;flex-wrap:wrap">
+                    <a class="btn" href="https://wa.me/31633467712" target="_blank">Chat with a curator</a>
+                    <a class="btn line" style="background:transparent;color:#eef3f0;border-color:#8fb0a1"
+                        href="AlbumDesigner/auto-album.html">Open the Album Designer</a>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <footer>
+        <div class="wrap">
+            <div class="foot">
+                <div>
+                    <div class="brand" style="margin-bottom:14px">
+                        <img src="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/logo.jpg"
+                            alt="Philately World">
+                        <span>
+                            <h1>Philately World</h1>
+                            <p>Est. 2017 · Stamp &amp; Postal History</p>
+                        </span>
+                    </div>
+                    <p style="color:var(--muted);max-width:40ch;font-size:13px;margin:0">A curated philatelic cabinet
+                        from the Netherlands — authenticated rare stamps, first-day covers and postal history, shipped
+                        worldwide.</p>
+                </div>
+                <div>
+                    <h5>Catalogue</h5>
+                    <ul>
+                        <li><a href="#catalogue" data-jump="available">Available now</a></li>
+                        <li><a href="#catalogue" data-jump="all">All pieces</a></li>
+                        <li><a href="#catalogue" data-jump="sale">Reduced</a></li>
+                        <li><a href="#catalogue" data-jump="sold">Sold &amp; archived</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h5>Resources</h5>
+                    <ul>
+                        <li><a href="#journal">The journal</a></li>
+                        <li><a href="all_announcements.html">Announcements</a></li>
+                        <li><a href="AlbumDesigner/auto-album.html">Album Designer</a></li>
+                        <li><a href="giveaway.html">25 First-Class Finds</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h5>Company</h5>
+                    <ul>
+                        <li><a href="#" id="securityLink">Security &amp; Guarantee</a></li>
+                        <li><a href="#" id="privacyLink">Privacy Policy</a></li>
+                        <li><a href="#" id="supportLink2">Support us</a></li>
+                        <li><a href="https://wa.me/31633467712" target="_blank">+31 6 3346 7712</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="foot-note">
+                <span>© 2017–2026 Philately World Gallery</span>
+                <span>Instagram @philatelyworld10 · Facebook /PhilatelyWorld · WhatsApp channel 0029VaafwRWAojYq5jzkJJ2u</span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ---------- LIGHTBOX ---------- -->
+    <div class="lightbox" id="lightbox">
+        <div class="lb-top">
+            <span id="lbId">RN0000</span>
+            <button id="lbClose" aria-label="Close">×</button>
+        </div>
+        <div class="lb-stage">
+            <button class="lb-nav prev" id="lbPrev" aria-label="Previous">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="15 18 9 12 15 6" />
+                </svg>
+            </button>
+            <img id="lbImg" alt="">
+            <button class="lb-nav next" id="lbNext" aria-label="Next">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="9 18 15 12 9 6" />
+                </svg>
+            </button>
+        </div>
+        <div class="lb-foot">
+            <strong id="lbTitle"></strong>
+            <div id="lbCaption" style="font-family:var(--mono);font-size:10px;letter-spacing:.14em;margin-top:6px"></div>
+        </div>
+    </div>
+
+    <!-- ---------- MODALS ---------- -->
+    <div class="modal" id="supportModal">
+        <div class="modal-card">
+            <button class="x" data-close>&times;</button>
+            <span class="label">Support the cabinet</span>
+            <h3>Support Philately World</h3>
+            <p>Contributions keep authentication free and photography honest.</p>
+            <div class="mtabs">
+                <button class="mtab active" data-mtab="upi">Domestic (UPI)</button>
+                <button class="mtab" data-mtab="paypal">International (PayPal)</button>
+            </div>
+            <div class="mpane active" data-mpane="upi">
+                <img class="qr"
+                    src="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/BHIM.jpg" alt="BHIM UPI QR">
+                <div class="upi"><span>9900416731@upi</span>
+                    <button class="btn sm" id="upiCopy">Copy</button>
+                </div>
+            </div>
+            <div class="mpane" data-mpane="paypal">
+                <img class="qr"
+                    src="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/paypal.jpg"
+                    alt="PayPal QR">
+                <p>Scan to contribute via PayPal.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="securityModal">
+        <div class="modal-card">
+            <button class="x" data-close>&times;</button>
+            <span class="label">Last updated March 2026</span>
+            <h3>Security &amp; Guarantee</h3>
+            <h4>1. Expert authentication</h4>
+            <p>Every item is meticulously inspected and authenticated. We guarantee the description and condition as
+                listed.</p>
+            <h4>2. Secure payments</h4>
+            <p>We utilise BHIM UPI and direct bank transfers. No sensitive financial data is stored on our servers.</p>
+            <h4>3. Global shipping protection</h4>
+            <p>All shipments are expertly packed to prevent damage. Free letter-post worldwide is offered on selected
+                items; during transit the buyer bears loss or damage unless sent by registered mail.</p>
+            <h4>4. Satisfaction guarantee</h4>
+            <p>Contact us on WhatsApp at +31 633467712 within 48 hours of receipt if you are not satisfied. There is a
+                100% guarantee on your purchase.</p>
+        </div>
+    </div>
+
+    <div class="modal" id="privacyModal">
+        <div class="modal-card">
+            <button class="x" data-close>&times;</button>
+            <span class="label">Last updated March 2026</span>
+            <h3>Privacy Policy</h3>
+            <h4>1. Information we collect</h4>
+            <p>Details you provide directly via WhatsApp or BHIM UPI for order fulfilment, plus anonymous browsing data
+                from Google Analytics and GoatCounter.</p>
+            <h4>2. Use of data</h4>
+            <p>Used solely to process stamp orders, provide customer support and improve website performance.</p>
+            <h4>3. Third-party services</h4>
+            <p>Google Analytics and GoatCounter are used for traffic analysis and may set cookies. We never sell your
+                personal data to third parties.</p>
+            <h4>4. Your rights (GDPR)</h4>
+            <p>As a Europe-based service we honour the right to access, correct or delete your personal data. Contact
+                +31 633467712 for any privacy request.</p>
+        </div>
+    </div>
+
+    <button class="totop" id="toTop" aria-label="Back to top">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="18 15 12 9 6 15" />
+        </svg>
+    </button>
+
+    <script>
+        const BASE = "https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images";
+
+        const STAMPS = [
+            { id: 'RN4198', n: 'French territories large stamp collection in 13 albums', c: 'French territories', y: 'various', p: 287000, f: 'D139', ic: 69, ft: 1, fl: 0, so: 0 },
+            { id: 'RN4201', n: 'Albania and a.o. North Ingria and Georgia stamp collection in stockbook; CV more than € 5500', c: 'Albania, North Ingria and Georgia', y: 'various', p: 69000, f: 'D142', ic: 32, ft: 1, fl: 0, so: 0 },
+            { id: 'RN4200', n: '2 albums of Russia (1954-1965) & (1965-1976)', c: 'Russia', y: '1954-1976', p: 40000, f: 'D141', ic: 60, ft: 1, fl: 0, so: 0 },
+            { id: 'RN4199', n: 'India (part of Commonwealth and old states) stamp collection in album', c: 'India', y: 'various', p: 27000, f: 'D140', ic: 34, ft: 1, fl: 0, so: 0 },
+            { id: 'RN4197', n: 'Ukraine cover and postal item collection in 2 albums', c: 'Ukraine', y: '1992-1994', p: 18500, f: 'D138', ic: 42, ft: 1, fl: 0, so: 0 },
+            { id: 'RN4196', n: 'Europa MNH stamp collection in stockbook; Catalogue Value € 1400', c: 'Europe', y: '1900-1945', p: 9999, f: 'D137', ic: 18, ft: 1, fl: 0, so: 0 },
+            { id: 'RN4195', n: 'Germany states, Reich etc. stamp collection in binder', c: 'Germany', y: '1900-1945', p: 24500, f: 'D136', ic: 47, ft: 1, fl: 0, so: 0 },
+            { id: 'RN4194', n: 'Fundgrube box: Excellent sorting-box stamps, part of chaotic estate', c: 'Worldwide', y: 'various', p: 25000, f: 'D135', ic: 4, ft: 1, fl: 0, so: 0 },
+            { id: 'RN4072', n: 'Complete set of 11 MS from India 2025', c: 'India', y: '2025', p: 2150, f: 'D7', ic: 7, ft: 1, fl: 1, so: 0 },
+            { id: 'RN4102', n: 'Classic German Reich and DDR used/MH stamp collection', c: 'German Reich', y: '1900+', p: 12500, f: 'D34', ic: 48, ft: 1, fl: 0, so: 0 },
+            { id: 'RN4103', n: 'Buzin birds collection from Belgium', c: 'Belgium', y: '1980+', p: 899, f: 'D38', ic: 2, ft: 0, fl: 1, so: 0, blog: 'blog/buzin.html' },
+            { id: 'RN4099', n: 'Thick stockbook with stamp collection Spain. Old classic high CV.', c: 'Spain', y: '1900+', p: 9999, f: 'D32', ic: 29, ft: 0, fl: 1, so: 0 },
+            { id: 'RN4100', n: 'Collection of 360 Mint stamps from GB in Stockbook', c: 'Great Britain', y: '1900-2000', p: 14400, sp: 8999, f: 'D102', ic: 24, ft: 1, fl: 0, so: 0 },
+            { id: 'RN4080', n: 'German Reich set of 28 stamps', c: 'German Reich', y: '1941-1944', p: 3080, sp: 2080, f: 'D81', ic: 1, ft: 0, fl: 1, so: 0 },
+            { id: 'RN4076', n: 'Small box with about 350 FDC covers — United Nations', c: 'United Nations', y: '2026', p: 21000, sp: 17800, f: 'D74', ic: 6, ft: 1, fl: 0, so: 0 },
+            { id: 'RN4137', n: 'Europa CEPT 1956-1969 large stamp collection in album', c: 'Various Countries', y: '1956-1969', p: 22499, sp: 18500, f: 'D109', ic: 37, ft: 1, fl: 0, so: 1 },
+            { id: 'RN4132', n: 'Dutch Antilles and Aruba lot 450 FDC covers', c: 'Dutch Antilles and Aruba', y: '1990+', p: 29250, sp: 23999, f: 'D104', ic: 6, ft: 1, fl: 0, so: 1 },
+            { id: 'RN4089', n: 'Huge lot: Extensive mint and used thematic Red Cross stamp collection 1917-1980', c: 'Worldwide', y: '1917-1980', p: 243000, f: 'D24', ic: 487, ft: 1, fl: 0, so: 1, blog: 'blog/redcross.html' },
+            { id: 'RN4088', n: 'Europa CEPT 1956-2000', c: 'Europe', y: '1956-2000', p: 98000, f: 'D23', ic: 363, ft: 1, fl: 0, so: 1, blog: 'blog/europa_cept.html' },
+            { id: 'RN4129', n: 'MNH stamps from Germany', c: 'Germany', y: '1987,88,89', p: 1300, f: 'D130', ic: 3, ft: 0, fl: 0, so: 1 },
+            { id: 'RN4116', n: 'Czechoslovakia 1918-1992 stamp collection in album', c: 'Czechoslovakia', y: 'various', p: 28999, f: 'D116', ic: 84, ft: 1, fl: 0, so: 1 },
+            { id: 'RN4115', n: 'Netherlands lot 500 FDC covers', c: 'Netherlands', y: '1960+', p: 19999, f: 'D115', ic: 4, ft: 0, fl: 1, so: 1 },
+            { id: 'RN4114', n: 'Germany DDR 1948-1990 overcomplete collection in 2 albums', c: 'Germany', y: '1948-1990', p: 41999, f: 'D114', ic: 59, ft: 1, fl: 0, so: 1 },
+            { id: 'RN4138', n: '70 Years of Diplomatic Ties: Lao PDR & India Joint Issue', c: 'Lao PDR & India', y: '2026', p: 1750, f: 'JointIssue', ic: 3, ft: 0, fl: 1, so: 1, blog: 'blog/lao-india-joint-issue-2026.html' }
+        ];
+
+        const POSTS = [
+            { n: 'Canada 2026 Truth and Reconciliation Stamps: T-Shirt Shaped Orange Shirt Issue', c: 'Canada', y: '2026', d: 'Canada Post issues four self-adhesive T-shirt shaped stamps for Truth and Reconciliation — orange shirts honouring Survivors, First Nations, Inuit and Métis communities, and Mother Earth.', u: 'blog/canada-2026-truth-reconciliation-tshirt-stamps.html', i: 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi_VHve2fFvcGOiesy9a08d7MbXUYKXlErWjCfWZi-Jqr0_w19-T2joAcEIQ0UaXxmb4PTFtx-zv6vNlsrAp9f8Ae3834h5soWqIBYQ8AR7VeOO7a-TndIxFTIlau39ZPG8t9Sqt8da-5Di3jQB_4g3y2qW8jjXkUhfqczoJD8idzKEohthrxbtiXoVOKyH/w640-h416/canada%202026.jpg' },
+            { n: 'Shaun the Sheep Glow Stamp from Swiss Post', c: 'Switzerland', y: '2026', d: 'Swiss Post celebrates Shaun the Sheep with a glow-in-the-dark stamp, printed with luminous ink so the character appears in low light.', u: 'blog/switzerland-2026-shaun-the-sheep-glow-stamp.html', i: 'https://apis.shop.post.ch/medias/sys_master/images/h56/hd9/11277789495326/380Wx380H_Default-WorkingFormat_886533/380Wx380H-Default-WorkingFormat-886533.png' },
+            { n: 'Postzegel met Goud — Delfts Blauw 2026: The 24-Carat Gold Delft Blue Stamp', c: 'Netherlands', y: '2026', d: 'PostNL issues a genuine gold Delft Blue stamp — the first Dutch stamp to carry real 24-carat gold, a fitting tribute to the Delftware tradition.', u: 'blog/delfts-blauw-gold-stamp.html', i: 'https://shop.postnl.nl/_next/image?url=https%3A%2F%2Fshop.postnl.nl%2Fpub%2Fmedia%2Fcatalog%2Fproduct%2F1%2F7%2F1790578273_delfts-blauw-gouden-postzegel.jpg&w=1080&q=75' },
+            { n: 'EUROPA Stamps 70th Anniversary 2026: Klaus Welp’s Common Design', c: 'Europe', y: '2026', d: 'Seventy years of the EUROPA stamp programme, marked with a common design by Swiss artist Klaus Welp — 55 photographs in our feature.', u: 'blog/europa-70-years-2026.html', i: 'https://europastamps.eu/img/Product_Image_67826a8b-d1d1-452a-9899-a9b7c1a226fc.jpg' },
+            { n: 'Deltawerken — Nederland en het water: PostNL Delta Works Stamp Sheet 2026', c: 'Netherlands', y: '2026', d: 'The Netherlands and water: PostNL honours the Delta Works with a stamp sheet celebrating the engineering that keeps the country dry.', u: 'blog/deltawerken-stamp-sheet.html', i: 'https://shop.postnl.nl/_next/image?url=https%3A%2F%2Fshop.postnl.nl%2Fpub%2Fmedia%2Fcatalog%2Fproduct%2F1%2F7%2F1790937527_deltawerken-postzegelvel-2026.jpg&w=1080&q=75' },
+            { n: 'Flag Stamps: Learn the Flags of the World (Free Game)', c: 'World', y: '2026', d: 'A free browser game that helps you learn the flags of the world — with a stamp-sheet twist for practising recall.', u: 'blog/flag-stamps-learn-flags.html', i: 'https://flagcdn.com/w640/in.png' }
+        ];
+
+        const ANNOUNCEMENTS = [
+            { t: "Philately Forward — FEPA's €1,000 Competition", d: 'FEPA invites new collectors to enter its €1,000 prize competition — open to collectors under 30 across Europe. A great way to begin collecting with us as your guide.', u: 'announcement/7.html' },
+            { t: 'New arrivals: 12 lots added this week', d: 'Twelve fresh lots have landed in the cabinet, including French territories, Ukraine covers and a 487-photograph Red Cross collection.', u: 'announcement/6.html' },
+            { t: 'Album Designer 2.0 — 25 fonts, HEIC import, A4 PDF export', d: 'The free stamp-album tool now supports HEIC photos, twenty-five typographic styles, grayscale conversion and print-ready A4 PDF output — all inside your browser.', u: 'announcement/5.html' },
+            { t: 'Giveaway: 25 First-Class Finds packs', d: 'Twenty-five numbered packs of 50+ vintage stamps with a certificate of authenticity and free shipping — claim yours on WhatsApp or Instagram.', u: 'announcement/4.html' }
+        ];
+
+        const state = {
+            currency: 'INR', tab: 'available', q: '', eurRate: 0.00935,
+            avail: true, sold: false, saleOnly: false, countries: [], tracked: false, letter: false,
+            maxPrice: 300000, sort: 'recent', lb: { i: 1, n: 1, id: null }
+        };
+
+        const $ = s => document.querySelector(s);
+        const $$ = s => Array.from(document.querySelectorAll(s));
+        const money = v => state.currency === 'INR'
+            ? '₹' + v.toLocaleString('en-IN')
+            : '€' + Math.round(v * state.eurRate).toLocaleString('en-IN');
+        const imgFor = (s, i) => `${BASE}/${s.f}/${i}.jpg`;
+        const waLink = s => `https://wa.me/31633467712?text=${encodeURIComponent('Hi Philately World, I am interested in ' + s.id + ' ' + s.n + ' https://philatelyworld.in/item/' + s.id + '/')}`;
+
+        /* ---------- Cabinet population ---------- */
+        function buildCabinet() {
+            const avail = STAMPS.filter(s => !s.so).length;
+            const sold = STAMPS.filter(s => s.so).length;
+            const sale = STAMPS.filter(s => s.sp).length;
+            $('#cAvail').textContent = avail;
+            $('#cSold').textContent = sold;
+            $('#cSale').textContent = sale;
+            $('#cTracked').textContent = STAMPS.filter(s => s.ft).length;
+            $('#cLetter').textContent = STAMPS.filter(s => s.fl).length;
+
+            const counts = {};
+            STAMPS.forEach(s => { counts[s.c] = (counts[s.c] || 0) + 1; });
+            $('#countryList').innerHTML = Object.keys(counts).sort().map(c =>
+                `<label class="fitem"><input type="checkbox" class="fc" value="${c.replace(/"/g, '')}"> ${c} <span class="count">${counts[c]}</span></label>`
+            ).join('');
+            $$('.fc').forEach(cb => cb.addEventListener('change', () => {
+                state.countries = $$('.fc:checked').map(x => x.value);
+                render();
+            }));
+        }
+
+        /* ---------- Filtering ---------- */
+        function applyTab(tab) {
+            state.tab = tab;
+            if (tab === 'available') { state.avail = true; state.sold = false; state.saleOnly = false; }
+            else if (tab === 'all') { state.avail = true; state.sold = true; state.saleOnly = false; }
+            else if (tab === 'sold') { state.avail = false; state.sold = true; state.saleOnly = false; }
+            else if (tab === 'sale') { state.avail = true; state.sold = false; state.saleOnly = true; }
+            if (tab !== 'blog') {
+                $('#fAvail').checked = state.avail;
+                $('#fSold').checked = state.sold;
+                $('#fSale').checked = state.saleOnly;
+            }
+            $('#saleBtn').classList.toggle('on', state.saleOnly);
+            $$('#tabs .tab').forEach(x => x.classList.toggle('active', x.dataset.tab === tab));
+        }
+
+        function syncTabFromFilters() {
+            let tab = null;
+            if (state.saleOnly) tab = 'sale';
+            else if (state.avail && state.sold) tab = 'all';
+            else if (state.avail) tab = 'available';
+            else if (state.sold) tab = 'sold';
+            state.tab = tab;
+            $$('#tabs .tab').forEach(x => x.classList.toggle('active', x.dataset.tab === tab));
+            $('#saleBtn').classList.toggle('on', state.saleOnly);
+        }
+
+        function filtered() {
+            const q = state.q.trim().toLowerCase();
+            let list = STAMPS.filter(s => {
+                if (s.so && !state.sold) return false;
+                if (!s.so && !state.avail) return false;
+                if (state.saleOnly && !s.sp) return false;
+                if (state.tracked && !s.ft) return false;
+                if (state.letter && !s.fl) return false;
+                if (s.p > state.maxPrice) return false;
+                if (state.countries.length && !state.countries.includes(s.c)) return false;
+                if (q && !(s.n + ' ' + s.c + ' ' + s.y + ' ' + s.id).toLowerCase().includes(q)) return false;
+                return true;
+            });
+            if (state.sort === 'low') list.sort((a, b) => a.p - b.p);
+            else if (state.sort === 'high') list.sort((a, b) => b.p - a.p);
+            else if (state.sort === 'photos') list.sort((a, b) => b.ic - a.ic);
+            else list.sort((a, b) => b.id.localeCompare(a.id));
+            return list;
+        }
+
+        function entryHtml(s) {
+            const chips = [];
+            if (s.so) chips.push('<span class="chip sold">Sold</span>');
+            else if (s.sp) chips.push('<span class="chip sale">Reduced</span>');
+            if (s.ft) chips.push('<span class="chip tracked">Free tracked</span>');
+            if (s.fl) chips.push('<span class="chip letter">Free letter</span>');
+            if (s.blog) chips.push('<span class="chip blog">Article</span>');
+
+            const price = s.sp ? `<s>${money(s.p)}</s>${money(s.sp)}` : money(s.p);
+            const buy = s.so
+                ? `<button class="ico" disabled title="Sold out"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><line x1="5.6" y1="5.6" x2="18.4" y2="18.4"/></svg></button>`
+                : `<a class="ico wa" href="${waLink(s)}" target="_blank" title="Buy on WhatsApp"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2z"/></svg></a>`;
+
+            return `<article class="entry ${s.so ? 'sold' : ''}" data-id="${s.id}">
+        <div class="thumb" data-open="${s.id}">
+          <img src="${imgFor(s, 1)}" alt="${s.n}" loading="lazy" decoding="async">
+        </div>
+        <div class="entry-body">
+          <div class="rid"><span>${s.id}</span><span>${s.ic} photo${s.ic > 1 ? 's' : ''}</span></div>
+          <h4>${s.n}</h4>
+          <dl class="specs">
+            <dt>Year</dt><dd>${s.y}</dd>
+            <dt>Origin</dt><dd>${s.c}</dd>
+            <dt>Cond.</dt><dd>Authenticated · as described</dd>
+          </dl>
+          <div class="chips">${chips.join('')}</div>
+          <div class="entry-foot">
+            <div class="price">${price}<small>${state.currency === 'INR' ? 'INR' : 'EUR'} · ex. shipping</small></div>
+            <div class="acts">
+              ${buy}
+              <button class="ico" data-share="${s.id}" title="Share"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12v7a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-7"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg></button>
+              ${s.blog ? `<a class="ico" href="${s.blog}" title="Article"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></a>` : ''}
+            </div>
+          </div>
+        </div>
+      </article>`;
+        }
+
+        function render() {
+            const isBlog = state.tab === 'blog';
+            $('#entries').style.display = isBlog ? 'none' : 'grid';
+            $('#journal').style.display = isBlog ? 'block' : 'none';
+            $('#resLabel').textContent = isBlog ? 'Journal' : 'Catalogue';
+            $('#resTitle').textContent = {
+                available: 'Available now', all: 'The full catalogue', sold: 'Recently sold', sale: 'On sale now', blog: 'Notes from the collecting desk'
+            }[state.tab] || 'Filtered selection';
+
+            if (isBlog) {
+                const q = state.q.trim().toLowerCase();
+                const list = POSTS.filter(p => !q || (p.n + ' ' + p.c + ' ' + p.d).toLowerCase().includes(q));
+                $('#shown').textContent = list.length;
+                $('#journal').innerHTML = list.length ? list.map(p => `<article class="article">
+        <a class="aimg" href="${p.u}"><img src="${p.i}" alt="${p.n}" loading="lazy"></a>
+        <div>
+          <div class="rid" style="display:flex;gap:10px;font-family:var(--mono);font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--muted-2)"><span>${p.c}</span><span>${p.y}</span><span>Journal</span></div>
+          <h4><a href="${p.u}">${p.n}</a></h4>
+          <p>${p.d}</p>
+          <a class="readlink" href="${p.u}">Read the article →</a>
+        </div>
+      </article>`).join('') : '<div class="empty">No articles found.</div>';
+                return;
+            }
+
+            const list = filtered();
+            $('#shown').textContent = list.length;
+            $('#entries').innerHTML = list.length ? list.map(entryHtml).join('')
+                : '<div class="empty">Nothing in the cabinet matches those filters.</div>';
+
+            const want = new URLSearchParams(location.search).get('item');
+            if (want) {
+                const el = $(`.entry[data-id="${want}"]`);
+                if (el) { el.classList.add('focus'); el.scrollIntoView({ behavior: 'smooth', block: 'center' }); }
+            }
+        }
+
+        /* ---------- Toolbar ---------- */
+        $('#q').addEventListener('input', e => {
+            state.q = e.target.value;
+            const u = new URL(location.href);
+            state.q ? u.searchParams.set('q', state.q) : u.searchParams.delete('q');
+            history.replaceState(null, '', u);
+            render();
+        });
+        $('#q').addEventListener('change', e => {
+            if (e.target.value !== state.q) { state.q = e.target.value; render(); }
+        });
+
+        $$('#tabs .tab').forEach(t => t.addEventListener('click', () => {
+            applyTab(t.dataset.tab);
+            const u = new URL(location.href);
+            u.searchParams.set('tab', state.tab);
+            history.replaceState(null, '', u);
+            render();
+        }));
+
+        $$('#currency button').forEach(b => b.addEventListener('click', () => {
+            $$('#currency button').forEach(x => x.classList.remove('active'));
+            b.classList.add('active');
+            state.currency = b.dataset.cur;
+            render();
+        }));
+
+        $('#saleBtn').addEventListener('click', () => {
+            const on = !state.saleOnly;
+            applyTab(on ? 'sale' : 'available');
+            render();
+        });
+
+        $('#blogBtn').addEventListener('click', () => {
+            $('#tabs .tab[data-tab="blog"]').click();
+            $('#journal').scrollIntoView({ behavior: 'smooth' });
+        });
+
+        $('#announceBtn').addEventListener('click', () => $('#announce').scrollIntoView({ behavior: 'smooth' }));
+
+        /* ---------- Cabinet filters ---------- */
+        $('#fAvail').addEventListener('change', e => { state.avail = e.target.checked; syncTabFromFilters(); render(); });
+        $('#fSold').addEventListener('change', e => { state.sold = e.target.checked; syncTabFromFilters(); render(); });
+        $('#fSale').addEventListener('change', e => { state.saleOnly = e.target.checked; syncTabFromFilters(); render(); });
+        $('#fTracked').addEventListener('change', e => { state.tracked = e.target.checked; render(); });
+        $('#fLetter').addEventListener('change', e => { state.letter = e.target.checked; render(); });
+        $('#fPrice').addEventListener('input', e => {
+            state.maxPrice = +e.target.value;
+            $('#priceOut').textContent = '₹' + state.maxPrice.toLocaleString('en-IN');
+            render();
+        });
+        $('#sort').addEventListener('change', e => { state.sort = e.target.value; render(); });
+
+        $('#clearFilters').addEventListener('click', () => {
+            state.avail = true; state.sold = false; state.saleOnly = false;
+            state.tracked = false; state.letter = false; state.countries = [];
+            state.maxPrice = 300000; state.q = ''; state.sort = 'recent';
+            $('#fAvail').checked = true; $('#fSold').checked = false; $('#fSale').checked = false;
+            $('#fTracked').checked = false; $('#fLetter').checked = false;
+            $('#fPrice').value = 300000; $('#priceOut').textContent = '₹300,000';
+            $('#q').value = ''; $('#sort').value = 'recent';
+            $$('.fc').forEach(c => c.checked = false);
+            syncTabFromFilters();
+            render();
+        });
+
+        /* ---------- Lightbox ---------- */
+        function openLightbox(id) {
+            const s = STAMPS.find(x => x.id === id);
+            if (!s) return;
+            state.lb = { i: 1, n: s.ic || 1, id };
+            $('#lbId').textContent = id + ' · ' + s.c;
+            $('#lbTitle').textContent = s.n;
+            $('#lbPrev').style.display = state.lb.n > 1 ? '' : 'none';
+            $('#lbNext').style.display = state.lb.n > 1 ? '' : 'none';
+            paintLb();
+            $('#lightbox').classList.add('open');
+            document.body.style.overflow = 'hidden';
+        }
+        function paintLb() {
+            const s = STAMPS.find(x => x.id === state.lb.id);
+            $('#lbImg').src = imgFor(s, state.lb.i);
+            $('#lbImg').alt = `${s.n} — Photo ${state.lb.i}`;
+            $('#lbCaption').textContent = `${state.lb.i} / ${state.lb.n}`;
+        }
+        function step(d) {
+            state.lb.i += d;
+            if (state.lb.i > state.lb.n) state.lb.i = 1;
+            if (state.lb.i < 1) state.lb.i = state.lb.n;
+            paintLb();
+        }
+        $('#lbNext').addEventListener('click', () => step(1));
+        $('#lbPrev').addEventListener('click', () => step(-1));
+        $('#lbClose').addEventListener('click', () => { $('#lightbox').classList.remove('open'); document.body.style.overflow = ''; });
+        $('#lightbox').addEventListener('click', e => { if (e.target.id === 'lightbox') { $('#lightbox').classList.remove('open'); document.body.style.overflow = ''; } });
+
+        document.addEventListener('keydown', e => {
+            if (e.key === 'Escape') { $('#lightbox').classList.remove('open'); $$('.modal.open').forEach(m => m.classList.remove('open')); document.body.style.overflow = ''; }
+            if ($('#lightbox').classList.contains('open')) {
+                if (e.key === 'ArrowRight') step(1);
+                if (e.key === 'ArrowLeft') step(-1);
+            }
+        });
+
+        /* ---------- Grid delegation ---------- */
+        $('#entries').addEventListener('click', e => {
+            const open = e.target.closest('[data-open]');
+            if (open) return openLightbox(open.dataset.open);
+            const sh = e.target.closest('[data-share]');
+            if (sh) {
+                const s = STAMPS.find(x => x.id === sh.dataset.share);
+                return share('https://philatelyworld.in/item/' + s.id + '/', sh);
+            }
+        });
+
+        window.share = function (url, btn) {
+            const ok = () => {
+                if (!btn) return;
+                const old = btn.innerHTML;
+                btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>';
+                btn.classList.add('done');
+                setTimeout(() => { btn.innerHTML = old; btn.classList.remove('done'); }, 1800);
+            };
+            if (navigator.share) navigator.share({ title: 'Philately World', url }).then(ok).catch(() => { });
+            else navigator.clipboard?.writeText(url).then(ok).catch(() => { });
+        };
+
+        /* ---------- Modals ---------- */
+        const openModal = id => { $(id).classList.add('open'); document.body.style.overflow = 'hidden'; };
+        const closeModal = m => { m.classList.remove('open'); document.body.style.overflow = ''; };
+        $('#supportBtn').addEventListener('click', () => openModal('#supportModal'));
+        $('#supportLink2').addEventListener('click', e => { e.preventDefault(); openModal('#supportModal'); });
+        $('#securityLink').addEventListener('click', e => { e.preventDefault(); openModal('#securityModal'); });
+        $('#privacyLink').addEventListener('click', e => { e.preventDefault(); openModal('#privacyModal'); });
+        $$('.modal').forEach(m => {
+            m.addEventListener('click', e => { if (e.target === m) closeModal(m); });
+            m.querySelector('[data-close]').addEventListener('click', () => closeModal(m));
+        });
+        $$('.mtab').forEach(t => t.addEventListener('click', () => {
+            $$('.mtab').forEach(x => x.classList.remove('active'));
+            $$('.mpane').forEach(x => x.classList.remove('active'));
+            t.classList.add('active');
+            $(`[data-mpane="${t.dataset.mtab}"]`).classList.add('active');
+        }));
+        $('#upiCopy').addEventListener('click', () => {
+            navigator.clipboard?.writeText('9900416731@upi');
+            $('#upiCopy').textContent = 'Copied';
+            setTimeout(() => $('#upiCopy').textContent = 'Copy', 1600);
+        });
+
+        /* ---------- Announcements ---------- */
+        let annIdx = 0;
+        function paintAnn() {
+            const a = ANNOUNCEMENTS[annIdx];
+            $('#annTitle').textContent = a.t;
+            $('#annText').textContent = a.d;
+            $('#annDots').innerHTML = ANNOUNCEMENTS.map((_, i) => `<i class="${i === annIdx ? 'on' : ''}" data-i="${i}"></i>`).join('');
+        }
+        $('#annDots').addEventListener('click', e => { const i = e.target.getAttribute('data-i'); if (i != null) { annIdx = +i; paintAnn(); } });
+        setInterval(() => { annIdx = (annIdx + 1) % ANNOUNCEMENTS.length; paintAnn(); }, 7000);
+        paintAnn();
+
+        /* ---------- Back to top ---------- */
+        const toTop = $('#toTop');
+        window.addEventListener('scroll', () => toTop.classList.toggle('show', window.scrollY > 400));
+        toTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+        /* ---------- FX ---------- */
+        async function loadFx() {
+            try {
+                const j = await (await fetch('https://open.er-api.com/v6/latest/EUR')).json();
+                state.eurRate = 1 / (j.rates.INR * 1.02);
+                $('#fx').textContent = '1 INR = ' + state.eurRate.toFixed(4) + ' EUR';
+                $('#fxNote').textContent = 'Live Western Union rate · ' + new Date().toLocaleString('en-GB');
+            } catch (err) {
+                $('#fx').textContent = '1 INR = ' + state.eurRate.toFixed(4) + ' EUR';
+                $('#fxNote').textContent = 'Cached rate';
+            }
+            render();
+        }
+
+        /* ---------- Init ---------- */
+        buildCabinet();
+        $('#nAll').textContent = STAMPS.length;
+        $('#nAvail').textContent = STAMPS.filter(s => !s.so).length;
+        $('#nSold').textContent = STAMPS.filter(s => s.so).length;
+        $('#nSale').textContent = STAMPS.filter(s => s.sp).length;
+        $('#nBlog').textContent = POSTS.length;
+
+        const params = new URLSearchParams(location.search);
+        if (params.get('q')) { state.q = params.get('q'); $('#q').value = state.q; }
+        if (params.get('tab')) {
+            const t = $('#tabs .tab[data-tab="' + params.get('tab') + '"]');
+            if (t) t.click();
+        }
+        render();
+        loadFx();
+
+        $$('[data-jump]').forEach(a => a.addEventListener('click', () => {
+            const t = $('#tabs .tab[data-tab="' + a.dataset.jump + '"]');
+            if (t) t.click();
+        }));
+    </script>
+</body>
+
+</html>

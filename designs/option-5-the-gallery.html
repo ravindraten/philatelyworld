@@ -1,0 +1,2185 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Philately World — The Gallery</title>
+    <meta name="description" content="Stamps as art. A curated gallery of rare stamps and collections, authenticated and shipped worldwide from the Netherlands.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #fbfaf7;
+            --bg-2: #f2eee6;
+            --card: #ffffff;
+            --ink: #101010;
+            --ink-2: #2c2c2c;
+            --muted: #66625b;
+            --faint: #8f8a81;
+            --line: #e4dfd5;
+            --line-2: #d2ccbf;
+            --acc: #d84326;
+            --acc-ink: #ffffff;
+            --green: #1f7a4d;
+            --sale: #c0392b;
+            --dark: #141414;
+            --sans: 'Inter', system-ui, -apple-system, sans-serif;
+            --disp: 'Space Grotesk', 'Inter', sans-serif;
+            --r: 0px;
+            --wrap: 1320px;
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            -webkit-text-size-adjust: 100%;
+        }
+
+        body {
+            margin: 0;
+            background: var(--bg);
+            color: var(--ink);
+            font-family: var(--sans);
+            font-size: 15px;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+
+        img {
+            display: block;
+            max-width: 100%;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        button {
+            font: inherit;
+            cursor: pointer;
+            color: inherit;
+        }
+
+        .wrap {
+            max-width: var(--wrap);
+            margin: 0 auto;
+            padding: 0 30px;
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: .18em;
+            text-transform: uppercase;
+            color: var(--acc);
+        }
+
+        .eyebrow::before {
+            content: "";
+            width: 18px;
+            height: 1px;
+            background: var(--acc);
+        }
+
+        /* ============ TOP TICKER ============ */
+        .ticker {
+            background: var(--dark);
+            color: #e9e4da;
+            height: 34px;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+            font-size: 11px;
+            letter-spacing: .12em;
+            text-transform: uppercase;
+        }
+
+        .ticker-track {
+            display: flex;
+            gap: 48px;
+            white-space: nowrap;
+            animation: tick 40s linear infinite;
+        }
+
+        .ticker-track b {
+            color: #fff;
+            font-weight: 600;
+        }
+
+        .ticker-track span {
+            color: #a9a49a;
+        }
+
+        @keyframes tick {
+            from {
+                transform: translateX(0);
+            }
+
+            to {
+                transform: translateX(-50%);
+            }
+        }
+
+        /* ============ NAV ============ */
+        .topnav {
+            position: sticky;
+            top: 0;
+            z-index: 900;
+            background: rgba(251, 250, 247, .86);
+            backdrop-filter: blur(14px);
+            border-bottom: 1px solid var(--line);
+        }
+
+        .nav-row {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            height: 64px;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            min-width: 0;
+        }
+
+        .brand img {
+            width: 34px;
+            height: 34px;
+            object-fit: cover;
+            border: 1px solid var(--line-2);
+        }
+
+        .brand h1 {
+            margin: 0;
+            font-family: var(--disp);
+            font-size: 17px;
+            font-weight: 600;
+            letter-spacing: -.02em;
+            white-space: nowrap;
+        }
+
+        .mainnav {
+            display: flex;
+            gap: 22px;
+            margin-left: 18px;
+            font-size: 12.5px;
+            font-weight: 500;
+            color: var(--ink-2);
+        }
+
+        .mainnav a:hover {
+            color: var(--acc);
+        }
+
+        .tools {
+            display: flex;
+            align-items: center;
+            gap: 2px;
+            margin-left: auto;
+            min-width: 0;
+        }
+
+        .tool {
+            position: relative;
+            width: 36px;
+            height: 36px;
+            display: grid;
+            place-items: center;
+            background: transparent;
+            border: 0;
+            color: var(--ink-2);
+            border-radius: 50%;
+            transition: .2s;
+        }
+
+        .tool svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        .tool:hover {
+            background: var(--bg-2);
+            color: var(--acc);
+        }
+
+        .tool .dot {
+            position: absolute;
+            top: 2px;
+            right: 2px;
+            min-width: 15px;
+            height: 15px;
+            padding: 0 4px;
+            border-radius: 9px;
+            background: var(--acc);
+            color: #fff;
+            font-size: 9px;
+            font-weight: 600;
+            display: grid;
+            place-items: center;
+            border: 2px solid var(--bg);
+        }
+
+        .tool.on {
+            background: var(--ink);
+            color: #fff;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 11px 20px;
+            border: 1px solid var(--line-2);
+            background: var(--card);
+            color: var(--ink);
+            font-size: 12.5px;
+            font-weight: 600;
+            letter-spacing: .01em;
+            transition: .2s;
+            white-space: nowrap;
+            border-radius: 999px;
+        }
+
+        .btn:hover {
+            border-color: var(--ink);
+        }
+
+        .btn.solid {
+            background: var(--ink);
+            border-color: var(--ink);
+            color: #fff;
+        }
+
+        .btn.solid:hover {
+            background: var(--acc);
+            border-color: var(--acc);
+        }
+
+        .btn.wa {
+            background: var(--green);
+            border-color: var(--green);
+            color: #fff;
+        }
+
+        .btn.wa:hover {
+            filter: brightness(1.08);
+            color: #fff;
+        }
+
+        .btn.ghost {
+            background: transparent;
+        }
+
+        .mast-social {
+            display: grid;
+        }
+
+        /* ============ HERO ============ */
+        .hero {
+            padding: 64px 0 56px;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1.06fr .94fr;
+            gap: 54px;
+            align-items: center;
+        }
+
+        .hero h2 {
+            margin: 16px 0 0;
+            font-family: var(--disp);
+            font-weight: 600;
+            font-size: clamp(46px, 7vw, 88px);
+            line-height: .93;
+            letter-spacing: -.045em;
+        }
+
+        .hero h2 em {
+            font-style: normal;
+            color: var(--acc);
+        }
+
+        .hero .lede {
+            margin: 22px 0 0;
+            max-width: 46ch;
+            color: var(--muted);
+            font-size: 16px;
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 28px;
+        }
+
+        .hero-meta {
+            display: flex;
+            gap: 26px;
+            margin-top: 36px;
+            padding-top: 22px;
+            border-top: 1px solid var(--line);
+            flex-wrap: wrap;
+        }
+
+        .hero-meta div b {
+            display: block;
+            font-family: var(--disp);
+            font-size: 24px;
+            font-weight: 600;
+            line-height: 1;
+            letter-spacing: -.02em;
+        }
+
+        .hero-meta div span {
+            display: block;
+            margin-top: 5px;
+            font-size: 10.5px;
+            letter-spacing: .14em;
+            text-transform: uppercase;
+            color: var(--faint);
+        }
+
+        .stack {
+            position: relative;
+            padding: 0 18px 22px 0;
+        }
+
+        .stack .big {
+            position: relative;
+            aspect-ratio: 4/4.4;
+            overflow: hidden;
+            background: var(--bg-2);
+            border: 1px solid var(--line-2);
+        }
+
+        .stack .big img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 1.2s;
+        }
+
+        .stack:hover .big img {
+            transform: scale(1.03);
+        }
+
+        .stack .small {
+            position: absolute;
+            left: -34px;
+            bottom: 0;
+            width: 44%;
+            aspect-ratio: 1;
+            border: 7px solid var(--bg);
+            overflow: hidden;
+            background: var(--bg-2);
+        }
+
+        .stack .small img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .stack .tag {
+            position: absolute;
+            top: 18px;
+            right: -6px;
+            background: var(--acc);
+            color: #fff;
+            padding: 9px 13px;
+            font-size: 10.5px;
+            font-weight: 600;
+            letter-spacing: .12em;
+            text-transform: uppercase;
+            z-index: 2;
+        }
+
+        .stack .cap {
+            position: absolute;
+            left: 0;
+            bottom: 6px;
+            background: var(--card);
+            border: 1px solid var(--line-2);
+            padding: 10px 14px;
+            font-size: 11px;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+            color: var(--muted);
+            z-index: 2;
+        }
+
+        /* ============ FILTER BAR ============ */
+        .filters {
+            position: sticky;
+            top: 64px;
+            z-index: 800;
+            background: rgba(251, 250, 247, .94);
+            backdrop-filter: blur(12px);
+            border-top: 1px solid var(--line);
+            border-bottom: 1px solid var(--line);
+        }
+
+        .filters .wrap {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding-top: 13px;
+            padding-bottom: 13px;
+            flex-wrap: wrap;
+        }
+
+        .search {
+            position: relative;
+            flex: 1 1 260px;
+            max-width: 360px;
+        }
+
+        .search svg {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 16px;
+            height: 16px;
+            color: var(--faint);
+        }
+
+        .search input {
+            width: 100%;
+            padding: 10px 14px 10px 38px;
+            border: 1px solid var(--line-2);
+            border-radius: 999px;
+            background: var(--card);
+            color: var(--ink);
+            font-size: 13.5px;
+            outline: none;
+        }
+
+        .search input:focus {
+            border-color: var(--ink);
+        }
+
+        .search input::placeholder {
+            color: var(--faint);
+        }
+
+        .tabs {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+
+        .tab {
+            display: inline-flex;
+            align-items: baseline;
+            gap: 7px;
+            padding: 9px 15px;
+            border: 1px solid transparent;
+            border-radius: 999px;
+            background: transparent;
+            font-size: 12.5px;
+            font-weight: 500;
+            color: var(--muted);
+            transition: .2s;
+        }
+
+        .tab:hover {
+            background: var(--bg-2);
+            color: var(--ink);
+        }
+
+        .tab.active {
+            background: var(--ink);
+            border-color: var(--ink);
+            color: #fff;
+        }
+
+        .tab .n {
+            font-size: 10px;
+            opacity: .6;
+        }
+
+        .currency {
+            display: flex;
+            margin-left: auto;
+            border: 1px solid var(--line-2);
+            border-radius: 999px;
+            overflow: hidden;
+            background: var(--card);
+        }
+
+        .currency button {
+            background: transparent;
+            border: 0;
+            padding: 9px 14px;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--muted);
+        }
+
+        .currency button.active {
+            background: var(--ink);
+            color: #fff;
+        }
+
+        /* ============ WALL ============ */
+        .section {
+            padding: 54px 0 0;
+        }
+
+        .sec-head {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            gap: 24px;
+            margin-bottom: 26px;
+            flex-wrap: wrap;
+        }
+
+        .sec-head h3 {
+            margin: 10px 0 0;
+            font-family: var(--disp);
+            font-weight: 600;
+            font-size: clamp(28px, 3.6vw, 42px);
+            line-height: 1;
+            letter-spacing: -.03em;
+        }
+
+        .sec-head p {
+            margin: 0;
+            max-width: 42ch;
+            color: var(--muted);
+            font-size: 13.5px;
+        }
+
+        .wall {
+            columns: 3;
+            column-gap: 22px;
+        }
+
+        .card {
+            break-inside: avoid;
+            margin: 0 0 22px;
+            background: var(--card);
+            border: 1px solid var(--line);
+            transition: border-color .2s;
+        }
+
+        .card:hover {
+            border-color: var(--line-2);
+        }
+
+        .card-img {
+            position: relative;
+            overflow: hidden;
+            background: var(--bg-2);
+            cursor: zoom-in;
+        }
+
+        .card-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform .9s;
+        }
+
+        .card:hover .card-img img {
+            transform: scale(1.035);
+        }
+
+        .badges {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            display: flex;
+            gap: 6px;
+            z-index: 3;
+        }
+
+        .b {
+            display: inline-flex;
+            align-items: center;
+            padding: 4px 9px;
+            font-size: 9.5px;
+            font-weight: 600;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+            background: rgba(255, 255, 255, .94);
+            color: var(--ink);
+            backdrop-filter: blur(6px);
+        }
+
+        .b.sale {
+            background: var(--acc);
+            color: #fff;
+        }
+
+        .b.sold {
+            background: rgba(16, 16, 16, .88);
+            color: #fff;
+        }
+
+        .phcount {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            background: rgba(16, 16, 16, .82);
+            color: #fff;
+            font-size: 9.5px;
+            letter-spacing: .08em;
+            padding: 4px 8px;
+        }
+
+        .hovercue {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(16, 16, 16, .28);
+            opacity: 0;
+            transition: opacity .25s;
+            color: #fff;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: .16em;
+            text-transform: uppercase;
+        }
+
+        .card:hover .hovercue {
+            opacity: 1;
+        }
+
+        .card-body {
+            padding: 15px 16px 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 9px;
+        }
+
+        .meta-row {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            flex-wrap: wrap;
+            font-size: 10.5px;
+            font-weight: 500;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+            color: var(--faint);
+        }
+
+        .meta-row .sep {
+            width: 3px;
+            height: 3px;
+            background: var(--line-2);
+            border-radius: 50%;
+        }
+
+        .card-body h4 {
+            margin: 0;
+            font-family: var(--disp);
+            font-weight: 500;
+            font-size: 16.5px;
+            line-height: 1.28;
+            letter-spacing: -.01em;
+        }
+
+        .card-foot {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            margin-top: 2px;
+            padding-top: 12px;
+            border-top: 1px solid var(--line);
+        }
+
+        .price {
+            font-family: var(--disp);
+            font-size: 19px;
+            font-weight: 600;
+            letter-spacing: -.02em;
+            line-height: 1;
+        }
+
+        .price s {
+            font-size: 12px;
+            font-weight: 400;
+            color: var(--faint);
+            margin-right: 7px;
+        }
+
+        .acts {
+            display: flex;
+            gap: 5px;
+        }
+
+        .mini {
+            width: 32px;
+            height: 32px;
+            display: grid;
+            place-items: center;
+            border: 1px solid var(--line-2);
+            background: transparent;
+            border-radius: 50%;
+            color: var(--ink-2);
+            transition: .2s;
+        }
+
+        .mini svg {
+            width: 14px;
+            height: 14px;
+        }
+
+        .mini:hover {
+            background: var(--ink);
+            border-color: var(--ink);
+            color: #fff;
+        }
+
+        .mini.buy {
+            border-color: var(--green);
+            color: var(--green);
+        }
+
+        .mini.buy:hover {
+            background: var(--green);
+            border-color: var(--green);
+            color: #fff;
+        }
+
+        .empty {
+            padding: 70px 0;
+            text-align: center;
+            color: var(--muted);
+            font-size: 13px;
+            letter-spacing: .08em;
+            text-transform: uppercase;
+        }
+
+        /* ============ SPOTLIGHT ============ */
+        .spot {
+            margin-top: 64px;
+            background: var(--dark);
+            color: #f3efe7;
+        }
+
+        .spot .wrap {
+            display: grid;
+            grid-template-columns: 1.02fr .98fr;
+            gap: 46px;
+            align-items: center;
+            padding-top: 46px;
+            padding-bottom: 46px;
+        }
+
+        .spot .ph {
+            aspect-ratio: 16/11;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, .14);
+        }
+
+        .spot .ph img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .spot h3 {
+            margin: 12px 0 10px;
+            font-family: var(--disp);
+            font-weight: 500;
+            font-size: clamp(28px, 3.6vw, 44px);
+            line-height: 1.02;
+            letter-spacing: -.03em;
+        }
+
+        .spot p {
+            margin: 0 0 20px;
+            color: #aca69c;
+            font-size: 14.5px;
+            max-width: 48ch;
+        }
+
+        .spot .row {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            flex-wrap: wrap;
+        }
+
+        .spot .price {
+            color: #fff;
+            font-size: 26px;
+        }
+
+        .spot .eyebrow {
+            color: #ff7a5c;
+        }
+
+        .spot .eyebrow::before {
+            background: #ff7a5c;
+        }
+
+        .spot .btn.solid {
+            background: #fff;
+            border-color: #fff;
+            color: var(--ink);
+        }
+
+        .spot .btn.ghost {
+            border-color: rgba(255, 255, 255, .3);
+            color: #fff;
+        }
+
+        /* ============ ANNOUNCE ============ */
+        .announce {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 26px;
+            align-items: center;
+            padding: 30px 32px;
+            background: var(--card);
+            border: 1px solid var(--line-2);
+            border-left: 4px solid var(--acc);
+        }
+
+        .announce h4 {
+            margin: 9px 0 6px;
+            font-family: var(--disp);
+            font-weight: 500;
+            font-size: 23px;
+            letter-spacing: -.02em;
+        }
+
+        .announce p {
+            margin: 0;
+            color: var(--muted);
+            font-size: 13.5px;
+            max-width: 62ch;
+        }
+
+        .dots {
+            display: flex;
+            gap: 6px;
+            margin-top: 15px;
+        }
+
+        .dots i {
+            width: 20px;
+            height: 3px;
+            background: var(--line-2);
+            display: block;
+            cursor: pointer;
+        }
+
+        .dots i.on {
+            background: var(--acc);
+        }
+
+        /* ============ JOURNAL ============ */
+        .posts {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 22px;
+        }
+
+        .post {
+            background: var(--card);
+            border: 1px solid var(--line);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .post .thumb {
+            aspect-ratio: 16/10;
+            overflow: hidden;
+            background: var(--bg-2);
+            border-bottom: 1px solid var(--line);
+        }
+
+        .post .thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform .8s;
+        }
+
+        .post:hover .thumb img {
+            transform: scale(1.04);
+        }
+
+        .post .body {
+            padding: 18px 18px 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 9px;
+            flex: 1;
+        }
+
+        .post h4 {
+            margin: 0;
+            font-family: var(--disp);
+            font-weight: 500;
+            font-size: 18px;
+            line-height: 1.24;
+            letter-spacing: -.01em;
+        }
+
+        .post h4 a:hover {
+            color: var(--acc);
+        }
+
+        .post p {
+            margin: 0 0 6px;
+            color: var(--muted);
+            font-size: 13px;
+            flex: 1;
+        }
+
+        .link-arrow {
+            font-size: 11.5px;
+            font-weight: 600;
+            letter-spacing: .06em;
+            text-transform: uppercase;
+            color: var(--acc);
+        }
+
+        .link-arrow:hover {
+            text-decoration: underline;
+        }
+
+        /* ============ BAND ============ */
+        .band {
+            margin-top: 62px;
+            padding: 58px 40px;
+            text-align: center;
+            background: var(--bg-2);
+            border: 1px solid var(--line);
+        }
+
+        .band h3 {
+            margin: 12px 0 12px;
+            font-family: var(--disp);
+            font-weight: 600;
+            font-size: clamp(30px, 4.4vw, 52px);
+            line-height: .98;
+            letter-spacing: -.04em;
+        }
+
+        .band p {
+            margin: 0 auto 26px;
+            max-width: 56ch;
+            color: var(--muted);
+        }
+
+        .band .row {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        /* ============ FOOTER ============ */
+        footer {
+            margin-top: 66px;
+            border-top: 1px solid var(--line);
+            padding: 46px 0 28px;
+        }
+
+        .foot-grid {
+            display: grid;
+            grid-template-columns: 1.7fr 1fr 1fr 1fr;
+            gap: 34px;
+        }
+
+        .foot-grid h6 {
+            margin: 0 0 14px;
+            font-size: 10.5px;
+            font-weight: 600;
+            letter-spacing: .16em;
+            text-transform: uppercase;
+            color: var(--faint);
+        }
+
+        .foot-grid ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            font-size: 13.5px;
+            color: var(--muted);
+        }
+
+        .foot-grid li {
+            margin-bottom: 8px;
+        }
+
+        .foot-grid a:hover {
+            color: var(--acc);
+        }
+
+        .foot-note {
+            display: flex;
+            justify-content: space-between;
+            gap: 16px;
+            flex-wrap: wrap;
+            margin-top: 38px;
+            padding-top: 20px;
+            border-top: 1px solid var(--line);
+            font-size: 11px;
+            letter-spacing: .06em;
+            color: var(--faint);
+            text-transform: uppercase;
+        }
+
+        /* ============ LIGHTBOX ============ */
+        .lightbox {
+            position: fixed;
+            inset: 0;
+            z-index: 2000;
+            display: none;
+            flex-direction: column;
+            background: rgba(10, 10, 10, .97);
+            color: #f2eee6;
+        }
+
+        .lightbox.open {
+            display: flex;
+        }
+
+        .lb-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 24px;
+            border-bottom: 1px solid rgba(255, 255, 255, .12);
+            font-size: 10.5px;
+            letter-spacing: .16em;
+            text-transform: uppercase;
+            color: rgba(242, 238, 230, .7);
+        }
+
+        .lb-stage {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 18px;
+            padding: 20px;
+            min-height: 0;
+        }
+
+        .lb-stage img {
+            max-width: min(90vw, 1150px);
+            max-height: 74vh;
+            object-fit: contain;
+        }
+
+        .lb-nav {
+            width: 46px;
+            height: 46px;
+            flex: 0 0 auto;
+            display: grid;
+            place-items: center;
+            border: 1px solid rgba(255, 255, 255, .24);
+            background: transparent;
+            color: #fff;
+            border-radius: 50%;
+        }
+
+        .lb-nav:hover {
+            background: rgba(255, 255, 255, .14);
+        }
+
+        .lb-foot {
+            padding: 16px 26px 26px;
+            border-top: 1px solid rgba(255, 255, 255, .12);
+            text-align: center;
+        }
+
+        .lb-foot strong {
+            font-family: var(--disp);
+            font-weight: 500;
+            font-size: 19px;
+        }
+
+        /* ============ MODALS ============ */
+        .modal {
+            position: fixed;
+            inset: 0;
+            z-index: 2100;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            background: rgba(16, 16, 16, .55);
+            backdrop-filter: blur(5px);
+        }
+
+        .modal.open {
+            display: flex;
+        }
+
+        .modal-card {
+            position: relative;
+            width: 100%;
+            max-width: 560px;
+            max-height: 86vh;
+            overflow-y: auto;
+            background: var(--card);
+            padding: 34px 32px 30px;
+            border-radius: 4px;
+        }
+
+        .modal-card h3 {
+            margin: 10px 0 10px;
+            font-family: var(--disp);
+            font-weight: 600;
+            font-size: 27px;
+            letter-spacing: -.02em;
+        }
+
+        .modal-card h4 {
+            margin: 20px 0 4px;
+            font-size: 10.5px;
+            font-weight: 600;
+            letter-spacing: .14em;
+            text-transform: uppercase;
+            color: var(--acc);
+        }
+
+        .modal-card p {
+            margin: 0 0 8px;
+            color: var(--muted);
+            font-size: 13.5px;
+        }
+
+        .modal-card .x {
+            position: absolute;
+            top: 12px;
+            right: 14px;
+            width: 34px;
+            height: 34px;
+            border: 1px solid var(--line);
+            background: transparent;
+            border-radius: 50%;
+            color: var(--muted);
+            font-size: 20px;
+            line-height: 1;
+            display: grid;
+            place-items: center;
+        }
+
+        .modal-card .x:hover {
+            border-color: var(--ink);
+            color: var(--ink);
+        }
+
+        .mtabs {
+            display: flex;
+            gap: 4px;
+            margin: 20px 0 16px;
+            border-bottom: 1px solid var(--line);
+        }
+
+        .mtab {
+            background: none;
+            border: 0;
+            border-bottom: 2px solid transparent;
+            padding: 9px 13px;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: .08em;
+            text-transform: uppercase;
+            color: var(--muted);
+        }
+
+        .mtab.active {
+            color: var(--ink);
+            border-color: var(--acc);
+        }
+
+        .mtabpane {
+            display: none;
+        }
+
+        .mtabpane.active {
+            display: block;
+        }
+
+        .qr {
+            width: 190px;
+            height: 190px;
+            object-fit: contain;
+            border: 1px solid var(--line);
+            background: #fff;
+            margin: 6px auto;
+        }
+
+        .upi {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            font-size: 13px;
+            color: var(--ink);
+        }
+
+        .totop {
+            position: fixed;
+            right: 22px;
+            bottom: 22px;
+            z-index: 950;
+            width: 44px;
+            height: 44px;
+            display: grid;
+            place-items: center;
+            border: 1px solid var(--line-2);
+            border-radius: 50%;
+            background: var(--card);
+            color: var(--ink);
+            box-shadow: 0 8px 26px rgba(16, 16, 16, .14);
+            opacity: 0;
+            pointer-events: none;
+            transform: translateY(8px);
+            transition: .25s;
+        }
+
+        .totop.show {
+            opacity: 1;
+            pointer-events: auto;
+            transform: none;
+        }
+
+        .totop:hover {
+            background: var(--ink);
+            color: #fff;
+            border-color: var(--ink);
+        }
+
+        /* ============ RESPONSIVE ============ */
+        @media (max-width: 1080px) {
+            .mainnav {
+                display: none;
+            }
+
+            .wall {
+                columns: 2;
+            }
+
+            .posts {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .hero-grid {
+                gap: 34px;
+            }
+        }
+
+        @media (max-width: 860px) {
+            .hero-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .hero {
+                padding: 40px 0 40px;
+            }
+
+            .stack {
+                max-width: 460px;
+            }
+
+            .spot .wrap {
+                grid-template-columns: 1fr;
+                gap: 28px;
+            }
+
+            .foot-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 26px;
+            }
+
+            .filters {
+                top: 60px;
+            }
+
+            .nav-row {
+                height: 60px;
+            }
+
+            .mast-social {
+                display: none;
+            }
+
+            .announce {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .wrap {
+                padding: 0 16px;
+            }
+
+            .hero h2 {
+                font-size: 44px;
+            }
+
+            .hero-meta {
+                gap: 20px;
+            }
+
+            .wall {
+                columns: 2;
+                column-gap: 12px;
+            }
+
+            .card {
+                margin-bottom: 12px;
+            }
+
+            .card-body {
+                padding: 11px 11px 12px;
+                gap: 6px;
+            }
+
+            .card-body h4 {
+                font-size: 14px;
+            }
+
+            .meta-row {
+                font-size: 9px;
+                gap: 5px;
+            }
+
+            .card-foot {
+                flex-wrap: wrap;
+                row-gap: 7px;
+            }
+
+            .price {
+                font-size: 15px;
+                white-space: nowrap;
+            }
+
+            .acts {
+                margin-left: auto;
+            }
+
+            .mini {
+                width: 30px;
+                height: 30px;
+            }
+
+            .posts {
+                grid-template-columns: 1fr;
+            }
+
+            .search {
+                flex: 1 1 100%;
+                max-width: none;
+                order: -1;
+            }
+
+            .tabs {
+                flex: 1 1 auto;
+                min-width: 0;
+                overflow-x: auto;
+                flex-wrap: nowrap;
+                scrollbar-width: none;
+            }
+
+            .tabs::-webkit-scrollbar {
+                display: none;
+            }
+
+            .tab {
+                flex: 0 0 auto;
+                padding: 8px 12px;
+            }
+
+            .currency {
+                margin-left: 0;
+                flex: 0 0 auto;
+            }
+
+            .stack .small {
+                left: -12px;
+                width: 40%;
+                border-width: 5px;
+            }
+
+            .stack .tag {
+                right: 0;
+            }
+
+            .band {
+                padding: 40px 20px;
+            }
+
+            .foot-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .tools {
+                gap: 0;
+                overflow-x: auto;
+                scrollbar-width: none;
+            }
+
+            .tools::-webkit-scrollbar {
+                display: none;
+            }
+
+            .tool {
+                width: 33px;
+                height: 33px;
+                flex: 0 0 auto;
+            }
+
+            .btn.wa {
+                padding: 0 10px;
+                font-size: 0;
+                gap: 0;
+                flex: 0 0 auto;
+            }
+
+            .brand img {
+                width: 30px;
+                height: 30px;
+            }
+
+            .brand h1 {
+                font-size: 15px;
+            }
+
+            .lb-nav {
+                width: 36px;
+                height: 36px;
+            }
+
+            .lb-stage img {
+                max-height: 62vh;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ============ TICKER ============ -->
+    <div class="ticker">
+        <div class="ticker-track">
+            <span><b>Free tracked shipping</b> on 37 lots</span>
+            <span><b>Authenticated</b> — every item inspected</span>
+            <span><b>Est. 2017</b> — 9 years of curation</span>
+            <span><b>WhatsApp ordering</b> — +31 6 3346 7712</span>
+            <span><b>Worldwide dispatch</b> from the Netherlands</span>
+            <span><b>48-hour</b> satisfaction guarantee</span>
+            <span><b>Free tracked shipping</b> on 37 lots</span>
+            <span><b>Authenticated</b> — every item inspected</span>
+            <span><b>Est. 2017</b> — 9 years of curation</span>
+            <span><b>WhatsApp ordering</b> — +31 6 3346 7712</span>
+            <span><b>Worldwide dispatch</b> from the Netherlands</span>
+            <span><b>48-hour</b> satisfaction guarantee</span>
+        </div>
+    </div>
+
+    <!-- ============ NAV ============ -->
+    <header class="topnav">
+        <div class="wrap nav-row">
+            <a class="brand" href="#top">
+                <img src="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/logo.jpg" alt="Philately World">
+                <h1>Philately World</h1>
+            </a>
+
+            <nav class="mainnav">
+                <a href="#catalogue">Gallery</a>
+                <a href="#journal">Journal</a>
+                <a href="#announcements">News</a>
+                <a href="AlbumDesigner/auto-album.html">Album Designer</a>
+                <a href="giveaway.html">Giveaway</a>
+            </nav>
+
+            <div class="tools">
+                <button class="tool" id="supportBtn" title="Support us" aria-label="Support">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
+                        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+                    </svg>
+                </button>
+                <button class="tool" id="announceBtn" title="News" aria-label="News">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
+                        <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
+                        <path d="M13.73 21a2 2 0 0 1-3.46 0" />
+                    </svg>
+                    <span class="dot">1</span>
+                </button>
+                <button class="tool" id="saleBtn" title="On sale" aria-label="On sale">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
+                        <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z" />
+                        <line x1="7" y1="7" x2="7.01" y2="7" />
+                    </svg>
+                    <span class="dot" id="saleDot">5</span>
+                </button>
+                <button class="tool" id="blogBtn" title="Journal" aria-label="Journal">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                        <polyline points="14 2 14 8 20 8" />
+                        <line x1="16" y1="13" x2="8" y2="13" />
+                    </svg>
+                    <span class="dot" id="blogDot">6</span>
+                </button>
+                <a class="tool mast-social" href="https://www.instagram.com/philatelyworld10" target="_blank" rel="noopener" title="Instagram" aria-label="Instagram">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
+                        <rect x="2" y="2" width="20" height="20" rx="5" />
+                        <circle cx="12" cy="12" r="4" />
+                        <circle cx="17.5" cy="6.5" r="1" fill="currentColor" />
+                    </svg>
+                </a>
+                <a class="btn wa" href="https://wa.me/31633467712" target="_blank" rel="noopener">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2z" />
+                    </svg>
+                    Chat
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- ============ HERO ============ -->
+    <section class="hero" id="top">
+        <div class="wrap hero-grid">
+            <div>
+                <span class="eyebrow">The gallery · 2026</span>
+                <h2>Stamps.<br>But seen as <em>art.</em></h2>
+                <p class="lede">A visual gallery of rare stamps, albums and postal history — photographed in full,
+                    authenticated by hand, and shipped worldwide from the Netherlands.</p>
+                <div class="hero-cta">
+                    <a class="btn solid" href="#catalogue">Enter the gallery</a>
+                    <a class="btn ghost" href="#journal">Read the journal</a>
+                </div>
+                <div class="hero-meta">
+                    <div><b>143</b><span>Pieces</span></div>
+                    <div><b>40+</b><span>Countries</span></div>
+                    <div><b>9 yrs</b><span>Curating</span></div>
+                    <div><b>100%</b><span>Guaranteed</span></div>
+                </div>
+            </div>
+
+            <div class="stack">
+                <span class="tag">Lot of the month</span>
+                <div class="big">
+                    <img src="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/D139/1.jpg" alt="French territories large stamp collection">
+                </div>
+                <div class="small">
+                    <img src="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/D24/1.jpg" alt="Red Cross thematic collection">
+                </div>
+                <span class="cap">RN4198 · French territories · 13 albums</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ FILTERS ============ -->
+    <div class="filters" id="catalogue">
+        <div class="wrap">
+            <div class="search">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="11" cy="11" r="8" />
+                    <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                </svg>
+                <input type="search" id="q" placeholder="Search the gallery">
+            </div>
+
+            <div class="tabs" id="tabs">
+                <button class="tab active" data-tab="available">Available <span class="n" id="nAvail">0</span></button>
+                <button class="tab" data-tab="all">All <span class="n" id="nAll">0</span></button>
+                <button class="tab" data-tab="sold">Sold <span class="n" id="nSold">0</span></button>
+                <button class="tab" data-tab="sale">On sale <span class="n" id="nSale">0</span></button>
+                <button class="tab" data-tab="blog">Journal <span class="n" id="nBlog">0</span></button>
+            </div>
+
+            <div class="currency" id="currency">
+                <button class="active" data-cur="INR">₹ INR</button>
+                <button data-cur="EUR">€ EUR</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============ WALL ============ -->
+    <section class="section" id="gridSection">
+        <div class="wrap">
+            <div class="sec-head">
+                <div>
+                    <span class="eyebrow">On the wall</span>
+                    <h3 id="gridTitle">Available now</h3>
+                </div>
+                <p><b id="shown">0</b> pieces · tap any image to open the viewer. <span id="fxNote"></span></p>
+            </div>
+            <div class="wall" id="grid"></div>
+        </div>
+    </section>
+
+    <!-- ============ JOURNAL ============ -->
+    <section class="section" id="journal" style="display:none">
+        <div class="wrap">
+            <div class="sec-head">
+                <div>
+                    <span class="eyebrow">The journal</span>
+                    <h3>Stories from the gallery</h3>
+                </div>
+                <p><b id="postCount">0</b> articles on stamp issues, postal history and collecting.</p>
+            </div>
+            <div class="posts" id="posts"></div>
+        </div>
+    </section>
+
+    <!-- ============ SPOTLIGHT ============ -->
+    <section class="spot">
+        <div class="wrap">
+            <div class="ph">
+                <img src="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/D139/1.jpg" alt="French territories collection">
+            </div>
+            <div>
+                <span class="eyebrow">Featured acquisition</span>
+                <h3>The French Territories Collection</h3>
+                <p>Thirteen Leuchtturm binders, countries A–Z, shipped in two boxes. The largest single lot in the
+                    gallery — photographed plate by plate.</p>
+                <div class="row">
+                    <div class="price">₹287,000</div>
+                    <a class="btn solid" href="https://wa.me/31633467712?text=Hi%20Philately%20World%2C%20I%27m%20interested%20in%20RN4198" target="_blank" rel="noopener">Enquire</a>
+                    <button class="btn ghost" onclick="share('https://philatelyworld.in/item/RN4198/')">Share</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ ANNOUNCE ============ -->
+    <section class="section" id="announcements">
+        <div class="wrap">
+            <div class="announce" id="announceBox">
+                <div>
+                    <span class="eyebrow">Latest news</span>
+                    <h4 id="annTitle">Philately Forward — FEPA's €1,000 Competition</h4>
+                    <p id="annText">FEPA invites new collectors to enter its €1,000 prize competition. Entries open to collectors under 30 across Europe — a great way to start collecting with us as your guide.</p>
+                    <div class="dots" id="annDots"></div>
+                </div>
+                <div style="display:flex;gap:10px;flex-wrap:wrap">
+                    <a class="btn solid" href="all_announcements.html">All news</a>
+                    <a class="btn ghost" href="announcement/7.html">Read</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ BAND ============ -->
+    <section class="section">
+        <div class="wrap">
+            <div class="band">
+                <span class="eyebrow">Start collecting</span>
+                <h3>Tell us what you love.</h3>
+                <p>Countries, themes, decades — send us a note on WhatsApp and we will photograph a shortlist from the gallery, including pieces not yet listed publicly.</p>
+                <div class="row">
+                    <a class="btn solid" href="https://wa.me/31633467712" target="_blank" rel="noopener">Chat with a curator</a>
+                    <a class="btn ghost" href="AlbumDesigner/auto-album.html">Album Designer</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ FOOTER ============ -->
+    <footer>
+        <div class="wrap">
+            <div class="foot-grid">
+                <div>
+                    <a class="brand" href="#top" style="margin-bottom:14px">
+                        <img src="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/logo.jpg" alt="Philately World">
+                        <h1>Philately World</h1>
+                    </a>
+                    <p style="color:var(--muted);max-width:42ch;font-size:13.5px;margin:0">A curated philatelic gallery from the Netherlands — authenticated rare stamps, First Day Covers and postal history, shipped worldwide.</p>
+                </div>
+                <div>
+                    <h6>Gallery</h6>
+                    <ul>
+                        <li><a href="#catalogue">All pieces</a></li>
+                        <li><a href="#catalogue" data-jump="available">Available now</a></li>
+                        <li><a href="#catalogue" data-jump="sale">On sale</a></li>
+                        <li><a href="#catalogue" data-jump="sold">Recently sold</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h6>Resources</h6>
+                    <ul>
+                        <li><a href="#journal">The journal</a></li>
+                        <li><a href="all_announcements.html">Announcements</a></li>
+                        <li><a href="AlbumDesigner/auto-album.html">Album Designer</a></li>
+                        <li><a href="giveaway.html">25 First-Class Finds</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h6>Company</h6>
+                    <ul>
+                        <li><a href="#" id="securityLink">Security &amp; Guarantee</a></li>
+                        <li><a href="#" id="privacyLink">Privacy Policy</a></li>
+                        <li><a href="#" id="supportLink2">Support us</a></li>
+                        <li><a href="https://wa.me/31633467712" target="_blank" rel="noopener">+31 6 3346 7712</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="foot-note">
+                <span>© 2017–2026 Philately World Gallery — All rights reserved</span>
+                <span>Instagram @philatelyworld10 · Facebook /PhilatelyWorld</span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ============ LIGHTBOX ============ -->
+    <div class="lightbox" id="lightbox">
+        <div class="lb-top">
+            <span id="lbId">RN0000</span>
+            <button class="x" id="lbClose" style="background:none;border:0;color:inherit;font-size:24px">×</button>
+        </div>
+        <div class="lb-stage">
+            <button class="lb-nav prev" id="lbPrev" aria-label="Previous">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="15 18 9 12 15 6" />
+                </svg>
+            </button>
+            <img id="lbImg" alt="">
+            <button class="lb-nav next" id="lbNext" aria-label="Next">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="9 18 15 12 9 6" />
+                </svg>
+            </button>
+        </div>
+        <div class="lb-foot">
+            <strong id="lbTitle"></strong>
+            <div id="lbCaption" style="font-size:10px;letter-spacing:.14em;margin-top:6px"></div>
+        </div>
+    </div>
+
+    <!-- ============ MODALS ============ -->
+    <div class="modal" id="supportModal">
+        <div class="modal-card">
+            <button class="x" data-close>&times;</button>
+            <span class="eyebrow">Support the gallery</span>
+            <h3>Support Philately World</h3>
+            <p>Contributions keep authentication free and photography honest.</p>
+            <div class="mtabs">
+                <button class="mtab active" data-mtab="upi">Domestic (UPI)</button>
+                <button class="mtab" data-mtab="paypal">International (PayPal)</button>
+            </div>
+            <div class="mtabpane active" data-mpane="upi">
+                <img class="qr" src="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/BHIM.jpg" alt="BHIM UPI QR code">
+                <div class="upi">
+                    <span>9900416731@upi</span>
+                    <button class="btn" id="upiCopy" style="padding:7px 14px">Copy</button>
+                </div>
+            </div>
+            <div class="mtabpane" data-mpane="paypal">
+                <img class="qr" src="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/paypal.jpg" alt="PayPal QR code">
+                <p style="text-align:center">Scan to contribute via PayPal.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="securityModal">
+        <div class="modal-card">
+            <button class="x" data-close>&times;</button>
+            <span class="eyebrow">Last updated March 2026</span>
+            <h3>Security &amp; Guarantee</h3>
+            <h4>1. Expert authentication</h4>
+            <p>Every item is meticulously inspected and authenticated. We guarantee the description and condition as listed.</p>
+            <h4>2. Secure payments</h4>
+            <p>We utilise BHIM UPI and direct bank transfers. No sensitive financial data is stored.</p>
+            <h4>3. Global shipping protection</h4>
+            <p>All shipments are expertly packed to prevent damage. Free letter-post worldwide is offered on selected items. During transit the buyer bears loss or damage unless sent by registered mail.</p>
+            <h4>4. Satisfaction guarantee</h4>
+            <p>If you are not satisfied, contact us on WhatsApp at +31 633467712 within 48 hours of receipt. There is a 100% guarantee on your purchase.</p>
+        </div>
+    </div>
+
+    <div class="modal" id="privacyModal">
+        <div class="modal-card">
+            <button class="x" data-close>&times;</button>
+            <span class="eyebrow">Last updated March 2026</span>
+            <h3>Privacy Policy</h3>
+            <h4>1. Information we collect</h4>
+            <p>Details you provide directly via WhatsApp or BHIM UPI for order fulfilment. We also use Google Analytics and GoatCounter for anonymous browsing data.</p>
+            <h4>2. Use of data</h4>
+            <p>Used solely to process stamp orders, provide customer support and improve the website.</p>
+            <h4>3. Third-party services</h4>
+            <p>Google Analytics and GoatCounter are used for traffic analysis and may set cookies. We do not sell your personal data.</p>
+            <h4>4. Your rights (GDPR)</h4>
+            <p>As a Europe-based service we honour the right to access, correct or delete your data. Contact +31 633467712 for any privacy request.</p>
+        </div>
+    </div>
+
+    <button class="totop" id="toTop" aria-label="Back to top">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="18 15 12 9 6 15" />
+        </svg>
+    </button>
+
+    <script>
+        const BASE = "https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images";
+
+        const STAMPS = [
+            { id: 'RN4198', n: 'French territories large stamp collection in 13 albums', c: 'French territories', y: 'various', p: 287000, f: 'D139', ic: 69, ft: 1, fl: 0, so: 0 },
+            { id: 'RN4201', n: 'Albania and a.o. North Ingria and Georgia stamp collection in stockbook; CV more than € 5500', c: 'Albania, North Ingria and Georgia', y: 'various', p: 69000, f: 'D142', ic: 32, ft: 1, fl: 0, so: 0 },
+            { id: 'RN4200', n: '2 albums of Russia (1954-1965) & (1965-1976)', c: 'Russia', y: '1954-1976', p: 40000, f: 'D141', ic: 60, ft: 1, fl: 0, so: 0 },
+            { id: 'RN4199', n: 'India (part of Commonwealth and old states) stamp collection in album', c: 'India', y: 'various', p: 27000, f: 'D140', ic: 34, ft: 1, fl: 0, so: 0 },
+            { id: 'RN4197', n: 'Ukraine cover and postal item collection in 2 albums', c: 'Ukraine', y: '1992-1994', p: 18500, f: 'D138', ic: 42, ft: 1, fl: 0, so: 0 },
+            { id: 'RN4196', n: 'Europa MNH stamp collection in stockbook; Catalogue Value € 1400', c: 'Europe', y: '1900-1945', p: 9999, f: 'D137', ic: 18, ft: 1, fl: 0, so: 0 },
+            { id: 'RN4195', n: 'Germany states, Reich etc. stamp collection in binder', c: 'Germany', y: '1900-1945', p: 24500, f: 'D136', ic: 47, ft: 1, fl: 0, so: 0 },
+            { id: 'RN4194', n: 'Fundgrube box: Excellent sorting-box stamps, part of chaotic estate', c: 'worldwide', y: 'various', p: 25000, f: 'D135', ic: 4, ft: 1, fl: 0, so: 0 },
+            { id: 'RN4072', n: 'Complete set of 11 MS from India 2025', c: 'India', y: '2025', p: 2150, f: 'D7', ic: 7, ft: 1, fl: 1, so: 0 },
+            { id: 'RN4102', n: 'Classic German Reich and DDR used/MH stamp collection', c: 'German Reich', y: '1900+', p: 12500, f: 'D34', ic: 48, ft: 1, fl: 0, so: 0 },
+            { id: 'RN4103', n: 'Buzin birds collection from Belgium', c: 'Belgium', y: '1980+', p: 899, f: 'D38', ic: 2, ft: 0, fl: 1, so: 0, blog: 'blog/buzin.html' },
+            { id: 'RN4099', n: 'Thick stockbook with stamp collection Spain. Old classic high CV.', c: 'Spain', y: '1900+', p: 9999, f: 'D32', ic: 29, ft: 0, fl: 1, so: 0 },
+            { id: 'RN4100', n: 'Collection of 360 Mint stamps from GB in Stockbook', c: 'GB', y: '1900-2000', p: 14400, sp: 8999, f: 'D102', ic: 24, ft: 1, fl: 0, so: 0 },
+            { id: 'RN4080', n: 'German Reich set of 28 stamps', c: 'German Reich', y: '1941-1944', p: 3080, sp: 2080, f: 'D81', ic: 1, ft: 0, fl: 1, so: 0 },
+            { id: 'RN4076', n: 'Small box with about 350 FDC covers — United Nations', c: 'United Nations', y: '2026', p: 21000, sp: 17800, f: 'D74', ic: 6, ft: 1, fl: 0, so: 0 },
+            { id: 'RN4137', n: 'Europa CEPT 1956-1969 large stamp collection in album', c: 'Various Countries', y: '1956-1969', p: 22499, sp: 18500, f: 'D109', ic: 37, ft: 1, fl: 0, so: 1 },
+            { id: 'RN4132', n: 'Dutch Antilles and Aruba lot 450 FDC covers', c: 'Dutch Antilles and Aruba', y: '1990+', p: 29250, sp: 23999, f: 'D104', ic: 6, ft: 1, fl: 0, so: 1 },
+            { id: 'RN4089', n: 'Huge lot: Extensive mint and used thematic Red Cross stamp collection 1917-1980', c: 'Worldwide', y: '1917-1980', p: 243000, f: 'D24', ic: 487, ft: 1, fl: 0, so: 1, blog: 'blog/redcross.html' },
+            { id: 'RN4088', n: 'Europa CEPT 1956-2000', c: 'Europa', y: '1956-2000', p: 98000, f: 'D23', ic: 363, ft: 1, fl: 0, so: 1, blog: 'blog/europa_cept.html' },
+            { id: 'RN4129', n: 'MNH stamps from Germany', c: 'Germany', y: '1987,88,89', p: 1300, f: 'D130', ic: 3, ft: 0, fl: 0, so: 1 },
+            { id: 'RN4116', n: 'Czechoslovakia 1918-1992 stamp collection in album', c: 'Czechoslovakia', y: 'various', p: 28999, f: 'D116', ic: 84, ft: 1, fl: 0, so: 1 },
+            { id: 'RN4115', n: 'Netherlands lot 500 FDC covers', c: 'Netherlands', y: '1960+', p: 19999, f: 'D115', ic: 4, ft: 0, fl: 1, so: 1 },
+            { id: 'RN4114', n: 'Germany DDR 1948-1990 overcomplete collection in 2 albums', c: 'Germany', y: '1948-1990', p: 41999, f: 'D114', ic: 59, ft: 1, fl: 0, so: 1 },
+            { id: 'RN4138', n: '70 Years of Diplomatic Ties: Lao PDR & India Joint Issue', c: 'Lao PDR & India', y: '2026', p: 1750, f: 'JointIssue', ic: 3, ft: 0, fl: 1, so: 1, blog: 'blog/lao-india-joint-issue-2026.html' }
+        ];
+
+        const POSTS = [
+            { n: 'Canada 2026 Truth and Reconciliation Stamps: T-Shirt Shaped Orange Shirt Issue', c: 'Canada', y: '2026', d: 'Canada Post issues four self-adhesive T-shirt shaped stamps for Truth and Reconciliation — orange shirts honouring Survivors, First Nations, Inuit and Métis communities, and Mother Earth.', u: 'blog/canada-2026-truth-reconciliation-tshirt-stamps.html', i: 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi_VHve2fFvcGOiesy9a08d7MbXUYKXlErWjCfWZi-Jqr0_w19-T2joAcEIQ0UaXxmb4PTFtx-zv6vNlsrAp9f8Ae3834h5soWqIBYQ8AR7VeOO7a-TndIxFTIlau39ZPG8t9Sqt8da-5Di3jQB_4g3y2qW8jjXkUhfqczoJD8idzKEohthrxbtiXoVOKyH/w640-h416/canada%202026.jpg' },
+            { n: 'Shaun the Sheep Glow Stamp from Swiss Post', c: 'Switzerland', y: '2026', d: 'Swiss Post celebrates Shaun the Sheep with a glow-in-the-dark stamp, printed with luminous ink on a dark background that reveals the character in low light.', u: 'blog/switzerland-2026-shaun-the-sheep-glow-stamp.html', i: 'https://apis.shop.post.ch/medias/sys_master/images/h56/hd9/11277789495326/380Wx380H_Default-WorkingFormat_886533/380Wx380H-Default-WorkingFormat-886533.png' },
+            { n: 'Postzegel met Goud — Delfts Blauw 2026: The 24-Carat Gold Delft Blue Stamp', c: 'Netherlands', y: '2026', d: 'PostNL issues a genuine gold Delft Blue stamp — the first Dutch stamp to carry real 24-carat gold, a fitting tribute to the Delftware tradition.', u: 'blog/delfts-blauw-gold-stamp.html', i: 'https://shop.postnl.nl/_next/image?url=https%3A%2F%2Fshop.postnl.nl%2Fpub%2Fmedia%2Fcatalog%2Fproduct%2F1%2F7%2F1790578273_delfts-blauw-gouden-postzegel.jpg&w=1080&q=75' },
+            { n: 'EUROPA Stamps 70th Anniversary 2026: Klaus Welp’s Common Design', c: 'Europe', y: '2026', d: 'Seventy years of the EUROPA stamp programme, marked with a common design by Swiss artist Klaus Welp — 55 photographs in our feature.', u: 'blog/europa-70-years-2026.html', i: 'https://europastamps.eu/img/Product_Image_67826a8b-d1d1-452a-9899-a9b7c1a226fc.jpg' },
+            { n: 'Deltawerken — Nederland en het water: PostNL Delta Works Stamp Sheet 2026', c: 'Netherlands', y: '2026', d: 'The Netherlands and water: PostNL honours the Delta Works with a stamp sheet celebrating the engineering that keeps the country dry.', u: 'blog/deltawerken-stamp-sheet.html', i: 'https://shop.postnl.nl/_next/image?url=https%3A%2F%2Fshop.postnl.nl%2Fpub%2Fmedia%2Fcatalog%2Fproduct%2F1%2F7%2F1790937527_deltawerken-postzegelvel-2026.jpg&w=1080&q=75' },
+            { n: 'Flag Stamps: Learn the Flags of the World (Free Game)', c: 'World', y: '2026', d: 'A free browser game that helps you learn the flags of the world — with a stamp-sheet twist for practising recall.', u: 'blog/flag-stamps-learn-flags.html', i: 'https://flagcdn.com/w640/in.png' }
+        ];
+
+        const ANNOUNCEMENTS = [
+            { t: "Philately Forward — FEPA's €1,000 Competition", d: 'FEPA invites new collectors to enter its €1,000 prize competition. Entries are open to collectors under 30 across Europe — a great way to start collecting with us as your guide.', u: 'announcement/7.html' },
+            { t: 'New arrivals: 12 lots added this week', d: 'Twelve fresh lots have landed in the gallery, including French territories, Ukraine covers and a 487-photograph Red Cross collection.', u: 'announcement/6.html' },
+            { t: 'Album Designer 2.0 — 25 fonts, HEIC import, A4 PDF export', d: 'The free stamp-album tool now supports HEIC photos, twenty-five typographic styles, grayscale conversion and print-ready A4 PDF output — all inside your browser.', u: 'announcement/5.html' },
+            { t: 'Giveaway: 25 First-Class Finds packs', d: 'Twenty-five numbered packs of 50+ vintage stamps with a certificate of authenticity and free shipping — claim yours on WhatsApp or Instagram.', u: 'announcement/4.html' }
+        ];
+
+        const state = { currency: 'INR', tab: 'available', q: '', eurRate: 0.00935, lb: { i: 1, n: 1, id: null } };
+        const $ = s => document.querySelector(s);
+        const $$ = s => Array.from(document.querySelectorAll(s));
+        const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+
+        const money = v => state.currency === 'INR'
+            ? '₹' + v.toLocaleString('en-IN')
+            : '€' + Math.round(v * state.eurRate).toLocaleString('en-IN');
+
+        const imgFor = (s, i) => `${BASE}/${s.f}/${i}.jpg`;
+        const pageUrl = s => `https://philatelyworld.in/item/${s.id}/`;
+        const waLink = s => `https://wa.me/31633467712?text=${encodeURIComponent('Hi Philately World, I am interested in ' + s.id + ' ' + s.n + ' ' + pageUrl(s))}`;
+
+        function counts() {
+            $('#nAll').textContent = STAMPS.length;
+            $('#nAvail').textContent = STAMPS.filter(s => !s.so).length;
+            $('#nSold').textContent = STAMPS.filter(s => s.so).length;
+            $('#nSale').textContent = STAMPS.filter(s => s.sp).length;
+            $('#nBlog').textContent = POSTS.length;
+            $('#saleDot').textContent = STAMPS.filter(s => s.sp).length;
+            $('#blogDot').textContent = POSTS.length;
+        }
+
+        function filtered() {
+            let list = STAMPS.slice();
+            if (state.tab === 'available') list = list.filter(s => !s.so);
+            if (state.tab === 'sold') list = list.filter(s => s.so);
+            if (state.tab === 'sale') list = list.filter(s => s.sp);
+            const q = state.q.trim().toLowerCase();
+            if (q) list = list.filter(s => (s.n + ' ' + s.c + ' ' + s.y + ' ' + s.id).toLowerCase().includes(q));
+            return list;
+        }
+
+        const ratios = ['4/5', '1/1', '3/4', '1/1', '4/5', '5/6', '1/1', '4/5'];
+
+        function cardHtml(s, idx) {
+            const badges = s.so
+                ? '<span class="b sold">Sold</span>'
+                : (s.sp ? '<span class="b sale">On sale</span>' : '');
+            const price = s.sp ? `<s>${money(s.p)}</s>${money(s.sp)}` : money(s.p);
+            const buy = s.so
+                ? '<span class="mini" style="opacity:.4;cursor:default" title="Sold">×</span>'
+                : `<a class="mini buy" href="${waLink(s)}" target="_blank" rel="noopener" title="Buy on WhatsApp">
+                     <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2z"/></svg></a>`;
+
+            return `<article class="card ${s.so ? 'is-sold' : ''}" data-id="${s.id}" style="${s.so ? 'opacity:.82' : ''}">
+                <div class="card-img" data-open="${s.id}" style="aspect-ratio:${ratios[idx % ratios.length]}">
+                    <img src="${imgFor(s, 1)}" alt="${esc(s.n)}" loading="lazy" decoding="async">
+                    <div class="badges">${badges}</div>
+                    ${s.ic > 1 ? `<span class="phcount">${s.ic} photos</span>` : ''}
+                    <div class="hovercue">Open viewer</div>
+                </div>
+                <div class="card-body">
+                    <div class="meta-row"><span>${esc(s.id)}</span><i class="sep"></i><span>${esc(s.c)}</span><i class="sep"></i><span>${esc(s.y)}</span></div>
+                    <h4>${esc(s.n)}</h4>
+                    <div class="card-foot">
+                        <div class="price">${price}</div>
+                        <div class="acts">
+                            ${buy}
+                            <button class="mini" data-share="${s.id}" title="Share" aria-label="Share">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12v7a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-7"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </article>`;
+        }
+
+        function render() {
+            const isBlog = state.tab === 'blog';
+            $('#journal').style.display = isBlog ? '' : 'none';
+            $('#gridSection').style.display = isBlog ? 'none' : '';
+
+            if (isBlog) {
+                const q = state.q.trim().toLowerCase();
+                const list = POSTS.filter(p => !q || (p.n + ' ' + p.c + ' ' + p.d).toLowerCase().includes(q));
+                $('#postCount').textContent = list.length;
+                $('#shown').textContent = list.length;
+                $('#posts').innerHTML = list.length ? list.map(p => `<article class="post">
+                    <a class="thumb" href="${p.u}"><img src="${p.i}" alt="${esc(p.n)}" loading="lazy"></a>
+                    <div class="body">
+                        <div class="meta-row"><span>${esc(p.c)}</span><i class="sep"></i><span>${esc(p.y)}</span></div>
+                        <h4><a href="${p.u}">${esc(p.n)}</a></h4>
+                        <p>${esc(p.d)}</p>
+                        <a class="link-arrow" href="${p.u}">Read →</a>
+                    </div>
+                </article>`).join('') : '<div class="empty">No articles found.</div>';
+                return;
+            }
+
+            const list = filtered();
+            $('#shown').textContent = list.length;
+            $('#gridTitle').textContent = {
+                available: 'Available now', all: 'The full gallery', sold: 'Recently sold', sale: 'On sale now', blog: 'The journal'
+            }[state.tab];
+            $('#grid').innerHTML = list.length ? list.map(cardHtml).join('') : '<div class="empty">Nothing matches that search.</div>';
+
+            const want = new URLSearchParams(location.search).get('item');
+            if (want) {
+                const el = document.querySelector(`.card[data-id="${want}"]`);
+                if (el) {
+                    el.style.outline = '2px solid var(--acc)';
+                    el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
+            }
+        }
+
+        function reprice() {
+            $$('[data-price]').forEach(el => { el.textContent = money(+el.dataset.price); });
+            render();
+        }
+
+        $('#q').addEventListener('input', e => {
+            state.q = e.target.value;
+            const u = new URL(location.href);
+            state.q ? u.searchParams.set('q', state.q) : u.searchParams.delete('q');
+            history.replaceState(null, '', u);
+            render();
+        });
+        $('#q').addEventListener('change', e => {
+            if (e.target.value !== state.q) { state.q = e.target.value; render(); }
+        });
+
+        $$('#tabs .tab').forEach(t => t.addEventListener('click', () => {
+            $$('#tabs .tab').forEach(x => x.classList.remove('active'));
+            t.classList.add('active');
+            state.tab = t.dataset.tab;
+            if (state.tab !== 'sale') $('#saleBtn').classList.remove('on');
+            const u = new URL(location.href);
+            u.searchParams.set('tab', state.tab);
+            history.replaceState(null, '', u);
+            render();
+        }));
+
+        $$('#currency button').forEach(b => b.addEventListener('click', () => {
+            $$('#currency button').forEach(x => x.classList.remove('active'));
+            b.classList.add('active');
+            state.currency = b.dataset.cur;
+            reprice();
+        }));
+
+        $('#saleBtn').addEventListener('click', () => {
+            const btn = $('#saleBtn');
+            const on = !btn.classList.contains('on');
+            btn.classList.toggle('on', on);
+            state.tab = on ? 'sale' : 'available';
+            $$('#tabs .tab').forEach(x => x.classList.toggle('active', x.dataset.tab === state.tab));
+            render();
+        });
+
+        $('#blogBtn').addEventListener('click', () => {
+            $('#tabs .tab[data-tab="blog"]').click();
+            $('#journal').scrollIntoView({ behavior: 'smooth' });
+        });
+
+        $('#announceBtn').addEventListener('click', () => $('#announcements').scrollIntoView({ behavior: 'smooth' }));
+
+        $('#grid').addEventListener('click', e => {
+            const open = e.target.closest('[data-open]');
+            if (open) return openLightbox(open.dataset.open);
+            const sh = e.target.closest('[data-share]');
+            if (sh) return share(pageUrl(STAMPS.find(x => x.id === sh.dataset.share)), sh);
+        });
+
+        window.share = function (url, btn) {
+            const done = () => {
+                if (!btn) return;
+                const old = btn.innerHTML;
+                btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>';
+                setTimeout(() => { btn.innerHTML = old; }, 1600);
+            };
+            if (navigator.share) navigator.share({ title: 'Philately World', url }).then(done).catch(() => { });
+            else navigator.clipboard?.writeText(url).then(done).catch(() => { });
+        };
+
+        function openLightbox(id) {
+            const s = STAMPS.find(x => x.id === id);
+            if (!s) return;
+            state.lb.i = 1; state.lb.n = s.ic || 1; state.lb.id = id;
+            $('#lbId').textContent = id + ' · ' + (s.c || '');
+            $('#lbTitle').textContent = s.n;
+            $('#lbNext').style.display = state.lb.n > 1 ? '' : 'none';
+            $('#lbPrev').style.display = state.lb.n > 1 ? '' : 'none';
+            paintLb(s);
+            $('#lightbox').classList.add('open');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function paintLb(s) {
+            $('#lbImg').src = imgFor(s, state.lb.i);
+            $('#lbImg').alt = `${s.n} — Photo ${state.lb.i}`;
+            $('#lbCaption').textContent = `${state.lb.i} / ${state.lb.n}`;
+        }
+
+        function step(d) {
+            const s = STAMPS.find(x => x.id === state.lb.id);
+            state.lb.i += d;
+            if (state.lb.i > state.lb.n) state.lb.i = 1;
+            if (state.lb.i < 1) state.lb.i = state.lb.n;
+            paintLb(s);
+        }
+
+        $('#lbNext').addEventListener('click', () => step(1));
+        $('#lbPrev').addEventListener('click', () => step(-1));
+        $('#lbClose').addEventListener('click', closeLb);
+        $('#lightbox').addEventListener('click', e => { if (e.target.id === 'lightbox') closeLb(); });
+
+        function closeLb() {
+            $('#lightbox').classList.remove('open');
+            document.body.style.overflow = '';
+        }
+
+        document.addEventListener('keydown', e => {
+            if (e.key === 'Escape') {
+                closeLb();
+                $$('.modal.open').forEach(m => m.classList.remove('open'));
+            }
+            if ($('#lightbox').classList.contains('open')) {
+                if (e.key === 'ArrowRight') step(1);
+                if (e.key === 'ArrowLeft') step(-1);
+            }
+        });
+
+        function openModal(id) { $(id).classList.add('open'); document.body.style.overflow = 'hidden'; }
+        function closeModal(m) { m.classList.remove('open'); document.body.style.overflow = ''; }
+
+        $('#supportBtn').addEventListener('click', () => openModal('#supportModal'));
+        $('#supportLink2').addEventListener('click', e => { e.preventDefault(); openModal('#supportModal'); });
+        $('#securityLink').addEventListener('click', e => { e.preventDefault(); openModal('#securityModal'); });
+        $('#privacyLink').addEventListener('click', e => { e.preventDefault(); openModal('#privacyModal'); });
+
+        $$('.modal').forEach(m => {
+            m.addEventListener('click', e => { if (e.target === m) closeModal(m); });
+            m.querySelector('[data-close]').addEventListener('click', () => closeModal(m));
+        });
+
+        $$('.mtab').forEach(t => t.addEventListener('click', () => {
+            $$('.mtab').forEach(x => x.classList.remove('active'));
+            $$('.mtabpane').forEach(x => x.classList.remove('active'));
+            t.classList.add('active');
+            $(`[data-mpane="${t.dataset.mtab}"]`).classList.add('active');
+        }));
+
+        $('#upiCopy').addEventListener('click', () => {
+            navigator.clipboard?.writeText('9900416731@upi');
+            $('#upiCopy').textContent = 'Copied';
+            setTimeout(() => $('#upiCopy').textContent = 'Copy', 1600);
+        });
+
+        let annIdx = 0;
+        function paintAnn() {
+            const a = ANNOUNCEMENTS[annIdx];
+            $('#annTitle').textContent = a.t;
+            $('#annText').textContent = a.d;
+            $('#annDots').innerHTML = ANNOUNCEMENTS.map((_, i) => `<i class="${i === annIdx ? 'on' : ''}" data-i="${i}"></i>`).join('');
+        }
+        $('#annDots').addEventListener('click', e => {
+            const i = e.target.getAttribute('data-i');
+            if (i != null) { annIdx = +i; paintAnn(); }
+        });
+        setInterval(() => { annIdx = (annIdx + 1) % ANNOUNCEMENTS.length; paintAnn(); }, 7000);
+        paintAnn();
+
+        const toTop = $('#toTop');
+        window.addEventListener('scroll', () => toTop.classList.toggle('show', window.scrollY > 400));
+        toTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+        async function loadFx() {
+            try {
+                const r = await fetch('https://open.er-api.com/v6/latest/EUR');
+                const j = await r.json();
+                const inr = j.rates.INR;
+                state.eurRate = 1 / (inr * 1.02);
+                $('#fxNote').textContent = '· live rate ' + new Date().toLocaleDateString('en-GB');
+            } catch (err) {
+                $('#fxNote').textContent = '· cached rate';
+            }
+            reprice();
+        }
+
+        counts();
+        const params = new URLSearchParams(location.search);
+        if (params.get('q')) { state.q = params.get('q'); $('#q').value = state.q; }
+        if (params.get('tab')) {
+            const t = $('#tabs .tab[data-tab="' + params.get('tab') + '"]');
+            if (t) t.click();
+        }
+        render();
+        loadFx();
+
+        $$('[data-jump]').forEach(a => a.addEventListener('click', () => {
+            const t = $('#tabs .tab[data-tab="' + a.dataset.jump + '"]');
+            if (t) t.click();
+        }));
+    </script>
+</body>
+
+</html>
