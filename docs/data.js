@@ -1,6 +1,17 @@
 // 1. STAMP DATABASE
 const stamps = [
     {
+        name: "India (part of Commonwealth and old states) stamp collection in album",
+        country: "India",
+        year: "<b>Year</b>: various",
+        priceINR: 27000,
+        isSoldOut: false,
+        freeTrackedShipping: true,
+        freeLetterPostShipping: false,
+        folder: "D140",
+        imageCount: 34,
+        desc: "RN4199: <b>India (part of Commonwealth and old states) stamp collection in album</b>. About 550 stamps old India and states. Check the photos to see a small part, but there is a lot more than you can see here. Album for free."
+    }, {
         name: "French territories large stamp collection in 13 albums",
         country: "French territories",
         year: "<b>Year</b>: various",
