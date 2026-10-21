@@ -1,6 +1,17 @@
 // 1. STAMP DATABASE
 const stamps = [
     {
+        name: "Albania and a.o. North Ingria and Georgia stamp collection in stockbook; CV more than € 5500",
+        country: "Albania, North Ingria and Georgia",
+        year: "<b>Year</b>: various",
+        priceINR: 69000,
+        isSoldOut: false,
+        freeTrackedShipping: true,
+        freeLetterPostShipping: false,
+        folder: "D142",
+        imageCount: 32,
+        desc: "RN4201: Stockbook with stamp collection Albania and some various. Former ower counted about € 5500 catalogue value.Check the photos.What you see is what you get."
+    }, {
         name: "2 albums of Russia (1954-1965) & (1965-1976)",
         country: "Russia",
         year: "<b>Year</b>: 1954-1976",
