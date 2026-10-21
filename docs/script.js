@@ -809,7 +809,16 @@ function renderGallery(data) {
             const card = grid.querySelector('.stamp-card');
             if (!card) return;
             card.classList.add('focused');
-            try { card.scrollIntoView({ behavior: 'smooth', block: 'center' }); } catch (e) { card.scrollIntoView(); }
+            // Align the top of the card below the sticky header instead of
+            // centering it, so the top of the card is always visible.
+            const header = document.querySelector('header');
+            const offset = (header ? header.offsetHeight : 0) + 16;
+            const top = card.getBoundingClientRect().top + window.pageYOffset - offset;
+            try {
+                window.scrollTo({ top: Math.max(top, 0), behavior: 'smooth' });
+            } catch (e) {
+                window.scrollTo(0, Math.max(top, 0));
+            }
         });
     }
 }
