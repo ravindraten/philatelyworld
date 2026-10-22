@@ -1,6 +1,17 @@
 // 1. STAMP DATABASE
 const stamps = [
     {
+        name: "Collection of postal stationery from Indian States 1891-1947",
+        country: "India",
+        year: "<b>Year</b>: 1891-1947",
+        priceINR: 126500,
+        isSoldOut: false,
+        freeTrackedShipping: true,
+        freeLetterPostShipping: false,
+        folder: "D144",
+        imageCount: 84,
+        desc: "RN4203: Collection of postal stationery from Indian States 1891-1947 (mainly Jaipur and Gwalior), in which beautiful postmarks, destinations, additional frankigs, etc. in 2 albums with descriptions."
+    }, {
         name: "245 different stamps from Germany Bundespost",
         country: "Germany Bundespost",
         year: "<b>Year</b>: various",
