@@ -1,0 +1,2371 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Philately World — The Post Office</title>
+    <meta name="description" content="Stamps, covers and collections dispatched from Utrecht. Authenticated, weighed, postmarked and sent worldwide.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Courier+Prime:wght@400;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --kraft: #e7dcc4;
+            --kraft-2: #f2ebda;
+            --card: #fbf7ec;
+            --ink: #241f19;
+            --ink-2: #3d362c;
+            --muted: #5c5345;
+            --faint: #6b6253;
+            --line: #d6c9ae;
+            --line-2: #bcaa88;
+            --red: #ad2a23;
+            --blue: #1f4a7a;
+            --green: #2f6b4f;
+            --wa: #1d7a4d;
+            --sans: 'Archivo', system-ui, -apple-system, sans-serif;
+            --body: 'Inter', system-ui, -apple-system, sans-serif;
+            --mono: 'Courier Prime', ui-monospace, monospace;
+            --wrap: 1280px;
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            -webkit-text-size-adjust: 100%;
+        }
+
+        body {
+            margin: 0;
+            background: var(--kraft);
+            color: var(--ink);
+            font-family: var(--body);
+            font-size: 15px;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+
+        img {
+            display: block;
+            max-width: 100%;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        button {
+            font: inherit;
+            cursor: pointer;
+            color: inherit;
+        }
+
+        .wrap {
+            max-width: var(--wrap);
+            margin: 0 auto;
+            padding: 0 28px;
+        }
+
+        .eyebrow {
+            display: inline-block;
+            font-family: var(--mono);
+            font-size: 11px;
+            letter-spacing: .18em;
+            text-transform: uppercase;
+            color: var(--red);
+        }
+
+        .airmail {
+            height: 9px;
+            background: repeating-linear-gradient(-45deg,
+                    var(--red) 0 12px, transparent 12px 24px,
+                    var(--blue) 24px 36px, transparent 36px 48px);
+            border-top: 1px solid var(--line-2);
+            border-bottom: 1px solid var(--line-2);
+        }
+
+        /* ============ TOPBAR ============ */
+        .topbar {
+            background: var(--ink);
+            color: #ded4be;
+            font-family: var(--mono);
+            font-size: 10px;
+            letter-spacing: .14em;
+            text-transform: uppercase;
+        }
+
+        .topbar .wrap {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            height: 32px;
+        }
+
+        .topbar b {
+            color: #f5eddb;
+            font-weight: 700;
+        }
+
+        .topbar .r {
+            display: flex;
+            gap: 22px;
+        }
+
+        .topbar a:hover {
+            color: #fff;
+        }
+
+        /* ============ MASTHEAD ============ */
+        .masthead {
+            position: sticky;
+            top: 0;
+            z-index: 900;
+            background: rgba(231, 220, 196, .95);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--line-2);
+        }
+
+        .mast-row {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            height: 74px;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            min-width: 0;
+        }
+
+        .brand-mark {
+            width: 42px;
+            height: 42px;
+            flex: 0 0 auto;
+            border: 1px dashed var(--line-2);
+            padding: 3px;
+            background: var(--card);
+        }
+
+        .brand-mark img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .brand-text h1 {
+            margin: 0;
+            font-family: var(--sans);
+            font-size: 21px;
+            font-weight: 700;
+            line-height: 1;
+            letter-spacing: -.02em;
+        }
+
+        .brand-text p {
+            margin: 4px 0 0;
+            font-family: var(--mono);
+            font-size: 10px;
+            letter-spacing: .14em;
+            text-transform: uppercase;
+            color: var(--red);
+        }
+
+        .mainnav {
+            display: flex;
+            gap: 18px;
+            margin-left: 14px;
+            font-family: var(--mono);
+            font-size: 10.5px;
+            letter-spacing: .08em;
+            text-transform: uppercase;
+            color: var(--ink-2);
+        }
+
+        .mainnav a {
+            padding: 6px 0;
+            border-bottom: 1px solid transparent;
+        }
+
+        .mainnav a:hover {
+            border-color: var(--red);
+            color: var(--red);
+        }
+
+        .tools {
+            display: flex;
+            align-items: center;
+            gap: 3px;
+            margin-left: auto;
+            min-width: 0;
+        }
+
+        .tool {
+            position: relative;
+            width: 35px;
+            height: 35px;
+            display: grid;
+            place-items: center;
+            background: transparent;
+            border: 1px solid transparent;
+            border-radius: 2px;
+            color: var(--ink-2);
+            transition: .18s;
+        }
+
+        .tool svg {
+            width: 17px;
+            height: 17px;
+        }
+
+        .tool:hover {
+            border-color: var(--line-2);
+            background: var(--card);
+            color: var(--red);
+        }
+
+        .tool .dot {
+            position: absolute;
+            top: 0;
+            right: 0;
+            min-width: 16px;
+            height: 16px;
+            padding: 0 4px;
+            border-radius: 2px;
+            background: var(--red);
+            color: #fff;
+            font-family: var(--mono);
+            font-size: 9.5px;
+            font-weight: 700;
+            display: grid;
+            place-items: center;
+            border: 2px solid var(--kraft);
+        }
+
+        .tool.on {
+            background: var(--red);
+            border-color: var(--red);
+            color: #fff;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 10px 18px;
+            border: 1px solid var(--ink);
+            border-radius: 2px;
+            background: transparent;
+            color: var(--ink);
+            font-family: var(--mono);
+            font-size: 10.5px;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+            transition: .18s;
+            white-space: nowrap;
+        }
+
+        .btn:hover {
+            background: var(--ink);
+            color: var(--kraft);
+        }
+
+        .btn.solid {
+            background: var(--red);
+            border-color: var(--red);
+            color: #fff;
+        }
+
+        .btn.solid:hover {
+            background: #8f211b;
+        }
+
+        .btn.blue {
+            background: var(--blue);
+            border-color: var(--blue);
+            color: #fff;
+        }
+
+        .btn.blue:hover {
+            background: #173a61;
+        }
+
+        .btn.wa {
+            background: var(--wa);
+            border-color: var(--wa);
+            color: #fff;
+        }
+
+        .btn.wa:hover {
+            color: #fff;
+            filter: brightness(1.08);
+        }
+
+        .mast-social {
+            display: grid;
+        }
+
+        /* ============ HERO ============ */
+        .hero {
+            border-bottom: 1px solid var(--line-2);
+            padding: 36px 0 34px;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1.08fr .92fr;
+            gap: 44px;
+            align-items: center;
+        }
+
+        .hero h2 {
+            margin: 12px 0 0;
+            font-family: var(--sans);
+            font-weight: 700;
+            font-size: clamp(38px, 5.4vw, 68px);
+            line-height: 1;
+            letter-spacing: -.035em;
+        }
+
+        .hero h2 em {
+            font-style: normal;
+            color: var(--red);
+        }
+
+        .hero .lede {
+            margin: 18px 0 0;
+            max-width: 50ch;
+            color: var(--ink-2);
+            font-size: 16px;
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 24px;
+        }
+
+        .parcel {
+            position: relative;
+            background:
+                linear-gradient(180deg, rgba(255, 255, 255, .35), transparent 40%),
+                var(--card);
+            border: 1px solid var(--line-2);
+            padding: 18px;
+            box-shadow: 7px 7px 0 rgba(36, 31, 25, .07);
+            transform: rotate(-1.1deg);
+        }
+
+        .parcel::before {
+            content: "";
+            position: absolute;
+            inset: 7px;
+            border: 1px dashed var(--line);
+            pointer-events: none;
+        }
+
+        .parcel .label {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            font-family: var(--mono);
+            font-size: 10px;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+            color: var(--muted);
+            border-bottom: 1px solid var(--line);
+            padding-bottom: 7px;
+            flex-wrap: wrap;
+        }
+
+        .parcel .label b {
+            color: var(--ink);
+        }
+
+        .parcel .card-img {
+            aspect-ratio: 16/10;
+            margin: 12px 0;
+            border: 1px solid var(--line);
+        }
+
+        .parcel h3 {
+            margin: 0;
+            font-family: var(--sans);
+            font-size: 20px;
+            font-weight: 600;
+            line-height: 1.25;
+        }
+
+        .parcel .to {
+            display: flex;
+            justify-content: space-between;
+            gap: 14px;
+            align-items: flex-end;
+            flex-wrap: wrap;
+            margin-top: 12px;
+            padding-top: 11px;
+            border-top: 1px solid var(--line);
+        }
+
+        .parcel .to .price {
+            font-size: 18px;
+        }
+
+        .postmark {
+            position: absolute;
+            top: 54%;
+            right: 12px;
+            width: 106px;
+            height: 106px;
+            border: 2px solid rgba(31, 74, 122, .5);
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            text-align: center;
+            color: #1f4a7a;
+            font-family: var(--mono);
+            font-size: 8.5px;
+            letter-spacing: .12em;
+            text-transform: uppercase;
+            line-height: 1.5;
+            transform: rotate(13deg);
+            pointer-events: none;
+            background: rgba(251, 247, 236, .72);
+        }
+
+        .postmark::before {
+            content: "";
+            position: absolute;
+            inset: 7px;
+            border: 1px solid rgba(31, 74, 122, .35);
+            border-radius: 50%;
+        }
+
+        .postmark b {
+            display: block;
+            font-size: 12px;
+            letter-spacing: .16em;
+        }
+
+        /* ============ DISPATCH BOARD ============ */
+        .board {
+            background: var(--kraft-2);
+            border-bottom: 1px solid var(--line);
+        }
+
+        .board .wrap {
+            display: grid;
+            grid-template-columns: 180px 1fr;
+            gap: 22px;
+            align-items: center;
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
+
+        .board .tag {
+            font-family: var(--mono);
+            font-size: 10px;
+            letter-spacing: .16em;
+            text-transform: uppercase;
+            color: var(--muted);
+            border-right: 1px solid var(--line-2);
+        }
+
+        .board .tag b {
+            display: block;
+            color: var(--ink);
+            font-size: 11px;
+        }
+
+        .steps {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .step {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            border: 1px solid var(--line-2);
+            background: var(--card);
+            padding: 5px 10px;
+            font-family: var(--mono);
+            font-size: 10px;
+            letter-spacing: .06em;
+            text-transform: uppercase;
+            color: var(--ink-2);
+        }
+
+        .step i {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: var(--green);
+            display: block;
+        }
+
+        .step.air i {
+            background: var(--blue);
+        }
+
+        .step.reg i {
+            background: var(--red);
+        }
+
+        /* ============ TOOLBAR ============ */
+        .toolbar {
+            position: sticky;
+            top: 74px;
+            z-index: 800;
+            background: rgba(231, 220, 196, .97);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--line-2);
+        }
+
+        .toolbar .wrap {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding-top: 11px;
+            padding-bottom: 11px;
+            flex-wrap: wrap;
+        }
+
+        .search {
+            position: relative;
+            flex: 1 1 250px;
+            max-width: 350px;
+        }
+
+        .search svg {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 15px;
+            height: 15px;
+            color: var(--faint);
+        }
+
+        .search input {
+            width: 100%;
+            padding: 9px 12px 9px 35px;
+            border: 1px solid var(--line-2);
+            border-radius: 2px;
+            background: var(--card);
+            color: var(--ink);
+            font-family: var(--body);
+            font-size: 13px;
+            outline: none;
+        }
+
+        .search input:focus {
+            border-color: var(--blue);
+        }
+
+        .search input::placeholder {
+            color: var(--faint);
+        }
+
+        .tabs {
+            display: flex;
+            gap: 2px;
+            flex-wrap: wrap;
+        }
+
+        .tab {
+            background: transparent;
+            border: 1px solid transparent;
+            border-radius: 2px;
+            padding: 7px 11px;
+            font-family: var(--mono);
+            font-size: 10px;
+            letter-spacing: .06em;
+            text-transform: uppercase;
+            color: var(--muted);
+            display: inline-flex;
+            align-items: baseline;
+            gap: 6px;
+            transition: .18s;
+        }
+
+        .tab:hover {
+            background: var(--kraft-2);
+            color: var(--ink);
+        }
+
+        .tab.active {
+            background: var(--card);
+            border-color: var(--red);
+            color: var(--red);
+        }
+
+        .tab .n {
+            font-size: 9.5px;
+            opacity: .7;
+        }
+
+        .currency {
+            margin-left: auto;
+            display: flex;
+            border: 1px solid var(--line-2);
+            border-radius: 2px;
+            overflow: hidden;
+            background: var(--card);
+        }
+
+        .currency button {
+            background: transparent;
+            border: 0;
+            padding: 8px 11px;
+            font-family: var(--mono);
+            font-size: 10px;
+            color: var(--muted);
+        }
+
+        .currency button.active {
+            background: var(--ink);
+            color: var(--kraft);
+        }
+
+        /* ============ SECTION ============ */
+        .section {
+            padding: 38px 0 0;
+        }
+
+        .sec-head {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            gap: 22px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .sec-head h3 {
+            margin: 8px 0 0;
+            font-family: var(--sans);
+            font-weight: 700;
+            font-size: clamp(28px, 3.4vw, 40px);
+            line-height: 1;
+            letter-spacing: -.03em;
+        }
+
+        .sec-head p {
+            margin: 0;
+            max-width: 46ch;
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+            gap: 22px;
+        }
+
+        .card {
+            background: var(--card);
+            border: 1px solid var(--line-2);
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+            transition: box-shadow .2s, border-color .2s;
+        }
+
+        .card:hover {
+            border-color: var(--ink-2);
+            box-shadow: 5px 5px 0 rgba(36, 31, 25, .06);
+        }
+
+        .card.is-sold {
+            opacity: .78;
+        }
+
+        .card-head {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+            padding: 7px 12px;
+            border-bottom: 1px dashed var(--line-2);
+            font-family: var(--mono);
+            font-size: 9.5px;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+            color: var(--muted);
+        }
+
+        .card-head .no {
+            color: var(--red);
+            font-weight: 700;
+        }
+
+        .card-img {
+            position: relative;
+            aspect-ratio: 4/3;
+            overflow: hidden;
+            background: var(--kraft-2);
+            cursor: zoom-in;
+            border-bottom: 1px solid var(--line);
+        }
+
+        .card-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform .8s;
+        }
+
+        .card:hover .card-img img {
+            transform: scale(1.035);
+        }
+
+        .badges {
+            position: absolute;
+            top: 9px;
+            left: 9px;
+            display: flex;
+            gap: 5px;
+            z-index: 2;
+        }
+
+        .b {
+            display: inline-flex;
+            align-items: center;
+            padding: 3px 8px;
+            font-family: var(--mono);
+            font-size: 9px;
+            letter-spacing: .07em;
+            text-transform: uppercase;
+            background: rgba(251, 247, 236, .96);
+            color: var(--ink);
+            border: 1px solid var(--line-2);
+        }
+
+        .b.sale {
+            background: var(--red);
+            border-color: var(--red);
+            color: #fff;
+        }
+
+        .b.sold {
+            background: var(--ink);
+            border-color: var(--ink);
+            color: var(--kraft);
+        }
+
+        .b.avail {
+            background: rgba(251, 247, 236, .96);
+            color: var(--green);
+            border-color: var(--green);
+        }
+
+        .phcount {
+            position: absolute;
+            bottom: 8px;
+            right: 8px;
+            background: rgba(36, 31, 25, .84);
+            color: var(--kraft);
+            font-family: var(--mono);
+            font-size: 9px;
+            letter-spacing: .05em;
+            padding: 3px 7px;
+        }
+
+        .card-body {
+            padding: 13px 14px 14px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            flex: 1;
+        }
+
+        .labelblock {
+            border: 1px dashed var(--line-2);
+            background: var(--kraft-2);
+            padding: 8px 9px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3px 8px;
+            font-family: var(--mono);
+            font-size: 9.5px;
+            letter-spacing: .04em;
+            text-transform: uppercase;
+            color: var(--muted);
+        }
+
+        .labelblock b {
+            display: block;
+            color: var(--ink);
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: .02em;
+            text-transform: none;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .card-body h4 {
+            margin: 0;
+            font-family: var(--sans);
+            font-weight: 600;
+            font-size: 17px;
+            line-height: 1.3;
+            letter-spacing: -.01em;
+        }
+
+        .card-foot {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            gap: 10px;
+            margin-top: auto;
+            padding-top: 10px;
+            border-top: 1px solid var(--line);
+            flex-wrap: wrap;
+            row-gap: 8px;
+        }
+
+        .price {
+            font-family: var(--mono);
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--ink);
+            white-space: nowrap;
+            line-height: 1.25;
+        }
+
+        .price s {
+            display: block;
+            font-size: 10.5px;
+            font-weight: 400;
+            color: var(--faint);
+        }
+
+        .barcode {
+            height: 18px;
+            margin-top: 5px;
+            width: 92px;
+            background: repeating-linear-gradient(90deg,
+                    var(--ink) 0 1px, transparent 1px 4px,
+                    var(--ink) 4px 5px, transparent 5px 7px,
+                    var(--ink) 7px 10px, transparent 10px 12px);
+            opacity: .62;
+        }
+
+        .acts {
+            display: flex;
+            gap: 5px;
+            margin-left: auto;
+        }
+
+        .mini {
+            width: 31px;
+            height: 31px;
+            display: grid;
+            place-items: center;
+            border: 1px solid var(--line-2);
+            background: transparent;
+            border-radius: 2px;
+            color: var(--ink-2);
+            transition: .18s;
+        }
+
+        .mini svg {
+            width: 13px;
+            height: 13px;
+        }
+
+        .mini:hover {
+            background: var(--ink);
+            border-color: var(--ink);
+            color: #fff;
+        }
+
+        .mini.buy {
+            border-color: var(--wa);
+            color: var(--wa);
+        }
+
+        .mini.buy:hover {
+            background: var(--wa);
+            border-color: var(--wa);
+            color: #fff;
+        }
+
+        .mini:disabled {
+            opacity: .35;
+            cursor: default;
+        }
+
+        .empty {
+            padding: 60px 0;
+            text-align: center;
+            font-family: var(--mono);
+            font-size: 11px;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+            color: var(--muted);
+        }
+
+        /* ============ COUNTER PANELS ============ */
+        .panels {
+            margin-top: 34px;
+            display: grid;
+            grid-template-columns: 1.15fr .85fr;
+            gap: 22px;
+        }
+
+        .panel {
+            background: var(--card);
+            border: 1px solid var(--line-2);
+            padding: 20px 22px;
+        }
+
+        .panel h4 {
+            margin: 0 0 3px;
+            font-family: var(--sans);
+            font-weight: 700;
+            font-size: 20px;
+            letter-spacing: -.02em;
+        }
+
+        .panel > p {
+            margin: 0 0 13px;
+            color: var(--muted);
+            font-size: 12.5px;
+        }
+
+        .key-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 9px 18px;
+        }
+
+        .key-item {
+            display: flex;
+            gap: 9px;
+            align-items: baseline;
+            font-size: 12.5px;
+        }
+
+        .key-item b {
+            font-family: var(--mono);
+            font-size: 10px;
+            color: var(--blue);
+            min-width: 60px;
+        }
+
+        .key-item span {
+            color: var(--muted);
+        }
+
+        .rates {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 12.5px;
+            color: var(--muted);
+        }
+
+        .rates td {
+            padding: 6px 0;
+            border-bottom: 1px dashed var(--line);
+        }
+
+        .rates td:last-child {
+            text-align: right;
+            font-family: var(--mono);
+            font-size: 11px;
+            color: var(--ink);
+            white-space: nowrap;
+        }
+
+        .rates tr:last-child td {
+            border-bottom: 0;
+        }
+
+        /* ============ JOURNAL ============ */
+        .notes {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 22px;
+        }
+
+        .note {
+            background: var(--card);
+            border: 1px solid var(--line-2);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .note .thumb {
+            aspect-ratio: 16/10;
+            overflow: hidden;
+            background: var(--kraft-2);
+            border-bottom: 1px solid var(--line);
+        }
+
+        .note .thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform .8s;
+        }
+
+        .note:hover .thumb img {
+            transform: scale(1.04);
+        }
+
+        .note .body {
+            padding: 15px 16px 17px;
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+            flex: 1;
+        }
+
+        .note h4 {
+            margin: 0;
+            font-family: var(--sans);
+            font-weight: 600;
+            font-size: 18px;
+            line-height: 1.3;
+        }
+
+        .note h4 a:hover {
+            color: var(--red);
+        }
+
+        .note p {
+            margin: 0 0 5px;
+            color: var(--muted);
+            font-size: 12.5px;
+            flex: 1;
+        }
+
+        .note .meta {
+            font-family: var(--mono);
+            font-size: 9.5px;
+            letter-spacing: .08em;
+            text-transform: uppercase;
+            color: var(--faint);
+        }
+
+        .link-arrow {
+            font-family: var(--mono);
+            font-size: 10px;
+            letter-spacing: .08em;
+            text-transform: uppercase;
+            color: var(--red);
+        }
+
+        .link-arrow:hover {
+            text-decoration: underline;
+        }
+
+        /* ============ NOTICE ============ */
+        .notice {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 24px;
+            align-items: center;
+            border: 1px solid var(--line-2);
+            border-left: 5px solid var(--blue);
+            background: var(--card);
+            padding: 22px 26px;
+            margin-top: 36px;
+        }
+
+        .notice h4 {
+            margin: 6px 0 5px;
+            font-family: var(--sans);
+            font-weight: 700;
+            font-size: 21px;
+            letter-spacing: -.02em;
+        }
+
+        .notice p {
+            margin: 0;
+            color: var(--muted);
+            font-size: 13px;
+            max-width: 66ch;
+        }
+
+        .dots {
+            display: flex;
+            gap: 6px;
+            margin-top: 12px;
+        }
+
+        .dots i {
+            width: 18px;
+            height: 3px;
+            background: var(--line-2);
+            display: block;
+            cursor: pointer;
+        }
+
+        .dots i.on {
+            background: var(--blue);
+        }
+
+        .notice .cta {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        /* ============ BAND ============ */
+        .band {
+            margin-top: 36px;
+            padding: 42px 34px;
+            text-align: center;
+            border: 1px solid var(--line-2);
+            background:
+                repeating-linear-gradient(-45deg, rgba(31, 74, 122, .035) 0 14px, transparent 14px 28px),
+                var(--kraft-2);
+        }
+
+        .band h3 {
+            margin: 10px 0;
+            font-family: var(--sans);
+            font-weight: 700;
+            font-size: clamp(27px, 4vw, 44px);
+            line-height: 1.02;
+            letter-spacing: -.03em;
+        }
+
+        .band p {
+            margin: 0 auto 20px;
+            max-width: 56ch;
+            color: var(--muted);
+        }
+
+        .band .row {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        /* ============ FOOTER ============ */
+        footer {
+            margin-top: 48px;
+            border-top: 1px solid var(--line-2);
+            padding: 38px 0 24px;
+            background: var(--kraft-2);
+        }
+
+        .foot-grid {
+            display: grid;
+            grid-template-columns: 1.7fr 1fr 1fr 1fr;
+            gap: 30px;
+        }
+
+        .foot-grid h6 {
+            margin: 0 0 12px;
+            font-family: var(--mono);
+            font-size: 10px;
+            letter-spacing: .14em;
+            text-transform: uppercase;
+            color: var(--red);
+        }
+
+        .foot-grid ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            font-size: 13px;
+            color: var(--muted);
+        }
+
+        .foot-grid li {
+            margin-bottom: 7px;
+        }
+
+        .foot-grid a:hover {
+            color: var(--ink);
+        }
+
+        .foot-note {
+            display: flex;
+            justify-content: space-between;
+            gap: 14px;
+            flex-wrap: wrap;
+            margin-top: 28px;
+            padding-top: 15px;
+            border-top: 1px solid var(--line);
+            font-family: var(--mono);
+            font-size: 9.5px;
+            letter-spacing: .06em;
+            text-transform: uppercase;
+            color: var(--faint);
+        }
+
+        /* ============ LIGHTBOX ============ */
+        .lightbox {
+            position: fixed;
+            inset: 0;
+            z-index: 2000;
+            display: none;
+            flex-direction: column;
+            background: rgba(28, 24, 19, .97);
+            color: #f2ebda;
+        }
+
+        .lightbox.open {
+            display: flex;
+        }
+
+        .lb-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 14px 22px;
+            border-bottom: 1px solid rgba(255, 255, 255, .12);
+            font-family: var(--mono);
+            font-size: 10px;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+            color: rgba(242, 235, 218, .7);
+        }
+
+        .lb-stage {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            padding: 18px;
+            min-height: 0;
+        }
+
+        .lb-stage img {
+            max-width: min(90vw, 1120px);
+            max-height: 74vh;
+            object-fit: contain;
+            border: 1px solid rgba(255, 255, 255, .1);
+        }
+
+        .lb-nav {
+            width: 42px;
+            height: 42px;
+            flex: 0 0 auto;
+            display: grid;
+            place-items: center;
+            border: 1px solid rgba(255, 255, 255, .22);
+            border-radius: 50%;
+            background: transparent;
+            color: #fff;
+        }
+
+        .lb-nav:hover {
+            background: rgba(255, 255, 255, .12);
+        }
+
+        .lb-foot {
+            padding: 14px 24px 22px;
+            border-top: 1px solid rgba(255, 255, 255, .12);
+            text-align: center;
+        }
+
+        .lb-foot strong {
+            font-family: var(--sans);
+            font-weight: 600;
+            font-size: 20px;
+        }
+
+        /* ============ MODALS ============ */
+        .modal {
+            position: fixed;
+            inset: 0;
+            z-index: 2100;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 22px;
+            background: rgba(36, 31, 25, .6);
+            backdrop-filter: blur(4px);
+        }
+
+        .modal.open {
+            display: flex;
+        }
+
+        .modal-card {
+            position: relative;
+            width: 100%;
+            max-width: 560px;
+            max-height: 86vh;
+            overflow-y: auto;
+            background: var(--card);
+            border: 1px solid var(--line-2);
+            border-top: 5px solid var(--red);
+            padding: 30px 30px 26px;
+        }
+
+        .modal-card h3 {
+            margin: 8px 0 8px;
+            font-family: var(--sans);
+            font-weight: 700;
+            font-size: 26px;
+            letter-spacing: -.02em;
+        }
+
+        .modal-card h4 {
+            margin: 18px 0 3px;
+            font-family: var(--mono);
+            font-size: 10px;
+            letter-spacing: .12em;
+            text-transform: uppercase;
+            color: var(--red);
+        }
+
+        .modal-card p {
+            margin: 0 0 7px;
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        .modal-card .x {
+            position: absolute;
+            top: 11px;
+            right: 13px;
+            width: 33px;
+            height: 33px;
+            border: 1px solid var(--line);
+            background: transparent;
+            color: var(--muted);
+            font-size: 19px;
+            line-height: 1;
+            display: grid;
+            place-items: center;
+        }
+
+        .modal-card .x:hover {
+            border-color: var(--red);
+            color: var(--red);
+        }
+
+        .mtabs {
+            display: flex;
+            gap: 3px;
+            margin: 17px 0 15px;
+            border-bottom: 1px solid var(--line);
+        }
+
+        .mtab {
+            background: none;
+            border: 0;
+            border-bottom: 2px solid transparent;
+            padding: 8px 12px;
+            font-family: var(--mono);
+            font-size: 10px;
+            letter-spacing: .06em;
+            text-transform: uppercase;
+            color: var(--muted);
+        }
+
+        .mtab.active {
+            color: var(--red);
+            border-color: var(--red);
+        }
+
+        .mtabpane {
+            display: none;
+        }
+
+        .mtabpane.active {
+            display: block;
+        }
+
+        .qr {
+            width: 180px;
+            height: 180px;
+            object-fit: contain;
+            border: 1px solid var(--line);
+            background: #fff;
+            margin: 6px auto;
+        }
+
+        .upi {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 9px;
+            font-family: var(--mono);
+            font-size: 12px;
+        }
+
+        .totop {
+            position: fixed;
+            right: 18px;
+            bottom: 18px;
+            z-index: 950;
+            width: 40px;
+            height: 40px;
+            display: grid;
+            place-items: center;
+            border: 1px solid var(--line-2);
+            border-radius: 2px;
+            background: var(--card);
+            color: var(--ink);
+            box-shadow: 0 8px 24px rgba(36, 31, 25, .16);
+            opacity: 0;
+            pointer-events: none;
+            transform: translateY(8px);
+            transition: .22s;
+        }
+
+        .totop.show {
+            opacity: 1;
+            pointer-events: auto;
+            transform: none;
+        }
+
+        .totop:hover {
+            background: var(--red);
+            border-color: var(--red);
+            color: #fff;
+        }
+
+        /* ============ RESPONSIVE ============ */
+        @media (max-width: 1100px) {
+            .mainnav {
+                display: none;
+            }
+
+            .notes {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 900px) {
+            .hero-grid {
+                grid-template-columns: 1fr;
+                gap: 28px;
+            }
+
+            .parcel {
+                max-width: 540px;
+                transform: none;
+            }
+
+            .panels {
+                grid-template-columns: 1fr;
+            }
+
+            .toolbar {
+                top: 66px;
+            }
+
+            .mast-row {
+                height: 66px;
+            }
+
+            .brand-text h1 {
+                font-size: 19px;
+            }
+
+            .brand-text p {
+                display: none;
+            }
+
+            .foot-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .mast-social {
+                display: none;
+            }
+
+            .board .wrap {
+                grid-template-columns: 1fr;
+                gap: 8px;
+            }
+
+            .board .tag {
+                border-right: 0;
+                border-bottom: 1px solid var(--line);
+                padding-bottom: 6px;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .wrap {
+                padding: 0 16px;
+            }
+
+            .topbar .r {
+                display: none;
+            }
+
+            .hero {
+                padding: 26px 0 28px;
+            }
+
+            .hero h2 {
+                font-size: 38px;
+            }
+
+            .hero .lede {
+                font-size: 14.5px;
+            }
+
+            .parcel {
+                padding: 12px;
+            }
+
+            .postmark {
+                width: 84px;
+                height: 84px;
+                font-size: 7.5px;
+            }
+
+            .toolbar .wrap {
+                gap: 9px;
+                padding-top: 9px;
+                padding-bottom: 9px;
+            }
+
+            .search {
+                flex: 1 1 100%;
+                max-width: none;
+                order: -1;
+            }
+
+            .tabs {
+                flex: 1 1 auto;
+                min-width: 0;
+                overflow-x: auto;
+                flex-wrap: nowrap;
+                scrollbar-width: none;
+            }
+
+            .tabs::-webkit-scrollbar {
+                display: none;
+            }
+
+            .tab {
+                flex: 0 0 auto;
+                padding: 7px 9px;
+            }
+
+            .currency {
+                margin-left: 0;
+                flex: 0 0 auto;
+            }
+
+            .grid {
+                grid-template-columns: 1fr;
+            }
+
+            .notes {
+                grid-template-columns: 1fr;
+            }
+
+            .key-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .band {
+                padding: 30px 18px;
+            }
+
+            .foot-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .tools {
+                gap: 0;
+                overflow-x: auto;
+                scrollbar-width: none;
+            }
+
+            .tools::-webkit-scrollbar {
+                display: none;
+            }
+
+            .tool {
+                width: 33px;
+                height: 33px;
+                flex: 0 0 auto;
+            }
+
+            .btn.wa {
+                padding: 0 10px;
+                font-size: 0;
+                gap: 0;
+                flex: 0 0 auto;
+            }
+
+            .brand-mark {
+                width: 34px;
+                height: 34px;
+            }
+
+            .brand-text h1 {
+                font-size: 16px;
+            }
+
+            .lb-nav {
+                width: 34px;
+                height: 34px;
+            }
+
+            .lb-stage img {
+                max-height: 62vh;
+            }
+
+            .notice {
+                grid-template-columns: 1fr;
+                gap: 14px;
+                padding: 18px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ============ TOPBAR ============ -->
+    <div class="topbar">
+        <div class="wrap">
+            <span>Post office · <b>Utrecht · Netherlands</b></span>
+            <span class="r">
+                <span>Dispatch worldwide</span>
+                <a href="https://wa.me/31633467712" target="_blank" rel="noopener">+31 6 3346 7712</a>
+            </span>
+        </div>
+    </div>
+
+    <!-- ============ MASTHEAD ============ -->
+    <header class="masthead">
+        <div class="wrap mast-row">
+            <a class="brand" href="#top">
+                <span class="brand-mark">
+                    <img src="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/logo.jpg" alt="Philately World">
+                </span>
+                <span class="brand-text">
+                    <h1>Philately World</h1>
+                    <p>The Post Office · Est. 2017</p>
+                </span>
+            </a>
+
+            <nav class="mainnav">
+                <a href="#catalogue">Counter</a>
+                <a href="#journal">Postal notes</a>
+                <a href="#announcements">Notices</a>
+                <a href="AlbumDesigner/auto-album.html">Album Designer</a>
+                <a href="giveaway.html">Giveaway</a>
+            </nav>
+
+            <div class="tools">
+                <button class="tool" id="supportBtn" title="Support the post office" aria-label="Support">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
+                        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+                    </svg>
+                </button>
+                <button class="tool" id="announceBtn" title="Counter notices" aria-label="Notices">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
+                        <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
+                        <path d="M13.73 21a2 2 0 0 1-3.46 0" />
+                    </svg>
+                    <span class="dot">1</span>
+                </button>
+                <button class="tool" id="saleBtn" title="Reduced postage" aria-label="On sale">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
+                        <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z" />
+                        <line x1="7" y1="7" x2="7.01" y2="7" />
+                    </svg>
+                    <span class="dot" id="saleDot">5</span>
+                </button>
+                <button class="tool" id="blogBtn" title="Postal notes" aria-label="Postal notes">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                        <polyline points="14 2 14 8 20 8" /><line x1="16" y1="13" x2="8" y2="13" />
+                    </svg>
+                    <span class="dot" id="blogDot">6</span>
+                </button>
+                <a class="tool mast-social" href="https://www.instagram.com/philatelyworld10" target="_blank" rel="noopener" title="Instagram" aria-label="Instagram">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
+                        <rect x="2" y="2" width="20" height="20" rx="5" /><circle cx="12" cy="12" r="4" /><circle cx="17.5" cy="6.5" r="1" fill="currentColor" />
+                    </svg>
+                </a>
+                <a class="btn wa" href="https://wa.me/31633467712" target="_blank" rel="noopener">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2z" />
+                    </svg>
+                    Counter
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- ============ HERO ============ -->
+    <section class="hero" id="top">
+        <div class="wrap hero-grid">
+            <div>
+                <span class="eyebrow">Counter open · Dispatch daily</span>
+                <h2>Weigh it, stamp it,<br><em>send it anywhere.</em></h2>
+                <p class="lede">A working post office for collectors. Every lot is authenticated at the counter, packed
+                    by hand and sent with the right postage — tracked where it matters, letter-post where it does not.</p>
+                <div class="hero-cta">
+                    <a class="btn solid" href="#catalogue">Approach the counter</a>
+                    <a class="btn" href="#shipping">Postage &amp; dispatch</a>
+                </div>
+            </div>
+
+            <div class="parcel">
+                <div class="label"><span>Parcel · <b>RN4198</b></span><span>1 of 24</span></div>
+                <div class="card-img" data-open="RN4198">
+                    <img src="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/D139/1.jpg" alt="French territories collection" loading="eager">
+                    <div class="badges"><span class="b avail">Ready to send</span></div>
+                    <span class="phcount">69 plates</span>
+                </div>
+                <div class="postmark">
+                    Utrecht
+                    <b>2026</b>
+                    Netherlands
+                </div>
+                <h3>French territories large stamp collection in 13 albums</h3>
+                <div class="to">
+                    <div>
+                        <div class="price" data-price="287000">₹2,87,000</div>
+                        <div class="meta" style="font-family:var(--mono);font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--faint)">Free tracked post</div>
+                    </div>
+                    <a class="btn blue" href="https://wa.me/31633467712" target="_blank" rel="noopener">Reserve this parcel</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ DISPATCH BOARD ============ -->
+    <div class="board">
+        <div class="wrap">
+            <div class="tag">Dispatch board <b>Today</b></div>
+            <div class="steps">
+                <span class="step"><i></i> Authenticated</span>
+                <span class="step"><i></i> Packed by hand</span>
+                <span class="step air"><i></i> Air mail ready</span>
+                <span class="step reg"><i></i> Registered option</span>
+                <span class="step"><i></i> Tracked where needed</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============ TOOLBAR ============ -->
+    <div class="toolbar" id="catalogue">
+        <div class="wrap">
+            <div class="search">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="11" cy="11" r="8" /><line x1="21" y1="21" x2="16.65" y2="16.65" />
+                </svg>
+                <input type="search" id="q" placeholder="Search the counter">
+            </div>
+
+            <div class="tabs" id="tabs">
+                <button class="tab active" data-tab="available">In stock <span class="n" id="nAvail">0</span></button>
+                <button class="tab" data-tab="all">All lots <span class="n" id="nAll">0</span></button>
+                <button class="tab" data-tab="sold">Dispatched <span class="n" id="nSold">0</span></button>
+                <button class="tab" data-tab="sale">Reduced <span class="n" id="nSale">0</span></button>
+                <button class="tab" data-tab="blog">Notes <span class="n" id="nBlog">0</span></button>
+            </div>
+
+            <div class="currency" id="currency">
+                <button class="active" data-cur="INR">₹ INR</button>
+                <button data-cur="EUR">€ EUR</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============ GRID ============ -->
+    <section class="section" id="gridSection">
+        <div class="wrap">
+            <div class="sec-head">
+                <div>
+                    <span class="eyebrow">At the counter</span>
+                    <h3 id="gridTitle">In stock</h3>
+                </div>
+                <p><b id="shown">0</b> parcels in view · <span id="fxNote">loading live rates…</span></p>
+            </div>
+            <div class="grid" id="grid"></div>
+
+            <div class="panels" id="shipping">
+                <div class="panel">
+                    <h4>How we send</h4>
+                    <p>Every parcel is packed by hand and posted from Utrecht. Choose the service that suits the lot.</p>
+                    <div class="key-grid">
+                        <div class="key-item"><b>Free tracked</b><span>Registered, signed, insured.</span></div>
+                        <div class="key-item"><b>Free letter</b><span>Untracked letter-post, at your risk.</span></div>
+                        <div class="key-item"><b>Standard</b><span>Tracked postage quoted at cost.</span></div>
+                        <div class="key-item"><b>Combined</b><span>One postage charge per order.</span></div>
+                        <div class="key-item"><b>Packing</b><span>Rigid boards, sleeves, corner protection.</span></div>
+                        <div class="key-item"><b>Dispatch</b><span>Within 48 hours of cleared payment.</span></div>
+                    </div>
+                </div>
+                <div class="panel">
+                    <h4>Postage at a glance</h4>
+                    <table class="rates">
+                        <tr><td>Netherlands</td><td>1–2 days</td></tr>
+                        <tr><td>Europe</td><td>3–6 days</td></tr>
+                        <tr><td>United Kingdom</td><td>4–7 days</td></tr>
+                        <tr><td>United States</td><td>6–10 days</td></tr>
+                        <tr><td>India &amp; Asia</td><td>7–14 days</td></tr>
+                        <tr><td>Rest of world</td><td>7–16 days</td></tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ JOURNAL ============ -->
+    <section class="section" id="journal" style="display:none">
+        <div class="wrap">
+            <div class="sec-head">
+                <div>
+                    <span class="eyebrow">Postal notes</span>
+                    <h3>From the sorting desk</h3>
+                </div>
+                <p><b id="postCount">0</b> notes on new issues, postmarks and the mailroom.</p>
+            </div>
+            <div class="notes" id="posts"></div>
+        </div>
+    </section>
+
+    <!-- ============ NOTICE ============ -->
+    <section class="section" id="announcements">
+        <div class="wrap">
+            <div class="notice" id="announceBox">
+                <div>
+                    <span class="eyebrow">Counter notice · latest</span>
+                    <h4 id="annTitle">Philately Forward — FEPA's €1,000 Competition</h4>
+                    <p id="annText">FEPA invites new collectors to enter its €1,000 prize competition. Entries open to collectors under 30 across Europe — a great way to start collecting with us as your guide.</p>
+                    <div class="dots" id="annDots"></div>
+                </div>
+                <div class="cta">
+                    <a class="btn solid" href="all_announcements.html">All notices</a>
+                    <a class="btn" href="announcement/7.html">Read</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ BAND ============ -->
+    <section class="section">
+        <div class="wrap">
+            <div class="band">
+                <span class="eyebrow">Special delivery</span>
+                <h3>Looking for something not on the shelf?</h3>
+                <p>Send us the country, theme or decade. We will look through the back room and write back with
+                    photographs, condition notes and a postage estimate.</p>
+                <div class="row">
+                    <a class="btn blue" href="https://wa.me/31633467712" target="_blank" rel="noopener">Write to the counter</a>
+                    <a class="btn" href="AlbumDesigner/auto-album.html">Album Designer</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ FOOTER ============ -->
+    <footer>
+        <div class="wrap">
+            <div class="foot-grid">
+                <div>
+                    <div class="brand" style="margin-bottom:12px">
+                        <span class="brand-mark">
+                            <img src="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/logo.jpg" alt="Philately World">
+                        </span>
+                        <span class="brand-text">
+                            <h1>Philately World</h1>
+                            <p>The Post Office · Est. 2017</p>
+                        </span>
+                    </div>
+                    <p style="color:var(--muted);max-width:42ch;font-size:13px;margin:0">A working post office for philately from the Netherlands — authenticated rare stamps, First Day Covers and postal history, dispatched worldwide.</p>
+                </div>
+                <div>
+                    <h6>Counter</h6>
+                    <ul>
+                        <li><a href="#catalogue">All lots</a></li>
+                        <li><a href="#catalogue" data-jump="available">In stock</a></li>
+                        <li><a href="#catalogue" data-jump="sale">Reduced</a></li>
+                        <li><a href="#catalogue" data-jump="sold">Dispatched</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h6>Resources</h6>
+                    <ul>
+                        <li><a href="#journal">Postal notes</a></li>
+                        <li><a href="all_announcements.html">Notices</a></li>
+                        <li><a href="AlbumDesigner/auto-album.html">Album Designer</a></li>
+                        <li><a href="giveaway.html">25 First-Class Finds</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h6>Company</h6>
+                    <ul>
+                        <li><a href="#" id="securityLink">Security &amp; Guarantee</a></li>
+                        <li><a href="#" id="privacyLink">Privacy Policy</a></li>
+                        <li><a href="#" id="supportLink2">Support us</a></li>
+                        <li><a href="https://wa.me/31633467712" target="_blank" rel="noopener">+31 6 3346 7712</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="foot-note">
+                <span>© 2017–2026 Philately World Gallery — All rights reserved</span>
+                <span>Instagram @philatelyworld10 · Facebook /PhilatelyWorld</span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ============ LIGHTBOX ============ -->
+    <div class="lightbox" id="lightbox">
+        <div class="lb-top">
+            <span id="lbId">RN0000</span>
+            <button class="x" id="lbClose" style="background:none;border:0;color:inherit;font-size:23px">×</button>
+        </div>
+        <div class="lb-stage">
+            <button class="lb-nav prev" id="lbPrev" aria-label="Previous">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="15 18 9 12 15 6" />
+                </svg>
+            </button>
+            <img id="lbImg" alt="">
+            <button class="lb-nav next" id="lbNext" aria-label="Next">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="9 18 15 12 9 6" />
+                </svg>
+            </button>
+        </div>
+        <div class="lb-foot">
+            <strong id="lbTitle"></strong>
+            <div id="lbCaption" style="font-family:var(--mono);font-size:10px;letter-spacing:.12em;margin-top:5px"></div>
+        </div>
+    </div>
+
+    <!-- ============ MODALS ============ -->
+    <div class="modal" id="supportModal">
+        <div class="modal-card">
+            <button class="x" data-close>&times;</button>
+            <span class="eyebrow">Support the counter</span>
+            <h3>Support Philately World</h3>
+            <p>Contributions keep authentication free and photography honest.</p>
+            <div class="mtabs">
+                <button class="mtab active" data-mtab="upi">Domestic (UPI)</button>
+                <button class="mtab" data-mtab="paypal">International (PayPal)</button>
+            </div>
+            <div class="mtabpane active" data-mpane="upi">
+                <img class="qr" src="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/BHIM.jpg" alt="BHIM UPI QR code">
+                <div class="upi">
+                    <span>9900416731@upi</span>
+                    <button class="btn" id="upiCopy" style="padding:6px 12px">Copy</button>
+                </div>
+            </div>
+            <div class="mtabpane" data-mpane="paypal">
+                <img class="qr" src="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/paypal.jpg" alt="PayPal QR code">
+                <p style="text-align:center">Scan to contribute via PayPal.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="securityModal">
+        <div class="modal-card">
+            <button class="x" data-close>&times;</button>
+            <span class="eyebrow">Last updated March 2026</span>
+            <h3>Security &amp; Guarantee</h3>
+            <h4>1. Expert authentication</h4>
+            <p>Every item is meticulously inspected and authenticated. We guarantee the description and condition as listed.</p>
+            <h4>2. Secure payments</h4>
+            <p>We utilise BHIM UPI and direct bank transfers. No sensitive financial data is stored.</p>
+            <h4>3. Global shipping protection</h4>
+            <p>All shipments are expertly packed to prevent damage. Free letter-post worldwide is offered on selected items. During transit the buyer bears loss or damage unless sent by registered mail.</p>
+            <h4>4. Satisfaction guarantee</h4>
+            <p>If you are not satisfied, contact us on WhatsApp at +31 633467712 within 48 hours of receipt. There is a 100% guarantee on your purchase.</p>
+        </div>
+    </div>
+
+    <div class="modal" id="privacyModal">
+        <div class="modal-card">
+            <button class="x" data-close>&times;</button>
+            <span class="eyebrow">Last updated March 2026</span>
+            <h3>Privacy Policy</h3>
+            <h4>1. Information we collect</h4>
+            <p>Details you provide directly via WhatsApp or BHIM UPI for order fulfilment. We also use Google Analytics and GoatCounter for anonymous browsing data.</p>
+            <h4>2. Use of data</h4>
+            <p>Used solely to process stamp orders, provide customer support and improve the website.</p>
+            <h4>3. Third-party services</h4>
+            <p>Google Analytics and GoatCounter are used for traffic analysis and may set cookies. We do not sell your personal data.</p>
+            <h4>4. Your rights (GDPR)</h4>
+            <p>As a Europe-based service we honour the right to access, correct or delete your data. Contact +31 633467712 for any privacy request.</p>
+        </div>
+    </div>
+
+    <button class="totop" id="toTop" aria-label="Back to top">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="18 15 12 9 6 15" />
+        </svg>
+    </button>
+
+    <script>
+        const BASE = "https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images";
+
+        const STAMPS = [
+            { id: 'RN4198', n: 'French territories large stamp collection in 13 albums', c: 'French territories', y: 'various', p: 287000, f: 'D139', ic: 69, ft: 1, fl: 0, so: 0 },
+            { id: 'RN4201', n: 'Albania and a.o. North Ingria and Georgia stamp collection in stockbook; CV more than € 5500', c: 'Albania, North Ingria and Georgia', y: 'various', p: 69000, f: 'D142', ic: 32, ft: 1, fl: 0, so: 0 },
+            { id: 'RN4200', n: '2 albums of Russia (1954-1965) & (1965-1976)', c: 'Russia', y: '1954-1976', p: 40000, f: 'D141', ic: 60, ft: 1, fl: 0, so: 0 },
+            { id: 'RN4199', n: 'India (part of Commonwealth and old states) stamp collection in album', c: 'India', y: 'various', p: 27000, f: 'D140', ic: 34, ft: 1, fl: 0, so: 0 },
+            { id: 'RN4197', n: 'Ukraine cover and postal item collection in 2 albums', c: 'Ukraine', y: '1992-1994', p: 18500, f: 'D138', ic: 42, ft: 1, fl: 0, so: 0 },
+            { id: 'RN4196', n: 'Europa MNH stamp collection in stockbook; Catalogue Value € 1400', c: 'Europe', y: '1900-1945', p: 9999, f: 'D137', ic: 18, ft: 1, fl: 0, so: 0 },
+            { id: 'RN4195', n: 'Germany states, Reich etc. stamp collection in binder', c: 'Germany', y: '1900-1945', p: 24500, f: 'D136', ic: 47, ft: 1, fl: 0, so: 0 },
+            { id: 'RN4194', n: 'Fundgrube box: Excellent sorting-box stamps, part of chaotic estate', c: 'worldwide', y: 'various', p: 25000, f: 'D135', ic: 4, ft: 1, fl: 0, so: 0 },
+            { id: 'RN4072', n: 'Complete set of 11 MS from India 2025', c: 'India', y: '2025', p: 2150, f: 'D7', ic: 7, ft: 1, fl: 1, so: 0 },
+            { id: 'RN4102', n: 'Classic German Reich and DDR used/MH stamp collection', c: 'German Reich', y: '1900+', p: 12500, f: 'D34', ic: 48, ft: 1, fl: 0, so: 0 },
+            { id: 'RN4103', n: 'Buzin birds collection from Belgium', c: 'Belgium', y: '1980+', p: 899, f: 'D38', ic: 2, ft: 0, fl: 1, so: 0, blog: 'blog/buzin.html' },
+            { id: 'RN4099', n: 'Thick stockbook with stamp collection Spain. Old classic high CV.', c: 'Spain', y: '1900+', p: 9999, f: 'D32', ic: 29, ft: 0, fl: 1, so: 0 },
+            { id: 'RN4100', n: 'Collection of 360 Mint stamps from GB in Stockbook', c: 'GB', y: '1900-2000', p: 14400, sp: 8999, f: 'D102', ic: 24, ft: 1, fl: 0, so: 0 },
+            { id: 'RN4080', n: 'German Reich set of 28 stamps', c: 'German Reich', y: '1941-1944', p: 3080, sp: 2080, f: 'D81', ic: 1, ft: 0, fl: 1, so: 0 },
+            { id: 'RN4076', n: 'Small box with about 350 FDC covers — United Nations', c: 'United Nations', y: '2026', p: 21000, sp: 17800, f: 'D74', ic: 6, ft: 1, fl: 0, so: 0 },
+            { id: 'RN4137', n: 'Europa CEPT 1956-1969 large stamp collection in album', c: 'Various Countries', y: '1956-1969', p: 22499, sp: 18500, f: 'D109', ic: 37, ft: 1, fl: 0, so: 1 },
+            { id: 'RN4132', n: 'Dutch Antilles and Aruba lot 450 FDC covers', c: 'Dutch Antilles and Aruba', y: '1990+', p: 29250, sp: 23999, f: 'D104', ic: 6, ft: 1, fl: 0, so: 1 },
+            { id: 'RN4089', n: 'Huge lot: Extensive mint and used thematic Red Cross stamp collection 1917-1980', c: 'Worldwide', y: '1917-1980', p: 243000, f: 'D24', ic: 487, ft: 1, fl: 0, so: 1, blog: 'blog/redcross.html' },
+            { id: 'RN4088', n: 'Europa CEPT 1956-2000', c: 'Europa', y: '1956-2000', p: 98000, f: 'D23', ic: 363, ft: 1, fl: 0, so: 1, blog: 'blog/europa_cept.html' },
+            { id: 'RN4129', n: 'MNH stamps from Germany', c: 'Germany', y: '1987,88,89', p: 1300, f: 'D130', ic: 3, ft: 0, fl: 0, so: 1 },
+            { id: 'RN4116', n: 'Czechoslovakia 1918-1992 stamp collection in album', c: 'Czechoslovakia', y: 'various', p: 28999, f: 'D116', ic: 84, ft: 1, fl: 0, so: 1 },
+            { id: 'RN4115', n: 'Netherlands lot 500 FDC covers', c: 'Netherlands', y: '1960+', p: 19999, f: 'D115', ic: 4, ft: 0, fl: 1, so: 1 },
+            { id: 'RN4114', n: 'Germany DDR 1948-1990 overcomplete collection in 2 albums', c: 'Germany', y: '1948-1990', p: 41999, f: 'D114', ic: 59, ft: 1, fl: 0, so: 1 },
+            { id: 'RN4138', n: '70 Years of Diplomatic Ties: Lao PDR & India Joint Issue', c: 'Lao PDR & India', y: '2026', p: 1750, f: 'JointIssue', ic: 3, ft: 0, fl: 1, so: 1, blog: 'blog/lao-india-joint-issue-2026.html' }
+        ];
+
+        const POSTS = [
+            { n: 'Canada 2026 Truth and Reconciliation Stamps: T-Shirt Shaped Orange Shirt Issue', c: 'Canada', y: '2026', d: 'Canada Post issues four self-adhesive T-shirt shaped stamps for Truth and Reconciliation — orange shirts honouring Survivors, First Nations, Inuit and Métis communities, and Mother Earth.', u: 'blog/canada-2026-truth-reconciliation-tshirt-stamps.html', i: 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi_VHve2fFvcGOiesy9a08d7MbXUYKXlErWjCfWZi-Jqr0_w19-T2joAcEIQ0UaXxmb4PTFtx-zv6vNlsrAp9f8Ae3834h5soWqIBYQ8AR7VeOO7a-TndIxFTIlau39ZPG8t9Sqt8da-5Di3jQB_4g3y2qW8jjXkUhfqczoJD8idzKEohthrxbtiXoVOKyH/w640-h416/canada%202026.jpg' },
+            { n: 'Shaun the Sheep Glow Stamp from Swiss Post', c: 'Switzerland', y: '2026', d: 'Swiss Post celebrates Shaun the Sheep with a glow-in-the-dark stamp, printed with luminous ink on a dark background that reveals the character in low light.', u: 'blog/switzerland-2026-shaun-the-sheep-glow-stamp.html', i: 'https://apis.shop.post.ch/medias/sys_master/images/h56/hd9/11277789495326/380Wx380H_Default-WorkingFormat_886533/380Wx380H-Default-WorkingFormat-886533.png' },
+            { n: 'Postzegel met Goud — Delfts Blauw 2026: The 24-Carat Gold Delft Blue Stamp', c: 'Netherlands', y: '2026', d: 'PostNL issues a genuine gold Delft Blue stamp — the first Dutch stamp to carry real 24-carat gold, a fitting tribute to the Delftware tradition.', u: 'blog/delfts-blauw-gold-stamp.html', i: 'https://shop.postnl.nl/_next/image?url=https%3A%2F%2Fshop.postnl.nl%2Fpub%2Fmedia%2Fcatalog%2Fproduct%2F1%2F7%2F1790578273_delfts-blauw-gouden-postzegel.jpg&w=1080&q=75' },
+            { n: 'EUROPA Stamps 70th Anniversary 2026: Klaus Welp’s Common Design', c: 'Europe', y: '2026', d: 'Seventy years of the EUROPA stamp programme, marked with a common design by Swiss artist Klaus Welp — 55 photographs in our feature.', u: 'blog/europa-70-years-2026.html', i: 'https://europastamps.eu/img/Product_Image_67826a8b-d1d1-452a-9899-a9b7c1a226fc.jpg' },
+            { n: 'Deltawerken — Nederland en het water: PostNL Delta Works Stamp Sheet 2026', c: 'Netherlands', y: '2026', d: 'The Netherlands and water: PostNL honours the Delta Works with a stamp sheet celebrating the engineering that keeps the country dry.', u: 'blog/deltawerken-stamp-sheet.html', i: 'https://shop.postnl.nl/_next/image?url=https%3A%2F%2Fshop.postnl.nl%2Fpub%2Fmedia%2Fcatalog%2Fproduct%2F1%2F7%2F1790937527_deltawerken-postzegelvel-2026.jpg&w=1080&q=75' },
+            { n: 'Flag Stamps: Learn the Flags of the World (Free Game)', c: 'World', y: '2026', d: 'A free browser game that helps you learn the flags of the world — with a stamp-sheet twist for practising recall.', u: 'blog/flag-stamps-learn-flags.html', i: 'https://flagcdn.com/w640/in.png' }
+        ];
+
+        const ANNOUNCEMENTS = [
+            { t: "Philately Forward — FEPA's €1,000 Competition", d: 'FEPA invites new collectors to enter its €1,000 prize competition. Entries are open to collectors under 30 across Europe — a great way to start collecting with us as your guide.', u: 'announcement/7.html' },
+            { t: 'New arrivals: 12 lots added this week', d: 'Twelve fresh parcels have arrived at the counter, including French territories, Ukraine covers and a 487-photograph Red Cross collection.', u: 'announcement/6.html' },
+            { t: 'Album Designer 2.0 — 25 fonts, HEIC import, A4 PDF export', d: 'The free stamp-album tool now supports HEIC photos, twenty-five typographic styles, grayscale conversion and print-ready A4 PDF output — all inside your browser.', u: 'announcement/5.html' },
+            { t: 'Giveaway: 25 First-Class Finds packs', d: 'Twenty-five numbered packs of 50+ vintage stamps with a certificate of authenticity and free shipping — claim yours on WhatsApp or Instagram.', u: 'announcement/4.html' }
+        ];
+
+        const state = { currency: 'INR', tab: 'available', q: '', eurRate: 0.00935, lb: { i: 1, n: 1, id: null } };
+        const $ = s => document.querySelector(s);
+        const $$ = s => Array.from(document.querySelectorAll(s));
+        const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+        const money = v => state.currency === 'INR'
+            ? '₹' + v.toLocaleString('en-IN')
+            : '€' + Math.round(v * state.eurRate).toLocaleString('en-IN');
+        const imgFor = (s, i) => `${BASE}/${s.f}/${i}.jpg`;
+        const pageUrl = s => `https://philatelyworld.in/item/${s.id}/`;
+        const waLink = s => `https://wa.me/31633467712?text=${encodeURIComponent('Hi Philately World, I am interested in ' + s.id + ' ' + s.n + ' ' + pageUrl(s))}`;
+        const cond = s => s.ft ? 'Registered' : s.fl ? 'Letter' : 'Standard';
+        const post = s => s.ft ? 'Free tracked' : s.fl ? 'Free letter' : 'Postage at cost';
+
+        function counts() {
+            $('#nAll').textContent = STAMPS.length;
+            $('#nAvail').textContent = STAMPS.filter(s => !s.so).length;
+            $('#nSold').textContent = STAMPS.filter(s => s.so).length;
+            $('#nSale').textContent = STAMPS.filter(s => s.sp).length;
+            $('#nBlog').textContent = POSTS.length;
+            $('#saleDot').textContent = STAMPS.filter(s => s.sp).length;
+            $('#blogDot').textContent = POSTS.length;
+        }
+
+        function filtered() {
+            let list = STAMPS.slice();
+            if (state.tab === 'available') list = list.filter(s => !s.so);
+            if (state.tab === 'sold') list = list.filter(s => s.so);
+            if (state.tab === 'sale') list = list.filter(s => s.sp);
+            const q = state.q.trim().toLowerCase();
+            if (q) list = list.filter(s => (s.n + ' ' + s.c + ' ' + s.y + ' ' + s.id).toLowerCase().includes(q));
+            return list;
+        }
+
+        function cardHtml(s, i) {
+            const status = s.so ? 'Dispatched' : (s.sp ? 'Reduced' : 'In stock');
+            const cls = s.so ? 'sold' : (s.sp ? 'sale' : 'avail');
+            const price = s.sp ? `<s>${money(s.p)}</s>${money(s.sp)}` : money(s.p);
+            const buy = s.so
+                ? '<button class="mini" disabled title="Dispatched">×</button>'
+                : `<a class="mini buy" href="${waLink(s)}" target="_blank" rel="noopener" title="Enquire on WhatsApp">
+                     <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2z"/></svg></a>`;
+            return `<article class="card ${s.so ? 'is-sold' : ''}" data-id="${s.id}">
+                <div class="card-head"><span class="no">Parcel ${String(i + 1).padStart(3, '0')}</span><span>${esc(s.id)}</span></div>
+                <div class="card-img" data-open="${s.id}">
+                    <img src="${imgFor(s, 1)}" alt="${esc(s.n)}" loading="lazy" decoding="async">
+                    <div class="badges"><span class="b ${cls}">${status}</span></div>
+                    ${s.ic > 1 ? `<span class="phcount">${s.ic} plates</span>` : ''}
+                </div>
+                <div class="card-body">
+                    <div class="labelblock">
+                        <span>Origin <b>${esc(s.c)}</b></span>
+                        <span>Date <b>${esc(s.y)}</b></span>
+                        <span>Service <b>${cond(s)}</b></span>
+                        <span>Postage <b>${post(s)}</b></span>
+                    </div>
+                    <h4>${esc(s.n)}</h4>
+                    <div class="card-foot">
+                        <div>
+                            <div class="price">${price}</div>
+                            <div class="barcode"></div>
+                        </div>
+                        <div class="acts">
+                            ${buy}
+                            <button class="mini" data-share="${s.id}" title="Share" aria-label="Share">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12v7a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-7"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </article>`;
+        }
+
+        function render() {
+            const isBlog = state.tab === 'blog';
+            $('#journal').style.display = isBlog ? '' : 'none';
+            $('#gridSection').style.display = isBlog ? 'none' : '';
+
+            if (isBlog) {
+                const q = state.q.trim().toLowerCase();
+                const list = POSTS.filter(p => !q || (p.n + ' ' + p.c + ' ' + p.d).toLowerCase().includes(q));
+                $('#postCount').textContent = list.length;
+                $('#shown').textContent = list.length;
+                $('#posts').innerHTML = list.length ? list.map(p => `<article class="note">
+                    <a class="thumb" href="${p.u}"><img src="${p.i}" alt="${esc(p.n)}" loading="lazy"></a>
+                    <div class="body">
+                        <div class="meta">${esc(p.c)} · ${esc(p.y)}</div>
+                        <h4><a href="${p.u}">${esc(p.n)}</a></h4>
+                        <p>${esc(p.d)}</p>
+                        <a class="link-arrow" href="${p.u}">Read the note →</a>
+                    </div>
+                </article>`).join('') : '<div class="empty">No postal notes found.</div>';
+                return;
+            }
+
+            const list = filtered();
+            $('#shown').textContent = list.length;
+            $('#gridTitle').textContent = {
+                available: 'In stock', all: 'Everything on the counter', sold: 'Already dispatched', sale: 'Reduced postage', blog: 'Postal notes'
+            }[state.tab];
+            $('#grid').innerHTML = list.length ? list.map(cardHtml).join('') : '<div class="empty">No parcels match that search.</div>';
+
+            const want = new URLSearchParams(location.search).get('item');
+            if (want) {
+                const el = document.querySelector(`.card[data-id="${want}"]`);
+                if (el) {
+                    el.style.outline = '2px solid var(--red)';
+                    el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
+            }
+        }
+
+        function reprice() {
+            $$('[data-price]').forEach(el => { el.textContent = money(+el.dataset.price); });
+            render();
+        }
+
+        $('#q').addEventListener('input', e => {
+            state.q = e.target.value;
+            const u = new URL(location.href);
+            state.q ? u.searchParams.set('q', state.q) : u.searchParams.delete('q');
+            history.replaceState(null, '', u);
+            render();
+        });
+        $('#q').addEventListener('change', e => {
+            if (e.target.value !== state.q) { state.q = e.target.value; render(); }
+        });
+
+        $$('#tabs .tab').forEach(t => t.addEventListener('click', () => {
+            $$('#tabs .tab').forEach(x => x.classList.remove('active'));
+            t.classList.add('active');
+            state.tab = t.dataset.tab;
+            if (state.tab !== 'sale') $('#saleBtn').classList.remove('on');
+            const u = new URL(location.href);
+            u.searchParams.set('tab', state.tab);
+            history.replaceState(null, '', u);
+            render();
+        }));
+
+        $$('#currency button').forEach(b => b.addEventListener('click', () => {
+            $$('#currency button').forEach(x => x.classList.remove('active'));
+            b.classList.add('active');
+            state.currency = b.dataset.cur;
+            reprice();
+        }));
+
+        $('#saleBtn').addEventListener('click', () => {
+            const btn = $('#saleBtn');
+            const on = !btn.classList.contains('on');
+            btn.classList.toggle('on', on);
+            state.tab = on ? 'sale' : 'available';
+            $$('#tabs .tab').forEach(x => x.classList.toggle('active', x.dataset.tab === state.tab));
+            render();
+        });
+
+        $('#blogBtn').addEventListener('click', () => {
+            $('#tabs .tab[data-tab="blog"]').click();
+            $('#journal').scrollIntoView({ behavior: 'smooth' });
+        });
+
+        $('#announceBtn').addEventListener('click', () => $('#announcements').scrollIntoView({ behavior: 'smooth' }));
+
+        document.addEventListener('click', e => {
+            const open = e.target.closest('[data-open]');
+            if (open) { e.preventDefault(); return openLightbox(open.dataset.open); }
+            const sh = e.target.closest('[data-share]');
+            if (sh) return share(pageUrl(STAMPS.find(x => x.id === sh.dataset.share)), sh);
+        });
+
+        window.share = function (url, btn) {
+            const done = () => {
+                if (!btn) return;
+                const old = btn.innerHTML;
+                btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>';
+                setTimeout(() => { btn.innerHTML = old; }, 1600);
+            };
+            if (navigator.share) navigator.share({ title: 'Philately World', url }).then(done).catch(() => { });
+            else navigator.clipboard?.writeText(url).then(done).catch(() => { });
+        };
+
+        function openLightbox(id) {
+            const s = STAMPS.find(x => x.id === id);
+            if (!s) return;
+            state.lb.i = 1; state.lb.n = s.ic || 1; state.lb.id = id;
+            $('#lbId').textContent = id + ' · Parcel ' + String(STAMPS.indexOf(s) + 1).padStart(3, '0');
+            $('#lbTitle').textContent = s.n;
+            $('#lbNext').style.display = state.lb.n > 1 ? '' : 'none';
+            $('#lbPrev').style.display = state.lb.n > 1 ? '' : 'none';
+            paintLb(s);
+            $('#lightbox').classList.add('open');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function paintLb(s) {
+            $('#lbImg').src = imgFor(s, state.lb.i);
+            $('#lbImg').alt = `${s.n} — Plate ${state.lb.i}`;
+            $('#lbCaption').textContent = `${state.lb.i} / ${state.lb.n} · ${post(s)}`;
+        }
+
+        function step(d) {
+            const s = STAMPS.find(x => x.id === state.lb.id);
+            state.lb.i += d;
+            if (state.lb.i > state.lb.n) state.lb.i = 1;
+            if (state.lb.i < 1) state.lb.i = state.lb.n;
+            paintLb(s);
+        }
+
+        $('#lbNext').addEventListener('click', () => step(1));
+        $('#lbPrev').addEventListener('click', () => step(-1));
+        $('#lbClose').addEventListener('click', closeLb);
+        $('#lightbox').addEventListener('click', e => { if (e.target.id === 'lightbox') closeLb(); });
+
+        function closeLb() {
+            $('#lightbox').classList.remove('open');
+            document.body.style.overflow = '';
+        }
+
+        document.addEventListener('keydown', e => {
+            if (e.key === 'Escape') {
+                closeLb();
+                $$('.modal.open').forEach(m => m.classList.remove('open'));
+                document.body.style.overflow = '';
+            }
+            if ($('#lightbox').classList.contains('open')) {
+                if (e.key === 'ArrowRight') step(1);
+                if (e.key === 'ArrowLeft') step(-1);
+            }
+        });
+
+        function openModal(id) { $(id).classList.add('open'); document.body.style.overflow = 'hidden'; }
+        function closeModal(m) { m.classList.remove('open'); document.body.style.overflow = ''; }
+
+        $('#supportBtn').addEventListener('click', () => openModal('#supportModal'));
+        $('#supportLink2').addEventListener('click', e => { e.preventDefault(); openModal('#supportModal'); });
+        $('#securityLink').addEventListener('click', e => { e.preventDefault(); openModal('#securityModal'); });
+        $('#privacyLink').addEventListener('click', e => { e.preventDefault(); openModal('#privacyModal'); });
+
+        $$('.modal').forEach(m => {
+            m.addEventListener('click', e => { if (e.target === m) closeModal(m); });
+            m.querySelector('[data-close]').addEventListener('click', () => closeModal(m));
+        });
+
+        $$('.mtab').forEach(t => t.addEventListener('click', () => {
+            $$('.mtab').forEach(x => x.classList.remove('active'));
+            $$('.mtabpane').forEach(x => x.classList.remove('active'));
+            t.classList.add('active');
+            $(`[data-mpane="${t.dataset.mtab}"]`).classList.add('active');
+        }));
+
+        $('#upiCopy').addEventListener('click', () => {
+            navigator.clipboard?.writeText('9900416731@upi');
+            $('#upiCopy').textContent = 'Copied';
+            setTimeout(() => $('#upiCopy').textContent = 'Copy', 1600);
+        });
+
+        let annIdx = 0;
+        function paintAnn() {
+            const a = ANNOUNCEMENTS[annIdx];
+            $('#annTitle').textContent = a.t;
+            $('#annText').textContent = a.d;
+            $('#annDots').innerHTML = ANNOUNCEMENTS.map((_, i) => `<i class="${i === annIdx ? 'on' : ''}" data-i="${i}"></i>`).join('');
+        }
+        $('#annDots').addEventListener('click', e => {
+            const i = e.target.getAttribute('data-i');
+            if (i != null) { annIdx = +i; paintAnn(); }
+        });
+        setInterval(() => { annIdx = (annIdx + 1) % ANNOUNCEMENTS.length; paintAnn(); }, 7000);
+        paintAnn();
+
+        const toTop = $('#toTop');
+        window.addEventListener('scroll', () => toTop.classList.toggle('show', window.scrollY > 400));
+        toTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+        async function loadFx() {
+            try {
+                const r = await fetch('https://open.er-api.com/v6/latest/EUR');
+                const j = await r.json();
+                state.eurRate = 1 / (j.rates.INR * 1.02);
+                $('#fxNote').textContent = 'live rate · ' + new Date().toLocaleDateString('en-GB');
+            } catch (err) {
+                $('#fxNote').textContent = 'cached rate';
+            }
+            reprice();
+        }
+
+        counts();
+        const params = new URLSearchParams(location.search);
+        if (params.get('q')) { state.q = params.get('q'); $('#q').value = state.q; }
+        if (params.get('tab')) {
+            const t = $('#tabs .tab[data-tab="' + params.get('tab') + '"]');
+            if (t) t.click();
+        }
+        render();
+        loadFx();
+
+        $$('[data-jump]').forEach(a => a.addEventListener('click', () => {
+            const t = $('#tabs .tab[data-tab="' + a.dataset.jump + '"]');
+            if (t) t.click();
+        }));
+    </script>
+</body>
+
+</html>
