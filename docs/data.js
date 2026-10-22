@@ -1,6 +1,17 @@
 // 1. STAMP DATABASE
 const stamps = [
     {
+        name: "245 different stamps from Germany Bundespost",
+        country: "Germany Bundespost",
+        year: "<b>Year</b>: various",
+        priceINR: 1250,
+        isSoldOut: false,
+        freeTrackedShipping: false,
+        freeLetterPostShipping: true,
+        folder: "D143",
+        imageCount: 5,
+        desc: "RN4202: <b>245 different stamps from Germany Bundespost</b>. Check the photos. What you see is what you get."
+    }, {
         name: "Albania and a.o. North Ingria and Georgia stamp collection in stockbook; CV more than € 5500",
         country: "Albania, North Ingria and Georgia",
         year: "<b>Year</b>: various",
