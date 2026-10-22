@@ -4,13 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Philately World — Redesign Options</title>
+    <title>Philately World — Three new design options</title>
     <style>
         :root {
-            --ink: #14141a;
-            --muted: #6c6a76;
-            --line: #e4e1db;
-            --paper: #f5f3ef;
+            --ink: #191817;
+            --muted: #66615a;
+            --line: #ded8cd;
+            --paper: #f4f1ea;
+            --card: #fffdf9;
         }
 
         * {
@@ -21,149 +22,225 @@
             margin: 0;
             background: var(--paper);
             color: var(--ink);
-            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            font-family: Inter, system-ui, -apple-system, sans-serif;
             line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
         }
 
         .wrap {
-            max-width: 1320px;
+            max-width: 1280px;
             margin: 0 auto;
             padding: 0 24px;
         }
 
         header {
-            padding: 54px 0 26px;
+            padding: 56px 0 22px;
+        }
+
+        .kicker {
+            font-size: 10.5px;
+            letter-spacing: .18em;
+            text-transform: uppercase;
+            color: var(--muted);
+            font-weight: 700;
         }
 
         h1 {
-            font-size: 40px;
-            letter-spacing: -.03em;
-            margin: 10px 0 8px;
+            font-size: clamp(34px, 4.6vw, 54px);
+            letter-spacing: -.045em;
+            line-height: 1.02;
+            margin: 12px 0 12px;
             font-weight: 700;
+            max-width: 18ch;
         }
 
         .lede {
             color: var(--muted);
-            max-width: 72ch;
-            margin: 0 0 8px;
-            font-size: 16px;
+            max-width: 78ch;
+            margin: 0;
+            font-size: 15.5px;
         }
 
-        .kicker {
-            font-size: 11px;
-            letter-spacing: .18em;
+        .lede code {
+            font-size: 12.5px;
+            background: #e9e3d8;
+            padding: 1px 5px;
+            border-radius: 4px;
+        }
+
+        .round-note {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 16px;
+        }
+
+        .round-note span {
+            font-size: 10px;
+            font-family: ui-monospace, 'SF Mono', monospace;
+            letter-spacing: .08em;
             text-transform: uppercase;
             color: var(--muted);
-            font-weight: 600;
+            border: 1px solid var(--line);
+            border-radius: 99px;
+            padding: 5px 10px;
+            background: var(--card);
         }
 
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 22px;
-            padding: 22px 0 10px;
-        }
-
-        .grid .opt:first-child {
-            grid-column: 1 / -1;
-        }
-
-        @media (max-width: 980px) {
-            .grid {
-                grid-template-columns: 1fr;
-            }
-
-            .grid .opt:first-child {
-                grid-column: auto;
-            }
+        main {
+            padding-bottom: 20px;
         }
 
         .opt {
-            background: #fff;
+            background: var(--card);
             border: 1px solid var(--line);
-            border-radius: 16px;
+            border-radius: 15px;
             overflow: hidden;
-            display: flex;
-            flex-direction: column;
+            margin: 22px 0;
+            box-shadow: 0 14px 40px rgba(55, 42, 24, .06);
         }
 
-        .frame {
-            height: 520px;
-            border: 0;
-            width: 100%;
-            display: block;
+        .frame-wrap {
+            position: relative;
             background: #fff;
             border-bottom: 1px solid var(--line);
         }
 
-        .meta {
-            padding: 20px 22px 24px;
+        .frame-head {
             display: flex;
-            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
             gap: 10px;
-            flex: 1;
+            padding: 7px 12px;
+            background: #faf7f1;
+            border-bottom: 1px solid var(--line);
+        }
+
+        .frame-source {
+            font-family: ui-monospace, 'SF Mono', monospace;
+            font-size: 8px;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+            color: var(--muted);
+        }
+
+        .frame {
+            height: 630px;
+            border: 0;
+            width: 100%;
+            display: block;
+            background: #fff;
+        }
+
+        .badge {
+            background: rgba(248, 245, 238, .92);
+            border: 1px solid var(--line);
+            border-radius: 99px;
+            padding: 5px 10px;
+            font-family: ui-monospace, 'SF Mono', monospace;
+            font-size: 9px;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+            color: var(--muted);
+            backdrop-filter: blur(6px);
+        }
+
+        .meta {
+            padding: 22px 24px 24px;
+            display: grid;
+            grid-template-columns: 1.25fr .75fr;
+            gap: 10px 34px;
+            align-items: start;
+        }
+
+        .title-row {
+            display: flex;
+            align-items: baseline;
+            gap: 10px;
+            flex-wrap: wrap;
         }
 
         .meta h2 {
             margin: 0;
-            font-size: 21px;
-            letter-spacing: -.02em;
+            font-size: 25px;
+            letter-spacing: -.03em;
+            line-height: 1.1;
+        }
+
+        .tag {
+            font-family: ui-monospace, 'SF Mono', monospace;
+            font-size: 8.5px;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+            color: var(--muted);
+            border: 1px solid var(--line);
+            padding: 3px 7px;
+            border-radius: 99px;
         }
 
         .swatches {
             display: flex;
-            gap: 6px;
+            gap: 5px;
+            margin: 11px 0 12px;
         }
 
         .swatches i {
-            width: 22px;
-            height: 22px;
-            border-radius: 6px;
-            border: 1px solid rgba(0, 0, 0, .1);
+            width: 20px;
+            height: 20px;
+            border-radius: 5px;
+            border: 1px solid rgba(0, 0, 0, .12);
         }
 
         .meta p {
             margin: 0;
             color: var(--muted);
-            font-size: 14px;
+            font-size: 13.8px;
+            max-width: 72ch;
         }
 
         .feats {
             list-style: none;
-            margin: 0;
+            margin: 2px 0 0;
             padding: 0;
             display: grid;
-            gap: 5px;
-            font-size: 13px;
+            gap: 6px;
+            font-size: 12.5px;
             color: var(--muted);
+        }
+
+        .feats li {
+            padding-left: 17px;
+            position: relative;
         }
 
         .feats li::before {
             content: '✓';
-            color: #16a34a;
-            margin-right: 7px;
+            position: absolute;
+            left: 0;
+            color: #3d7a55;
             font-weight: 700;
         }
 
         .actions {
-            margin-top: auto;
-            padding-top: 16px;
+            grid-column: 1 / -1;
             display: flex;
             gap: 9px;
             flex-wrap: wrap;
+            padding-top: 8px;
         }
 
         .btn {
             display: inline-flex;
             align-items: center;
-            padding: 10px 16px;
-            border-radius: 9px;
+            gap: 6px;
+            padding: 9px 15px;
+            border-radius: 8px;
             border: 1px solid var(--ink);
             background: var(--ink);
             color: #fff;
             text-decoration: none;
-            font-size: 13.5px;
-            font-weight: 600;
+            font-size: 12.5px;
+            font-weight: 650;
         }
 
         .btn.line {
@@ -171,58 +248,97 @@
             color: var(--ink);
         }
 
-        .archive {
+        .btn:hover {
+            opacity: .86;
+        }
+
+        .earlier {
             border-top: 1px solid var(--line);
-            margin-top: 34px;
-            padding: 26px 0 60px;
+            margin-top: 38px;
+            padding: 28px 0 60px;
         }
 
-        .archive h2 {
+        .earlier h2 {
             margin: 4px 0 6px;
-            font-size: 20px;
-            letter-spacing: -.02em;
+            font-size: 22px;
+            letter-spacing: -.025em;
         }
 
-        .archive p {
-            margin: 0 0 14px;
+        .earlier p {
+            margin: 0 0 16px;
             color: var(--muted);
             font-size: 14px;
             max-width: 78ch;
         }
 
-        .archive ul {
+        .earlier ul {
             list-style: none;
             margin: 0;
             padding: 0;
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 10px;
-            font-size: 13.5px;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 9px;
+            font-size: 13px;
         }
 
-        .archive li a {
+        .earlier li a {
             display: block;
-            padding: 11px 13px;
+            padding: 11px 12px;
             border: 1px solid var(--line);
-            border-radius: 9px;
-            background: #fff;
+            border-radius: 8px;
+            background: var(--card);
             color: var(--ink);
             text-decoration: none;
+            height: 100%;
         }
 
-        .archive li a:hover {
+        .earlier li a:hover {
             border-color: var(--ink);
         }
 
-        .archive li span {
+        .earlier li span {
             display: block;
             color: var(--muted);
-            font-size: 12px;
+            font-size: 11.5px;
+            margin-top: 1px;
         }
 
-        @media (max-width: 780px) {
-            .archive ul {
+        .archive-link {
+            display: inline-block;
+            margin-top: 14px;
+            font-size: 12.5px;
+            color: var(--muted);
+        }
+
+        @media (max-width: 900px) {
+            .meta {
+                grid-template-columns: 1fr;
+            }
+
+            .earlier ul {
                 grid-template-columns: 1fr 1fr;
+            }
+
+            .frame {
+                height: 540px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            header {
+                padding: 38px 0 14px;
+            }
+
+            .frame {
+                height: 460px;
+            }
+
+            .meta {
+                padding: 18px;
+            }
+
+            .earlier ul {
+                grid-template-columns: 1fr;
             }
         }
     </style>
@@ -231,162 +347,144 @@
 <body>
     <div class="wrap">
         <header>
-            <span class="kicker">Philately World · Design exploration</span>
-            <h1>Five directions for the catalogue</h1>
-            <p class="lede">Each option is a self-contained, working prototype that covers every feature of the current
-                site: live search, availability tabs, on-sale filter, INR/EUR conversion with a live rate, badges,
-                lightbox, share, WhatsApp ordering, announcements, the journal, support/security/privacy modals, the
-                Album Designer and giveaway links, and deep links (<code>?q=</code>, <code>?tab=</code>,
+            <span class="kicker">Philately World · Design round 03</span>
+            <h1>Three new directions for the current site.</h1>
+            <p class="lede">Each option is a self-contained working prototype using the current catalogue data and
+                feature set: live search, availability tabs, reduced-lot filter, INR/EUR conversion, lightbox, sharing,
+                shortlist, WhatsApp ordering, announcements, journal, support/security/privacy modals, the Album
+                Designer and giveaway links, and deep links (<code>?q=</code>, <code>?tab=</code>,
                 <code>?item=</code>).</p>
+            <div class="round-note">
+                <span>Inspired by Colnect</span>
+                <span>Stampland</span>
+                <span>Smits Philately</span>
+                <span>All 20 functional checks passed</span>
+            </div>
         </header>
 
-        <div class="grid">
+        <main>
             <section class="opt">
-                <iframe class="frame" src="option-1-the-vault.html" title="Option 1 — The Vault"></iframe>
+                <div class="frame-wrap">
+                    <div class="frame-head"><span class="badge">Option 13 · Colnect-inspired</span><span class="frame-source">Live prototype</span></div>
+                    <iframe class="frame" src="option-13-the-catalogue.html" title="Option 13 — The Catalogue" loading="lazy"></iframe>
+                </div>
                 <div class="meta">
-                    <h2>01 — The Vault</h2>
-                    <div class="swatches">
-                        <i style="background:#f7f4ed"></i>
-                        <i style="background:#ffffff"></i>
-                        <i style="background:#9c7c2e"></i>
-                        <i style="background:#1d1a15"></i>
-                        <i style="background:#c0392b"></i>
+                    <div>
+                        <div class="title-row">
+                            <h2>13 — The Catalogue</h2>
+                            <span class="tag">Catalogue &amp; marketplace</span>
+                        </div>
+                        <div class="swatches">
+                            <i style="background:#f4f7f9"></i>
+                            <i style="background:#ffffff"></i>
+                            <i style="background:#11557f"></i>
+                            <i style="background:#a94a0b"></i>
+                            <i style="background:#142433"></i>
+                        </div>
+                        <p>A collector's working catalogue: a regional facet rail, availability and postage filters,
+                            grid/list views, sort, shortlist hearts and dense lot records. The closest to Colnect's
+                            browse-and-compare behaviour, with a calmer, more photographic finish.</p>
                     </div>
-                    <p>Parchment-ivory and antique gold — museum-grade, calm and premium. Serif display type, gold
-                        hairlines, a scrolling ticker, a “lot of the month” spotlight and tall gallery cards. Ships with a
-                        light/dark vault toggle.
-                    </p>
                     <ul class="feats">
-                        <li>Light parchment base, gold accent system</li>
-                        <li>One-click light ⇄ dark vault toggle</li>
-                        <li>Featured-lot hero + full catalogue grid</li>
-                        <li>Monospace catalogue numbers, perforation motifs</li>
+                        <li>Region, postage and availability facets</li>
+                        <li>Grid ↔ list view and price/title sorting</li>
+                        <li>Persistent shortlist with live count</li>
+                        <li>Featured listing and catalogue statistics</li>
+                        <li>Dense card metadata: code, region, year, postage</li>
                     </ul>
                     <div class="actions">
-                        <a class="btn" href="option-1-the-vault.html" target="_blank">Open full size</a>
-                        <a class="btn line" href="option-1-the-vault.html">Pick this one</a>
+                        <a class="btn" href="option-13-the-catalogue.html" target="_blank">Open full size</a>
+                        <a class="btn line" href="option-13-the-catalogue.html">Pick this one</a>
                     </div>
                 </div>
             </section>
 
             <section class="opt">
-                <iframe class="frame" src="option-5-the-gallery.html" title="Option 5 — The Gallery"></iframe>
+                <div class="frame-wrap">
+                    <div class="frame-head"><span class="badge">Option 14 · Stampland-inspired</span><span class="frame-source">Complete catalogue · 143 lots</span></div>
+                    <iframe class="frame" src="option-14-the-stamp-shop.html" title="Option 14 — The Stamp Shop" loading="lazy"></iframe>
+                </div>
                 <div class="meta">
-                    <h2>05 — The Gallery</h2>
-                    <div class="swatches">
-                        <i style="background:#f6f2ea"></i>
-                        <i style="background:#ffffff"></i>
-                        <i style="background:#bf3a1f"></i>
-                        <i style="background:#17171b"></i>
-                        <i style="background:#8b8f7a"></i>
+                    <div>
+                        <div class="title-row">
+                            <h2>14 — The Stamp Shop</h2>
+                            <span class="tag">Warm retail storefront</span>
+                        </div>
+                        <div class="swatches">
+                            <i style="background:#faf4e9"></i>
+                            <i style="background:#fffdf8"></i>
+                            <i style="background:#17645b"></i>
+                            <i style="background:#b64a1c"></i>
+                            <i style="background:#21302c"></i>
+                        </div>
+                        <p>A friendly dealer's shop rather than a database. The complete catalogue — all 143 lots,
+                            76 journal stories and 7 notices — with search, currency conversion, shortlists, item
+                            deep links and a full photograph viewer. Warm, human and easy for a first-time buyer.</p>
                     </div>
-                    <p>Image-first and curatorial. A tall masonry wall gives every stamp room to breathe, with a
-                        vermilion accent, Space Grotesk headlines and quiet metadata. The most photographic and
-                        browse-friendly direction.</p>
                     <ul class="feats">
-                        <li>Masonry catalogue with large plates</li>
-                        <li>Vermilion accent, editorial spacing</li>
-                        <li>Fast visual scanning without losing detail</li>
+                        <li>All 143 lots, 76 stories and 7 notices</li>
+                        <li>Full search, tabs and INR / EUR conversion</li>
+                        <li>Item deep links, shortlist and shareable lots</li>
+                        <li>Multi-photo viewer with descriptions and enquiries</li>
+                        <li>Bargain corner, notice board and trust strip</li>
                     </ul>
                     <div class="actions">
-                        <a class="btn" href="option-5-the-gallery.html" target="_blank">Open full size</a>
-                        <a class="btn line" href="option-5-the-gallery.html">Pick this one</a>
+                        <a class="btn" href="option-14-the-stamp-shop.html" target="_blank">Open full size</a>
+                        <a class="btn line" href="option-14-the-stamp-shop.html">Pick this one</a>
                     </div>
                 </div>
             </section>
 
             <section class="opt">
-                <iframe class="frame" src="option-7-the-atlas.html" title="Option 7 — The Atlas"></iframe>
+                <div class="frame-wrap">
+                    <div class="frame-head"><span class="badge">Option 15 · Smits Philately-inspired</span><span class="frame-source">Live prototype</span></div>
+                    <iframe class="frame" src="option-15-the-saleroom.html" title="Option 15 — The Saleroom" loading="lazy"></iframe>
+                </div>
                 <div class="meta">
-                    <h2>07 — The Atlas</h2>
-                    <div class="swatches">
-                        <i style="background:#f2ede1"></i>
-                        <i style="background:#1f4d4a"></i>
-                        <i style="background:#8c3a2e"></i>
-                        <i style="background:#c2b9a3"></i>
-                        <i style="background:#22302e"></i>
+                    <div>
+                        <div class="title-row">
+                            <h2>15 — The Saleroom</h2>
+                            <span class="tag">Dealer &amp; private treaty</span>
+                        </div>
+                        <div class="swatches">
+                            <i style="background:#f7f2e8"></i>
+                            <i style="background:#fffdf8"></i>
+                            <i style="background:#6e1d2a"></i>
+                            <i style="background:#8c6129"></i>
+                            <i style="background:#2a211e"></i>
+                        </div>
+                        <p>A quiet, edited saleroom in the Smits tradition. Department links, a lot-of-the-sale
+                            presentation, condition and postage notes, a three-step buying guide and private-treaty
+                            consignment. The most premium and dealer-like of the three.</p>
                     </div>
-                    <p>A geographic atlas of the collection. A slowly turning globe, coordinate chips and a region bar
-                        let buyers travel by place, while an era rail travels by decade. Teal and oxblood on aged paper,
-                        with DM Serif Display and IBM Plex Mono.</p>
                     <ul class="feats">
-                        <li>Region filters + “travel by decade” rail</li>
-                        <li>Animated globe with map pins</li>
-                        <li>Cartographic grid, coordinate metadata</li>
+                        <li>Department shortcut links into the sale</li>
+                        <li>Lot numbers, estimates and condition notes</li>
+                        <li>Three-step “how to buy” guide</li>
+                        <li>Private treaty consignment band</li>
+                        <li>Ivory / burgundy / Cormorant Garamond</li>
                     </ul>
                     <div class="actions">
-                        <a class="btn" href="option-7-the-atlas.html" target="_blank">Open full size</a>
-                        <a class="btn line" href="option-7-the-atlas.html">Pick this one</a>
+                        <a class="btn" href="option-15-the-saleroom.html" target="_blank">Open full size</a>
+                        <a class="btn line" href="option-15-the-saleroom.html">Pick this one</a>
                     </div>
                 </div>
             </section>
+        </main>
 
-            <section class="opt">
-                <iframe class="frame" src="option-8-the-auction.html" title="Option 8 — The Auction"></iframe>
-                <div class="meta">
-                    <h2>08 — The Auction</h2>
-                    <div class="swatches">
-                        <i style="background:#f7f4ec"></i>
-                        <i style="background:#fffdf8"></i>
-                        <i style="background:#b3271e"></i>
-                        <i style="background:#1a1815"></i>
-                        <i style="background:#22303f"></i>
-                    </div>
-                    <p>A working saleroom broadsheet. Every item is a lot with a number, a live countdown, an estimate
-                        range and a condition note. Includes a four-step “how to bid” strip, a condition key and terms in
-                        brief. Newsprint, signal red, Playfair Display.</p>
-                    <ul class="feats">
-                        <li>Per-lot countdown timers + estimate ranges</li>
-                        <li>Condition key and terms panel</li>
-                        <li>Bid desk CTAs on every lot</li>
-                    </ul>
-                    <div class="actions">
-                        <a class="btn" href="option-8-the-auction.html" target="_blank">Open full size</a>
-                        <a class="btn line" href="option-8-the-auction.html">Pick this one</a>
-                    </div>
-                </div>
-            </section>
-
-            <section class="opt">
-                <iframe class="frame" src="option-9-the-journal.html" title="Option 9 — The Journal"></iframe>
-                <div class="meta">
-                    <h2>09 — The Journal</h2>
-                    <div class="swatches">
-                        <i style="background:#fbf8f2"></i>
-                        <i style="background:#1e3a2f"></i>
-                        <i style="background:#b04620"></i>
-                        <i style="background:#ddd8cb"></i>
-                        <i style="background:#1b2420"></i>
-                    </div>
-                    <p>A collector's magazine. An issue-number masthead, a cover story, an “in this issue” contents bar
-                        and a full-bleed pull quote frame the catalogue as editorial. Fraunces headlines, forest green
-                        and coral, generous white space.</p>
-                    <ul class="feats">
-                        <li>Magazine masthead + cover story hero</li>
-                        <li>Contents bar and pull-quote band</li>
-                        <li>Editorial article grid for the journal</li>
-                    </ul>
-                    <div class="actions">
-                        <a class="btn" href="option-9-the-journal.html" target="_blank">Open full size</a>
-                        <a class="btn line" href="option-9-the-journal.html">Pick this one</a>
-                    </div>
-                </div>
-            </section>
-        </div>
-
-        <section class="archive">
-            <span class="kicker">Retired directions</span>
-            <h2>Archive</h2>
-            <p>Earlier explorations kept for reference. They are no longer part of the active shortlist.</p>
+        <section class="earlier">
+            <span class="kicker">Still available</span>
+            <h2>The earlier shortlist</h2>
+            <p>The five directions from the previous round remain intact if you want to compare them with the new
+                three.</p>
             <ul>
-                <li><a href="archive/option-2-the-cabinet.html">02 — The Cabinet<span>Paper filter cabinet</span></a></li>
-                <li><a href="archive/option-3-the-bazaar.html">03 — The Bazaar<span>Colour-blocked marketplace</span></a></li>
-                <li><a href="archive/option-4-the-archive.html">04 — The Archive<span>Scholarly finding aid</span></a></li>
-                <li><a href="archive/option-6-the-ledger.html">06 — The Ledger<span>Data-dense datagrid</span></a></li>
-                <li><a href="archive/option-10-the-post-office.html">10 — The Post Office<span>Postal counter</span></a></li>
-                <li><a href="archive/option-11-the-mailroom.html">11 — The Mailroom<span>Three-pane inbox</span></a></li>
-                <li><a href="archive/option-12-the-printers-proof.html">12 — The Printer’s Proof<span>Print-shop proof sheets</span></a></li>
+                <li><a href="option-1-the-vault.html">01 — The Vault<span>Museum-grade parchment</span></a></li>
+                <li><a href="option-5-the-gallery.html">05 — The Gallery<span>Image-first masonry</span></a></li>
+                <li><a href="option-7-the-atlas.html">07 — The Atlas<span>Geographic browsing</span></a></li>
+                <li><a href="option-8-the-auction.html">08 — The Auction<span>Live lot broadsheet</span></a></li>
+                <li><a href="option-9-the-journal.html">09 — The Journal<span>Collector's magazine</span></a></li>
             </ul>
+            <a class="archive-link" href="archive/option-2-the-cabinet.html">Browse the retired directions in the archive →</a>
         </section>
     </div>
 </body>
