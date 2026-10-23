@@ -1,5 +1,14 @@
 const blogPosts = [
     {
+        name: "Poles in India 1942–1948: Poczta Polska's Stamp Tribute to Polish Refugees in India",
+        year: "2026",
+        country: "Poland",
+        desc: "Poczta Polska issues the 'Poles in India 1942–1948' stamp, 20-stamp sheet, FDC and cancelled stamp on 22 October 2026, commemorating Polish refugees who found shelter in India during World War II.",
+        customImage: "https://sklep-img.poczta-polska.pl/public/public/media/26/ea/b8/1792475298/Polacy_Indie_arkusik.jpg?ts=1792475298",
+        imageCount: 4,
+        url: "blog/poles-in-india-1942-1948-stamp-sheet-2026.html",
+        isBlog: true
+    }, {
         name: "Canada 2026 Truth and Reconciliation Stamps: T-Shirt Shaped Orange Shirt Issue",
         year: "2026",
         country: "Canada",
