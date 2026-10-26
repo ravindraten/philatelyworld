@@ -1,6 +1,17 @@
 // 1. STAMP DATABASE
 const stamps = [
     {
+        name: "Collection of stamp sheetlets on theme cartoons. Total 15 sheets.",
+        country: "Germany",
+        year: "<b>Year</b>: 2022-2026",
+        priceINR: 18000,
+        isSoldOut: false,
+        freeTrackedShipping: true,
+        freeLetterPostShipping: false,
+        folder: "D145",
+        imageCount: 15,
+        desc: "<b>RN4204: Collection of stamp sheetlets on theme cartoons. Total 15 sheets.</b>Please check the photos. What you see is what you get."
+    }, {
         name: "Collection of postal stationery from Indian States 1891-1947",
         country: "India",
         year: "<b>Year</b>: 1891-1947",

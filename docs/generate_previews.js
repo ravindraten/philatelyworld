@@ -295,66 +295,97 @@ const baseUrl = 'https://philatelyworld.in';
 const itemDir = path.join(__dirname, 'item');
 const blogDir = path.join(__dirname, 'blog');
 
+const today = new Date().toISOString().split('T')[0];
+
+function fileDate(filePath) {
+    try {
+        return fs.statSync(filePath).mtime.toISOString().split('T')[0];
+    } catch {
+        return today;
+    }
+}
+
+// Optional per-blog publish dates, shared with the blog tooling.
+let blogDates = {};
+try {
+    blogDates = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'scripts', 'blog_dates.json'), 'utf8'));
+} catch {
+    blogDates = {};
+}
+
 // Collect all item folders
-const itemIds = fs.readdirSync(itemDir).filter(f =>
-    fs.statSync(path.join(itemDir, f)).isDirectory()
-);
+const itemIds = fs.readdirSync(itemDir)
+    .filter(f => fs.statSync(path.join(itemDir, f)).isDirectory())
+    .sort();
 
 // Collect all blog files
-const blogIds = fs.existsSync(blogDir) 
-    ? fs.readdirSync(blogDir).filter(f => f.endsWith('.html')) 
+const blogIds = fs.existsSync(blogDir)
+    ? fs.readdirSync(blogDir)
+        .filter(f => f.endsWith('.html') && !f.startsWith('_'))
+        .sort()
     : [];
 
 // Collect all announcement folders (clean URLs)
-const announcementIds = fs.existsSync(announcementDir) 
-    ? fs.readdirSync(announcementDir).filter(f => {
-        const fullPath = path.join(announcementDir, f);
-        return fs.statSync(fullPath).isDirectory();
-    }) 
+const announcementIds = fs.existsSync(announcementDir)
+    ? fs.readdirSync(announcementDir)
+        .filter(f => {
+            const fullPath = path.join(announcementDir, f);
+            return fs.statSync(fullPath).isDirectory();
+        })
+        .sort((a, b) => a.localeCompare(b, 'en', { numeric: true }))
     : [];
-
-const today = new Date().toISOString().split('T')[0];
 
 const itemUrls = itemIds.map(id => `
   <url>
     <loc>${baseUrl}/item/${id}/</loc>
-    <lastmod>${today}</lastmod>
+    <lastmod>${fileDate(path.join(itemDir, id, 'index.html'))}</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>`).join('');
 
-const blogUrls = blogIds.map(id => `
+const blogUrls = blogIds.map(id => {
+    const lastmod = blogDates[id] || fileDate(path.join(blogDir, id));
+    return `
   <url>
     <loc>${baseUrl}/blog/${id}</loc>
-    <lastmod>${today}</lastmod>
+    <lastmod>${lastmod}</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
-  </url>`).join('');
+  </url>`;
+}).join('');
 
 const announcementUrls = announcementIds.map(id => `
   <url>
-    <loc>${baseUrl}/announcement/${id}</loc>
-    <lastmod>${today}</lastmod>
+    <loc>${baseUrl}/announcement/${id}/</loc>
+    <lastmod>${fileDate(path.join(announcementDir, id, 'index.html'))}</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>`).join('');
 
-const giveawayUrl = `
+const giveawayUrl = fs.existsSync(path.join(__dirname, 'giveaway.html')) ? `
   <url>
     <loc>${baseUrl}/giveaway.html</loc>
-    <lastmod>${today}</lastmod>
+    <lastmod>${fileDate(path.join(__dirname, 'giveaway.html'))}</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
-  </url>`;
+  </url>` : '';
+
+const announcementsIndexUrl = fs.existsSync(path.join(__dirname, 'all_announcements.html')) ? `
+  <url>
+    <loc>${baseUrl}/all_announcements.html</loc>
+    <lastmod>${fileDate(path.join(__dirname, 'all_announcements.html'))}</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>` : '';
 
 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>${baseUrl}/</loc>
-    <lastmod>${today}</lastmod>
+    <lastmod>${fileDate(path.join(__dirname, 'index.html'))}</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
-  </url>${giveawayUrl}${itemUrls}${blogUrls}${announcementUrls}
+  </url>${giveawayUrl}${announcementsIndexUrl}${itemUrls}${blogUrls}${announcementUrls}
 </urlset>`;
 
 fs.writeFileSync(path.join(__dirname, 'sitemap.xml'), sitemap);
