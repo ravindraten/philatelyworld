@@ -225,7 +225,7 @@ const blogPosts = [
         name: "Cartoon Characters on Stamps: Bugs Bunny, Batman, Shaun the Sheep & More",
         year: "2024-2026",
         country: "Germany",
-        desc: "Deutsche Post turns cartoon icons and comic superheroes into stamps: Bugs Bunny, Tom & Jerry, The Flintstones, SpongeBob and Shaun the Sheep from the 'Helden der Kindheit' series, plus Superman, Wonder Woman, The Flash, Batman, and LEGO & PLAYMOBIL special issues — all on 10er-Bogen sheets of ten.",
+        desc: "Deutsche Post turns cartoon icons and comic superheroes into stamps: Bugs Bunny, Tom & Jerry, The Flintstones, SpongeBob, Shaun the Sheep, the Smurfs and Pumuckl from the 'Helden der Kindheit' series, plus Superman, Wonder Woman, The Flash, Batman, and LEGO & PLAYMOBIL special issues — all on 10er-Bogen sheets of ten.",
         folder: "cartoon-characters-on-stamps",
         customImage: "https://shop.deutschepost.de/MEDIA/PROD_ProductCatalog/efim3970036_Z_1_151105602_095_SPWZ_Batman_800x600.jpg?profile=productDetails",
         imageCount: 1,
