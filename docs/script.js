@@ -709,9 +709,10 @@ function renderGallery(data) {
                     </div>
                 </div>`;
         }
-        const itemID = stamp.desc.split(':')[0].trim();
+        const itemIDMatch = stamp.desc.match(/RN\d+/);
+        const itemID = itemIDMatch ? itemIDMatch[0] : '';
         const basePath = window.location.pathname.replace('index.html', '');
-        const shareUrl = `${window.location.origin}${basePath}item/${encodeURIComponent(itemID)}/`;
+        const shareUrl = itemID ? `${window.location.origin}${basePath}item/${encodeURIComponent(itemID)}/` : window.location.href;
         // --- CURRENCY LOGIC ---
         let displayPrice;
         let displaySalePrice = '';
@@ -783,10 +784,10 @@ function renderGallery(data) {
                             ${stamp.isSoldOut
                 ? `<button class="buy-btn disabled" disabled>Sold Out</button>`
                 : (() => {
-                    // 1. Extract the Item ID (e.g., RN4112) from the description
-                    const itemID = stamp.desc.split(':')[0];
-                    // 2. Construct the direct link to this listing
-                    const listingUrl = `https://philatelyworld.in/item/${itemID}`;
+                    // 1. Construct the direct link to this listing
+                    const listingUrl = itemID
+                        ? `https://philatelyworld.in/item/${itemID}/`
+                        : 'https://philatelyworld.in/';
                     // 3. Create the encoded WhatsApp message
                     const message = encodeURIComponent(
                         `Hi, I am interested in buying :\n${stamp.name}\nLink: ${listingUrl}`
