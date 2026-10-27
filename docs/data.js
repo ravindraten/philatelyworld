@@ -1,10 +1,10 @@
 // 1. STAMP DATABASE
 const stamps = [
     {
-        name: "World classic super collection 1840-1900",
+        name: "World classic super collection 1840-1900. Ask for Price.",
         country: "Worldwide",
         year: "<b>Year</b>: 1840-1900",
-        priceINR: 0,
+        priceINR: 1,
         isSoldOut: false,
         freeTrackedShipping: true,
         freeLetterPostShipping: false,
