@@ -1,6 +1,17 @@
 // 1. STAMP DATABASE
 const stamps = [
     {
+        name: "World classic super collection 1840-1900",
+        country: "Worldwide",
+        year: "<b>Year</b>: 1840-1900",
+        priceINR: 0,
+        isSoldOut: false,
+        freeTrackedShipping: true,
+        freeLetterPostShipping: false,
+        folder: "D146",
+        imageCount: 428,
+        desc: "RN4205: Very well filled, mint hinged and used world collection 1840-1900, including mountains of good stamps, but a lot of tinted material, in a reasonably good quality 8th edition of Universal Briefmarken Album."
+    }, {
         name: "Collection of stamp sheetlets on theme cartoons. Total 15 sheets.",
         country: "Germany",
         year: "<b>Year</b>: 2022-2026",
