@@ -29,6 +29,8 @@
   Cache-Control: no-cache, no-store, must-revalidate
 /AlbumDesigner/auto-album.html
   Cache-Control: no-cache, no-store, must-revalidate
+/AlbumDesigner/albumeasy.html
+  Cache-Control: no-cache, no-store, must-revalidate
 /blog/*.html
   Cache-Control: no-cache, no-store, must-revalidate
 /announcement/*.html

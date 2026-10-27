@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AlbumEasy Online | Philately World</title>
+    <meta name="description"
+        content="Free online AlbumEasy: paste your album script, add your stamp sheet images and download a print-ready A4 stamp album PDF, right in your browser.">
+    <link rel="canonical" href="https://philatelyworld.in/AlbumDesigner/albumeasy.html" />
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <style>
+        :root {
+            --bg: #f3f4f6;
+            --accent: #2563eb;
+            --border: #e5e7eb;
+            --text: #111827;
+            --muted: #4b5563;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        #controls {
+            width: 560px;
+            min-width: 420px;
+            background: #fff;
+            border-right: 1px solid var(--border);
+            padding: 24px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        h1 {
+            font-size: 1.15rem;
+            margin: 0;
+        }
+
+        h1 span {
+            display: block;
+            font-size: 0.7rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--muted);
+            font-weight: 600;
+            margin-top: 6px;
+        }
+
+        p.lead {
+            font-size: 0.82rem;
+            line-height: 1.6;
+            color: var(--muted);
+            margin: 0;
+        }
+
+        label {
+            display: block;
+            font-size: 0.72rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+            color: #6b7280;
+            margin-bottom: 6px;
+        }
+
+        textarea {
+            width: 100%;
+            height: 46vh;
+            min-height: 280px;
+            max-height: 640px;
+            padding: 12px;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            font: 12px/1.55 ui-monospace, Menlo, Consolas, monospace;
+            resize: vertical;
+            tab-size: 4;
+            white-space: pre-wrap;      /* long lines wrap instead of scrolling sideways */
+            overflow-wrap: break-word;
+            overflow-x: hidden;
+            overflow-y: auto;
+            overscroll-behavior: contain;
+        }
+
+        .drop {
+            border: 2px dashed #d1d5db;
+            border-radius: 12px;
+            padding: 18px;
+            text-align: center;
+            cursor: pointer;
+            font-size: 0.85rem;
+            background: #fafafa;
+        }
+
+        .drop:hover,
+        .drop.over {
+            border-color: var(--accent);
+            background: #eff6ff;
+        }
+
+        .drop b {
+            display: block;
+            margin-bottom: 2px;
+        }
+
+        .drop small {
+            color: var(--muted);
+        }
+
+        button {
+            border: 0;
+            border-radius: 10px;
+            padding: 12px 14px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            cursor: pointer;
+            background: #e5e7eb;
+            color: var(--text);
+        }
+
+        button.primary {
+            background: var(--accent);
+            color: #fff;
+        }
+
+        button.primary:hover {
+            background: #1d4ed8;
+        }
+
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .row {
+            display: flex;
+            gap: 10px;
+        }
+
+        .row>* {
+            flex: 1;
+        }
+
+        .check {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.85rem;
+            color: var(--text);
+        }
+
+        #status {
+            font-size: 0.8rem;
+            line-height: 1.5;
+            border-radius: 10px;
+            padding: 10px 12px;
+            background: #f9fafb;
+            border: 1px solid var(--border);
+            color: var(--muted);
+            white-space: pre-wrap;
+        }
+
+        #status.error {
+            background: #fef2f2;
+            border-color: #fecaca;
+            color: #b91c1c;
+        }
+
+        #preview {
+            flex: 1;
+            min-width: 0;
+            background: #e5e7eb;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 16px;
+            overflow: hidden;
+        }
+
+        /* Kept to the A4 proportions and fitted to the height, so a whole album
+           page always stays visible however wide the control panel is. */
+        iframe {
+            height: 100%;
+            aspect-ratio: 210 / 297;
+            max-width: 100%;
+            border: 0;
+            border-radius: 4px;
+            background: #fff;
+            box-shadow: 0 0 24px rgba(0, 0, 0, .22);
+        }
+
+        dialog {
+            border: 0;
+            border-radius: 14px;
+            max-width: 620px;
+            padding: 26px;
+            color: var(--text);
+        }
+
+        dialog h2 {
+            margin: 0 0 10px;
+            font-size: 1rem;
+        }
+
+        dialog code {
+            background: #f1f5f9;
+            padding: 1px 5px;
+            border-radius: 5px;
+            font-size: 0.78rem;
+        }
+
+        dialog table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.8rem;
+        }
+
+        dialog td {
+            padding: 4px 8px 4px 0;
+            vertical-align: top;
+            border-top: 1px solid var(--border);
+        }
+
+        dialog td:first-child {
+            white-space: nowrap;
+            color: var(--muted);
+        }
+
+        /* Desktop only — the album builder is not offered on phones or small tablets. */
+        #desktop-only {
+            display: none;
+        }
+
+        @media (max-width: 1023px) {
+
+            #controls,
+            #preview {
+                display: none;
+            }
+
+            body {
+                display: block;
+            }
+
+            #desktop-only {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                gap: 14px;
+                min-height: 100vh;
+                padding: 40px 24px;
+                text-align: center;
+                background: #fff;
+            }
+
+            #desktop-only h2 {
+                margin: 0;
+                font-size: 1.15rem;
+            }
+
+            #desktop-only p {
+                margin: 0;
+                max-width: 440px;
+                font-size: 0.9rem;
+                line-height: 1.65;
+                color: var(--muted);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="controls">
+        <h1>AlbumEasy Online<span>Philately World</span></h1>
+        <p class="lead">Paste an AlbumEasy album file and add your images — the album is built as a print-ready A4 PDF
+            in your browser. Nothing is uploaded to a server.</p>
+
+        <div>
+            <label>Album file (.txt)</label>
+            <div class="row">
+                <button onclick="document.getElementById('script-file').click()">Open file…</button>
+                <button onclick="loadSample()">Load example</button>
+                <button onclick="showHelp()">Commands</button>
+            </div>
+            <input type="file" id="script-file" accept=".txt,text/plain" hidden onchange="openScript(this.files[0])">
+        </div>
+
+        <div>
+            <label>Album script</label>
+            <textarea id="script" spellcheck="false" oninput="render()"></textarea>
+        </div>
+
+        <div class="drop" id="drop" onclick="document.getElementById('images').click()">
+            <b>Add stamp images</b>
+            <small id="image-status">Drop files here or click to browse</small>
+            <input type="file" id="images" accept="image/*" multiple hidden onchange="addImages(this.files)">
+        </div>
+
+        <label class="check"><input type="checkbox" id="gray" checked onchange="render()"> Grayscale stamp images</label>
+
+        <div class="row">
+            <button class="primary" onclick="download()">Download PDF</button>
+            <button onclick="render()">Refresh preview</button>
+        </div>
+
+        <div id="status">Ready.</div>
+    </div>
+
+    <div id="preview"><iframe id="viewer" title="Album preview"></iframe></div>
+
+    <div id="desktop-only">
+        <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="#9ca3af" stroke-width="1.6"
+            stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="2" y="4" width="20" height="13" rx="2" />
+            <path d="M8 21h8M12 17v4" />
+        </svg>
+        <h2>Please open AlbumEasy on a computer</h2>
+        <p>The album builder needs a wide screen to lay out an A4 page and its stamp frames, so it is not available on
+            phones and small tablets. Open this page on a laptop or desktop browser to paste your album script, add
+            your images and download the PDF.</p>
+    </div>
+
+    <dialog id="help">
+        <h2>Supported AlbumEasy commands</h2>
+        <p class="lead">Line based: one command per line. Text after <code>#</code> is a comment. Arguments go in
+            brackets, text arguments in double quotes.</p>
+        <table>
+            <tr>
+                <td><code>ALBUM_PAGES_SIZE (w h)</code></td>
+                <td>Page size in mm (A4 is 210 297)</td>
+            </tr>
+            <tr>
+                <td><code>ALBUM_PAGES_MARGINS (l r t b)</code></td>
+                <td>left, right, top and bottom margins in mm</td>
+            </tr>
+            <tr>
+                <td><code>ALBUM_PAGES_BORDER (o i x g)</code></td>
+                <td>outer and inner line width in mm, gap before the inner line, and 1 for a border</td>
+            </tr>
+            <tr>
+                <td><code>ALBUM_PAGES_SPACING (h v)</code></td>
+                <td>gap between items across and down a page, in mm</td>
+            </tr>
+            <tr>
+                <td><code>ALBUM_PAGES_FOOTER (id sz C "text")</code></td>
+                <td>centred footer on every page</td>
+            </tr>
+            <tr>
+                <td><code>ALBUM_DEFINE_FONT (id "name")</code></td>
+                <td>map a font id to a family, e.g. <code>(RWB "Rockwell Bold")</code></td>
+            </tr>
+            <tr>
+                <td><code>ALBUM_STAMP_IMG_GRAYSCALE_ON/OFF</code></td>
+                <td>greyscale the stamp images</td>
+            </tr>
+            <tr>
+                <td><code>PAGE_START</code></td>
+                <td>begin a new album page</td>
+            </tr>
+            <tr>
+                <td><code>PAGE_TEXT_CENTRE (id sz "text")</code></td>
+                <td>centred text; <code>\n</code> starts a new line, blank lines add space. LEFT and RIGHT also work
+                </td>
+            </tr>
+            <tr>
+                <td><code>ROW_START / ROW_START_ES (…)</code></td>
+                <td>begin a row of stamps, centred across the page</td>
+            </tr>
+            <tr>
+                <td><code>STAMP_ADD_IMG (w h "file" "date" "" "price")</code></td>
+                <td>a stamp frame of w by h mm holding the image, with the date and price below it</td>
+            </tr>
+            <tr>
+                <td><code>PAGE_BACKGROUND_IMG ("file")</code></td>
+                <td>stretch an image over the whole page</td>
+            </tr>
+        </table>
+        <p class="lead" style="margin-top:14px">Fonts are matched to the closest of Times, Helvetica and Courier, so a
+            Rockwell title prints as a bold serif. Image file names in the script must match the images you add.</p>
+        <div class="row" style="margin-top:18px">
+            <button class="primary" onclick="document.getElementById('help').close()">Close</button>
+        </div>
+    </dialog>
+
+    <script>
+        const MM_PER_PT = 25.4 / 72;
+        const state = { images: {}, bg: {}, pages: 0 };
+
+        const SAMPLE = `# AlbumEasy example - A4 stamp album
+ALBUM_PAGES_SIZE     (210.0 297.0)         #A4
+ALBUM_PAGES_MARGINS  (25.0 12.0 15.0 15.0) #left, right, top and bottom page margins
+ALBUM_PAGES_BORDER   (0.5 0.1 0.0 1.0)     #double line border around the page
+ALBUM_PAGES_SPACING  (1.0 6.0)             #horizontal & vertical spacing
+ALBUM_STAMP_IMG_GRAYSCALE_OFF
+ALBUM_DEFINE_FONT(RWB "Rockwell Bold")
+ALBUM_PAGES_FOOTER (TI 10 C "Album by: Ravindra Nayak | IG: @philatelyworld10 | Email: ravindraten@gmail.com")
+
+PAGE_START
+	PAGE_TEXT_CENTRE (RWB 10 "\\n\\n\\nJanneke Brinkman - Zomerpalet\\n\\n\\n");
+	ROW_START_ES (HN 6 0.1 6.0)
+	STAMP_ADD_IMG (170.0 122.0 "1.jpg" "2026-06-22" "" "7,00")
+
+PAGE_START
+	PAGE_TEXT_CENTRE (RWB 10 "\\n\\n\\nNoordzeeschelpen\\n\\n\\n");
+	ROW_START_ES (HN 6 0.1 6.0)
+	STAMP_ADD_IMG (170.0 122.0 "2.jpg" "2026-07-20" "" "14,00")
+`;
+
+        /* ---------- script parsing ---------- */
+
+        // Returns every argument plus the quoted ones on their own, so that quoted text
+        // can never be mistaken for a stray token such as the ") ;" after a PAGE_TEXT line.
+        function splitArgs(text) {
+            const args = [], quoted = [];
+            let buf = '', quote = false, isQuoted = false;
+            for (let i = 0; i < text.length; i++) {
+                const c = text[i];
+                if (c === '"') {
+                    if (quote && isQuoted) { quoted.push(buf); args.push(buf); buf = ''; isQuoted = false; }
+                    quote = !quote;
+                    continue;
+                }
+                if (!quote && /\s/.test(c)) {
+                    if (buf) { args.push(buf); buf = ''; }
+                    isQuoted = false;
+                    continue;
+                }
+                if (quote) isQuoted = true;
+                buf += c;
+            }
+            if (buf) args.push(buf);
+            return { args, quoted };
+        }
+
+        function unescape(s) { return s.replace(/\\n/g, '\n').replace(/\\t/g, '\t'); }
+
+        function parseScript(src) {
+            const album = {
+                size: [210, 297], margins: [25, 12, 15, 15], border: null, spacing: [1, 6],
+                footer: null, fonts: {}, grayscale: null, pages: []
+            };
+            const errors = [];
+            let page = null, row = null;
+
+            const closeRow = () => { if (row) { page.items.push(row); row = null; } };
+
+            src.split(/\r?\n/).forEach((rawLine, i) => {
+                let line = '', quote = false;
+                for (const c of rawLine) {                       // strip comments outside quotes
+                    if (c === '"') quote = !quote;
+                    if (c === '#' && !quote) break;
+                    line += c;
+                }
+                line = line.trim();
+                if (!line) return;
+
+                const m = line.match(/^(\w+)\s*[\(]?\s*([\s\S]*?)\s*[\)]?\s*$/);
+                if (!m) { errors.push(`Line ${i + 1}: cannot read "${line}"`); return; }
+                const cmd = m[1].toUpperCase();
+                const parsed = splitArgs(m[2]);
+                const a = parsed.args.map(unescape);
+                const quoted = parsed.quoted.map(unescape);
+                const text = quoted.length ? quoted[quoted.length - 1] : '';
+                const num = (v, d) => { const n = parseFloat(v); return isNaN(n) ? d : n; };
+
+                try {
+                    switch (cmd) {
+                        case 'ALBUM_PAGES_SIZE':
+                            album.size = a.map(Number).slice(0, 2); break;
+                        case 'ALBUM_PAGES_MARGINS':
+                            album.margins = a.map(Number).slice(0, 4); break;
+                        case 'ALBUM_PAGES_BORDER':
+                            album.border = a.map(Number); break;
+                        case 'ALBUM_PAGES_SPACING':
+                            album.spacing = a.map(Number).slice(0, 2); break;
+                        case 'ALBUM_PAGES_FOOTER':
+                            album.footer = { font: a[0], size: num(a[1], 10), text }; break;
+                        case 'ALBUM_DEFINE_FONT':
+                            album.fonts[a[0]] = a[1] || 'Times'; break;
+                        case 'ALBUM_STAMP_IMG_GRAYSCALE_ON': album.grayscale = true; break;
+                        case 'ALBUM_STAMP_IMG_GRAYSCALE_OFF': album.grayscale = false; break;
+                        case 'ALBUM_STAMP_IMG_SHOW': case 'ALBUM_STAMP_IMG_HIDE': break;
+                        case 'ALBUM_PAGES_TITLE': case 'ALBUM_PAGES_HEADER':
+                        case 'ALBUM_PAGES_MARGINSE': break;
+                        case 'PAGE_START':
+                            closeRow(); page = { items: [] }; album.pages.push(page); break;
+                        case 'ROW_START': case 'ROW_START_ES':
+                            if (!page) { errors.push(`Line ${i + 1}: ${cmd} before PAGE_START`); return; }
+                            closeRow(); row = { type: 'row', stamps: [] }; break;
+                        case 'STAMP_ADD_IMG':
+                            if (!page) { errors.push(`Line ${i + 1}: STAMP_ADD_IMG before PAGE_START`); return; }
+                            if (!row) row = { type: 'row', stamps: [] };
+                            row.stamps.push({
+                                w: num(a[0], 40), h: num(a[1], 50), file: a[2] || '',
+                                date: a[3] || '', price: a[5] || ''
+                            });
+                            break;
+                        case 'PAGE_TEXT_CENTRE': case 'PAGE_TEXT_CENTER':
+                        case 'PAGE_TEXT_LEFT': case 'PAGE_TEXT_RIGHT':
+                            if (!page) return;
+                            closeRow();
+                            page.items.push({
+                                type: 'text', align: cmd.slice(10).toLowerCase(),
+                                font: a[0], size: num(a[1], 10), text
+                            });
+                            break;
+                        case 'PAGE_BACKGROUND_IMG':
+                            if (page) page.bg = a[0]; break;
+                        default:
+                            errors.push(`Line ${i + 1}: ${cmd} is not supported yet`);
+                    }
+                } catch (e) { errors.push(`Line ${i + 1}: ${e.message}`); }
+            });
+
+            closeRow();
+            return { album, errors };
+        }
+
+        function fontFor(id, album, fallback) {
+            const name = (album.fonts[id] || fallback || (id && id !== 'HN' ? id : 'Helvetica') || 'Helvetica');
+            const n = name.toLowerCase();
+            const family = /courier|mono/.test(n) ? 'courier'
+                : /times|serif|roman|rockwell|georgia|garamond|book/.test(n) ? 'times' : 'helvetica';
+            const style = /bold/.test(n) && /italic|oblique/.test(n) ? 'bolditalic'
+                : /bold/.test(n) ? 'bold' : /italic|oblique/.test(n) ? 'italic' : 'normal';
+            return { family, style, pt: /courier/.test(family) ? 0.7 : 1 };
+        }
+
+        /* ---------- image handling ---------- */
+
+        function addImages(files) {
+            const list = Array.from(files);
+            if (!list.length) return;
+            Promise.all(list.map(file => new Promise(resolve => {
+                const img = new Image();
+                img.onload = () => {
+                    const scale = Math.min(1, 1600 / Math.max(img.width, img.height));
+                    const canvas = document.createElement('canvas');
+                    canvas.width = Math.round(img.width * scale);
+                    canvas.height = Math.round(img.height * scale);
+                    const ctx = canvas.getContext('2d');
+                    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+                    URL.revokeObjectURL(img.src);
+                    const src = canvas.toDataURL('image/jpeg', 0.9);
+                    const data = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                    const px = data.data;
+                    for (let i = 0; i < px.length; i += 4) {
+                        const v = px[i] * 0.299 + px[i + 1] * 0.587 + px[i + 2] * 0.114;
+                        px[i] = px[i + 1] = px[i + 2] = v;
+                    }
+                    ctx.putImageData(data, 0, 0);
+                    resolve({ name: file.name, src, gray: canvas.toDataURL('image/jpeg', 0.9) });
+                };
+                img.onerror = () => { URL.revokeObjectURL(img.src); resolve(null); };
+                img.src = URL.createObjectURL(file);
+            }))).then(loaded => {
+                loaded.filter(Boolean).forEach(i => {
+                    const key = i.name.toLowerCase();
+                    state.images[key] = i;                          // { src, gray } — findImage picks the one it needs
+                    state.bg[key.replace(/\.[a-z0-9]+$/, '')] = i;
+                });
+                document.getElementById('image-status').textContent =
+                    `${Object.keys(state.images).length} image(s) ready — drop more or click to add`;
+                render();
+            });
+        }
+
+        /* ---------- rendering ---------- */
+
+        function findImage(file, gray) {
+            const key = String(file || '').trim().toLowerCase();
+            const hit = state.images[key] || state.bg[key.replace(/\.[a-z0-9]+$/, '')] || null;
+            if (!hit) return null;
+            return gray ? hit.gray : hit.src;
+        }
+
+        function build(grayscale) {
+            const src = document.getElementById('script').value;
+            const { album, errors } = parseScript(src);
+            if (!album.pages.length) {
+                return { errors: errors.concat('No PAGE_START found — the script needs at least one page.') };
+            }
+
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF({ unit: 'mm', format: album.size, compress: true });
+            const [pw, ph] = album.size;
+            const [ml, mr, mt, mb] = album.margins;
+            const gaps = [];                                    // images needing grayscale / re-draw
+
+            album.pages.forEach((page, index) => {
+                if (index) doc.addPage(album.size, 'portrait');
+                let y = mt;
+
+                if (page.bg) {
+                    const bg = findImage(page.bg, grayscale);
+                    if (bg) doc.addImage(bg, 'JPEG', 0, 0, pw, ph);
+                }
+                if (album.border && album.border[3] !== 0) {
+                    const [ow, iw, , gap] = album.border;
+                    doc.setDrawColor(0).setLineWidth(ow);
+                    doc.rect(ml, mt, pw - ml - mr, ph - mt - mb);
+                    doc.setLineWidth(iw);
+                    const inset = ow + iw + (gap || 0);
+                    doc.rect(ml + inset, mt + inset, pw - ml - mr - 2 * inset, ph - mt - mb - 2 * inset);
+                }
+
+                page.items.forEach((item, itemIndex) => {
+                    if (item.type === 'text') {
+                        const f = fontFor(item.font, album);
+                        const lineH = item.size * MM_PER_PT * 1.2;
+                        doc.setFont(f.family, f.style).setFontSize(item.size).setTextColor(0);
+                        item.text.split('\n').forEach(part => {
+                            y += lineH;
+                            if (!part.trim()) return;
+                            const x = item.align === 'left' ? ml : item.align === 'right' ? pw - mr : pw / 2;
+                            doc.text(part, x, y, { align: item.align === 'left' ? 'left' : item.align === 'right' ? 'right' : 'center', baseline: 'alphabetic' });
+                        });
+                        return;
+                    }
+
+                    // row of stamps, centred across the page
+                    y += 2.6;                                 // lead-in above a row of stamps
+                    const hGap = album.spacing[0];
+                    const rowW = item.stamps.reduce((t, s) => t + s.w, 0) + hGap * Math.max(0, item.stamps.length - 1);
+                    let x = ml + (pw - ml - mr - rowW) / 2;      // centred in the content area
+                    let rowH = 0;
+
+                    item.stamps.forEach(s => {
+                        doc.setDrawColor(0).setLineWidth(0.1);
+                        doc.rect(x, y, s.w, s.h);
+                        const img = findImage(s.file, grayscale);
+                        if (img) {
+                            doc.addImage(img, 'JPEG', x + 0.75, y + 0.75, s.w - 1.5, s.h - 1.5, `im${gaps.length}`);
+                            gaps.push({ src: img, name: s.file });
+                        } else {
+                            doc.setFont('helvetica', 'normal').setFontSize(6).setTextColor(150);
+                            doc.text(`[${s.file}]`, x + s.w / 2, y + s.h / 2, { align: 'center' });
+                        }
+                        doc.setFont('helvetica', 'normal').setFontSize(6).setTextColor(0);
+                        if (s.date) doc.text(s.date, x, y + s.h + 2.85);
+                        if (s.price) doc.text(s.price, x + s.w, y + s.h + 2.85, { align: 'right' });
+                        x += s.w + hGap;
+                        rowH = Math.max(rowH, s.h);
+                    });
+
+                    y += rowH + album.spacing[1];
+                });
+
+                if (album.footer) {
+                    const f = fontFor(album.footer.font, album, 'Times');
+                    doc.setFont(f.family, f.style).setFontSize(album.footer.size).setTextColor(0);
+                    doc.text(album.footer.text, pw / 2, ph - mb + album.footer.size * MM_PER_PT * 1.25, { align: 'center' });
+                }
+            });
+
+            return { doc, errors, images: gaps.length };
+        }
+
+        function render() {
+            const status = document.getElementById('status');
+            let out;
+            try {
+                out = build(document.getElementById('gray').checked);
+            } catch (e) {
+                status.className = 'error';
+                status.textContent = 'Could not build the album: ' + e.message;
+                return;
+            }
+            if (out.errors && out.errors.length) {
+                status.className = out.errors.length && !out.doc ? 'error' : '';
+                status.textContent = out.errors.slice(0, 6).join('\n') +
+                    (out.errors.length > 6 ? `\n…and ${out.errors.length - 6} more` : '');
+            } else {
+                status.className = '';
+                status.textContent = `Preview ready — ${out.doc.internal.getNumberOfPages()} page(s), ${out.images} image(s) placed.`;
+            }
+            if (!out.doc) return;
+            state.doc = out.doc;
+            state.pages = out.doc.internal.getNumberOfPages();
+            URL.revokeObjectURL(state.url);
+            state.url = URL.createObjectURL(out.doc.output('blob'));
+            document.getElementById('viewer').src = state.url;
+        }
+
+        function download() {
+            if (!state.doc) { render(); }
+            if (!state.doc) return;
+            state.doc.save('stamp-album.pdf');
+        }
+
+        function applyScript(text) {
+            document.getElementById('script').value = text;
+            const { album } = parseScript(text);          // let the file decide the greyscale default
+            if (typeof album.grayscale === 'boolean') document.getElementById('gray').checked = album.grayscale;
+            render();
+        }
+
+        function openScript(file) {
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = () => applyScript(reader.result);
+            reader.readAsText(file);
+        }
+
+        function loadSample() { applyScript(SAMPLE); }
+
+        function showHelp() { document.getElementById('help').showModal(); }
+
+        document.getElementById('drop').addEventListener('dragover', e => {
+            e.preventDefault();
+            e.currentTarget.classList.add('over');
+        });
+        document.getElementById('drop').addEventListener('dragleave', e => e.currentTarget.classList.remove('over'));
+        document.getElementById('drop').addEventListener('drop', e => {
+            e.preventDefault();
+            e.currentTarget.classList.remove('over');
+            addImages(e.dataTransfer.files);
+        });
+
+        applyScript(SAMPLE);
+    </script>
+</body>
+
+</html>
