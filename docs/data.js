@@ -1,6 +1,17 @@
 // 1. STAMP DATABASE
 const stamps = [
     {
+        name: "8 different postcards from India with cancelled stamps. Puppets of India",
+        country: "India",
+        year: "<b>Year</b>: 2026",
+        priceINR: 860,
+        isSoldOut: false,
+        freeTrackedShipping: false,
+        freeLetterPostShipping: true,
+        folder: "D148",
+        imageCount: 3,
+        desc: "<b>RN4207: 8 different postcards from India with cancelled stamps. Puppets of India (2026)</b>"
+    }, {
         name: "150 Years of Red Cross of Montenegro MS.(3 available)",
         country: "Montenegro",
         year: "<b>Year</b>: 2025",
