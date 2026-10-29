@@ -675,6 +675,41 @@
                 gap: 6px 18px;
             }
         }
+
+        #jumpToCountry {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 46px;
+            height: 46px;
+            border-radius: 50%;
+            border: none;
+            background: var(--accent);
+            color: #fff;
+            font-size: 20px;
+            line-height: 1;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.18);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(8px);
+            transition: opacity 0.25s, visibility 0.25s, transform 0.25s, background 0.2s;
+            z-index: 2000;
+        }
+
+        #jumpToCountry.visible {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        #jumpToCountry:hover,
+        #jumpToCountry:focus-visible {
+            background: #b45309;
+        }
     </style>
 
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-0K58TP8LVP"></script>
@@ -837,7 +872,7 @@
 
             </div>
 
-            <div class="index">
+            <div class="index" id="jump-to-country">
                 <h2>Jump to a country</h2>
                 <div class="chips">
                     <a class="chip" href="#aden">Aden<span class="chip-n">1</span></a>
@@ -6964,6 +6999,22 @@
 
             document.addEventListener('keydown', function (e) {
                 if (e.key === 'Escape' && modal.classList.contains('open')) close();
+            });
+        })();
+    </script>
+
+    <button id="jumpToCountry" type="button" title="Jump to the country list"
+        aria-label="Jump to the country list">&uarr;</button>
+
+    <script>
+        (function () {
+            var jumpBtn = document.getElementById('jumpToCountry');
+            var countryIndex = document.getElementById('jump-to-country');
+            window.addEventListener('scroll', function () {
+                jumpBtn.classList.toggle('visible', window.scrollY > 400);
+            }, { passive: true });
+            jumpBtn.addEventListener('click', function () {
+                countryIndex.scrollIntoView({ behavior: 'smooth', block: 'start' });
             });
         })();
     </script>
