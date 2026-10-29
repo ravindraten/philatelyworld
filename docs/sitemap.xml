@@ -19,6 +19,18 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://philatelyworld.in/AlbumDesigner/albumeasy.html</loc>
+    <lastmod>2026-10-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://philatelyworld.in/AlbumDesigner/auto-album.html</loc>
+    <lastmod>2026-10-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://philatelyworld.in/item/RN4002/</loc>
     <lastmod>2026-10-29</lastmod>
     <changefreq>monthly</changefreq>
@@ -1190,7 +1202,7 @@
   </url>
   <url>
     <loc>https://philatelyworld.in/blog/heic-to-jpg.html</loc>
-    <lastmod>2026-10-03</lastmod>
+    <lastmod>2026-10-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -1232,7 +1244,7 @@
   </url>
   <url>
     <loc>https://philatelyworld.in/blog/jpg-to-pdf.html</loc>
-    <lastmod>2026-10-03</lastmod>
+    <lastmod>2026-10-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -1310,7 +1322,7 @@
   </url>
   <url>
     <loc>https://philatelyworld.in/blog/png-to-jpg.html</loc>
-    <lastmod>2026-10-03</lastmod>
+    <lastmod>2026-10-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -1412,7 +1424,7 @@
   </url>
   <url>
     <loc>https://philatelyworld.in/blog/svg-to-png.html</loc>
-    <lastmod>2026-10-03</lastmod>
+    <lastmod>2026-10-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
