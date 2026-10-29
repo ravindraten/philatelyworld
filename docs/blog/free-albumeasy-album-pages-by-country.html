@@ -457,6 +457,194 @@
             margin: 0 0 30px;
         }
 
+        /* Support Philately World — inline QR card (top and bottom) + popup */
+        .support-qr {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            width: 100%;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 16px 18px;
+            margin: 30px 0;
+            text-align: left;
+            font: inherit;
+            color: inherit;
+            cursor: pointer;
+            transition: border-color 0.15s, box-shadow 0.15s;
+        }
+
+        .support-qr:hover {
+            border-color: rgba(217, 119, 6, 0.5);
+            box-shadow: 0 6px 18px rgba(15, 23, 42, 0.08);
+        }
+
+        .support-qr img {
+            width: 88px;
+            height: 88px;
+            object-fit: contain;
+            flex: none;
+            background: #fff;
+            border: 1px solid #eef2f7;
+            border-radius: 10px;
+            padding: 3px;
+        }
+
+        .support-qr strong {
+            display: block;
+            color: var(--primary);
+            font-size: 1rem;
+            margin-bottom: 3px;
+        }
+
+        .support-qr .support-qr-sub {
+            display: block;
+            font-size: 0.85rem;
+            line-height: 1.55;
+            color: var(--light);
+        }
+
+        .support-qr .support-qr-cta {
+            display: inline-block;
+            margin-top: 7px;
+            font-size: 0.74rem;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            color: var(--accent);
+        }
+
+        .qr-modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 3000;
+            background: rgba(0, 0, 0, 0.8);
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .qr-modal.open {
+            display: flex;
+        }
+
+        .qr-modal-content {
+            background: #fff;
+            border-radius: 20px;
+            padding: 30px;
+            width: 100%;
+            max-width: 340px;
+            max-height: 90vh;
+            overflow-y: auto;
+            text-align: center;
+            position: relative;
+        }
+
+        .qr-close {
+            position: absolute;
+            right: 15px;
+            top: 10px;
+            font-size: 28px;
+            line-height: 1;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--primary);
+        }
+
+        .qr-modal-content h3 {
+            margin: 0 0 4px;
+            font-size: 1.15rem;
+            color: var(--primary);
+        }
+
+        .qr-modal-lead {
+            font-size: 0.8rem;
+            color: var(--light);
+            margin: 0 0 16px;
+        }
+
+        .modal-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            background: #f1f5f9;
+            padding: 4px;
+            border-radius: 12px;
+        }
+
+        .modal-tab {
+            flex: 1;
+            padding: 8px;
+            border-radius: 9px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            cursor: pointer;
+            border: none;
+            background: transparent;
+            color: #64748b;
+        }
+
+        .modal-tab.active {
+            background: #fff;
+            color: var(--accent);
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .qr-modal-content .qr-img {
+            width: 100%;
+            max-width: 240px;
+            margin: 0 auto;
+            border-radius: 12px;
+            display: block;
+        }
+
+        .upi-box {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            padding: 12px;
+            border-radius: 10px;
+            margin-top: 18px;
+        }
+
+        .upi-box strong {
+            font-family: ui-monospace, Menlo, Consolas, monospace;
+            font-size: 0.82rem;
+            color: var(--primary);
+        }
+
+        .upi-copy {
+            background: var(--accent);
+            color: #fff;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 0.72rem;
+            font-weight: 800;
+            letter-spacing: 0.4px;
+            cursor: pointer;
+        }
+
+        .qr-modal-note {
+            font-size: 0.78rem;
+            color: var(--light);
+            margin: 14px 0 0;
+        }
+
         footer.site {
             border-top: 1px solid var(--border);
             background: #fff;
@@ -514,6 +702,17 @@
                 <span>Updated: <strong>28 October 2026</strong></span>
                 <span>Albums: <strong>456</strong></span>
             </div>
+
+            <button class="support-qr" type="button" data-support-qr>
+                <img src="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/BHIM.jpg"
+                    alt="UPI QR code to support Philately World" width="88" height="88" loading="lazy">
+                <span class="support-qr-text">
+                    <strong>Support Philately World</strong>
+                    <span class="support-qr-sub">All 456 albums here are free, and they stay free. Scan the QR
+                        code below to contribute &mdash; UPI from India, PayPal from anywhere else.</span>
+                    <span class="support-qr-cta">Tap for the full QR code</span>
+                </span>
+            </button>
 
             <div class="content">
 
@@ -6627,6 +6826,46 @@
                 </section>
             </div>
 
+            <button class="support-qr" type="button" data-support-qr>
+                <img src="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/BHIM.jpg"
+                    alt="UPI QR code to support Philately World" width="88" height="88" loading="lazy">
+                <span class="support-qr-text">
+                    <strong>Did these album pages save you time?</strong>
+                    <span class="support-qr-sub">The whole library &mdash; 456 albums, 6.09 GB, no adverts and no
+                        paywall &mdash; is mirrored and served at our own cost. A small contribution keeps the
+                        downloads working.</span>
+                    <span class="support-qr-cta">Tap for the full QR code</span>
+                </span>
+            </button>
+
+        </div>
+    </div>
+
+    <div class="qr-modal" id="supportModal" role="dialog" aria-modal="true" aria-labelledby="supportModalTitle">
+        <div class="qr-modal-content">
+            <button class="qr-close" type="button" aria-label="Close">&times;</button>
+            <h3 id="supportModalTitle">Support Philately World</h3>
+            <p class="qr-modal-lead" id="supportLead">Scan with your bank app, or copy the UPI ID.</p>
+
+            <div class="modal-tabs">
+                <button class="modal-tab active" type="button" data-support-tab="upi">Domestic (UPI)</button>
+                <button class="modal-tab" type="button" data-support-tab="paypal">International (PayPal)</button>
+            </div>
+
+            <div class="tab-content active" data-support-panel="upi">
+                <img class="qr-img" src="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/BHIM.jpg"
+                    alt="BHIM UPI QR code" width="240" height="234">
+                <div class="upi-box">
+                    <strong id="supportUpiId">9900416731@upi</strong>
+                    <button class="upi-copy" type="button" data-support-copy>COPY</button>
+                </div>
+            </div>
+
+            <div class="tab-content" data-support-panel="paypal">
+                <img class="qr-img" src="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/paypal.jpg"
+                    alt="PayPal QR code" width="240" height="241">
+                <p class="qr-modal-note">Scan to contribute via PayPal.</p>
+            </div>
         </div>
     </div>
 
@@ -6637,6 +6876,97 @@
             &copy; 2026 <a href="https://philatelyworld.in/">Philately World</a>
         </p>
     </footer>
+
+    <script>
+        (function () {
+            var modal = document.getElementById('supportModal');
+            if (!modal) return;
+            var lastFocus = null;
+            var lead = document.getElementById('supportLead');
+            var LEAD_DEFAULT = lead.textContent;
+            var LEAD_DOWNLOAD = 'Your album is opening in a new tab. If these pages saved you time, a small contribution keeps the mirror running.';
+
+            function setTab(name) {
+                modal.querySelectorAll('[data-support-tab]').forEach(function (b) {
+                    b.classList.toggle('active', b.getAttribute('data-support-tab') === name);
+                });
+                modal.querySelectorAll('[data-support-panel]').forEach(function (p) {
+                    p.classList.toggle('active', p.getAttribute('data-support-panel') === name);
+                });
+            }
+
+            function open(fromDownload) {
+                lastFocus = document.activeElement;
+                lead.textContent = fromDownload ? LEAD_DOWNLOAD : LEAD_DEFAULT;
+                modal.classList.add('open');
+                document.body.style.overflow = 'hidden';
+                modal.querySelector('.qr-close').focus();
+            }
+
+            function close() {
+                modal.classList.remove('open');
+                document.body.style.overflow = '';
+                if (lastFocus && lastFocus.focus) lastFocus.focus();
+            }
+
+            document.querySelectorAll('[data-support-qr]').forEach(function (btn) {
+                btn.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    open(false);
+                });
+            });
+
+            // Every album download also surfaces the QR code. The PDF still opens in a
+            // new tab as usual — the popup sits over this page, it does not block it.
+            document.querySelectorAll('a.dl-link').forEach(function (link) {
+                link.addEventListener('click', function () {
+                    open(true);
+                });
+            });
+
+            modal.querySelector('.qr-close').addEventListener('click', close);
+            modal.addEventListener('click', function (e) {
+                if (e.target === modal) close();
+            });
+            modal.querySelectorAll('[data-support-tab]').forEach(function (b) {
+                b.addEventListener('click', function () {
+                    setTab(b.getAttribute('data-support-tab'));
+                });
+            });
+
+            modal.querySelector('[data-support-copy]').addEventListener('click', function (e) {
+                var btn = e.currentTarget;
+                var id = document.getElementById('supportUpiId').textContent.trim();
+                var done = function () {
+                    var old = btn.textContent;
+                    btn.textContent = 'COPIED';
+                    setTimeout(function () { btn.textContent = old; }, 1500);
+                };
+                if (navigator.clipboard && navigator.clipboard.writeText) {
+                    navigator.clipboard.writeText(id).then(done, function () { fallbackCopy(id); done(); });
+                } else {
+                    fallbackCopy(id);
+                    done();
+                }
+            });
+
+            function fallbackCopy(text) {
+                var t = document.createElement('textarea');
+                t.value = text;
+                t.setAttribute('readonly', '');
+                t.style.position = 'absolute';
+                t.style.left = '-9999px';
+                document.body.appendChild(t);
+                t.select();
+                try { document.execCommand('copy'); } catch (err) { }
+                document.body.removeChild(t);
+            }
+
+            document.addEventListener('keydown', function (e) {
+                if (e.key === 'Escape' && modal.classList.contains('open')) close();
+            });
+        })();
+    </script>
 
 </body>
 

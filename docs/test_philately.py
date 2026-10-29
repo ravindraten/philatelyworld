@@ -1068,40 +1068,36 @@ def test_album_designer_navigation(driver):
 
     # 2. Click it and verify navigation
     driver.execute_script("arguments[0].click();", designer_btn)
-    wait.until(EC.url_contains("AlbumDesigner/auto-album.html"))
-    assert "auto-album.html" in driver.current_url
-    assert "Philately World | Free Automated Stamp Album Designer" in driver.title
+    wait.until(EC.url_contains("AlbumDesigner/albumeasy.html"))
+    assert "albumeasy.html" in driver.current_url
+    assert "AlbumEasy Online" in driver.title
 
 
 def test_album_designer_mobile_lockdown(driver):
-    """Verify that the Album Designer shows the 'Desktop View Required' warning on small screens."""
-    designer_url = URL.replace("index.html", "AlbumDesigner/auto-album.html")
+    """Verify that AlbumEasy Online shows its desktop-only notice on small screens."""
+    designer_url = URL.replace("index.html", "AlbumDesigner/albumeasy.html")
     driver.get(designer_url)
     wait = WebDriverWait(driver, 10)
 
     # 1. Start in Desktop mode (should already be set by driver fixture, but let's be explicit)
     driver.set_window_size(1200, 800)
     wait.until(EC.visibility_of_element_located((By.ID, "controls")))
-    warning = driver.find_element(By.ID, "mobile-warning")
-    assert not warning.is_displayed()
+    notice = driver.find_element(By.ID, "desktop-only")
+    assert not notice.is_displayed()
 
-    # 2. Switch to Mobile resolution (below 800px)
+    # 2. Switch to Mobile resolution (below the 1024px breakpoint)
     driver.set_window_size(375, 812)  # iPhone size
 
-    # 3. Verify the lockdown overlay becomes visible instantly
-    wait.until(EC.visibility_of_element_located((By.ID, "mobile-warning")))
-    assert warning.is_displayed()
-    assert "Desktop View Required".lower() in warning.text.lower()
+    # 3. Verify the desktop-only notice becomes visible
+    wait.until(EC.visibility_of_element_located((By.ID, "desktop-only")))
+    assert notice.is_displayed()
+    assert "open albumeasy on a computer" in notice.text.lower()
+    assert "laptop or desktop" in notice.text.lower()
 
-    # 4. Verify main content is hidden
+    # 4. Verify the builder itself is hidden
     controls = driver.find_element(By.ID, "controls")
     assert not controls.is_displayed()
-
-    # 5. Verify the 'Return to Collection' button works
-    back_btn = warning.find_element(By.CLASS_NAME, "warning-back-btn")
-    driver.execute_script("arguments[0].click();", back_btn)
-    wait.until(lambda d: "auto-album" not in d.current_url)
-    assert "auto-album" not in driver.current_url
+    assert not driver.find_element(By.ID, "preview").is_displayed()
 
     # Restore window size for other tests
     driver.set_window_size(1920, 1080)
@@ -1109,21 +1105,27 @@ def test_album_designer_mobile_lockdown(driver):
 
 def test_album_designer_seo_meta(driver):
     """Verify SEO meta tags and link previews on the Album Designer page."""
-    designer_url = URL.replace("index.html", "AlbumDesigner/auto-album.html")
+    designer_url = URL.replace("index.html", "AlbumDesigner/albumeasy.html")
     driver.get(designer_url)
 
     # Verify Title
-    assert "Philately World | Free Automated Stamp Album Designer" in driver.title
+    assert "AlbumEasy Online | Philately World" in driver.title
 
     # Verify Meta Description
     desc = driver.find_element(By.NAME, "description").get_attribute("content")
-    assert "professional, high-resolution PDF stamp albums" in desc
+    assert "paste your album script" in desc
 
     # Verify Open Graph Title
     og_title = driver.find_element(
         By.XPATH, "//meta[@property='og:title']"
     ).get_attribute("content")
-    assert "Automated Stamp Album Designer" in og_title
+    assert "AlbumEasy Online" in og_title
+
+    # Verify Open Graph URL points at this page, not another designer build
+    og_url = driver.find_element(
+        By.XPATH, "//meta[@property='og:url']"
+    ).get_attribute("content")
+    assert og_url.endswith("AlbumDesigner/albumeasy.html")
 
     # Verify Open Graph Image
     og_image = driver.find_element(
