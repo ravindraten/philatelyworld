@@ -736,6 +736,7 @@
                 <span>Category: <strong>Free Resources</strong></span>
                 <span>Updated: <strong>28 October 2026</strong></span>
                 <span>Albums: <strong>456</strong></span>
+                <span>Downloads: <strong id="downloadTotal">&mdash;</strong></span>
             </div>
 
             <button class="support-qr" type="button" data-support-qr>
@@ -6951,10 +6952,38 @@
                 });
             });
 
+            // The PDFs live on filedn.eu, so a download can only be counted as the
+            // click that opens it — one event per album, named after the file.
+            function trackDownload(link) {
+                var file = link.dataset.file;
+                if (!file) return;
+                var slug = file.replace(/\.pdf$/i, '').toLowerCase().replace(/[^a-z0-9]+/g, '-');
+
+                // GoatCounter: the event name doubles as the path, so no leading slash.
+                // 'download' is the running total the page counter reads; the per-album
+                // name is what the Paths view breaks down.
+                if (window.goatcounter && window.goatcounter.count) {
+                    window.goatcounter.count({ path: 'download-' + slug, title: file, event: true });
+                    window.goatcounter.count({ path: 'download', title: 'Album download', event: true });
+                }
+
+                // GA4 treats filedn.eu as an outbound click rather than a file
+                // download, so the event is sent explicitly.
+                if (window.gtag) {
+                    gtag('event', 'file_download', {
+                        file_name: file,
+                        file_extension: 'pdf',
+                        link_url: link.href,
+                        link_domain: 'filedn.eu'
+                    });
+                }
+            }
+
             // Every album download also surfaces the QR code. The PDF still opens in a
             // new tab as usual — the popup sits over this page, it does not block it.
             document.querySelectorAll('a.dl-link').forEach(function (link) {
                 link.addEventListener('click', function () {
+                    trackDownload(link);
                     open(true);
                 });
             });
@@ -7016,6 +7045,28 @@
             jumpBtn.addEventListener('click', function () {
                 countryIndex.scrollIntoView({ behavior: 'smooth', block: 'start' });
             });
+        })();
+    </script>
+
+    <script>
+        /* Total downloads, read from the 'download' event the buttons record.
+           GoatCounter answers 404 while the count is zero, which is a 0 here. */
+        (function () {
+            var el = document.getElementById('downloadTotal');
+            if (!el || !window.fetch) return;
+            el.title = 'Album downloads counted since the buttons went live';
+
+            fetch('https://ravindraten.goatcounter.com/counter/download.json', { cache: 'no-store' })
+                .then(function (res) {
+                    if (res.status === 404) return { count: '0' };
+                    return res.ok ? res.json() : null;
+                })
+                .then(function (data) {
+                    if (!data) return;
+                    var n = parseInt(String(data.count).replace(/\s/g, ''), 10);
+                    if (!isNaN(n)) el.textContent = n.toLocaleString('en-IN');
+                })
+                .catch(function () { });
         })();
     </script>
 
