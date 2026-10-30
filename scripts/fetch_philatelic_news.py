@@ -72,6 +72,18 @@ TAG_RE = re.compile(r"<[^>]+>")
 SPACE_RE = re.compile(r"\s+")
 IMG_RE = re.compile(r"<img[^>]+src=[\"']([^\"']+)[\"']", re.IGNORECASE)
 BLOGGER_SIZE_RE = re.compile(r"/s\d+(?:-[^/]*)?/")
+BLOGGER_WIDTH = "w800"
+
+# WordPress serves resized variants as "<name>-<w>x<h>.<ext>". Thumbnails in
+# feeds are often 300px wide, which looks soft in the cards on retina screens.
+WP_THUMB_RE = re.compile(
+    r"^(?P<base>.+)-(?P<w>\d+)x(?P<h>\d+)(?P<ext>\.(?:jpe?g|png|gif|webp))$",
+    re.IGNORECASE,
+)
+WP_TARGET_WIDTH = 768
+
+# Jetpack/Photon proxied images take their size from the query string.
+PHOTON_RESIZE_RE = re.compile(r"resize=(\d+)(?:%2C|,)(\d+)")
 
 
 def ssl_context() -> ssl.SSLContext:
@@ -219,15 +231,62 @@ def good_image(url: str) -> bool:
     return not any(hint in lowered for hint in BAD_IMAGE_HINTS) and not lowered.startswith("data:")
 
 
+def remote_exists(url: str) -> bool:
+    """True when a HEAD request succeeds. Used to probe optional image sizes."""
+    try:
+        request = Request(url, method="HEAD", headers={"User-Agent": USER_AGENT})
+        with urlopen(request, timeout=TIMEOUT, context=SSL_CONTEXT) as response:
+            return 200 <= response.status < 300
+    except Exception:  # noqa: BLE001 - probe only
+        pass
+    curl = shutil.which("curl")
+    if not curl:
+        return False
+    result = subprocess.run(
+        [curl, "-fsSI", "--max-time", str(TIMEOUT), "-A", USER_AGENT, url],
+        capture_output=True,
+        check=False,
+    )
+    return result.returncode == 0
+
+
 def normalise_image(url: str) -> str:
     url = html.unescape(url.strip())
     if url.startswith("//"):
         url = "https:" + url
     if url.startswith("http://"):
         url = "https://" + url[len("http://"):]
-    # Blogger serves tiny thumbnails in its feeds; ask for a usable width.
-    if "blogger.com" in url or "blogspot.com" in url:
-        url = BLOGGER_SIZE_RE.sub("/w640/", url)
+    # Blogger serves tiny thumbnails in its feeds (often 72px wide). Ask for a
+    # width that stays crisp in the 178px thumbnail and in the mobile layout.
+    # Match both blogger.googleusercontent.com and the older bp.blogspot.com.
+    if "blogger" in url or "blogspot" in url:
+        url = BLOGGER_SIZE_RE.sub(f"/{BLOGGER_WIDTH}/", url)
+
+    # Jetpack/Photon proxies: resizing happens in the query string.
+    if "i0.wp.com" in url or "i1.wp.com" in url or "i2.wp.com" in url:
+        def bump(match: re.Match) -> str:
+            width, height = int(match.group(1)), int(match.group(2))
+            if width >= WP_TARGET_WIDTH:
+                return match.group(0)
+            new_height = max(1, round(height * WP_TARGET_WIDTH / width))
+            return f"resize={WP_TARGET_WIDTH}%2C{new_height}"
+
+        return PHOTON_RESIZE_RE.sub(bump, url)
+
+    # Direct WordPress thumbnails: try the 768px variant, keep the original URL
+    # if the site did not generate one.
+    match = WP_THUMB_RE.match(url) if "wp-content" in url else None
+    if match and int(match.group("w")) < WP_TARGET_WIDTH:
+        width, height = int(match.group("w")), int(match.group("h"))
+        base, ext = match.group("base"), match.group("ext")
+        # WordPress rounds the height; the thumb's own height is rounded too, so
+        # probe both neighbours instead of trusting one calculation.
+        floor_height = height * WP_TARGET_WIDTH // width
+        for candidate_height in (floor_height, floor_height + 1):
+            candidate = f"{base}-{WP_TARGET_WIDTH}x{candidate_height}{ext}"
+            if remote_exists(candidate):
+                return candidate
+
     return url
 
 
