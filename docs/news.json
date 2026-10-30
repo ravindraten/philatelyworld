@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-30T21:47:25.202087Z",
+  "generated_at": "2026-10-30T21:57:40.957733Z",
   "sources": [
     "Canadian Stamp News",
     "Commonwealth Stamps",
@@ -18,9 +18,10 @@
     "Linn's Stamp News",
     "Poczta Polska",
     "MaltaPost News",
+    "Press Information Bureau (India)",
     "Philatelicly"
   ],
-  "count": 198,
+  "count": 201,
   "items": [
     {
       "title": "Lewis and Clark booklet pane found with die cutting omitted",
@@ -93,6 +94,24 @@
       "source": "Linn's Stamp News",
       "source_url": "https://www.linns.com/",
       "published": "2026-10-30T00:00:00Z"
+    },
+    {
+      "title": "Department of Posts Releases Special Commemorative Postage Stamps on Breast Cancer Awareness",
+      "url": "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2330552",
+      "description": "The Department of Posts, Ministry of Communications, today released a special souvenir sheet featuring two commemorative postage stamps dedicated to Breast Cancer Awareness at Dak Bhawan, New Delhi. The release was done by Ms. Manisha Sinha , Director General…",
+      "image": "https://static.pib.gov.in/WriteReadData/userfiles/image/2026/oct/image001_20261030184401_043a54.jpg",
+      "source": "Press Information Bureau (India)",
+      "source_url": "https://www.pib.gov.in/",
+      "published": "2026-10-30T00:00:00+00:00"
+    },
+    {
+      "title": "Department of Posts Issues Commemorative Postage Stamps to Promote Breast Cancer Awareness, with Support from Union Ministry of Health and Family Welfare",
+      "url": "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2330600",
+      "description": "The Department of Posts today issued commemorative postage stamps on breast cancer awareness to mark International Breast Cancer Awareness Month. The initiative, conceptualised and undertaken by the Department of Posts, seeks to leverage the extensive postal…",
+      "image": "https://static.pib.gov.in/WriteReadData/userfiles/image/2026/oct/image001_20261030213606_6d274a.jpg",
+      "source": "Press Information Bureau (India)",
+      "source_url": "https://www.pib.gov.in/",
+      "published": "2026-10-30T00:00:00+00:00"
     },
     {
       "title": "Halloween stamps may hold hidden treats for collectors",
@@ -822,6 +841,15 @@
       "source": "Poczta Polska",
       "source_url": "https://www.poczta-polska.pl/en/dla-ciebie/filatelistyka/nowosci/znaczki/",
       "published": "2026-10-06T00:00:00Z"
+    },
+    {
+      "title": "National Postal Week 2026 to be Celebrated from 9th to 15th October, Commencing with World Post Day on 9th October",
+      "url": "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2319660",
+      "description": "The Department of Posts (DoP) is celebrating National Postal Week, from 9th to 15th October, commencing with the World Post Day on 9th October.",
+      "image": "https://static.pib.gov.in/WriteReadData/userfiles/image/2026/oct/image001_20261006165057_294fab.jpg",
+      "source": "Press Information Bureau (India)",
+      "source_url": "https://www.pib.gov.in/",
+      "published": "2026-10-06T00:00:00+00:00"
     },
     {
       "title": "Club News",

@@ -13,6 +13,7 @@ from __future__ import annotations
 
 import gzip
 import html
+import http.cookiejar
 import json
 import os
 import re
@@ -20,12 +21,13 @@ import shutil
 import ssl
 import subprocess
 import sys
+import urllib.request
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime, timezone
 from email.utils import parsedate_to_datetime
 from pathlib import Path
 from typing import Iterable
-from urllib.request import Request, urlopen
+from urllib.request import HTTPCookieProcessor, Request, build_opener, urlopen
 from xml.etree import ElementTree as ET
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -87,6 +89,15 @@ SOURCES = [
         "kind": "html",
         "parser": "maltapost",
         "url": "https://www.maltapost.com/latest-news",
+    },
+    # PIB press releases are keyword-filtered (philately/stamps/postal) from
+    # the all-releases listing; detail pages supply the description and image.
+    {
+        "name": "Press Information Bureau (India)",
+        "home": "https://www.pib.gov.in/",
+        "kind": "html",
+        "parser": "pib",
+        "url": "https://www.pib.gov.in/AllRelease.aspx?reg=48&lang=1",
     },
     # Philatelicly blog has a standard WordPress RSS feed.
     {"name": "Philatelicly", "home": "https://www.philatelicly.com/blog/", "url": "https://www.philatelicly.com/feed"},
@@ -233,6 +244,12 @@ def parse_date(value: str) -> datetime | None:
         if parsed.tzinfo is None:
             parsed = parsed.replace(tzinfo=timezone.utc)
         return parsed.astimezone(timezone.utc)
+    except ValueError:
+        pass
+    # PIB listing dates look like "30 Oct 2026".
+    try:
+        parsed = datetime.strptime(value, "%d %b %Y")
+        return parsed.replace(tzinfo=timezone.utc)
     except ValueError:
         return None
 
@@ -592,11 +609,100 @@ def parse_maltapost(source: dict, raw: bytes) -> list[dict]:
     return items
 
 
+# PIB (Press Information Bureau) has no working RSS endpoint, but its all-
+# releases listing page is server-rendered (1,500+ rows, English with a session
+# cookie from the homepage). Philately releases are filtered by keyword, then
+# each detail page is opened for a paragraph and a static.pib.gov.in image.
+PIB_LIST_URL = "https://www.pib.gov.in/AllRelease.aspx?reg=48&lang=1"
+PIB_ITEM_RE = re.compile(
+    r"<a title='([^']*)' href='/PressReleseDetail\.aspx\?PRID=(\d+)'[^>]*>.*?Posted on: ([0-9]{1,2} [A-Za-z]+ [0-9]{4})",
+    re.S,
+)
+PIB_BODY_RE = re.compile(r'id="pibReleaseBody">(.*?)</div>', re.S)
+PIB_IMAGE_RE = re.compile(r'src="(https://static\.pib\.gov\.in/WriteReadData/userfiles/image/[^"]+)"')
+PIB_KEYWORDS = re.compile(r"philat|stamp(?![a-z])|postal|postage|post office|dak bhawan", re.I)
+PIB_COOKIE_JAR = http.cookiejar.CookieJar()
+PIB_OPENER = urllib.request.build_opener(
+    urllib.request.HTTPSHandler(context=SSL_CONTEXT),
+    urllib.request.HTTPCookieProcessor(PIB_COOKIE_JAR),
+)
+
+
+def fetch_pib(url: str) -> bytes:
+    request = Request(url, headers={"User-Agent": USER_AGENT, "Accept-Language": "en-GB,en;q=0.9"})
+    with PIB_OPENER.open(request, timeout=TIMEOUT) as response:
+        raw = response.read()
+    if raw[:2] == b"\x1f\x8b":
+        raw = gzip.decompress(raw)
+    return raw
+
+
+def parse_pib(source: dict, raw: bytes) -> list[dict]:
+    page = raw.decode("utf-8", "replace")
+    rows: list[tuple[str, str, str]] = []
+    seen: set[str] = set()
+    for title, prid, date in PIB_ITEM_RE.findall(page):
+        if not all(ord(ch) < 128 for ch in title):  # keep the English release only
+            continue
+        if prid in seen:
+            continue
+        seen.add(prid)
+        if PIB_KEYWORDS.search(title):
+            rows.append((title, prid, date))
+
+    def row_date(row: tuple[str, str, str]) -> str:
+        return parse_date(row[2]).isoformat() if parse_date(row[2]) else ""
+
+    rows.sort(key=row_date, reverse=True)
+    rows = rows[:12]
+
+    items: list[dict] = []
+    for title, prid, date in rows:
+        description = ""
+        image = ""
+        try:
+            detail = fetch_pib(f"https://www.pib.gov.in/PressReleasePage.aspx?PRID={prid}")
+            body = PIB_BODY_RE.search(detail.decode("utf-8", "replace"))
+            if body:
+                for paragraph in re.findall(r"<(?:p|div)[^>]*>(.*?)</(?:p|div)>", body.group(1), re.S):
+                    text = shorten(paragraph)
+                    if text:
+                        description = description or text
+                        break
+                image_match = PIB_IMAGE_RE.search(body.group(1))
+                if image_match:
+                    image = normalise_image(image_match.group(1))
+        except Exception:
+            pass  # detail fetch is best-effort; list data is already good
+
+        items.append(
+            {
+                "title": clean_text(title),
+                "url": f"https://www.pib.gov.in/PressReleasePage.aspx?PRID={prid}",
+                "description": description,
+                "image": image or IMAGE_FALLBACK,
+                "source": source["name"],
+                "source_url": source.get("home", source["url"]),
+                "published": row_date((title, prid, date)),
+            }
+        )
+
+    return items
+
+
 def load_source(source: dict) -> list[dict]:
     kind = source.get("kind", "rss")
     if kind == "linns":
         return parse_linns(source, fetch_json(source["url"], source.get("payload") or {}))
     if kind == "html":
+        if source.get("parser") == "pib":
+            # A first hit on the homepage sets the English session cookie the
+            # listing page needs; without it the server rewrites lang=1 -> lang=2.
+            try:
+                fetch_pib("https://www.pib.gov.in/")
+            except Exception:
+                pass
+            return parse_pib(source, fetch_pib(source.get("url", PIB_LIST_URL)))
         if source.get("parser") == "maltapost":
             return parse_maltapost(source, fetch(source["url"]))
         return parse_poczta(source, fetch(source["url"]))
