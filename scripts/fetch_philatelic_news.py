@@ -77,6 +77,8 @@ SOURCES = [
         "kind": "html",
         "url": "https://www.poczta-polska.pl/en/dla-ciebie/filatelistyka/nowosci/znaczki/",
     },
+    # Philatelicly blog has a standard WordPress RSS feed.
+    {"name": "Philatelicly", "home": "https://www.philatelicly.com/blog/", "url": "https://www.philatelicly.com/feed"},
 ]
 
 IMAGE_FALLBACK = "images/news-placeholder.svg"
@@ -337,6 +339,10 @@ def find_image(node: ET.Element, html_blobs: list[str]) -> str:
 
 
 def parse_feed(source: dict, raw: bytes) -> list[dict]:
+    # Some RSS feeds have leading whitespace/newlines before the XML decl.
+    # Strip them so ElementTree can parse the document.
+    text = raw.decode("utf-8", "replace").lstrip("\ufeff\x02\x03\x00\n\r ")
+    raw = text.encode("utf-8")
     root = ET.fromstring(raw)
     items: list[dict] = []
 
