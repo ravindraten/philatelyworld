@@ -419,6 +419,17 @@ const newsUrl = fs.existsSync(newsPagePath) ? `
     <priority>0.8</priority>
   </url>` : '';
 
+// The exhibitions calendar is refreshed alongside the news desk.
+const exhibitionsJsonPath = path.join(__dirname, 'exhibitions.json');
+const exhibitionsPagePath = path.join(__dirname, 'philatelic-exhibitions.html');
+const exhibitionsUrl = fs.existsSync(exhibitionsPagePath) ? `
+  <url>
+    <loc>${baseUrl}/philatelic-exhibitions.html</loc>
+    <lastmod>${fs.existsSync(exhibitionsJsonPath) ? fileDate(exhibitionsJsonPath) : fileDate(exhibitionsPagePath)}</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.7</priority>
+  </url>` : '';
+
 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
@@ -426,7 +437,7 @@ const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
     <lastmod>${fileDate(path.join(__dirname, 'index.html'))}</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
-  </url>${giveawayUrl}${announcementsIndexUrl}${newsUrl}${albumToolUrls}${itemUrls}${blogUrls}${announcementUrls}
+  </url>${giveawayUrl}${announcementsIndexUrl}${newsUrl}${exhibitionsUrl}${albumToolUrls}${itemUrls}${blogUrls}${announcementUrls}
 </urlset>`;
 
 fs.writeFileSync(path.join(__dirname, 'sitemap.xml'), sitemap);
