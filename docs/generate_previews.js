@@ -407,6 +407,18 @@ const announcementsIndexUrl = fs.existsSync(path.join(__dirname, 'all_announceme
     <priority>0.6</priority>
   </url>` : '';
 
+// The news desk is refreshed by a scheduled Action, so it changes far more often
+// than the catalogue. Date it by news.json rather than the static HTML shell.
+const newsJsonPath = path.join(__dirname, 'news.json');
+const newsPagePath = path.join(__dirname, 'philatelic-news.html');
+const newsUrl = fs.existsSync(newsPagePath) ? `
+  <url>
+    <loc>${baseUrl}/philatelic-news.html</loc>
+    <lastmod>${fs.existsSync(newsJsonPath) ? fileDate(newsJsonPath) : fileDate(newsPagePath)}</lastmod>
+    <changefreq>hourly</changefreq>
+    <priority>0.8</priority>
+  </url>` : '';
+
 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
@@ -414,7 +426,7 @@ const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
     <lastmod>${fileDate(path.join(__dirname, 'index.html'))}</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
-  </url>${giveawayUrl}${announcementsIndexUrl}${albumToolUrls}${itemUrls}${blogUrls}${announcementUrls}
+  </url>${giveawayUrl}${announcementsIndexUrl}${newsUrl}${albumToolUrls}${itemUrls}${blogUrls}${announcementUrls}
 </urlset>`;
 
 fs.writeFileSync(path.join(__dirname, 'sitemap.xml'), sitemap);
