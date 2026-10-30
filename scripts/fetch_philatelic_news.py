@@ -31,7 +31,9 @@ from xml.etree import ElementTree as ET
 ROOT = Path(__file__).resolve().parent.parent
 OUTPUT = ROOT / "docs" / "news.json"
 
-MAX_ITEMS = 120
+# 17 sources × 12 per source: high enough that every source's full slice
+# survives the date sort, so no feed is silently truncated by the cap.
+MAX_ITEMS = 204
 MAX_PER_SOURCE = 12
 TIMEOUT = 30
 
@@ -76,6 +78,15 @@ SOURCES = [
         "home": "https://www.poczta-polska.pl/en/dla-ciebie/filatelistyka/nowosci/znaczki/",
         "kind": "html",
         "url": "https://www.poczta-polska.pl/en/dla-ciebie/filatelistyka/nowosci/znaczki/",
+    },
+    # MaltaPost server-renders its complete news archive; newest rows are
+    # enriched from their detail pages (paragraph + file.aspx image).
+    {
+        "name": "MaltaPost News",
+        "home": "https://www.maltapost.com/latest-news",
+        "kind": "html",
+        "parser": "maltapost",
+        "url": "https://www.maltapost.com/latest-news",
     },
     # Philatelicly blog has a standard WordPress RSS feed.
     {"name": "Philatelicly", "home": "https://www.philatelicly.com/blog/", "url": "https://www.philatelicly.com/feed"},
@@ -510,11 +521,84 @@ def parse_poczta(source: dict, raw: bytes) -> list[dict]:
     return items
 
 
+# MaltaPost publishes its whole news archive (1,500+ rows) server-rendered on
+# one page: title, DD/MM/YYYY date and a news-details?id=N link per row. No
+# images or summaries on the list, so the newest rows are opened on their
+# detail pages for a first paragraph and a `file.aspx?f=` image.
+MALTA_ROW_RE = re.compile(
+    r'archive_Title">(.*?)</td>.*?archive_Date">(\d{2}/\d{2}/\d{4})</td>.*?href="(news-details\?id=\d+)"',
+    re.S,
+)
+MALTA_CONTENT_RE = re.compile(r'lblNewsContent[^>]*>(.*?)</span>', re.S)
+MALTA_IMAGE_RE = re.compile(r'<img[^>]+src="(file\.aspx\?f=\d+)"')
+MALTA_SOURCE_TIMEOUT = 15
+
+
+def parse_maltapost(source: dict, raw: bytes) -> list[dict]:
+    page = raw.decode("utf-8", "replace")
+    rows: list[tuple[str, str, str]] = []
+    seen: set[str] = set()
+    for title_blob, date, link in MALTA_ROW_RE.findall(page):
+        title = clean_text(title_blob)
+        if not title or title.startswith("Title "):
+            continue  # column header/placeholder artefact
+        if link in seen:
+            continue
+        seen.add(link)
+        rows.append((title, date, link))
+
+    def row_date(row: tuple[str, str, str]) -> str:
+        day, month, year = row[1].split("/")
+        return f"{year}-{month}-{day}T00:00:00+00:00"
+
+    rows.sort(key=row_date, reverse=True)
+    rows = rows[:12]
+
+    items: list[dict] = []
+    for title, date, link in rows:
+        description = ""
+        image = ""
+        try:
+            detail = fetch(f"https://www.maltapost.com/{link}")
+            content_match = MALTA_CONTENT_RE.search(detail.decode("utf-8", "replace"))
+            if content_match:
+                paragraphs = re.findall(r"<(?:p|div)[^>]*>(.*?)</(?:p|div)>", content_match.group(1), re.S)
+                for raw_paragraph in paragraphs:
+                    text = shorten(raw_paragraph)
+                    if text:
+                        description = description or text
+                image_match = MALTA_IMAGE_RE.search(content_match.group(1))
+            else:
+                image_match = None
+            if not image_match:
+                image_match = MALTA_IMAGE_RE.search(detail.decode("utf-8", "replace"))
+            if image_match:
+                image = normalise_image(f"https://www.maltapost.com/{image_match.group(1)}")
+        except Exception:
+            pass  # detail fetch is best-effort; list data is already good
+
+        items.append(
+            {
+                "title": title,
+                "url": f"https://www.maltapost.com/{link}",
+                "description": description,
+                "image": image or IMAGE_FALLBACK,
+                "source": source["name"],
+                "source_url": source.get("home", source["url"]),
+                "published": row_date((title, date, link)),
+            }
+        )
+
+    return items
+
+
 def load_source(source: dict) -> list[dict]:
     kind = source.get("kind", "rss")
     if kind == "linns":
         return parse_linns(source, fetch_json(source["url"], source.get("payload") or {}))
     if kind == "html":
+        if source.get("parser") == "maltapost":
+            return parse_maltapost(source, fetch(source["url"]))
         return parse_poczta(source, fetch(source["url"]))
     return parse_feed(source, fetch(source["url"]))
 

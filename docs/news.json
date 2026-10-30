@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-30T21:35:16.340770Z",
+  "generated_at": "2026-10-30T21:47:25.202087Z",
   "sources": [
     "Canadian Stamp News",
     "Commonwealth Stamps",
@@ -17,9 +17,10 @@
     "FEPA News",
     "Linn's Stamp News",
     "Poczta Polska",
+    "MaltaPost News",
     "Philatelicly"
   ],
-  "count": 120,
+  "count": 198,
   "items": [
     {
       "title": "Lewis and Clark booklet pane found with die cutting omitted",
@@ -931,6 +932,33 @@
       "published": "2026-09-29T08:57:53Z"
     },
     {
+      "title": "Philately - Special Handstamp - European Heritage Days",
+      "url": "https://www.maltapost.com/news-details?id=6553",
+      "description": "MaltaPost announces that a Special Cancellation Handstamp, to celebrate European Heritage Days 2026, will be used on Thursday 1 October 2026 at the post office counter of the Malta Postal Museum located at 135, Archbishop Street, Valletta VLT 1444.",
+      "image": "https://www.maltapost.com/file.aspx?f=74224",
+      "source": "MaltaPost News",
+      "source_url": "https://www.maltapost.com/latest-news",
+      "published": "2026-09-29T00:00:00+00:00"
+    },
+    {
+      "title": "Philately - Special Handstamp - World Postcard Day 2026",
+      "url": "https://www.maltapost.com/news-details?id=6554",
+      "description": "MaltaPost announces that a Special Cancellation Handstamp, to celebrate World Postcard Day 2026, will be issued on Thursday 1 October 2026 at the post office counter of the Malta Postal Museum located at 135, Archbishop Street, Valletta VLT 1444.",
+      "image": "https://www.maltapost.com/file.aspx?f=74222",
+      "source": "MaltaPost News",
+      "source_url": "https://www.maltapost.com/latest-news",
+      "published": "2026-09-29T00:00:00+00:00"
+    },
+    {
+      "title": "Back in Service Letterbox in B'Bugia",
+      "url": "https://www.maltapost.com/news-details?id=6555",
+      "description": "MaltaPost would like to inform the public that letterbox L118, located in Triq il-Port Ħieles, Birżebbuġa, BBG 1801, has been reinstalled and is now back in service.",
+      "image": "https://www.maltapost.com/file.aspx?f=75",
+      "source": "MaltaPost News",
+      "source_url": "https://www.maltapost.com/latest-news",
+      "published": "2026-09-29T00:00:00+00:00"
+    },
+    {
       "title": "Rare, But Easily Overlooked Disaster Mail Cover",
       "url": "https://wayneyoungblood.substack.com/p/rare-but-easily-overlooked-disaster",
       "description": "How a fairly normal-looking cover was aided by AI (artificial intelligence) to discover emergency mail services during a major international natural disaster.",
@@ -947,6 +975,15 @@
       "source": "Poczta Polska",
       "source_url": "https://www.poczta-polska.pl/en/dla-ciebie/filatelistyka/nowosci/znaczki/",
       "published": "2026-09-28T00:00:00Z"
+    },
+    {
+      "title": "Philately Stamp Issue - Maltese Festa Series X",
+      "url": "https://www.maltapost.com/news-details?id=6552",
+      "description": "MaltaPost will issue the tenth series in its popular collection of stamps featuring religious statues from churches across Malta and Gozo.",
+      "image": "https://www.maltapost.com/file.aspx?f=74218",
+      "source": "MaltaPost News",
+      "source_url": "https://www.maltapost.com/latest-news",
+      "published": "2026-09-25T00:00:00+00:00"
     },
     {
       "title": "ROC ~ Planets of the Solar System FDC",
@@ -1100,6 +1137,672 @@
       "source": "Europa Stamps",
       "source_url": "https://europa-stamps.blogspot.com/",
       "published": "2026-09-15T09:00:00Z"
+    },
+    {
+      "title": "Stalled Out at the Intersection of Ego & Hubris... Favoritism? Yes. Malfeasance or Conspiracy? Probably Not.",
+      "url": "https://wayneyoungblood.substack.com/p/stalled-out-at-the-intersection-of",
+      "description": "Why we can’t seem to put the Boston 2026 judging snafu behind us.",
+      "image": "https://substackcdn.com/image/fetch/$s_!wgsZ!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F69ced660-865a-48d6-b746-910ee7fbdbbf_934x437.jpeg",
+      "source": "Wayne Youngblood's Substack",
+      "source_url": "https://wayneyoungblood.substack.com/",
+      "published": "2026-09-14T12:48:33Z"
+    },
+    {
+      "title": "Falkland Island Dependencies 1946, How Britain suddenly itself becomes dependant during manefestations of Herr Graf Spee",
+      "url": "https://the-philatelist.com/2026/09/14/falkland-island-dependencies-1946-how-britain-suddenly-itself-becomes-dependant-during-manefestations-of-herr-graf-spee/",
+      "description": "War between major powers often takes place in some far off places. An otherwise costly, lonely outpost can become suddenly important when you add the presence of the enemy. So slip on your smoking jacket, fill your pipe, take your first sip of your adult…",
+      "image": "https://i0.wp.com/the-philatelist.com/wp-content/uploads/2019/10/HMS_Infexible_Falklandy.jpg?resize=768%2C535&ssl=1",
+      "source": "The Philatelist",
+      "source_url": "https://the-philatelist.com/",
+      "published": "2026-09-14T06:00:16Z"
+    },
+    {
+      "title": "Faroe Islands - Sepac 2026",
+      "url": "https://europa-stamps.blogspot.com/2026/09/faroe-islands-sepac-2026.html",
+      "description": "Faroe Islands - Sepac Date of Issue: 7th September 2026 one souvenir-sheet (37.- DKK)",
+      "image": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEghUJN0HI-m66Y-tPlEkAVANY8wPfPVVMVEnQ3fRz4rgY8U64UcRPgaEIFUx3nuDEa0gaJBX-6EiwSLZe7Y17_zQZAomwedCl6rH_Io5IyJaLYtXtSEEbxUqwk_Um2VVD2t5-qvYg/w800/FO-flag.gif",
+      "source": "Europa Stamps",
+      "source_url": "https://europa-stamps.blogspot.com/",
+      "published": "2026-09-13T09:13:24Z"
+    },
+    {
+      "title": "Ireland 2026",
+      "url": "https://europa-stamps.blogspot.com/2026/09/ireland-2026.html",
+      "description": "Ireland Date of Issue: 10th September 2026 one stamp (E value = 3.50 €) out of a set of two stamps, only this stamp bears the Europa logo - NOTE this stamp is self-adhesive this stamp is issued in a mini-sheet of 4 stamps NOTE - this year the official Europa…",
+      "image": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhptunaXc_011h7c4q-n35Tlzl8id91Mv47qP9Q5DaQHgbMSwjg2i06KBR1JubXyckNFMwjVYol-J0mdRv30uA2O3j8ikJRfXHdDteip2eEnIdWW7QK5_PSI77I0NxmrzkKh60vow/w800/IE-flag.gif",
+      "source": "Europa Stamps",
+      "source_url": "https://europa-stamps.blogspot.com/",
+      "published": "2026-09-13T08:56:02Z"
+    },
+    {
+      "title": "Europa 2026",
+      "url": "https://europa-stamps.blogspot.com/2025/10/europa-2026.html",
+      "description": "Europe Europa 2026 \"70th Anniversary of the Europa stamp - United in... \" common design issue - celebrating Europa stamps 70th anniversary - 1956-2026 02.03.2026 Liechtenstein - 1 stamp (1.90 CHF) 03.03.2026 San Marino - 1 stamp (3.30 €) 30.03.2026 Gibraltar…",
+      "image": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgG4CV7HzN2nSGAM_5dv9AVk-3DeJ8VNUmT0Fnq_8tHUe2xTQCp8sCVyLRbCrcZ2LioyJftSvwvW18p9lAjxLipOoAyzTG2pZhFfdludCB9vqQjEtfjIqiwe_49oxCPaCOsa4nl/w800/EU-flag.PNG",
+      "source": "Europa Stamps",
+      "source_url": "https://europa-stamps.blogspot.com/",
+      "published": "2026-09-12T23:00:00Z"
+    },
+    {
+      "title": "500th anniversary of the incorporation of Mazovia into the Kingdom of Poland",
+      "url": "https://www.poczta-polska.pl/en/walory-filatelistyczne/129034/500-lecie-wlaczenia-mazowsza-do-krolestwa-polskiego-5/",
+      "description": "New stamp issue from Poczta Polska (Series).",
+      "image": "https://www.poczta-polska.pl/wp-content/uploads/2026/09/PROJ_ZNACZE_MAZOWSZA-kopia-768x615.jpg",
+      "source": "Poczta Polska",
+      "source_url": "https://www.poczta-polska.pl/en/dla-ciebie/filatelistyka/nowosci/znaczki/",
+      "published": "2026-09-10T00:00:00Z"
+    },
+    {
+      "title": "Local Content. For the Benefit of Poland",
+      "url": "https://www.poczta-polska.pl/en/walory-filatelistyczne/129014/local-content-z-korzyscia-dla-polski-5/",
+      "description": "New stamp issue from Poczta Polska (Series).",
+      "image": "https://www.poczta-polska.pl/wp-content/uploads/2026/09/Local-Content-LC_zna-768x576.jpg",
+      "source": "Poczta Polska",
+      "source_url": "https://www.poczta-polska.pl/en/dla-ciebie/filatelistyka/nowosci/znaczki/",
+      "published": "2026-09-08T00:00:00Z"
+    },
+    {
+      "title": "I Stand Corrected: Artistic License Apparently Trumps Accuracy in U.S. Stamp Design",
+      "url": "https://wayneyoungblood.substack.com/p/i-stand-corrected-artistic-license",
+      "description": "The 4¢ Angel’s Trumpet stamp isn’t a design error, despite the confusion it could create.",
+      "image": "https://substackcdn.com/image/fetch/$s_!9BH1!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F62048334-735d-4236-9ba4-164228d84006_1142x1248.jpeg",
+      "source": "Wayne Youngblood's Substack",
+      "source_url": "https://wayneyoungblood.substack.com/",
+      "published": "2026-09-07T19:54:41Z"
+    },
+    {
+      "title": "MALAYSIA ~ Visit Johor 2026 FDC",
+      "url": "https://gulfmanncollection.blogspot.com/2026/09/malaysia-visit-johor-2026-fdc.html",
+      "description": "Malaysia Visit Johor 2026 FDC, posted on August 8, 2026 from Sarawak Kuching to Taipei with arrival postmarked on September 7, 2026.",
+      "image": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiKs2dm4rSV7Z7Zwhs3mj6ZioBQWPnzLamgi_vfOubkpVKPdgr9yfQO7hTQ1BYO9Jt2PUuh-CxwycQTl_AWyy3y3eMs5zns26An5qR54vR0ny0GMvs5CuY7cD8Yf70RyNKCLLnfPm4KZNAPF4xwYrg_O7YPwCxHb6rra9nv7D6vGCXcMrh-aQrA/w800/MALAYSIA_20260808_01.jpg",
+      "source": "Gulfmann Stamps Collection",
+      "source_url": "https://gulfmanncollection.blogspot.com/",
+      "published": "2026-09-07T15:35:13Z"
+    },
+    {
+      "title": "Exiled Yugoslavia 1943, remembers a Croatian/Bosnian/German? Bishop",
+      "url": "https://the-philatelist.com/2026/09/07/exiled-yugoslavia-1943-remembers-a-croatian-bishop/",
+      "description": "A fake stamp may still be interesting. They can get quite convoluted. So slip on your smoking jacket, fill your pipe, take your first sip of your adult beverage, and sit back in your most comfortable chair. Welcome to todays offering from The Philatelist. So…",
+      "image": "images/news-placeholder.svg",
+      "source": "The Philatelist",
+      "source_url": "https://the-philatelist.com/",
+      "published": "2026-09-07T06:00:11Z"
+    },
+    {
+      "title": "Barbados Rum Shop Stamps have arrived",
+      "url": "https://www.barbadosstamps.co.uk/barbados-rum-shop-stamps-have-arrived/",
+      "description": "Finally, after what seems like an age, I can now follow up my earlier article about the Barbados Rum Shop...",
+      "image": "https://www.barbadosstamps.co.uk/wp-content/uploads/2026/09/Scan-6.jpeg",
+      "source": "Barbados Stamps",
+      "source_url": "https://www.barbadosstamps.co.uk/",
+      "published": "2026-09-05T11:22:36Z"
+    },
+    {
+      "title": "Club News",
+      "url": "https://rainbowstampclub.blogspot.com/2026/09/club-news.html",
+      "description": "Rainbow Stamp News September 2026 Dear Reader, I am pleased to release September 2026 issue of Rainbow Stamp News. It is available at the following link : https://rainbowstampnews.blogspot.com/2026/09/rainbow-september-2026.html",
+      "image": "https://blogger.googleusercontent.com/img/a/AVvXsEivKGetmPsOnB_BK1rTuoVpT863N6w6999OaxM_e3ylPz3TaGJKRg2LpbDdLp682J3Z7vXqHb1EdUf1urGWeiIs5ySbwFqYB3PtcRXVD2P5UaLoNOb48YoM0pPdrBHevYIuR5efn1_A0RHoM7lAlrEKIHch89RVYldp-5iy42YlFoaubDe1Hc0rhVyJQk4=s72-w464-h640-c",
+      "source": "Rainbow Stamp Club",
+      "source_url": "https://rainbowstampclub.blogspot.com/",
+      "published": "2026-09-04T16:06:45Z"
+    },
+    {
+      "title": "Argentina, Bolivia and Brazil – Philatelic Resources Part 1",
+      "url": "https://classiclatinamerica.com/argentina-bolivia-and-brazil-philatelic-resources-part-1/",
+      "description": "This is the first in a series of articles highlighting key philatelic resources for collectors of Central and South American stamps. The next article in the series will be published in a few weeks and will cover Chile, Colombia and Ecuador. The complete…",
+      "image": "images/news-placeholder.svg",
+      "source": "Classic Latin America",
+      "source_url": "https://classiclatinamerica.com/",
+      "published": "2026-09-01T08:21:16Z"
+    },
+    {
+      "title": "You say Brugmansia, I Say Datura ...",
+      "url": "https://wayneyoungblood.substack.com/p/you-say-brugmansia-i-say-datura",
+      "description": "It’s not a pronunciation thing; It appears to be a large U.S. stamp design error",
+      "image": "https://substackcdn.com/image/fetch/$s_!9BH1!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F62048334-735d-4236-9ba4-164228d84006_1142x1248.jpeg",
+      "source": "Wayne Youngblood's Substack",
+      "source_url": "https://wayneyoungblood.substack.com/",
+      "published": "2026-09-01T00:02:42Z"
+    },
+    {
+      "title": "Germany 1943, U-boat wolfpacks bring the war across the sea",
+      "url": "https://the-philatelist.com/2026/08/31/germany-1943-u-boat-wolfpacks-bring-the-war-across-the-sea/",
+      "description": "Here is another stamp where the lead times to produce a new stamp meant the story told by the stamp was out of date. Thus the early German optimism about the war is displayed just as Stalingrad had turned the tide. So slip on your smoking jacket, fill your…",
+      "image": "https://i0.wp.com/the-philatelist.com/wp-content/uploads/2019/08/The_Second_World_War_1939_-_1945-_Germany-_Personalities_BU6711.jpg?resize=768%2C548&ssl=1",
+      "source": "The Philatelist",
+      "source_url": "https://the-philatelist.com/",
+      "published": "2026-08-31T06:00:02Z"
+    },
+    {
+      "title": "Special Handstamp - 75th Anniversary of the Crowing of the Painting of Our Lady of Graces",
+      "url": "https://www.maltapost.com/news-details?id=6551",
+      "description": "MaltaPost announces that a Special Cancellation Handstamp, to commemorate the 75th anniversary of the crowning of the painting of Our Lady of Graces, will be issued on Wednesday 2 September 2026 at the Żabbar Post Office located at \"Ċentru Ċiviku\", Triq…",
+      "image": "https://www.maltapost.com/file.aspx?f=74216",
+      "source": "MaltaPost News",
+      "source_url": "https://www.maltapost.com/latest-news",
+      "published": "2026-08-31T00:00:00+00:00"
+    },
+    {
+      "title": "Indian Winners : Bandung 2026 Asian International Stamp Exhibition",
+      "url": "https://rainbowstampclub.blogspot.com/2026/08/indian-winners-bandung-2026-asian.html",
+      "description": "BANDUNG 2026 Asian International Stamp Exhibition 27-31 August 2026 Bandung 2026 is an Asian International Stamp Exhibition under patronage of the Federation of Inter-Asian Philately (FIAP) .Bandung 2026 is being held from 27th – 31st August 2026 at Graha Pos…",
+      "image": "https://blogger.googleusercontent.com/img/a/AVvXsEhwd-W-ac1Hy2ruMvjwQCD0ATqpPCNuVOYuFDhA1C9vHc2hdtSv8LbGjdqmHaCCKbpqgJ8QUg0qHXfBPXPwBmn0MYOoTDOHeed9JnBXnoWI2_En2UK7GbVCit8NVgrg5ufRNElvRMFn_GUTiisysBllet_Ir3lgBukPZFADPoEqjMuo2K7HW3R6hPd7Ras=s72-c",
+      "source": "Rainbow Stamp Club",
+      "source_url": "https://rainbowstampclub.blogspot.com/",
+      "published": "2026-08-30T02:26:11Z"
+    },
+    {
+      "title": "Temporary Closure of Gharghur SPO",
+      "url": "https://www.maltapost.com/news-details?id=6550",
+      "description": "MaltaPost informs the public that the Sub Post Office located at \"Aquavel\", Triq San Bartilmew, Għargħur, GĦR 1014, will be closed on Monday 31 August 2026.",
+      "image": "https://www.maltapost.com/file.aspx?f=75",
+      "source": "MaltaPost News",
+      "source_url": "https://www.maltapost.com/latest-news",
+      "published": "2026-08-28T00:00:00+00:00"
+    },
+    {
+      "title": "Europa stamps themes 2027-2028",
+      "url": "https://europa-stamps.blogspot.com/2026/08/europa-stamps-themes-2027-2028.html",
+      "description": "Europe PostEurop informed me about the 2028 Europa stamps theme. ”Trains connecting Europe” More information to follow soon. For the record, the topic for 2027 is \"Street Art\" .",
+      "image": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgG4CV7HzN2nSGAM_5dv9AVk-3DeJ8VNUmT0Fnq_8tHUe2xTQCp8sCVyLRbCrcZ2LioyJftSvwvW18p9lAjxLipOoAyzTG2pZhFfdludCB9vqQjEtfjIqiwe_49oxCPaCOsa4nl/w800/EU-flag.PNG",
+      "source": "Europa Stamps",
+      "source_url": "https://europa-stamps.blogspot.com/",
+      "published": "2026-08-26T09:24:11Z"
+    },
+    {
+      "title": "A Dolly Parton Stamp? We’ll Have to Wait 3 Years",
+      "url": "https://wayneyoungblood.substack.com/p/a-dolly-parton-stamp-well-have-to",
+      "description": "Although USPS makes exceptions for presidents, a 3-year guideline stands for all others; why it’s a poor idea to consider honoring living people on stamps",
+      "image": "https://substackcdn.com/image/fetch/$s_!nj5D!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F702aa044-76e0-4d56-bef2-549a03ef79f0_896x1200.png",
+      "source": "Wayne Youngblood's Substack",
+      "source_url": "https://wayneyoungblood.substack.com/",
+      "published": "2026-08-26T01:21:50Z"
+    },
+    {
+      "title": "Linda McCartney to be Honored as Photographer",
+      "url": "https://wayneyoungblood.substack.com/p/linda-mccartney-to-be-honored-as",
+      "description": "Ex-Beatle bride was well-known photographer and animal rights / vegetarian activist. Original images used for stamp designs featured here",
+      "image": "https://substackcdn.com/image/fetch/$s_!BJlO!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fa9581433-91b6-4fa3-9c90-c78c91209298_584x442.jpeg",
+      "source": "Wayne Youngblood's Substack",
+      "source_url": "https://wayneyoungblood.substack.com/",
+      "published": "2026-08-24T17:08:24Z"
+    },
+    {
+      "title": "Taiwan 1956, General “Cash My Check” plans project national glory",
+      "url": "https://the-philatelist.com/2026/08/24/taiwan-1956-general-cash-my-check-plans-project-national-glory/",
+      "description": "Losing becomes self perpetuating. Kuomintang leader General Chiang Kai-shek had to flee to Taiwan after losing the Chinese civil war. His comrades were now in a strange land and many of the locals found the former Japanese administration more efficient. The…",
+      "image": "images/news-placeholder.svg",
+      "source": "The Philatelist",
+      "source_url": "https://the-philatelist.com/",
+      "published": "2026-08-24T06:00:59Z"
+    },
+    {
+      "title": "The fruits of our orchards",
+      "url": "https://www.poczta-polska.pl/en/walory-filatelistyczne/128255/owoce-naszych-sadow-9/",
+      "description": "New stamp issue from Poczta Polska (Series).",
+      "image": "https://www.poczta-polska.pl/wp-content/uploads/2026/08/Owoce-naszych-sadow-ARKUSZ_OWOCE-kopia-768x997.jpg",
+      "source": "Poczta Polska",
+      "source_url": "https://www.poczta-polska.pl/en/dla-ciebie/filatelistyka/nowosci/znaczki/",
+      "published": "2026-08-24T00:00:00Z"
+    },
+    {
+      "title": "Little-Known and Scarce LOOK Coil Variety",
+      "url": "https://wayneyoungblood.substack.com/p/little-known-and-scarce-look-coil",
+      "description": "The so-called “hot line” on the philatelic reprint is difficult to locate",
+      "image": "https://substackcdn.com/image/fetch/$s_!QtwG!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fe5ad3f56-f513-47d8-a737-901ddbfdb0f1_2817x795.jpeg",
+      "source": "Wayne Youngblood's Substack",
+      "source_url": "https://wayneyoungblood.substack.com/",
+      "published": "2026-08-23T14:30:01Z"
+    },
+    {
+      "title": "Queensland Stamp & Coin Show, Brisbane, Australia",
+      "url": "https://rainbowstampclub.blogspot.com/2026/08/queensland-stamp-coin-show-brisbane.html",
+      "description": "2026 Queensland Stamp & Coin Show, Brisbane, Australia 13-16 August 2026 Congratulations ! Result : Indian participants 1. Sushil Mehra 2.Capt.Vijay Wadhwa 3. Mahalinga Ramachandran 4. Lallan Singh 5. N.Sridevi 6. Kumesh Kr. Jain 7. Shashi Pal Batra",
+      "image": "https://blogger.googleusercontent.com/img/a/AVvXsEhmJU8mxNSMLI1IS3ZDCZGOmbbrWD3FGn8_omliCNf5ZkpqXWL8cxZmGITsRq-v5bg8dbW59UYIpKXDYxvycm1gGHh3McfDwhhzl4XhXowzVfvWlKbRZ1ae72LxlwEnU8_YQ9AtVGtjTWnb6Iu5V8MkiE9jOtHAIpYfkajx3HpSHRyDYClpHeEwDAEIQ34E=s72-w449-h171-c",
+      "source": "Rainbow Stamp Club",
+      "source_url": "https://rainbowstampclub.blogspot.com/",
+      "published": "2026-08-23T02:13:01Z"
+    },
+    {
+      "title": "Latin American Philatelic Resources – A Major Update",
+      "url": "https://classiclatinamerica.com/latin-american-philatelic-resources-a-major-update/",
+      "description": "When I first launched this website ten years ago, I added the Resources section you see on the menu bar above. The idea was to provide a reasonably detailed overview of the various reference points collectors could use – catalogues, societies and the rest –…",
+      "image": "images/news-placeholder.svg",
+      "source": "Classic Latin America",
+      "source_url": "https://classiclatinamerica.com/",
+      "published": "2026-08-21T08:46:56Z"
+    },
+    {
+      "title": "Temporary Closure of Santa Venera SPO",
+      "url": "https://www.maltapost.com/news-details?id=6549",
+      "description": "MaltaPost would like to inform the public that the Sub Post Office at \"C@C Stationery\", located at Trejqet Fleur de Lys, Santa Venera SVR 1580, will be closed between Tuesday 25 August and Thursday 3 September 2026, both days inclusive.",
+      "image": "https://www.maltapost.com/file.aspx?f=75",
+      "source": "MaltaPost News",
+      "source_url": "https://www.maltapost.com/latest-news",
+      "published": "2026-08-21T00:00:00+00:00"
+    },
+    {
+      "title": "Barbuda 1979, think of how great it will be to be independant or at least dependant on Antiqua",
+      "url": "https://the-philatelist.com/2026/08/18/barbuda-1979-think-of-great-it-will-be-to-be-independant-or-at-least-dependant-on-antiqua/",
+      "description": "Barbuda is a small island in the Caribbean. When Antigua achieved independence in 1981, Barbuda was declared a dependent. A well known writer from Antigua, who calls herself Jamaica Kincaid, writes that because of the nature of slavery, the descendants are…",
+      "image": "images/news-placeholder.svg",
+      "source": "The Philatelist",
+      "source_url": "https://the-philatelist.com/",
+      "published": "2026-08-18T06:00:04Z"
+    },
+    {
+      "title": "Linn’s Stamp News is Returning to Print!",
+      "url": "https://wayneyoungblood.substack.com/p/linns-stamp-news-is-returning-to",
+      "description": "“Print has always been about more than ink on paper. It’s about connection.” -- Jay Bigalke, CEO and president of Scottstamp LLC",
+      "image": "https://substackcdn.com/image/fetch/$s_!OlGN!,w_256,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fa0d66792-be49-4ff1-8fe8-383ddc5d558a_816x816.jpeg",
+      "source": "Wayne Youngblood's Substack",
+      "source_url": "https://wayneyoungblood.substack.com/",
+      "published": "2026-08-15T16:49:07Z"
+    },
+    {
+      "title": "Happy Independence Day",
+      "url": "https://rainbowstampclub.blogspot.com/2026/08/happy-independence-day.html",
+      "description": "Happy 80th Independence Day ! Greetings to every Indian living in differnt corners of the world on the auspicios occasion of 80th Independence Day of our country ! Proud to be born in a land of courage and culture. Jai Hind !",
+      "image": "https://blogger.googleusercontent.com/img/a/AVvXsEgD3UFau-LSqRHwf91t7SbG4h2ZtplvMHX1Ntu_1S41-vLN44WVnPPKPXFy183ZTWrjcfdh9s6k9KqASV2b0YvlCdiHaUJQ3_9tSZqkCOAO_Pyxx4mxgWKKEGf8GfIUOa_SnUCx7_HyEQXnOQxMgJ9SZZGphKJIdcsIvNQUIb-6CVZqcyGgR-CCmDfEwzU=s72-w640-h384-c",
+      "source": "Rainbow Stamp Club",
+      "source_url": "https://rainbowstampclub.blogspot.com/",
+      "published": "2026-08-15T03:22:10Z"
+    },
+    {
+      "title": "Poland 1982, do Polish experts do better through adversity, or was it just easier when nobody knew anything?",
+      "url": "https://the-philatelist.com/2026/08/10/poland-1982-do-polish-experts-do-better-through-adversity-or-was-it-just-easier-when-nobody-knew-anything/",
+      "description": "This isn’t the first Polish scientist stamp I have covered. See https://the-philatelist.com/2018/10/17/poland-1983-remembers-an-astronomer-mathemacian-from-a-time-with-so-many-changes-that-it-was-hard-to-develop-the-polish-academic-tradition/ . They all seem…",
+      "image": "https://i0.wp.com/the-philatelist.com/wp-content/uploads/2019/05/Sierpinski_square.jpg?resize=768%2C768&ssl=1",
+      "source": "The Philatelist",
+      "source_url": "https://the-philatelist.com/",
+      "published": "2026-08-10T06:00:09Z"
+    },
+    {
+      "title": "Club News",
+      "url": "https://rainbowstampclub.blogspot.com/2026/08/club-news.html",
+      "description": "Rainbow Stamp News August 2026 Dear Reader I am pleased to release August 2026 issue of Rainbow Stamp news . It is available at the following link : https://rainbowstampnews.blogspot.com/2026/08/rainbow-august-2026.html",
+      "image": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjJAqFMBiyGq15JS7lVkN0SNkRbDnJXeCDLKv40fk9KirWbSa7GM0JLvoHu2mClDpMV0r2c8wshoIP6_Nr6qwHEMM4NJHIGCHKrq0Tqm_xX-T-hpMQjJL_Kyx2OOUBxob9MVQuiGM3ObnUhblorkZ6-a5CtPa-z7XjdD03pdn6iQtIi0PYNp_631Np8C1Q/w800/RT%20Aug%2026.jpg",
+      "source": "Rainbow Stamp Club",
+      "source_url": "https://rainbowstampclub.blogspot.com/",
+      "published": "2026-08-07T07:04:10Z"
+    },
+    {
+      "title": "Early Closure of Valletta Post Office",
+      "url": "https://www.maltapost.com/news-details?id=6548",
+      "description": "MaltaPost would like to inform the general public that, by agreement with the Malta Communications Authority, on Thursday 6 August 2026 the Post Office located at 25, South Street, Valletta VLT 1102 , will close at 4:00 PM to allow staff to attend a corporate…",
+      "image": "https://www.maltapost.com/file.aspx?f=75",
+      "source": "MaltaPost News",
+      "source_url": "https://www.maltapost.com/latest-news",
+      "published": "2026-08-04T00:00:00+00:00"
+    },
+    {
+      "title": "Lubeck 1859, a Hanseatic Free state submits to Prussia but keeps its independant streak",
+      "url": "https://the-philatelist.com/2026/08/03/lubeck-1859-a-hanseatic-free-state-submits-to-prussia-but-keeps-its-independant-streak/",
+      "description": "Along the Baltic and the North Sea there were a group of trading cities that formed a Hanseatic League to protect their interest. When Prussia united Germany there was a dance with cities like Lubeck as to how much of it’s traditional character could be…",
+      "image": "images/news-placeholder.svg",
+      "source": "The Philatelist",
+      "source_url": "https://the-philatelist.com/",
+      "published": "2026-08-03T06:00:53Z"
+    },
+    {
+      "title": "Barbados Rum Shops stamps update",
+      "url": "https://www.barbadosstamps.co.uk/barbados-rum-shops-stamps-update/",
+      "description": "Word has reached me that the new stamps mentioned in my last post, “It’s official – it’s Rum Time” are...",
+      "image": "images/news-placeholder.svg",
+      "source": "Barbados Stamps",
+      "source_url": "https://www.barbadosstamps.co.uk/",
+      "published": "2026-08-01T07:19:54Z"
+    },
+    {
+      "title": "Tempoary Removal of Letterbox in Zabbar",
+      "url": "https://www.maltapost.com/news-details?id=6547",
+      "description": "MaltaPost would like to inform the public that the letterbox (L055) located in Triq il-Kbira, Żabbar, has been temporarily closed and removed due to road works in the area.",
+      "image": "https://www.maltapost.com/file.aspx?f=75",
+      "source": "MaltaPost News",
+      "source_url": "https://www.maltapost.com/latest-news",
+      "published": "2026-07-29T00:00:00+00:00"
+    },
+    {
+      "title": "Philately-Special Handstamp-75th Anni since the Death of Archpriest Mawrizjo Cauchi (1951-2026)",
+      "url": "https://www.maltapost.com/news-details?id=6546",
+      "description": "MaltaPost announces that a Special Cancellation Handstamp, to commemorate the 75th anniversary since the death of Archpriest Mawrizju Cauchi, will be issued on Wednesday 29 July 2026 at the Xagħra Gozo Post Office located at 132, Triq it-Tiġrija, Xagħra, XRA…",
+      "image": "https://www.maltapost.com/file.aspx?f=74208",
+      "source": "MaltaPost News",
+      "source_url": "https://www.maltapost.com/latest-news",
+      "published": "2026-07-27T00:00:00+00:00"
+    },
+    {
+      "title": "Top 10 Most Common Animals on Postage Stamps",
+      "url": "https://www.philatelicly.com/top-10-most-common-animals-on-postage-stamps/",
+      "description": "In Part 1and Part 2 we’re explored top 10 forged stamps in history. Today we’ll take a look at top […]",
+      "image": "https://www.philatelicly.com/wp-content/uploads/2026/07/01_Eagle_Stamp_Mexico_1864.jpg",
+      "source": "Philatelicly",
+      "source_url": "https://www.philatelicly.com/blog/",
+      "published": "2026-07-25T07:12:18Z"
+    },
+    {
+      "title": "Temporary Closure of B'Kara SPO",
+      "url": "https://www.maltapost.com/news-details?id=6544",
+      "description": "MaltaPost would like to inform the public that the Sub Post Office at ‘Nabus Stationery' located at 33, Triq il-Ħerba, Birkirkara, BKR 2324, will be closed on Thursday 23 July 2026.",
+      "image": "https://www.maltapost.com/file.aspx?f=75",
+      "source": "MaltaPost News",
+      "source_url": "https://www.maltapost.com/latest-news",
+      "published": "2026-07-22T00:00:00+00:00"
+    },
+    {
+      "title": "Temporary Closure of Zurrieq SPO",
+      "url": "https://www.maltapost.com/news-details?id=6542",
+      "description": "MaltaPost would like to inform the public that the Sub Post Office at \"Pinpoint Stationery\" located at 57, Vjal L-Indipendenza, Żurrieq ŻRQ 2339, will be closed between Wednesday 22nd and Saturday 25th July 2026, both days inclusive.",
+      "image": "https://www.maltapost.com/file.aspx?f=75",
+      "source": "MaltaPost News",
+      "source_url": "https://www.maltapost.com/latest-news",
+      "published": "2026-07-21T00:00:00+00:00"
+    },
+    {
+      "title": "Top 10 Forged Stamps in History - Part 2",
+      "url": "https://www.philatelicly.com/top-10-forged-stamps-in-history-part-2/",
+      "description": "In Part 1, we mentioned the first 5 out of the top 10 forged stamps in history. Today, we’ll continue […]",
+      "image": "https://www.philatelicly.com/wp-content/uploads/2026/07/06_Moldavian_Bulls_Heads_Moldova_1858.jpg",
+      "source": "Philatelicly",
+      "source_url": "https://www.philatelicly.com/blog/",
+      "published": "2026-07-16T11:34:23Z"
+    },
+    {
+      "title": "Top 10 Forged Stamps in History – Part 1",
+      "url": "https://www.philatelicly.com/top-10-forged-stamps-in-history-part-1/",
+      "description": "We’ve talked a lot about famous and valuable postage stamps. A stamp’s value is often a good reason for someone […]",
+      "image": "https://www.philatelicly.com/wp-content/uploads/2026/07/01_Hawaiian_Missionaries_Grinnell_Missionaries_1851.jpg",
+      "source": "Philatelicly",
+      "source_url": "https://www.philatelicly.com/blog/",
+      "published": "2026-07-12T17:15:34Z"
+    },
+    {
+      "title": "The Smallest Postage Stamps Ever Issued",
+      "url": "https://www.philatelicly.com/the-smallest-postage-stamps-ever-issued/",
+      "description": "Have you ever wondered what the smallest postage stamps ever issued were? Some of them are so small that they […]",
+      "image": "https://www.philatelicly.com/wp-content/uploads/2026/06/01_Brunswick_¼_Gute_Groschen_1857.jpg",
+      "source": "Philatelicly",
+      "source_url": "https://www.philatelicly.com/blog/",
+      "published": "2026-06-29T11:20:35Z"
+    },
+    {
+      "title": "It’s official – it’s Rum Time!",
+      "url": "https://www.barbadosstamps.co.uk/its-official-its-rum-time/",
+      "description": "Word has reached me that a set of stamps to be issued this year by the Barbados Philatelic Bureau will...",
+      "image": "https://www.barbadosstamps.co.uk/wp-content/uploads/2026/06/IMG_1870-2-scaled.jpeg",
+      "source": "Barbados Stamps",
+      "source_url": "https://www.barbadosstamps.co.uk/",
+      "published": "2026-06-28T14:00:30Z"
+    },
+    {
+      "title": "Rarest Stamps: Most Valuable Suriname Stamps",
+      "url": "https://www.philatelicly.com/rarest-stamps-most-valuable-suriname-stamps/",
+      "description": "We have already examined the rarest stamps from numerous countries, including Germany, France, the UK, Ireland, Belgium, the Netherlands, Australia, […]",
+      "image": "https://www.philatelicly.com/wp-content/uploads/2026/06/01_King_Willem_III_Suriname_1873.jpg",
+      "source": "Philatelicly",
+      "source_url": "https://www.philatelicly.com/blog/",
+      "published": "2026-06-22T15:39:41Z"
+    },
+    {
+      "title": "Crypto & Philately: Japanese Crypto Stamps",
+      "url": "https://www.philatelicly.com/crypto-philately-japanese-crypto-stamps/",
+      "description": "In the Crypto Stamp series so far, we’ve explored crypto stamps from Switzerland, Gibraltar, Austria and Belgium, Year of the […]",
+      "image": "https://www.philatelicly.com/wp-content/uploads/2026/06/01_Animal-_Flower_-Scenery_Japan_2022-900x706.jpg",
+      "source": "Philatelicly",
+      "source_url": "https://www.philatelicly.com/blog/",
+      "published": "2026-06-02T13:38:04Z"
+    },
+    {
+      "title": "Japan World War II Stamps",
+      "url": "https://www.philatelicly.com/japan-world-war-ii-stamps/",
+      "description": "In the previous article we’ve talked about rarest and most valuable Japanese stamps. Today we’ll take a look what happened […]",
+      "image": "https://www.philatelicly.com/wp-content/uploads/2026/05/01_First_Showa_Definitives_Japan_1937_1940-276x900.jpg",
+      "source": "Philatelicly",
+      "source_url": "https://www.philatelicly.com/blog/",
+      "published": "2026-05-26T13:36:13Z"
+    },
+    {
+      "title": "Rarest Stamps: Most Valuable Japanese Stamps",
+      "url": "https://www.philatelicly.com/rarest-stamps-most-valuable-japanese-stamps/",
+      "description": "We have already examined the rarest stamps from numerous countries, including Germany, France, the UK, Ireland, Belgium, the Netherlands, Australia, […]",
+      "image": "https://www.philatelicly.com/wp-content/uploads/2026/05/01_1871_Dragon_Issue_48M_Japan_1871_04_20-900x761.jpg",
+      "source": "Philatelicly",
+      "source_url": "https://www.philatelicly.com/blog/",
+      "published": "2026-05-19T13:00:14Z"
+    },
+    {
+      "title": "International Tea Day",
+      "url": "https://www.philatelicly.com/international-tea-day/",
+      "description": "One of the interesting and lesser-known dates is the Internation Tea Day. It’s celebrated every year on May 21. Today […]",
+      "image": "https://www.philatelicly.com/wp-content/uploads/2026/05/01_Selected_Tea_Ware_from_China_and_the_World_Hong_Kong_2024-900x589.jpg",
+      "source": "Philatelicly",
+      "source_url": "https://www.philatelicly.com/blog/",
+      "published": "2026-05-11T17:31:27Z"
+    },
+    {
+      "title": "would you buy this????????????? I hope not!!",
+      "url": "http://cddstamps.blogspot.com/2026/05/would-you-buy-this-i-hope-not.html",
+      "description": "Ok I have not written for 5 months. Sorry, too many things to write about. Why bore you, just joking. The stamp scene is full of brilliant stamps and fantastic sellers. BUT and this is why I am writing now, Who in whatever name you want to think of would buy…",
+      "image": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjgJBDYcqSVa1P2MuTixZXLxx-oP25dpie3d0vtZYooly8i2t9_PF2rbrtTCCaqyVPynkgwc8X9BRChkYnurg5aFd-7vUN7f0EIBa5-SSEI3pa2BWVGRUHfrxfw9vI8WGi62fwZaPhmd5QSs678qVJg_mO2TEYV2y85cjxbH9N0VzTe7xFdnJNk/w800/cropped-image-c20.jpg",
+      "source": "cddstamps on stamps",
+      "source_url": "http://cddstamps.blogspot.com/",
+      "published": "2026-05-11T09:28:00Z"
+    },
+    {
+      "title": "The Collector | Venezuela | Will Castillo",
+      "url": "https://classiclatinamerica.com/the-collector-venezuela-will-castillo/",
+      "description": "Will Castillo is a passionate collector of Venezuela and an avid student of how the philately of Venezuela is intertwined with the country’s history. Around a decade ago, he authored a widely respected study of the 1871–1880 Escuelas issue—demonstrating how a…",
+      "image": "images/news-placeholder.svg",
+      "source": "Classic Latin America",
+      "source_url": "https://classiclatinamerica.com/",
+      "published": "2026-03-29T18:19:11Z"
+    },
+    {
+      "title": "New Barbados Stamps – Dove of Peace – 8th December 2025",
+      "url": "https://www.barbadosstamps.co.uk/new-barbados-stamps-dove-of-peace-8th-december-2025/",
+      "description": "PEACE – a state of harmony in the absence of hostility and violence. This statement appears clearly in the brochure...",
+      "image": "https://www.barbadosstamps.co.uk/wp-content/uploads/2026/02/dove-of-peace.jpg",
+      "source": "Barbados Stamps",
+      "source_url": "https://www.barbadosstamps.co.uk/",
+      "published": "2026-02-22T10:28:30Z"
+    },
+    {
+      "title": "New Barbados Stamp – We Gatherin’ – 10th November 2025",
+      "url": "https://www.barbadosstamps.co.uk/new-barbados-stamp-we-gatherin-10th-november-2025/",
+      "description": "Towards the back end of 2025, the Barbados Philatelic Bureau issued two new stamps within the space of four weeks....",
+      "image": "https://www.barbadosstamps.co.uk/wp-content/uploads/2026/01/Scan-32.jpeg",
+      "source": "Barbados Stamps",
+      "source_url": "https://www.barbadosstamps.co.uk/",
+      "published": "2026-01-21T14:29:31Z"
+    },
+    {
+      "title": "priced to sell or priced to get rid of?",
+      "url": "http://cddstamps.blogspot.com/2025/12/priced-to-sell-or-priced-to-get-rid-of.html",
+      "description": "The thing about buying stamps from an online marketplace is, in my humble view, you get what you pay for. You can buy a nice set described as Mint Never Hinged or whatever terms are used to describe such stamps, at really low prices, up to 5% of Scott CV for…",
+      "image": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi_UBd5BEPfa0Yr4rwEXhZT9QbEDluLy67DUMQQSNcsOF1sbpAjFew0hsiOWmSSf-F9mOKDvINqfHdZcl3qcfRXE7GSWuM744esYWOAvD8r-xltjadyFyjyhVPzqzbVuOEElGUr7U4kCvCePx8RJlQRw8mjaKKdb_aFexIC8eS0rDfpAH5SgAUN/w800/1323.jpg",
+      "source": "cddstamps on stamps",
+      "source_url": "http://cddstamps.blogspot.com/",
+      "published": "2025-12-24T10:52:00Z"
+    },
+    {
+      "title": "Dante - a new collecting thematic",
+      "url": "http://cddstamps.blogspot.com/2025/12/dante-new-collecting-thematic.html",
+      "description": "Have you ever wanted to start a new thematic collection. just for the fun of it , and wondered and wondered and wondered what it might be? I found it. Dante. stunning issue from Monaco. This is just one stamp from a set of 5 issued to celebrate the 700…",
+      "image": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjo9FRHrhFmIiWmVdKZPfwPRWyuqeNvcNQw3NI3TGoCe6qB7rRq2sbEbuNniDou_4zK-BuTbsLPVXNqGychBA7F5rEwKKZRoF3rOnVk8rtCHIVY5nChR65nFw2G2MNPWrHiH1B_z15FneN1QeIM6gW2tfU282AvQR-sf9DzarblhrYnE3D_2CLE/w800/59.jpg",
+      "source": "cddstamps on stamps",
+      "source_url": "http://cddstamps.blogspot.com/",
+      "published": "2025-12-21T12:00:00Z"
+    },
+    {
+      "title": "Barbados Dove of Peace stamp – back order update",
+      "url": "https://www.barbadosstamps.co.uk/barbados-dove-of-peace-stamp-back-order-update/",
+      "description": "The popularity of this new stamp issue has, quite frankly, caught everyone by surprise. The Philatelic Bureau in Bridgetown had...",
+      "image": "images/news-placeholder.svg",
+      "source": "Barbados Stamps",
+      "source_url": "https://www.barbadosstamps.co.uk/",
+      "published": "2025-12-17T10:06:09Z"
+    },
+    {
+      "title": "new cddstamps website domain",
+      "url": "http://cddstamps.blogspot.com/2025/12/new-cddstamps-website-domain.html",
+      "description": "Hello, yes been away from writing for a while too much happening. One thing ...I lost my domain..... don't ask. Not a nice story. So cddstamps website is now cddstamps.online spending and taking some time to update and restore and refresh and correct a few…",
+      "image": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgeWjq1KmR0bf8zfZ7vMxe1o2CtffmJxl3NOfY2PfI3AQAMIkV8XApe496QRPpTtqp5S5Nr2cfOuFZS7mGec6FonqasKZiaC0u_d04HyEuzEc8Dl0fxWgaVlYlFIumdKQPuHDruaZC-3043Ojpnq_Fgs0CrNNx3VCOXtIph4l2WqHj8zeEtAm_W/w800/december-2025--new-cddstamps-online-biz-card.jpg",
+      "source": "cddstamps on stamps",
+      "source_url": "http://cddstamps.blogspot.com/",
+      "published": "2025-12-14T09:28:00Z"
+    },
+    {
+      "title": "The curious tale of a Barbados SG1",
+      "url": "https://www.barbadosstamps.co.uk/the-curious-tale-of-a-barbados-sg1/",
+      "description": "As someone who has spent a lot of time collecting and studying the stamps of Barbados, I’m always interested when...",
+      "image": "https://www.barbadosstamps.co.uk/wp-content/uploads/2020/10/Scan-19.jpeg",
+      "source": "Barbados Stamps",
+      "source_url": "https://www.barbadosstamps.co.uk/",
+      "published": "2025-12-14T07:28:56Z"
+    },
+    {
+      "title": "Dove of Peace stamp update",
+      "url": "https://www.barbadosstamps.co.uk/dove-of-peace-stamp-update/",
+      "description": "The new Barbados ‘Dove of Peace‘ stamp was issued yesterday, 8th December 2025, but don’t expect to see it any...",
+      "image": "images/news-placeholder.svg",
+      "source": "Barbados Stamps",
+      "source_url": "https://www.barbadosstamps.co.uk/",
+      "published": "2025-12-09T11:35:33Z"
+    },
+    {
+      "title": "Barbados Dove of Peace stamp WILL be issued this year – issue date finally revealed",
+      "url": "https://www.barbadosstamps.co.uk/barbados-dove-of-peace-stamp-will-be-issued-this-year-issue-date-finally-revealed/",
+      "description": "Ever since news broke that Barbados Philatelic Bureau would be participating in this year’s Dove of Peace issue, we’ve been...",
+      "image": "images/news-placeholder.svg",
+      "source": "Barbados Stamps",
+      "source_url": "https://www.barbadosstamps.co.uk/",
+      "published": "2025-11-24T18:41:44Z"
+    },
+    {
+      "title": "New Barbados stamp issue ‘We Gatherin’ 2025",
+      "url": "https://www.barbadosstamps.co.uk/new-barbados-stamp-issue-we-gatherin-2025/",
+      "description": "Great news this week as it was revealed that a brand new single stamp was issued by the Barbados Philatelic...",
+      "image": "https://www.barbadosstamps.co.uk/wp-content/uploads/2025/11/WE-GATHERIN-STAMP.png",
+      "source": "Barbados Stamps",
+      "source_url": "https://www.barbadosstamps.co.uk/",
+      "published": "2025-11-15T10:44:11Z"
+    },
+    {
+      "title": "Fact Check: When you turn 100 in Barbados you do NOT get featured on a postage stamp.",
+      "url": "https://www.barbadosstamps.co.uk/fact-check-when-you-turn-100-in-barbados-you-do-not-get-featured-on-a-postage-stamp/",
+      "description": "There’s a dangerous urban myth starting to take hold online, mostly down to a misinformed post on Facebook, which has...",
+      "image": "https://www.barbadosstamps.co.uk/wp-content/uploads/2025/11/Screenshot-2025-11-10-at-09.02.49.png",
+      "source": "Barbados Stamps",
+      "source_url": "https://www.barbadosstamps.co.uk/",
+      "published": "2025-11-10T11:22:17Z"
+    },
+    {
+      "title": "Korea Aircraft on stamps",
+      "url": "http://cddstamps.blogspot.com/2025/08/korea-aircraft-on-stamps.html",
+      "description": "Hello and welcome to my aircraft on stamps series, These two are from the 1952 and 1953 issues- three stamps in each issue. Same design but with the 1953 issue showing the new currency values. First, the currency change, because I think it is very interesting…",
+      "image": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgTHe5eq5Wuty1Sc92ndOnVwuq0Hx_UwS9Q57EDv9sHE-MepEdeV03r9irglrVtvGWxaw71GNj4qoPW_FVZD48cTPRdtxQVRfZg1BOp4w4B-rQbkRg2bUhkm6tiZKIiuSliyOwCaD3J-wlC-cpGcImbeKlGhIASsEXzKxr8AQ1rsb7LV_DBQzs-/w800/KOREA-C8.jpg",
+      "source": "cddstamps on stamps",
+      "source_url": "http://cddstamps.blogspot.com/",
+      "published": "2025-08-30T12:04:00Z"
+    },
+    {
+      "title": "How to value a stamp",
+      "url": "https://classiclatinamerica.com/how-to-value-a-stamp/",
+      "description": "Of course, you already know the answer to this. Take your chosen catalogue, find the stamp, check the value, deduct a decent percentage from the inflated price in front of you and…Voila! Easy. Except the world has moved on and a catalogue (less percentage…",
+      "image": "images/news-placeholder.svg",
+      "source": "Classic Latin America",
+      "source_url": "https://classiclatinamerica.com/",
+      "published": "2025-07-13T18:16:57Z"
+    },
+    {
+      "title": "Three little pieces of News",
+      "url": "http://cddstamps.blogspot.com/2025/04/three-little-pieces-of-news.html",
+      "description": "Hello, here is the most amazing piece of trivia you will ever read............... well I say that with a smile... :-) somehow a year, well nearly a year, has flown by since I last wrote here. How did that happen? Yes been busy writing the Aircraft on Stamps…",
+      "image": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhehjp4bWllYxpUeHmDChnIVpQu2lLQxfquPytDu5wiAsEpA4ow166RFAGCdsQuLvqUDP_BWb2eBxgRuh8KHXzAGvlUEmOrqrySzFHRrNx0CAXKrd65gVM1ZzZINl1nCIUzLLESIY2QvLQFCGj7hs_jjc0D_fzsaber5sgAtKS91WDzS3lszoSZ/w800/new-cddstamps-biz-card-and-logov2.png",
+      "source": "cddstamps on stamps",
+      "source_url": "http://cddstamps.blogspot.com/",
+      "published": "2025-04-02T09:04:00Z"
+    },
+    {
+      "title": "Evolution of a Stamp: The Peru 1897 Lima Post Office Issue",
+      "url": "https://classiclatinamerica.com/evolution-of-a-stamp-the-peru-1897-lima-post-office-issue/",
+      "description": "Before a stamp is printed, indeed before proofs are created, a stamp must be designed and ideas proposed. Source material must be acquired upon which a design is to be based and then transformed into a miniature size. The source material forms the Production…",
+      "image": "images/news-placeholder.svg",
+      "source": "Classic Latin America",
+      "source_url": "https://classiclatinamerica.com/",
+      "published": "2024-12-09T09:00:39Z"
+    },
+    {
+      "title": "The Future of Latin American Philately",
+      "url": "https://classiclatinamerica.com/the-future-of-latin-american-philately/",
+      "description": "I’ve lost count of the articles I’ve read over the years discussing philately’s future. Not to mention the letters submitted to magazines and journals, invariably bemoaning the purported decline in interest in stamp collecting. The arguments follow a familiar…",
+      "image": "images/news-placeholder.svg",
+      "source": "Classic Latin America",
+      "source_url": "https://classiclatinamerica.com/",
+      "published": "2024-07-15T18:02:38Z"
+    },
+    {
+      "title": "cddstamps is back writing.... :-)",
+      "url": "http://cddstamps.blogspot.com/2024/04/cddstamps-is-back-writing.html",
+      "description": "Hello, Sometimes we just forget how fast the days and weeks and months go by. These past 6 months have been a blurr in many ways. But I am still around and doing philatelic things. One thing is getting the cddstamps profile and name out there in the…",
+      "image": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi7HbOzBb33Z-QfWyl7GWl8_V82w9C0kKTJMAZqCtOQOol-zsEjbC3rSdilEQct5o2VWgqmbfpvnyJQV-sFjRxnhXJKL8zQTALw9UkNNnkqjdqb39TmE_mFXwj0ZJQbFepJEUgVJoVtnY7nmL6dcOfx4cJG-8hcLvchMRWCDlMcsP9zT0y9kdWT/w800/buy-with-confidence-long-banner.jpg",
+      "source": "cddstamps on stamps",
+      "source_url": "http://cddstamps.blogspot.com/",
+      "published": "2024-04-29T03:07:00Z"
+    },
+    {
+      "title": "Latin American stamp design and its harshest critic",
+      "url": "https://classiclatinamerica.com/latin-american-stamp-design-and-its-harshest-critic/",
+      "description": "Turn to the letters page of any self-respecting philatelic monthly magazine and you will invariably find a diatribe from a reader bemoaning the paucity of creativity in current-day stamp design. Whether it be yet another Harry Potter or Marvel series of…",
+      "image": "images/news-placeholder.svg",
+      "source": "Classic Latin America",
+      "source_url": "https://classiclatinamerica.com/",
+      "published": "2023-12-18T15:22:06Z"
+    },
+    {
+      "title": "Collectors Buying With Confidence – How do I clean toning from stamps?",
+      "url": "http://cddstamps.blogspot.com/2023/10/collectors-buying-with-confidence-how.html",
+      "description": "Part XVIII Collectors Buying With Confidence – How do I clean toning from stamps? Hello, in the previous article I mentioned about cleaning stamps that have a light toning, cleaning to remove the brownish spots, by using a very light chorine solution. Well…",
+      "image": "images/news-placeholder.svg",
+      "source": "cddstamps on stamps",
+      "source_url": "http://cddstamps.blogspot.com/",
+      "published": "2023-10-19T02:59:00Z"
+    },
+    {
+      "title": "Collectors Buying With Confidence – What is toning, what is rust?",
+      "url": "http://cddstamps.blogspot.com/2023/10/collectors-buying-with-confidence-what_18.html",
+      "description": "Part XVII Collectors Buying With Confidence – What is toning, what is rust? Hello, I touched on this very briefly, that is, you might find toning on the reverse of a stamp but will only know about it if you see the reverse of the stamp. Well here is a rather…",
+      "image": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgmg12mKJ66_exSMGxR9qPRdL-0bJsd1Qv91Cr67gv7p6Vxggo1hhfn-oEEvzXRje159mArOzdVWvzE-I4J24z1e3xomkZLH1BCJQSP29mMrsyN2j6ehLVp8Ftm52C_vSgY9jdguTvlNYh29_BFADG75zGbDuVwIcpQiANcaGxuF7MMa6mN8if2/w800/canada-rust-unedited-on-black.jpg",
+      "source": "cddstamps on stamps",
+      "source_url": "http://cddstamps.blogspot.com/",
+      "published": "2023-10-18T08:08:00Z"
+    },
+    {
+      "title": "Collectors Buying With Confidence – returns not accepted??",
+      "url": "http://cddstamps.blogspot.com/2023/10/collectors-buying-with-confidence.html",
+      "description": "Part XV Collectors Buying With Confidence – no returns accepted?? Hello, so here I am doing some research, having a pleasant time looking at listings, laughing at some of the sellers ideas of a decent stamp and impressed with others for the quality of their…",
+      "image": "images/news-placeholder.svg",
+      "source": "cddstamps on stamps",
+      "source_url": "http://cddstamps.blogspot.com/",
+      "published": "2023-10-13T01:03:00Z"
+    },
+    {
+      "title": "One (Philatelic) Database to Rule Them All",
+      "url": "https://classiclatinamerica.com/one-philatelic-database-to-rule-them-all/",
+      "description": "Peter Moorer is on a mission. To create a single search tool that can enable Latin American collectors to have digital access to any article, journal, catalogue or publication ever produced on Central and South American philately. And to include links to…",
+      "image": "images/news-placeholder.svg",
+      "source": "Classic Latin America",
+      "source_url": "https://classiclatinamerica.com/",
+      "published": "2023-08-05T15:36:36Z"
+    },
+    {
+      "title": "Collect Latin American stamps but don’t speak Spanish?",
+      "url": "https://classiclatinamerica.com/collect-latin-american-stamps-but-dont-speak-spanish/",
+      "description": "OK, confession time. I don’t speak Spanish. Not that it has ever hindered me in my philatelic pursuits (although I would get much more out of Mi Oficina videos, if I did). Back at school we sat through just two years of French and German lessons. That was it…",
+      "image": "images/news-placeholder.svg",
+      "source": "Classic Latin America",
+      "source_url": "https://classiclatinamerica.com/",
+      "published": "2023-04-23T19:40:11Z"
     }
   ]
 }
