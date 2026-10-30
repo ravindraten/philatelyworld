@@ -55,6 +55,28 @@ SOURCES = [
     {"name": "The Philatelist", "home": "https://the-philatelist.com/", "url": "https://the-philatelist.com/feed/"},
     {"name": "Barbados Stamps", "home": "https://www.barbadosstamps.co.uk/", "url": "https://www.barbadosstamps.co.uk/feed/"},
     {"name": "cddstamps on stamps", "home": "http://cddstamps.blogspot.com/", "url": "http://cddstamps.blogspot.com/feeds/posts/default?alt=rss"},
+    # FEPA publishes a normal WordPress RSS feed.
+    {"name": "FEPA News", "home": "https://fepanews.com/", "url": "https://fepanews.com/feed/"},
+    # Linn's has no RSS anymore; its site reads this JSON endpoint.
+    {
+        "name": "Linn's Stamp News",
+        "home": "https://www.linns.com/",
+        "kind": "linns",
+        "url": "https://www.linns.com/api/content/article/list",
+        "payload": {
+            "content_type_id": [1882, 1884, 1885, 1883, 1886],
+            "mode": "COMBINED",
+            "sort": "newest",
+            "limit": 12,
+        },
+    },
+    # Poczta Polska has no feed; the new-issues page is scraped instead.
+    {
+        "name": "Poczta Polska",
+        "home": "https://www.poczta-polska.pl/en/dla-ciebie/filatelistyka/nowosci/znaczki/",
+        "kind": "html",
+        "url": "https://www.poczta-polska.pl/en/dla-ciebie/filatelistyka/nowosci/znaczki/",
+    },
 ]
 
 IMAGE_FALLBACK = "images/news-placeholder.svg"
@@ -351,17 +373,156 @@ def parse_feed(source: dict, raw: bytes) -> list[dict]:
     return items
 
 
+def fetch_json(url: str, payload: dict) -> bytes:
+    """POST a JSON body. Linn's site reads its article list this way."""
+    body = json.dumps(payload).encode("utf-8")
+    request = Request(
+        url,
+        data=body,
+        method="POST",
+        headers={
+            "User-Agent": USER_AGENT,
+            "Accept": "application/json",
+            "Content-Type": "application/json",
+        },
+    )
+    try:
+        with urlopen(request, timeout=TIMEOUT, context=SSL_CONTEXT) as response:
+            return response.read()
+    except Exception:  # noqa: BLE001 - retry with curl for bot-protected hosts
+        curl = shutil.which("curl")
+        if not curl:
+            raise
+        result = subprocess.run(
+            [
+                curl, "-fsSL", "--compressed", "--max-time", str(TIMEOUT),
+                "-A", USER_AGENT,
+                "-H", "Content-Type: application/json",
+                "-H", "Accept: application/json",
+                "-d", body.decode("utf-8"),
+                url,
+            ],
+            capture_output=True,
+            check=False,
+        )
+        if result.returncode != 0 or not result.stdout:
+            detail = result.stderr.decode("utf-8", "replace").strip()
+            raise RuntimeError(detail or f"curl exited with {result.returncode}")
+        return result.stdout
+
+
+def linns_image(path: str) -> str:
+    path = html.unescape((path or "").strip())
+    if not path:
+        return ""
+    if path.startswith("//"):
+        return "https:" + path
+    if path.lower().startswith(("http://", "https://")):
+        return path
+    # The API returns "assets/images/content//file.jpg" for most articles: the
+    # client folder is missing, so the raw URL would 404. Restore it.
+    if "content//" in path:
+        path = path.replace("content//", "content/scottstamps/")
+    # CMS files live on the SEMKHOR asset host, not on linns.com.
+    return "https://www.semkhor.com/" + path.lstrip("/")
+
+
+def parse_linns(source: dict, raw: bytes) -> list[dict]:
+    data = json.loads(raw)
+    items: list[dict] = []
+
+    for row in data.get("results") or []:
+        title = clean_text(row.get("title") or "")
+        slug = (row.get("url_path") or "").strip("/")
+        if not title or not slug:
+            continue
+        payload = row.get("data") or {}
+        description = shorten(payload.get("Content") or "")
+        # Most Linn's stories open with a centred byline that reads oddly as a
+        # summary. Drop the common one.
+        description = re.sub(r"^By Linn'?s Staff\s*", "", description, flags=re.IGNORECASE)
+        published = parse_date(row.get("content_date") or "")
+        items.append(
+            {
+                "title": title,
+                "url": f"https://www.linns.com/news/{slug}",
+                "description": description,
+                "image": linns_image(payload.get("Image_0") or "") or IMAGE_FALLBACK,
+                "source": source["name"],
+                "source_url": source.get("home", source["url"]),
+                "published": published.isoformat().replace("+00:00", "Z") if published else "",
+            }
+        )
+
+    return items
+
+
+POCZTA_CARD_RE = re.compile(r'<article class="card">(.*?)</article>', re.S)
+POCZTA_TITLE_RE = re.compile(r'class="card-title"[^>]*>(.*?)</h4>', re.S)
+POCZTA_TERM_RE = re.compile(r'class="card-terms"[^>]*>(.*?)</p>', re.S)
+POCZTA_DATE_RE = re.compile(r"<p>\s*(20\d\d-\d\d-\d\d)\s*</p>")
+POCZTA_LINK_RE = re.compile(r'href="([^"]+)"[^>]*title="View post details"')
+POCZTA_IMAGE_RE = re.compile(r'data-lazy-src="([^"]+)"')
+
+
+def parse_poczta(source: dict, raw: bytes) -> list[dict]:
+    page = raw.decode("utf-8", "replace")
+    items: list[dict] = []
+
+    for block in POCZTA_CARD_RE.findall(page):
+        title_match = POCZTA_TITLE_RE.search(block)
+        link_match = POCZTA_LINK_RE.search(block)
+        if not title_match or not link_match:
+            continue
+        title = clean_text(title_match.group(1))
+        link = html.unescape(link_match.group(1)).strip()
+        if not title or not link.startswith(("http://", "https://")):
+            continue
+
+        term = POCZTA_TERM_RE.search(block)
+        label = clean_text(term.group(1)) if term else ""
+        date = POCZTA_DATE_RE.search(block)
+        image = POCZTA_IMAGE_RE.search(block)
+        published = parse_date(date.group(1)) if date else None
+
+        items.append(
+            {
+                "title": title,
+                "url": link,
+                "description": (
+                    f"New stamp issue from Poczta Polska ({label})."
+                    if label
+                    else "New stamp issue from Poczta Polska."
+                ),
+                "image": normalise_image(image.group(1)) if image else IMAGE_FALLBACK,
+                "source": source["name"],
+                "source_url": source.get("home", source["url"]),
+                "published": published.isoformat().replace("+00:00", "Z") if published else "",
+            }
+        )
+
+    return items
+
+
+def load_source(source: dict) -> list[dict]:
+    kind = source.get("kind", "rss")
+    if kind == "linns":
+        return parse_linns(source, fetch_json(source["url"], source.get("payload") or {}))
+    if kind == "html":
+        return parse_poczta(source, fetch(source["url"]))
+    return parse_feed(source, fetch(source["url"]))
+
+
 def collect() -> list[dict]:
     collected: list[dict] = []
     failures: list[str] = []
 
     with ThreadPoolExecutor(max_workers=8) as pool:
-        futures = {pool.submit(fetch, source["url"]): source for source in SOURCES}
+        futures = {pool.submit(load_source, source): source for source in SOURCES}
         for future in as_completed(futures):
             source = futures[future]
             try:
-                raw = future.result()
-                items = parse_feed(source, raw)
+                items = future.result()
                 items.sort(key=lambda item: item["published"], reverse=True)
                 collected.extend(items[:MAX_PER_SOURCE])
                 print(f"  {source['name']}: {min(len(items), MAX_PER_SOURCE)} items", file=sys.stderr)
