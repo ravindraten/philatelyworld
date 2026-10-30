@@ -1,9 +1,9 @@
 const blogPosts = [
     {
-        name: "456 Free Stamp Album Pages to Download: Every AlbumEasy Album, Sorted by Country",
+        name: "459 Free Stamp Album Pages to Download: Every AlbumEasy Album, Sorted by Country",
         year: "2026",
         country: "World",
-        desc: "Download 456 free print-ready A4 stamp album pages from the AlbumEasy project, sorted country by country - from 47 United States albums and 34 for Germany to single albums for Aden, Zululand and the Cocos (Keeling) Islands.",
+        desc: "Download 459 free print-ready A4 stamp album pages from the AlbumEasy project, sorted country by country - from 47 United States albums and 34 for Germany to single albums for Aden, Zululand and the Cocos (Keeling) Islands.",
         customImage: "https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/logo.jpg",
         imageCount: 1,
         url: "blog/free-albumeasy-album-pages-by-country.html",
