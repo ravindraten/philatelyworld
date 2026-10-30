@@ -27,6 +27,10 @@
   Cache-Control: no-cache, no-store, must-revalidate
 /all_announcements.html
   Cache-Control: no-cache, no-store, must-revalidate
+/philatelic-news.html
+  Cache-Control: no-cache, no-store, must-revalidate
+/philatelic-exhibitions.html
+  Cache-Control: no-cache, no-store, must-revalidate
 /AlbumDesigner/auto-album.html
   Cache-Control: no-cache, no-store, must-revalidate
 /AlbumDesigner/albumeasy.html
@@ -41,3 +45,7 @@
 # XML and data files - short cache
 /sitemap.xml
   Cache-Control: public, max-age=86400
+/news.json
+  Cache-Control: no-cache, no-store, must-revalidate
+/exhibitions.json
+  Cache-Control: no-cache, no-store, must-revalidate

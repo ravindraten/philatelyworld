@@ -85,6 +85,40 @@ header {
     padding: 8px 0;
     text-align: center;
     font-weight: 700;
+    position: relative;
+}
+
+.header-news-link {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    transition: color 0.2s ease;
+}
+
+.header-news-link:hover {
+    color: #0f766e;
+    text-decoration: underline;
+}
+
+@media (max-width: 640px) {
+    .header-top-bar {
+        padding: 8px 14px;
+    }
+
+    .header-top-bar .top-bar-tagline {
+        display: none;
+    }
+
+    .header-news-link {
+        position: static;
+        display: inline-block;
+        transform: none;
+    }
 }
 
 .header-main {

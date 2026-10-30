@@ -1,0 +1,46 @@
+name: Refresh philatelic news
+
+on:
+  schedule:
+    # Every three hours. GitHub may delay scheduled runs at busy times.
+    - cron: '23 */3 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: philatelic-news
+  cancel-in-progress: true
+
+jobs:
+  refresh:
+    if: github.repository == 'ravindraten/philatelyworld'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out the default branch
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Fetch feeds
+        run: python scripts/fetch_philatelic_news.py
+
+      - name: Collect exhibitions
+        run: python scripts/fetch_philatelic_exhibitions.py
+
+      - name: Commit the new snapshot
+        run: |
+          if git diff --quiet -- docs/news.json && git diff --quiet -- docs/exhibitions.json; then
+            echo "No news or exhibition changes to commit."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/news.json docs/exhibitions.json
+          git commit -m "chore: refresh philatelic news and exhibitions"
+          git push
