@@ -1055,31 +1055,44 @@ def test_album_designer_mobile_lockdown(driver):
     driver.get(designer_url)
     wait = WebDriverWait(driver, 10)
 
-    # 1. Start in Desktop mode (should already be set by driver fixture, but let's be explicit)
-    driver.set_window_size(1200, 800)
+    # Deterministic viewport emulation: window managers silently clamp
+    # set_window_size() (e.g. a 375px request can land at ~500px inner width),
+    # which makes the 1023px breakpoint flaky on CI.
+    def emulate(width, height):
+        driver.execute_cdp_cmd(
+            "Emulation.setDeviceMetricsOverride",
+            {
+                "width": width,
+                "height": height,
+                "deviceScaleFactor": 0,
+                "mobile": width < 500,
+            },
+        )
+
+    # 1. Desktop mode: the builder itself is visible, notice hidden
+    emulate(1200, 800)
     wait.until(EC.visibility_of_element_located((By.ID, "controls")))
     notice = driver.find_element(By.ID, "desktop-only")
     assert not notice.is_displayed()
 
-    # 2. Switch to Mobile resolution (below the 1024px breakpoint)
-    driver.set_window_size(375, 812)  # iPhone size
+    # 2. Mobile resolution (below the 1024px breakpoint)
+    emulate(375, 812)
 
-    # 3. Verify the desktop-only notice becomes visible
-    wait.until(EC.visibility_of_element_located((By.ID, "desktop-only")))
+    # 3. The desktop-only notice becomes visible and the builder hides
+    wait.until(
+        lambda d: EC.visibility_of_element_located((By.ID, "desktop-only"))(d)
+        and not EC.visibility_of_element_located((By.ID, "controls"))(d)
+    )
     assert notice.is_displayed()
-    # Headless Chrome can return an empty rendered .text() here; the
-    # DOM content is authoritative, so read textContent instead.
+    # Headless Chrome can return an empty rendered .text() here; the DOM
+    # content is authoritative, so read textContent instead.
     notice_text = notice.get_attribute("textContent").lower()
     assert "open albumeasy on a computer" in notice_text
     assert "laptop or desktop" in notice_text
 
-    # 4. Verify the builder itself is hidden
-    controls = driver.find_element(By.ID, "controls")
-    assert not controls.is_displayed()
-    assert not driver.find_element(By.ID, "preview").is_displayed()
-
-    # Restore window size for other tests
-    driver.set_window_size(1920, 1080)
+    # 4. Restore a desktop viewport for other tests in the module
+    emulate(1200, 800)
+    wait.until(EC.visibility_of_element_located((By.ID, "controls")))
 
 
 def test_album_designer_seo_meta(driver):

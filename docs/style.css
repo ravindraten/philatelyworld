@@ -828,8 +828,8 @@ header {
 
     .stamp-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-        gap: 20px;
+        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+        gap: 16px;
     }
 }
 
@@ -842,6 +842,13 @@ header {
     display: flex;
     flex-direction: column;
     position: relative;
+}
+
+.stamp-card:hover {
+    transform: translateY(-3px);
+    z-index: 40;
+    border-color: #cbd5e1;
+    box-shadow: 0 14px 30px rgba(15, 23, 42, 0.12);
 }
 
 .stamp-card.sold-out {
@@ -858,9 +865,10 @@ header {
 
 .img-container {
     position: relative;
-    height: 240px;
+    height: 190px;
     background: #f1f5f9;
     overflow: hidden;
+    border-radius: 15px 15px 0 0;
 }
 
 .stamp-card img {
@@ -905,23 +913,55 @@ header {
 }
 
 .details {
-    padding: 20px;
+    padding: 14px 14px 16px;
     flex-grow: 1;
     display: flex;
     flex-direction: column;
 }
 
 .details h3 {
-    margin: 0 0 8px;
-    font-size: 1.1rem;
+    margin: 0 0 6px;
+    font-size: 1rem;
     color: var(--primary);
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
 
 .stamp-desc {
-    font-size: 0.85rem;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
+    font-size: 0.83rem;
     color: var(--text-light);
-    margin: 12px 0;
+    margin: 8px 0;
     line-height: 1.5;
+}
+
+/* Popout showing the full description while hovering (injected by
+   catalog-filters.js); floats below the card without reflowing the grid. */
+.desc-popout {
+    position: absolute;
+    top: calc(100% + 6px);
+    left: -6px;
+    right: -6px;
+    margin: 0;
+    padding: 12px 16px 14px;
+    background: #ffffff;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    box-shadow: 0 16px 34px rgba(15, 23, 42, 0.18);
+    font-size: 0.83rem;
+    color: var(--text-light);
+    line-height: 1.5;
+    z-index: 60;
+    pointer-events: none;
+}
+
+.desc-popout b {
+    color: var(--primary);
 }
 
 /* Align the Share Icon next to the Buy Button */
@@ -2134,10 +2174,11 @@ header {
     display: block;
     position: relative;
     overflow: hidden;
-    aspect-ratio: 4 / 3;
+    min-width: 0;
+    min-height: 100px;
+    height: 100%;
     border-radius: 10px;
     background: #eef2ff;
-    align-self: stretch;
 }
 
 .home-news .news-thumb img {
@@ -2300,6 +2341,8 @@ header {
 
     .home-news .news-thumb,
     .home-news .news-skeleton .sk-img {
+        height: auto;
+        min-height: 0;
         aspect-ratio: 16 / 9;
     }
 }

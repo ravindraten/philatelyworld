@@ -53,8 +53,12 @@
             color: var(--text);
             display: flex;
             flex-direction: column;
-            height: 100vh;
-            overflow: hidden;
+            min-height: 100vh;
+            overflow-x: hidden;
+            /* Page scrolls naturally — the lock below only applies to the
+               builder workspace, which still fills one viewport minus the
+               header (with a floor so it stays usable on short windows). */
+            --ae-header-h: 220px;
         }
 
         header {
@@ -66,11 +70,36 @@
             padding-bottom: 30px;
         }
 
+        /* On smaller laptop screens (13-inch MacBooks etc.) the big hero would
+           squeeze the builder below it — the controls + preview ARE the page,
+           so the header collapses to a compact strip and the controls column
+           stops hogging the width. */
+        @media (max-height: 820px) {
+            .header-top-bar {
+                display: none;
+            }
+        }
+
+        @media (max-width: 1440px), (max-height: 1100px) {
+            .nav-social-row {
+                display: none;
+            }
+        }
+
+
         /* Controls + preview share the space below the shared header */
         .app {
-            flex: 1;
-            min-height: 0;
+            flex: 0 0 auto;
+            height: calc(100vh - var(--ae-header-h));
+            min-height: 560px;
             display: flex;
+        }
+
+        /* Header is bigger on huge screens (full hero, no compact mode). */
+        @media (min-width: 1441px) and (min-height: 1101px) {
+            body {
+                --ae-header-h: 470px;
+            }
         }
 
         #controls {
@@ -230,12 +259,11 @@
             overflow: hidden;
         }
 
-        /* Kept to the A4 proportions and fitted to the height, so a whole album
-           page always stays visible however wide the control panel is. */
+        /* Fills ALL remaining space right of the controls; the browser's PDF
+           viewer scales/centres the A4 page(s) inside the frame. */
         iframe {
+            width: 100%;
             height: 100%;
-            aspect-ratio: 210 / 297;
-            max-width: 100%;
             border: 0;
             border-radius: 4px;
             background: #fff;
@@ -324,7 +352,61 @@
                 color: var(--muted);
             }
         }
-    </style>
+            /* Compact whenever the width OR usable height is limited — the builder
+           area (controls + preview) is the point of this page. */
+        @media (max-width: 1440px), (max-height: 1100px) {
+            .news-hero .news-wrap {
+                padding-top: 14px;
+                padding-bottom: 12px;
+            }
+
+            .news-hero .news-kicker {
+                margin-bottom: 4px;
+            }
+
+            .news-hero h1 {
+                font-size: 1.3rem;
+                max-width: none;
+            }
+
+            .news-hero .news-lede {
+                font-size: 0.78rem;
+                margin-top: 4px;
+            }
+
+            .news-hero .news-stats {
+                display: none;
+            }
+
+            .news-brand img {
+                width: 44px;
+                height: 44px;
+            }
+
+            .news-brand strong {
+                font-size: 1.15rem;
+            }
+
+            #controls {
+                width: clamp(380px, 38vw, 520px);
+                min-width: 380px;
+                padding: 20px;
+                gap: 12px;
+            }
+
+            textarea {
+                flex: 1 1 auto;
+                height: auto;
+                min-height: 220px;
+                max-height: none;
+            }
+
+            .drop {
+                padding: 14px;
+            }
+        }
+
+</style>
 </head>
 
 <body>

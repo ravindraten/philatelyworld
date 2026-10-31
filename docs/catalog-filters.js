@@ -274,6 +274,18 @@
 
     /* ---------- events ---------- */
 
+    /* After a filter click, bring the stamp grid back into view so the user
+     * sees the result immediately (the rail can be long; the grid starts at
+     * the top of the content column, right beside the search bar). */
+    function scrollToGridTop() {
+        const grid = document.getElementById('stampGrid');
+        if (!grid) return;
+        const header = document.querySelector('.search-sticky-container');
+        const offset = header ? header.offsetHeight : 0;
+        const top = grid.getBoundingClientRect().top + window.pageYOffset - offset - 8;
+        window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
+    }
+
     if (els.availability) {
         els.availability.addEventListener('click', function (event) {
             const button = event.target.closest('button[data-status]');
@@ -296,6 +308,7 @@
             renderAvailability();
             updateClearButton();
             syncRail();
+            scrollToGridTop();
         });
     }
 
@@ -307,6 +320,7 @@
             renderCountries();
             updateClearButton();
             applyFilters();
+            scrollToGridTop();
         });
     }
 
@@ -322,6 +336,7 @@
             renderThemes();
             updateClearButton();
             applyFilters();
+            scrollToGridTop();
         });
     }
 
@@ -331,6 +346,7 @@
             filterState.theme = '';
             render();
             applyFilters();
+            scrollToGridTop();
         });
     }
 
@@ -385,4 +401,37 @@
     // and the rail visibility is restored for the default (promo off) case.
     applyFilters();
     syncRail();
+})();
+
+/* ------------------------------------------------------------------
+ * Stamp-card hover popout: descriptions are clamped to 3 lines; on
+ * hover a floating panel below the card shows the full text without
+ * reflowing the grid.
+ * ------------------------------------------------------------------ */
+(function () {
+    'use strict';
+    const grid = document.getElementById('stampGrid');
+    if (!grid) return;
+
+    grid.addEventListener('mouseover', function (event) {
+        const card = event.target.closest('.stamp-card');
+        if (!card || card.querySelector(':scope > .desc-popout')) return;
+        const desc = card.querySelector('.stamp-desc');
+        if (!desc || desc.scrollHeight <= desc.clientHeight + 2) return; /* fully visible already */
+
+        const popout = document.createElement('div');
+        popout.className = 'desc-popout';
+        popout.innerHTML = desc.innerHTML;
+        card.appendChild(popout);
+        card.style.overflow = 'visible';
+    });
+
+    grid.addEventListener('mouseout', function (event) {
+        const card = event.target.closest('.stamp-card');
+        if (!card) return;
+        if (card.contains(event.relatedTarget)) return; /* moving within card */
+        const popout = card.querySelector(':scope > .desc-popout');
+        if (popout) popout.remove();
+        card.style.overflow = '';
+    });
 })();
