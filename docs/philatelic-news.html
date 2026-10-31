@@ -136,6 +136,13 @@
             color: var(--text-light);
         }
 
+        @media (max-width: 800px) {
+            .news-brand strong {
+                font-size: 2rem;
+            }
+        }
+
+
         .news-nav {
             display: flex;
             align-items: center;
@@ -760,20 +767,7 @@
         }
 
         @media (max-width: 760px) {
-            .news-masthead .news-wrap {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 14px;
-            }
-
-            .news-nav {
-                width: 100%;
-            }
-
-            .news-nav a {
-                padding: 7px 11px;
-                font-size: 0.78rem;
-            }
+            /* masthead + nav handled centrally in style.css (<=800px) */
 
             .news-hero .news-wrap {
                 padding-top: 38px;
@@ -866,6 +860,7 @@
                         <a href="index.html?tab=blog">Blog</a>
                         <a href="AlbumDesigner/albumeasy.html">Album Designer</a>
                         <a class="active" href="philatelic-news.html" aria-current="page">Philatelic News</a>
+                        <span class="nav-break" aria-hidden="true"></span>
                         <a href="philatelic-exhibitions.html">Exhibitions</a>
                         <a href="https://wa.me/31633467712" target="_blank" rel="noopener">Contact</a>
                     </nav>

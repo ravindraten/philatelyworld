@@ -80,7 +80,8 @@
             }
         }
 
-        @media (max-width: 1440px), (max-height: 1100px) {
+        @media (max-width: 1440px),
+        (max-height: 1100px) {
             .nav-social-row {
                 display: none;
             }
@@ -157,7 +158,8 @@
             font: 12px/1.55 ui-monospace, Menlo, Consolas, monospace;
             resize: vertical;
             tab-size: 4;
-            white-space: pre-wrap;      /* long lines wrap instead of scrolling sideways */
+            white-space: pre-wrap;
+            /* long lines wrap instead of scrolling sideways */
             overflow-wrap: break-word;
             overflow-x: hidden;
             overflow-y: auto;
@@ -352,9 +354,11 @@
                 color: var(--muted);
             }
         }
-            /* Compact whenever the width OR usable height is limited — the builder
+
+        /* Compact whenever the width OR usable height is limited — the builder
            area (controls + preview) is the point of this page. */
-        @media (max-width: 1440px), (max-height: 1100px) {
+        @media (max-width: 1440px),
+        (max-height: 1100px) {
             .news-hero .news-wrap {
                 padding-top: 14px;
                 padding-bottom: 12px;
@@ -387,6 +391,12 @@
                 font-size: 1.15rem;
             }
 
+        @media (max-width: 800px) {
+            .news-brand strong {
+                font-size: 2rem;
+            }
+        }
+
             #controls {
                 width: clamp(380px, 38vw, 520px);
                 min-width: 380px;
@@ -405,8 +415,7 @@
                 padding: 14px;
             }
         }
-
-</style>
+    </style>
 </head>
 
 <body>
@@ -414,8 +423,8 @@
     <header>
         <div class="header-top-bar">
             <span class="top-bar-tagline">Global Shipping Available • Expertly Authenticated</span>
-            <a class="header-news-link" href="../philatelic-exhibitions.html">Exhibitions</a>
-            <a class="header-news-link" href="../philatelic-news.html">Philatelic News &rarr;</a>
+            <!-- <a class="header-news-link" href="../philatelic-exhibitions.html">Exhibitions</a>
+            <a class="header-news-link" href="../philatelic-news.html">Philatelic News &rarr;</a> -->
         </div>
 
         <div class="news-masthead">
@@ -434,6 +443,7 @@
                         <a href="../index.html?tab=blog">Blog</a>
                         <a class="active" href="albumeasy.html" aria-current="page">Album Designer</a>
                         <a href="../philatelic-news.html">Philatelic News</a>
+                        <span class="nav-break" aria-hidden="true"></span>
                         <a href="../philatelic-exhibitions.html">Exhibitions</a>
                         <a href="https://wa.me/31633467712" target="_blank" rel="noopener">Contact</a>
                     </nav>
@@ -462,9 +472,8 @@
                                     d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" />
                             </svg>
                         </a>
-                        <a href="https://x.com/philately_wrld" target="_blank" rel="noopener"
-                            class="social-icon x-icon" aria-label="X (Twitter)"
-                            data-tooltip="Follow us on X">
+                        <a href="https://x.com/philately_wrld" target="_blank" rel="noopener" class="social-icon x-icon"
+                            aria-label="X (Twitter)" data-tooltip="Follow us on X">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
                                 <path
                                     d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z" />
@@ -483,28 +492,29 @@
             <p class="news-lede">
                 Paste an AlbumEasy script, drop in your stamp sheet images and download a print-ready A4
                 album PDF &mdash; nothing leaves your computer. Pair it with 459 free prepared album pages
-                in our <a href="../blog/free-albumeasy-album-pages-by-country.html" style="color:#fbbf24;">blog library</a>.
+                in our <a href="../blog/free-albumeasy-album-pages-by-country.html" style="color:#fbbf24;">blog
+                    library</a>.
             </p>
             <div class="news-stats">
                 <span class="news-stat">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                        stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" aria-hidden="true">
                         <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
                         <polyline points="14 2 14 8 20 8"></polyline>
                     </svg>
                     <span>100% offline &mdash; runs in your browser</span>
                 </span>
                 <span class="news-stat">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                        stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" aria-hidden="true">
                         <path d="M12 3v12m0 0 4-4m-4 4-4-4"></path>
                         <path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"></path>
                     </svg>
                     <span>Print-ready A4 PDF export</span>
                 </span>
                 <span class="news-stat">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                        stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" aria-hidden="true">
                         <path d="M3 6h18v12H3z"></path>
                         <path d="M3 10h18"></path>
                     </svg>
@@ -515,43 +525,46 @@
     </section>
 
     <div class="app">
-    <div id="controls">
-        <h1>AlbumEasy Online<span>Philately World</span></h1>
-        <p class="lead">Paste an AlbumEasy album file and add your images — the album is built as a print-ready A4 PDF
-            in your browser. Nothing is uploaded to a server.</p>
+        <div id="controls">
+            <h1>AlbumEasy Online<span>Philately World</span></h1>
+            <p class="lead">Paste an AlbumEasy album file and add your images — the album is built as a print-ready A4
+                PDF
+                in your browser. Nothing is uploaded to a server.</p>
 
-        <div>
-            <label>Album file (.txt)</label>
-            <div class="row">
-                <button onclick="document.getElementById('script-file').click()">Open file…</button>
-                <button onclick="loadSample()">Load example</button>
-                <button onclick="showHelp()">Commands</button>
+            <div>
+                <label>Album file (.txt)</label>
+                <div class="row">
+                    <button onclick="document.getElementById('script-file').click()">Open file…</button>
+                    <button onclick="loadSample()">Load example</button>
+                    <button onclick="showHelp()">Commands</button>
+                </div>
+                <input type="file" id="script-file" accept=".txt,text/plain" hidden
+                    onchange="openScript(this.files[0])">
             </div>
-            <input type="file" id="script-file" accept=".txt,text/plain" hidden onchange="openScript(this.files[0])">
+
+            <div>
+                <label>Album script</label>
+                <textarea id="script" spellcheck="false" oninput="render()"></textarea>
+            </div>
+
+            <div class="drop" id="drop" onclick="document.getElementById('images').click()">
+                <b>Add stamp images</b>
+                <small id="image-status">Drop files here or click to browse</small>
+                <input type="file" id="images" accept="image/*" multiple hidden onchange="addImages(this.files)">
+            </div>
+
+            <label class="check"><input type="checkbox" id="gray" checked onchange="render()"> Grayscale stamp
+                images</label>
+
+            <div class="row">
+                <button class="primary" onclick="download()">Download PDF</button>
+                <button onclick="render()">Refresh preview</button>
+            </div>
+
+            <div id="status">Ready.</div>
         </div>
 
-        <div>
-            <label>Album script</label>
-            <textarea id="script" spellcheck="false" oninput="render()"></textarea>
-        </div>
-
-        <div class="drop" id="drop" onclick="document.getElementById('images').click()">
-            <b>Add stamp images</b>
-            <small id="image-status">Drop files here or click to browse</small>
-            <input type="file" id="images" accept="image/*" multiple hidden onchange="addImages(this.files)">
-        </div>
-
-        <label class="check"><input type="checkbox" id="gray" checked onchange="render()"> Grayscale stamp images</label>
-
-        <div class="row">
-            <button class="primary" onclick="download()">Download PDF</button>
-            <button onclick="render()">Refresh preview</button>
-        </div>
-
-        <div id="status">Ready.</div>
-    </div>
-
-    <div id="preview"><iframe id="viewer" title="Album preview"></iframe></div>
+        <div id="preview"><iframe id="viewer" title="Album preview"></iframe></div>
     </div>
 
     <div id="desktop-only">

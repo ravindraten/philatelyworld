@@ -1884,6 +1884,13 @@ header {
     padding: 5px 12px;
 }
 
+/* Mobile nav line-break: first 4 links on one row, last 2 below */
+.news-nav .nav-break {
+    display: none;
+    flex-basis: 100%;
+    height: 0;
+}
+
 /* One horizontal row of every masthead icon, directly below the nav */
 .nav-social-row {
     display: flex;
@@ -2421,6 +2428,11 @@ header {
     .nav-social-row {
         justify-content: center;
     }
+
+    /* Bigger brand wordmark on phones */
+    .news-brand strong {
+        font-size: 2rem;
+    }
 }
 
 /* Top bar: keep the tagline on phones, wrap and centre everything */
@@ -2439,5 +2451,59 @@ header {
 
     .header-top-bar .top-bar-tagline {
         display: inline;
+    }
+}
+
+/* Compact nav pills on phones so the wrap point matches the inline
+   news/exhibitions styles (first row: Catalogue/Blog/Album Designer/
+   Philatelic News; second row: Exhibitions/Contact). */
+@media (max-width: 800px) {
+    .news-masthead .news-nav {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .news-nav .nav-break {
+        display: block;
+    }
+
+    .news-masthead .news-nav a {
+        padding: 7px 11px;
+        font-size: 0.78rem;
+    }
+}
+
+/* Four pills (Catalogue · Blog · Album Designer · Philatelic News) must fit
+   the first row on phones; shrink them progressively below the 390px mark. */
+@media (max-width: 430px) {
+    .news-masthead .news-nav {
+        gap: 3px;
+    }
+
+    .news-masthead .news-nav a {
+        padding: 6px 8px;
+        font-size: 0.72rem;
+    }
+}
+
+@media (max-width: 380px) {
+    .news-masthead .news-nav {
+        gap: 2px;
+    }
+
+    .news-masthead .news-nav a {
+        padding: 5px 7px;
+        font-size: 0.68rem;
+    }
+}
+
+@media (max-width: 340px) {
+    .news-masthead .news-nav {
+        gap: 1px;
+    }
+
+    .news-masthead .news-nav a {
+        padding: 4px 5px;
+        font-size: 0.6rem;
     }
 }
