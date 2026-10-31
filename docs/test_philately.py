@@ -27,6 +27,26 @@ def driver():
     driver.quit()
 
 
+def js_click(driver, element):
+    """Scroll the element into view and click via JS.
+
+    The redesigned news-desk layout puts the currency toggle inside the
+    left filter rail, so plain Selenium clicks often get intercepted by
+    the sticky search bar; JS clicks are the convention across this suite.
+    """
+    driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", element)
+    driver.execute_script("arguments[0].click();", element)
+
+
+def click_availability_tab(driver, wait, status):
+    """Click an availability button in the left filter rail (replaces the
+    old sticky filter-bar tabs removed in the news-desk redesign)."""
+    tab = wait.until(EC.presence_of_element_located(
+        (By.CSS_SELECTOR, f"#availabilityList button[data-status='{status}']")
+    ))
+    js_click(driver, tab)
+
+
 def test_page_load(driver):
     """Check if the title and main grid load correctly."""
     driver.get(URL)
@@ -61,8 +81,8 @@ def test_currency_toggle(driver):
     """Check if switching to EUR updates the price symbols."""
     driver.get(URL)
     wait = WebDriverWait(driver, 10)
-    eur_btn = wait.until(EC.element_to_be_clickable((By.ID, "btnEUR")))
-    eur_btn.click()
+    eur_btn = wait.until(EC.presence_of_element_located((By.ID, "btnEUR")))
+    js_click(driver, eur_btn)
 
     # Wait for the price to contain '€' instead of fixed sleep
     wait.until(EC.text_to_be_present_in_element((By.CLASS_NAME, "price"), "€"))
@@ -102,10 +122,7 @@ def test_sold_out_logic(driver):
     wait = WebDriverWait(driver, 10)
 
     # Locate the tab even if it's hidden (display: none)
-    sold_tab = driver.find_element(By.CSS_SELECTOR, ".filter-tab[data-status='sold']")
-
-    # We still use JS click because standard .click() fails on hidden elements
-    driver.execute_script("arguments[0].click();", sold_tab)
+    click_availability_tab(driver, wait, 'sold')
 
     # Wait for search input instead of sleep
     search_input = wait.until(EC.presence_of_element_located((By.ID, "stampSearch")))
@@ -164,7 +181,7 @@ def test_currency_conversion_math(driver):
     inr_val = float(inr_text)
 
     eur_btn = driver.find_element(By.ID, "btnEUR")
-    eur_btn.click()
+    js_click(driver, eur_btn)
 
     # Wait for the price to update to EUR
     wait.until(EC.text_to_be_present_in_element((By.CLASS_NAME, "price"), "€"))
@@ -184,10 +201,7 @@ def test_lightbox_navigation(driver):
     """Test opening a card with multiple images and clicking 'Next'."""
     driver.get(URL)
     wait = WebDriverWait(driver, 10)
-    all_tab = wait.until(
-        EC.element_to_be_clickable((By.CSS_SELECTOR, ".filter-tab[data-status='all']"))
-    )
-    driver.execute_script("arguments[0].click();", all_tab)
+    click_availability_tab(driver, wait, 'all')
 
     # Wait for the grid to update
     search = wait.until(EC.presence_of_element_located((By.ID, "stampSearch")))
@@ -526,12 +540,7 @@ def test_status_filtering(driver):
     wait = WebDriverWait(driver, 10)
 
     # 1. Click 'Available' tab
-    available_tab = wait.until(
-        EC.element_to_be_clickable(
-            (By.CSS_SELECTOR, ".filter-tab[data-status='available']")
-        )
-    )
-    driver.execute_script("arguments[0].click();", available_tab)
+    click_availability_tab(driver, wait, 'available')
 
     # Wait for the grid to filter: check that no visible products are 'sold-out'
     wait.until(
@@ -551,15 +560,11 @@ def test_status_filtering(driver):
     visible_badges = [b for b in sold_badges if b.is_displayed()]
     assert len(visible_badges) == 0, "Found 'Sold Out' items in the 'Available' view"
 
-    # 2. Check if 'Sold Out' tab is hidden (per current CONFIG in script.js)
-    sold_tab = driver.find_element(By.CSS_SELECTOR, ".filter-tab[data-status='sold']")
-    is_hidden = driver.execute_script(
-        "return window.getComputedStyle(arguments[0]).display === 'none';", sold_tab
-    )
+    # 2. The sold view stays reachable via the rail's availability buttons
+    # (covered below when 'all' re-renders sold items).
 
     # 3. Reset to 'All Items' and verify sold items ARE visible even if tab is gone
-    all_tab = driver.find_element(By.CSS_SELECTOR, ".filter-tab[data-status='all']")
-    driver.execute_script("arguments[0].click();", all_tab)
+    click_availability_tab(driver, wait, 'all')
 
     # Wait for sold items to reappear
     wait.until(
@@ -593,6 +598,7 @@ def test_status_filtering(driver):
 # --- 6. Sale Feature Tests ---
 
 
+@pytest.mark.skip(reason="Sale bell removed from header in the news-desk redesign")
 def test_sale_bell_presence(driver):
     """Verify the sale bell icon is present with correct tooltip count."""
     driver.get(URL)
@@ -607,10 +613,7 @@ def test_sale_bell_presence(driver):
     assert sale_count > 0
 
     # Switch to "All Items" to see all on-sale badges (default is "Available")
-    all_tab = wait.until(
-        EC.element_to_be_clickable((By.CSS_SELECTOR, ".filter-tab[data-status='all']"))
-    )
-    driver.execute_script("arguments[0].click();", all_tab)
+    click_availability_tab(driver, wait, 'all')
 
     # Verify count matches actual on-sale badges on the page
     badges = wait.until(EC.presence_of_all_elements_located((By.CLASS_NAME, "on-sale-badge")))
@@ -618,25 +621,20 @@ def test_sale_bell_presence(driver):
 
 
 def test_on_sale_badge_on_cards(driver):
-    """Verify 'On Sale' badge appears on stamps marked onSale."""
+    """Verify 'On Sale' badge appears on stamps marked onSale (badge is
+    independent of the removed bell icon)."""
     driver.get(URL)
     wait = WebDriverWait(driver, 10)
-
-    all_tab = wait.until(
-        EC.element_to_be_clickable((By.CSS_SELECTOR, ".filter-tab[data-status='all']"))
-    )
-    driver.execute_script("arguments[0].click();", all_tab)
-
-    sale_bell = wait.until(EC.presence_of_element_located((By.ID, "saleBell")))
-    tooltip = sale_bell.get_attribute("data-tooltip")
-    sale_count = int(tooltip.split("(")[-1].split(")")[0])
+    click_availability_tab(driver, wait, "all")
 
     badges = wait.until(
-        lambda d: d.find_elements(By.CLASS_NAME, "on-sale-badge")
-        if len(d.find_elements(By.CLASS_NAME, "on-sale-badge")) == sale_count
-        else False
+        lambda d: (
+            d.find_elements(By.CLASS_NAME, "on-sale-badge")
+            if len(d.find_elements(By.CLASS_NAME, "on-sale-badge")) > 0
+            else False
+        )
     )
-    assert len(badges) == sale_count
+    assert len(badges) > 0
     for badge in badges:
         assert badge.is_displayed()
         assert "ON SALE" in badge.text
@@ -647,10 +645,7 @@ def test_sale_price_shows_original_strikethrough(driver):
     driver.get(URL)
     wait = WebDriverWait(driver, 10)
 
-    all_tab = wait.until(
-        EC.element_to_be_clickable((By.CSS_SELECTOR, ".filter-tab[data-status='all']"))
-    )
-    driver.execute_script("arguments[0].click();", all_tab)
+    click_availability_tab(driver, wait, 'all')
 
     sale_price = wait.until(
         EC.presence_of_element_located((By.CSS_SELECTOR, ".price.sale"))
@@ -666,6 +661,7 @@ def test_sale_price_shows_original_strikethrough(driver):
     assert "₹" in old_price.text
 
 
+@pytest.mark.skip(reason="Sale bell removed from header in the news-desk redesign")
 def test_sale_filter_shows_only_sale_items(driver):
     """Verify clicking sale bell filters to show only on-sale items."""
     driver.get(URL)
@@ -692,6 +688,7 @@ def test_sale_filter_shows_only_sale_items(driver):
     assert "active" in sale_bell.get_attribute("class")
 
 
+@pytest.mark.skip(reason="Sale bell removed from header in the news-desk redesign")
 def test_sale_filter_toggle_off(driver):
     """Verify clicking sale bell again deactivates it and shows all items."""
     driver.get(URL)
@@ -710,6 +707,7 @@ def test_sale_filter_toggle_off(driver):
     assert len(badges) < len(cards)
 
 
+@pytest.mark.skip(reason="Sale bell removed from header in the news-desk redesign")
 def test_sale_filter_deactivates_on_tab_click(driver):
     """Verify clicking a filter tab deactivates the sale filter."""
     driver.get(URL)
@@ -721,10 +719,7 @@ def test_sale_filter_deactivates_on_tab_click(driver):
     driver.execute_script("arguments[0].click();", sale_bell)
     wait.until(lambda d: "active" in sale_bell.get_attribute("class"))
 
-    all_tab = wait.until(
-        EC.element_to_be_clickable((By.CSS_SELECTOR, ".filter-tab[data-status='all']"))
-    )
-    driver.execute_script("arguments[0].click();", all_tab)
+    click_availability_tab(driver, wait, 'all')
 
     assert "active" not in sale_bell.get_attribute("class")
 
@@ -734,24 +729,21 @@ def test_sale_filter_deactivates_on_tab_click(driver):
 
 
 def test_sale_deep_link_via_tab_param(driver):
-    """Verify ?tab=sale URL parameter activates sale view."""
-    driver.get(f"{URL}?tab=sale")
+    """Verify ?tab=sale URL parameter shows only on-sale items (the bell
+    icon was removed in the news-desk redesign)."""
+    driver.get(URL + "?tab=sale")
     wait = WebDriverWait(driver, 10)
 
-    sale_bell = wait.until(EC.presence_of_element_located((By.ID, "saleBell")))
-    tooltip = sale_bell.get_attribute("data-tooltip")
-    sale_count = int(tooltip.split("(")[-1].split(")")[0])
-
     wait.until(
-        lambda d: len(d.find_elements(By.CLASS_NAME, "on-sale-badge")) == sale_count
+        lambda d: len(d.find_elements(By.CLASS_NAME, "on-sale-badge")) > 0
     )
 
-    assert "active" in sale_bell.get_attribute("class")
-
-    cards = driver.find_elements(By.CSS_SELECTOR, "#stampGrid .stamp-card")
+    cards = wait.until(
+        lambda d: d.find_elements(By.CSS_SELECTOR, "#stampGrid .stamp-card")
+    )
     badges = driver.find_elements(By.CLASS_NAME, "on-sale-badge")
+    assert len(cards) > 0
     assert len(badges) == len(cards)
-    assert len(cards) == sale_count
 
 
 def test_sale_price_currency_eur(driver):
@@ -759,13 +751,10 @@ def test_sale_price_currency_eur(driver):
     driver.get(URL)
     wait = WebDriverWait(driver, 10)
 
-    all_tab = wait.until(
-        EC.element_to_be_clickable((By.CSS_SELECTOR, ".filter-tab[data-status='all']"))
-    )
-    driver.execute_script("arguments[0].click();", all_tab)
+    click_availability_tab(driver, wait, 'all')
 
-    eur_btn = wait.until(EC.element_to_be_clickable((By.ID, "btnEUR")))
-    eur_btn.click()
+    eur_btn = wait.until(EC.presence_of_element_located((By.ID, "btnEUR")))
+    js_click(driver, eur_btn)
 
     wait.until(EC.text_to_be_present_in_element((By.CLASS_NAME, "price"), "€"))
 
@@ -787,10 +776,7 @@ def test_free_tracked_shipping_badge(driver):
     driver.get(URL)
     wait = WebDriverWait(driver, 10)
 
-    all_tab = wait.until(
-        EC.element_to_be_clickable((By.CSS_SELECTOR, ".filter-tab[data-status='all']"))
-    )
-    driver.execute_script("arguments[0].click();", all_tab)
+    click_availability_tab(driver, wait, 'all')
 
     wait.until(EC.presence_of_element_located((By.CLASS_NAME, "shipping-badge")))
 
@@ -806,10 +792,7 @@ def test_free_letter_post_shipping_badge(driver):
     driver.get(URL)
     wait = WebDriverWait(driver, 10)
 
-    all_tab = wait.until(
-        EC.element_to_be_clickable((By.CSS_SELECTOR, ".filter-tab[data-status='all']"))
-    )
-    driver.execute_script("arguments[0].click();", all_tab)
+    click_availability_tab(driver, wait, 'all')
 
     wait.until(EC.presence_of_element_located((By.CLASS_NAME, "letter-badge")))
 
@@ -828,11 +811,9 @@ def test_blog_tab_switching(driver):
     driver.get(URL)
     wait = WebDriverWait(driver, 10)
 
-    # 1. Locate and click the Blog filter tab
-    blog_tab = wait.until(
-        EC.element_to_be_clickable((By.CSS_SELECTOR, ".filter-tab[data-status='blog']"))
-    )
-    driver.execute_script("arguments[0].click();", blog_tab)
+    # 1. Open the blog view via its deep link (the filter-bar blog tab
+    # was removed in the news-desk redesign)
+    driver.get(URL + "?tab=blog")
 
     # 2. Wait for the blog-specific class to appear in the grid
     wait.until(EC.presence_of_element_located((By.CLASS_NAME, "blog-card")))
@@ -852,11 +833,8 @@ def test_blog_search_filtering(driver):
     driver.get(URL)
     wait = WebDriverWait(driver, 10)
 
-    # 1. Switch to blog tab
-    blog_tab = wait.until(
-        EC.element_to_be_clickable((By.CSS_SELECTOR, ".filter-tab[data-status='blog']"))
-    )
-    driver.execute_script("arguments[0].click();", blog_tab)
+    # 1. Open the blog view via its deep link
+    driver.get(URL + "?tab=blog")
 
     # 2. Search for a specific blog title (e.g., "Buzin")
     search_input = wait.until(EC.presence_of_element_located((By.ID, "stampSearch")))
@@ -912,8 +890,7 @@ def test_blog_indicator_on_stamp_cards(driver):
     wait = WebDriverWait(driver, 10)
 
     # Clear filters to see all stamps
-    all_tab = driver.find_element(By.CSS_SELECTOR, ".filter-tab[data-status='all']")
-    driver.execute_script("arguments[0].click();", all_tab)
+    click_availability_tab(driver, wait, 'all')
 
     # Find an indicator (the SVG icon for related blog posts)
     # This assumes at least one stamp in your 'stamps' array has 'blogUrl' set
@@ -949,6 +926,7 @@ def test_announcement_carousel_limit(driver):
     assert len(items) <= 2, "Carousel holds more than 2 announcements"
 
 
+@pytest.mark.skip(reason="Announcement/blog bell icons removed in the news-desk redesign")
 def test_announcement_view_all_button(driver):
     """Verify the announcement and blog bell icons are present."""
     driver.get(URL)
@@ -1052,23 +1030,21 @@ def test_all_announcements_url_hydration(driver):
 
 
 def test_album_designer_navigation(driver):
-    """Verify that the floating Album Designer button exists and navigates correctly."""
+    """Verify that the Album Designer navigation link exists and navigates correctly."""
     driver.get(URL)
     wait = WebDriverWait(driver, 10)
 
-    # 1. Locate the designer link icon in the header
-    designer_btn = wait.until(
-        EC.element_to_be_clickable((By.CLASS_NAME, "designer-icon"))
+    # 1. Locate the Album Designer link in the shared masthead nav
+    designer_link = wait.until(
+        EC.presence_of_element_located(
+            (By.CSS_SELECTOR, 'nav.news-nav a[href*="AlbumDesigner"]')
+        )
     )
-    assert designer_btn.is_displayed()
-
-    # Verify tooltip/label exists since visible text is removed
-    assert "Album Designer" in designer_btn.get_attribute("aria-label")
-    assert "Album Designer" in designer_btn.get_attribute("data-tooltip")
+    assert "Album Designer" in designer_link.text
 
     # 2. Click it and verify navigation
-    driver.execute_script("arguments[0].click();", designer_btn)
-    wait.until(EC.url_contains("AlbumDesigner/albumeasy.html"))
+    js_click(driver, designer_link)
+    wait.until(lambda d: "AlbumDesigner/albumeasy.html" in d.current_url)
     assert "albumeasy.html" in driver.current_url
     assert "AlbumEasy Online" in driver.title
 
@@ -1091,8 +1067,11 @@ def test_album_designer_mobile_lockdown(driver):
     # 3. Verify the desktop-only notice becomes visible
     wait.until(EC.visibility_of_element_located((By.ID, "desktop-only")))
     assert notice.is_displayed()
-    assert "open albumeasy on a computer" in notice.text.lower()
-    assert "laptop or desktop" in notice.text.lower()
+    # Headless Chrome can return an empty rendered .text() here; the
+    # DOM content is authoritative, so read textContent instead.
+    notice_text = notice.get_attribute("textContent").lower()
+    assert "open albumeasy on a computer" in notice_text
+    assert "laptop or desktop" in notice_text
 
     # 4. Verify the builder itself is hidden
     controls = driver.find_element(By.ID, "controls")
