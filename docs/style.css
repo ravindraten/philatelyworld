@@ -1778,12 +1778,19 @@ header {
 }
 
 .news-brand {
-    display: flex;
+    display: grid;
+    grid-template-columns: auto auto;
     align-items: center;
-    gap: 14px;
+    justify-content: start;
+    gap: 8px;
     text-decoration: none;
     color: inherit;
     min-width: 0;
+}
+
+.news-brand span {
+    min-width: 0;
+    text-align: left;
 }
 
 .news-brand img {
@@ -2107,10 +2114,10 @@ header {
 }
 
 @media (max-width: 800px) {
-    .left-rail {
-        position: static;
-        flex: none;
-        width: 100%;
+    /* Filters live in the rail; on phones the catalogue goes straight
+       to the cards (set by JS too if the rail is needed again later). */
+    .layout-wrapper:not(.rail-collapsed) .left-rail {
+        display: none;
     }
 
     .catalog-list {
@@ -2389,4 +2396,48 @@ header {
     background: var(--primary, #1e293b);
     color: #ffffff;
     box-shadow: 0 1px 3px rgba(15, 23, 42, 0.2);
+}
+
+/* ---------- Mobile masthead: stacked and centred ---------- */
+@media (max-width: 800px) {
+    .news-masthead .news-wrap.catalogue-masthead-wrap,
+    .news-masthead .news-wrap {
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        gap: 10px;
+    }
+
+    .news-masthead .masthead-right {
+        margin-left: 0;
+        align-items: center;
+    }
+
+    .news-masthead .news-nav {
+        justify-content: center;
+    }
+
+    .nav-social-row {
+        justify-content: center;
+    }
+}
+
+/* Top bar: keep the tagline on phones, wrap and centre everything */
+@media (max-width: 640px) {
+    .header-top-bar {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+        gap: 4px 12px;
+        font-size: 9px;
+        letter-spacing: 1px;
+        padding: 7px 12px;
+        text-align: center;
+    }
+
+    .header-top-bar .top-bar-tagline {
+        display: inline;
+    }
 }
