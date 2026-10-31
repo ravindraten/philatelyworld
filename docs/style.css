@@ -57,15 +57,15 @@ header {
 .search-sticky-container {
     position: sticky;
     top: 0;
-    background: #ffffff;
+    background: #f1f5f9;
+    border-bottom: 1px solid #e2e8f0;
     padding: 10px 0;
     z-index: 1010;
-    border-bottom: 1px solid var(--border);
     transition: all 0.3s ease;
 }
 
 .search-sticky-container.is-pinned {
-    background: rgba(255, 255, 255, 0.95);
+    background: rgba(241, 245, 249, 0.95);
     backdrop-filter: blur(10px);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
@@ -460,15 +460,19 @@ header {
 }
 
 .social-icon.whatsapp-icon {
-    color: #25D366;
+    color: var(--text-light);
 }
 
 .social-icon.instagram-icon {
-    color: #f381dc;
+    color: var(--text-light);
 }
 
 .social-icon.facebook-icon {
-    color: #1877F2;
+    color: var(--text-light);
+}
+
+.social-icon.x-icon {
+    color: var(--text-light);
 }
 
 .social-icon {
@@ -824,18 +828,8 @@ header {
 
     .stamp-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-        gap: 20px;
-    }
-
-    .filter-sticky-bar {
-        transform: scale(0.8);
-        border-radius: 50px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border-bottom: none;
-        /* Ensure it's removed on mobile too */
+        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+        gap: 16px;
     }
 }
 
@@ -848,6 +842,13 @@ header {
     display: flex;
     flex-direction: column;
     position: relative;
+}
+
+.stamp-card:hover {
+    transform: translateY(-3px);
+    z-index: 40;
+    border-color: #cbd5e1;
+    box-shadow: 0 14px 30px rgba(15, 23, 42, 0.12);
 }
 
 .stamp-card.sold-out {
@@ -864,9 +865,10 @@ header {
 
 .img-container {
     position: relative;
-    height: 240px;
+    height: 190px;
     background: #f1f5f9;
     overflow: hidden;
+    border-radius: 15px 15px 0 0;
 }
 
 .stamp-card img {
@@ -911,23 +913,55 @@ header {
 }
 
 .details {
-    padding: 20px;
+    padding: 14px 14px 16px;
     flex-grow: 1;
     display: flex;
     flex-direction: column;
 }
 
 .details h3 {
-    margin: 0 0 8px;
-    font-size: 1.1rem;
+    margin: 0 0 6px;
+    font-size: 1rem;
     color: var(--primary);
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
 
 .stamp-desc {
-    font-size: 0.85rem;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
+    font-size: 0.83rem;
     color: var(--text-light);
-    margin: 12px 0;
+    margin: 8px 0;
     line-height: 1.5;
+}
+
+/* Popout showing the full description while hovering (injected by
+   catalog-filters.js); floats below the card without reflowing the grid. */
+.desc-popout {
+    position: absolute;
+    top: calc(100% + 6px);
+    left: -6px;
+    right: -6px;
+    margin: 0;
+    padding: 12px 16px 14px;
+    background: #ffffff;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    box-shadow: 0 16px 34px rgba(15, 23, 42, 0.18);
+    font-size: 0.83rem;
+    color: var(--text-light);
+    line-height: 1.5;
+    z-index: 60;
+    pointer-events: none;
+}
+
+.desc-popout b {
+    color: var(--primary);
 }
 
 /* Align the Share Icon next to the Buy Button */
@@ -1616,59 +1650,6 @@ header {
     /* Adds some depth */
 }
 
-/* --- Sticky Filter Bar Logic --- */
-.filter-sticky-bar {
-    position: sticky;
-    /* This aligns it exactly below the mobile sticky search bar (~72px) */
-    top: 72px;
-    z-index: 1001;
-    background: #ffffff;
-    padding: 10px 0;
-    margin-bottom: 0;
-    display: flex;
-    justify-content: center;
-    border-bottom: none;
-}
-
-/* Desktop Adjustment */
-@media (min-width: 801px) {
-    .filter-sticky-bar {
-        /* Matches the taller desktop search bar height (~92px) */
-        top: 92px;
-        background: #ffffff;
-        backdrop-filter: blur(10px);
-        -webkit-backdrop-filter: blur(10px);
-        margin-bottom: 0;
-    }
-}
-
-.filter-tabs {
-    display: flex;
-    background: #e2e8f0;
-    padding: 4px;
-    border-radius: 50px;
-    gap: 4px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-}
-
-.filter-tab {
-    border: none;
-    background: transparent;
-    padding: 8px 18px;
-    border-radius: 40px;
-    font-size: 0.85rem;
-    font-weight: 600;
-    color: var(--text-light);
-    cursor: pointer;
-    transition: all 0.2s ease;
-}
-
-.filter-tab.active {
-    background: white;
-    color: var(--primary);
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-}
-
 /* --- Album Designer Header Icon --- */
 .designer-icon {
     position: relative;
@@ -1731,14 +1712,6 @@ header {
     background: var(--secondary-color) !important;
 }
 
-/* Ensure the blog tab button stands out when active */
-.filter-tab[data-status="blog"].active {
-    background: white;
-    ;
-    color: var(--primary);
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-}
-
 .blog-card:hover .blog-type-icon {
     transform: scale(1.1);
     transition: transform 0.2s ease;
@@ -1774,4 +1747,763 @@ header {
 .carousel-dot.active {
     background: rgba(255, 255, 255, 1);
     transform: scale(1.2);
+}
+/* ==========================================================================
+   Catalogue redesign — news-desk style left filters + home news strip.
+   Component classes mirror docs/philatelic-news.html (.aside-card,
+   .source-list, .news-item) so both pages share the same visual language.
+   ========================================================================== */
+
+/* ---------- Shared compact masthead (catalogue + news + exhibitions) ---------- */
+.news-wrap {
+    width: 100%;
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.news-masthead {
+    background: #ffffff;
+    border-bottom: 1px solid var(--border);
+}
+
+.news-masthead .news-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    flex-wrap: wrap;
+}
+
+.news-brand {
+    display: grid;
+    grid-template-columns: auto auto;
+    align-items: center;
+    justify-content: start;
+    gap: 8px;
+    text-decoration: none;
+    color: inherit;
+    min-width: 0;
+}
+
+.news-brand span {
+    min-width: 0;
+    text-align: left;
+}
+
+.news-brand img {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex: 0 0 auto;
+}
+
+.news-brand strong {
+    display: block;
+    font-size: 1.65rem;
+    font-weight: 800;
+    color: var(--primary);
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+}
+
+.news-brand small {
+    display: block;
+    margin-top: 3px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-light);
+}
+
+.news-nav {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    flex-wrap: wrap;
+}
+
+.news-nav a {
+    padding: 8px 13px;
+    border-radius: 40px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--text-light);
+    text-decoration: none;
+    transition: background 0.2s ease, color 0.2s ease;
+}
+
+.news-nav a:hover {
+    background: #f1f5f9;
+    color: var(--primary);
+}
+
+.news-nav a.active {
+    background: var(--primary);
+    color: #ffffff;
+}
+
+/* Shared masthead-right column: nav on top, one social-icon row below */
+.news-masthead .masthead-right {
+    margin-left: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 6px;
+}
+
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 6px;
+    margin-left: auto;
+}
+
+.news-masthead .social-icon {
+    width: 34px;
+    height: 34px;
+}
+
+.news-masthead .social-icon svg {
+    width: 19px;
+    height: 19px;
+}
+
+.news-masthead .designer-icon-img {
+    width: 30px;
+    height: 30px;
+}
+
+.news-masthead .contact-pill {
+    font-size: 0.75rem;
+    padding: 5px 12px;
+}
+
+/* Mobile nav line-break: first 4 links on one row, last 2 below */
+.news-nav .nav-break {
+    display: none;
+    flex-basis: 100%;
+    height: 0;
+}
+
+/* One horizontal row of every masthead icon, directly below the nav */
+.nav-social-row {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+/* ---------- Hero (news desk + catalogue) ---------- */
+.news-hero {
+    position: relative;
+    overflow: hidden;
+    color: #ffffff;
+    background:
+        radial-gradient(circle at 88% 12%, rgba(217, 119, 6, 0.28), transparent 34%),
+        radial-gradient(circle at 8% 88%, rgba(59, 130, 246, 0.22), transparent 38%),
+        linear-gradient(135deg, #0f172a 0%, #1e293b 55%, #334155 100%);
+}
+
+.news-hero::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(rgba(255, 255, 255, 0.10) 1px, transparent 1px);
+    background-size: 22px 22px;
+    opacity: 0.45;
+    pointer-events: none;
+}
+
+.news-hero .news-wrap {
+    position: relative;
+    z-index: 1;
+    padding-top: 52px;
+    padding-bottom: 46px;
+    max-width: 1180px;
+}
+
+.news-kicker {
+    margin: 0 0 10px;
+    color: #fbbf24;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+}
+
+.news-hero h1 {
+    margin: 0;
+    max-width: 820px;
+    font-size: clamp(2rem, 4.2vw, 3.15rem);
+    line-height: 1.08;
+    font-weight: 800;
+    letter-spacing: -0.035em;
+}
+
+.news-lede {
+    margin: 16px 0 0;
+    max-width: 760px;
+    color: #cbd5e1;
+    font-size: 1.02rem;
+    line-height: 1.6;
+}
+
+.news-stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 24px;
+}
+
+.news-stat {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 7px 14px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 40px;
+    background: rgba(255, 255, 255, 0.08);
+    color: #e2e8f0;
+    font-size: 0.76rem;
+    font-weight: 600;
+    backdrop-filter: blur(4px);
+}
+
+.news-stat svg {
+    width: 15px;
+    height: 15px;
+    flex: 0 0 auto;
+    opacity: 0.85;
+}
+
+/* ---------- Left filter rail ---------- */
+.left-rail {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    flex: 0 0 320px;
+    position: sticky;
+    top: 92px;
+    align-self: flex-start;
+    max-height: calc(100vh - 104px);
+    overflow-y: auto;
+    z-index: 900;
+    height: fit-content;
+}
+
+.left-rail .aside-card {
+    padding: 18px;
+    border: 1px solid var(--border, #e8edf3);
+    border-radius: 14px;
+    background: #ffffff;
+    box-shadow: 0 1px 2px rgba(15, 23, 42, 0.03);
+}
+
+.left-rail .aside-card h2 {
+    margin: 0 0 10px;
+    color: var(--primary);
+    font-size: 0.8rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.source-list {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.source-list button {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    width: 100%;
+    padding: 7px 8px;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    background: transparent;
+    color: var(--text-main);
+    font-family: inherit;
+    font-size: 0.78rem;
+    font-weight: 500;
+    text-align: left;
+    cursor: pointer;
+    transition: background 0.18s ease, color 0.18s ease;
+}
+
+.source-list button:hover {
+    background: #f1f5f9;
+    color: var(--primary);
+}
+
+.source-list button.is-active {
+    background: #e0f2fe;
+    color: #075985;
+    font-weight: 700;
+}
+
+.source-list .source-count {
+    flex: 0 0 auto;
+    min-width: 24px;
+    padding: 2px 7px;
+    border-radius: 20px;
+    background: #f1f5f9;
+    color: #64748b;
+    font-size: 0.66rem;
+    font-weight: 700;
+    text-align: center;
+}
+
+.source-list button.is-active .source-count {
+    background: #bae6fd;
+    color: #075985;
+}
+
+.catalog-list {
+    max-height: 320px;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    scrollbar-width: thin;
+}
+
+.catalog-card-search input {
+    width: 100%;
+    height: 38px;
+    padding: 0 12px;
+    border: 1px solid var(--border, #e2e8f0);
+    border-radius: 10px;
+    background: #fafbfc;
+    font-family: inherit;
+    font-size: 0.8rem;
+    margin-bottom: 8px;
+}
+
+.catalog-clear {
+    flex: 0 0 auto;
+    padding: 5px 12px;
+    border: 1px solid #e2e8f0;
+    border-radius: 40px;
+    background: #64748b;
+    color: #ffffff;
+    font-family: inherit;
+    font-size: 0.7rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.18s ease, color 0.18s ease, border-color 0.18s ease;
+}
+
+.catalog-clear:not(.is-active) {
+    background: #e2e8f0;
+    color: #94a3b8;
+    cursor: not-allowed;
+}
+
+.catalog-clear.is-active:hover {
+    background: #b91c1c;
+    border-color: #b91c1c;
+}
+
+/* Hide the rail on item views / blog (set by catalog-filters.js). */
+.layout-wrapper.rail-collapsed .left-rail {
+    display: none;
+}
+
+@media (max-width: 800px) {
+    /* Filters live in the rail; on phones the catalogue goes straight
+       to the cards (set by JS too if the rail is needed again later). */
+    .layout-wrapper:not(.rail-collapsed) .left-rail {
+        display: none;
+    }
+
+    .catalog-list {
+        max-height: 220px;
+    }
+}
+
+/* ---------- "Latest news" strip on the catalogue ---------- */
+.home-news {
+    max-width: 2000px;
+    margin: 0 auto;
+    padding: 10px 20px 50px;
+}
+
+.home-news-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 18px;
+}
+
+.home-news-header h2 {
+    margin: 0;
+    letter-spacing: -0.02em;
+    color: var(--primary);
+}
+
+.home-news-header p {
+    margin: 0;
+    color: var(--text-light);
+    font-size: 0.84rem;
+}
+
+.home-news-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+}
+
+.home-news .news-item {
+    display: grid;
+    grid-template-columns: 150px minmax(0, 1fr);
+    gap: 14px;
+    padding: 12px;
+    border: 1px solid var(--border, #e8edf3);
+    border-radius: 14px;
+    background: #ffffff;
+    box-shadow: 0 1px 2px rgba(15, 23, 42, 0.03);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.home-news .news-item:hover {
+    transform: translateY(-2px);
+    border-color: #dbe3ec;
+    box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
+}
+
+.home-news .news-thumb {
+    display: block;
+    position: relative;
+    overflow: hidden;
+    min-width: 0;
+    min-height: 100px;
+    height: 100%;
+    border-radius: 10px;
+    background: #eef2ff;
+}
+
+.home-news .news-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.home-news .news-item-body {
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.home-news .news-meta {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 6px;
+    font-size: 0.68rem;
+    font-weight: 600;
+    color: var(--text-light);
+}
+
+.home-news .news-source-pill {
+    display: inline-block;
+    max-width: 100%;
+    padding: 3px 8px;
+    overflow: hidden;
+    border-radius: 20px;
+    background: #e0f2fe;
+    color: #075985;
+    font-size: 0.63rem;
+    font-weight: 700;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.home-news .news-meta .dot {
+    color: #cbd5e1;
+}
+
+.home-news .news-item h3 {
+    margin: 6px 0 4px;
+    font-size: 0.92rem;
+    line-height: 1.35;
+    font-weight: 700;
+}
+
+.home-news .news-item h3 a {
+    color: var(--primary);
+    text-decoration: none;
+}
+
+.home-news .news-item h3 a:hover {
+    color: #0f766e;
+}
+
+.home-news .news-summary {
+    margin: 0;
+    color: var(--text-light);
+    font-size: 0.78rem;
+    line-height: 1.5;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.home-news .news-read {
+    margin-top: auto;
+    padding-top: 6px;
+    color: #475569;
+    font-size: 0.68rem;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.home-news .news-read:hover {
+    color: var(--primary);
+}
+
+.home-news .news-open {
+    display: inline-block;
+    margin-top: 18px;
+    padding: 10px 18px;
+    border-radius: 10px;
+    background: var(--primary);
+    color: #ffffff;
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.home-news .news-open:hover {
+    background: #0f172a;
+}
+
+.home-news .news-skeleton {
+    display: grid;
+    grid-template-columns: 150px minmax(0, 1fr);
+    gap: 14px;
+    padding: 12px;
+    border: 1px solid var(--border, #e8edf3);
+    border-radius: 14px;
+    background: #ffffff;
+}
+
+.home-news .news-skeleton .sk-img,
+.home-news .news-skeleton .sk-line {
+    border-radius: 8px;
+    background: linear-gradient(90deg, #eef2f7 25%, #f8fafc 37%, #eef2f7 63%);
+    background-size: 400% 100%;
+    animation: news-shimmer 1.3s ease infinite;
+}
+
+.home-news .news-skeleton .sk-img {
+    aspect-ratio: 4 / 3;
+}
+
+.home-news .news-skeleton .sk-line {
+    height: 11px;
+    margin-bottom: 8px;
+}
+
+.home-news .news-skeleton .sk-line.w85 {
+    width: 85%;
+}
+
+.home-news .news-skeleton .sk-line.w60 {
+    width: 60%;
+}
+
+@keyframes news-shimmer {
+    0% {
+        background-position: 100% 0;
+    }
+
+    100% {
+        background-position: -100% 0;
+    }
+}
+
+@media (max-width: 1180px) {
+    .home-news-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 720px) {
+    .home-news-grid {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .home-news .news-item,
+    .home-news .news-skeleton {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .home-news .news-thumb,
+    .home-news .news-skeleton .sk-img {
+        height: auto;
+        min-height: 0;
+        aspect-ratio: 16 / 9;
+    }
+}
+
+/* Currency toggle inside the filter rail (standalone styling, no legacy pill skin) */
+.filters-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    margin: 0 0 10px;
+}
+
+.rail-currency {
+    display: flex;
+    gap: 6px;
+    background: #f8fafc;
+    padding: 4px;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+}
+
+.rail-currency .toggle-btn {
+    flex: 1 1 auto;
+    border: none;
+    background: transparent;
+    padding: 7px 12px;
+    border-radius: 9px;
+    color: var(--text-light, #64748b);
+    font-family: inherit;
+    font-size: 0.75rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.18s ease, color 0.18s ease;
+}
+
+.rail-currency .toggle-btn:hover:not(.active),
+.rail-currency .toggle-btn:focus-visible {
+    color: var(--primary, #1e293b);
+    outline: none;
+}
+
+.rail-currency .toggle-btn.active {
+    background: var(--primary, #1e293b);
+    color: #ffffff;
+    box-shadow: 0 1px 3px rgba(15, 23, 42, 0.2);
+}
+
+/* ---------- Mobile masthead: stacked and centred ---------- */
+@media (max-width: 800px) {
+    .news-masthead .news-wrap.catalogue-masthead-wrap,
+    .news-masthead .news-wrap {
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        gap: 10px;
+    }
+
+    .news-masthead .masthead-right {
+        margin-left: 0;
+        align-items: center;
+    }
+
+    .news-masthead .news-nav {
+        justify-content: center;
+    }
+
+    .nav-social-row {
+        justify-content: center;
+    }
+
+    /* Bigger brand wordmark on phones */
+    .news-brand strong {
+        font-size: 2rem;
+    }
+}
+
+/* Top bar: keep the tagline on phones, wrap and centre everything */
+@media (max-width: 640px) {
+    .header-top-bar {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+        gap: 4px 12px;
+        font-size: 9px;
+        letter-spacing: 1px;
+        padding: 7px 12px;
+        text-align: center;
+    }
+
+    .header-top-bar .top-bar-tagline {
+        display: inline;
+    }
+}
+
+/* Compact nav pills on phones so the wrap point matches the inline
+   news/exhibitions styles (first row: Catalogue/Blog/Album Designer/
+   Philatelic News; second row: Exhibitions/Contact). */
+@media (max-width: 800px) {
+    .news-masthead .news-nav {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .news-nav .nav-break {
+        display: block;
+    }
+
+    .news-masthead .news-nav a {
+        padding: 7px 11px;
+        font-size: 0.78rem;
+    }
+}
+
+/* Four pills (Catalogue · Blog · Album Designer · Philatelic News) must fit
+   the first row on phones; shrink them progressively below the 390px mark. */
+@media (max-width: 430px) {
+    .news-masthead .news-nav {
+        gap: 3px;
+    }
+
+    .news-masthead .news-nav a {
+        padding: 6px 8px;
+        font-size: 0.72rem;
+    }
+}
+
+@media (max-width: 380px) {
+    .news-masthead .news-nav {
+        gap: 2px;
+    }
+
+    .news-masthead .news-nav a {
+        padding: 5px 7px;
+        font-size: 0.68rem;
+    }
+}
+
+@media (max-width: 340px) {
+    .news-masthead .news-nav {
+        gap: 1px;
+    }
+
+    .news-masthead .news-nav a {
+        padding: 4px 5px;
+        font-size: 0.6rem;
+    }
 }
