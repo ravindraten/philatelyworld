@@ -153,7 +153,23 @@
         syncVisible();
 
         backToTop.addEventListener('click', function () {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+            toTop();
         });
+
+        /* iOS (WebKit, incl. iOS Chrome) intermittently ignores or aborts
+         * smooth window.scrollTo, leaving the user mid-page where the
+         * masthead — and with it the hamburger menu — is out of reach.
+         * Smooth-scroll first; shortly after, if WebKit stalled the
+         * animation, hard-jump the remainder so top is always reached. */
+        function toTop() {
+            try {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            } catch (e) {
+                window.scrollTo(0, 0);
+            }
+            window.setTimeout(function () {
+                if (window.scrollY > 1) window.scrollTo(0, 0);
+            }, 700);
+        }
     }
 })();

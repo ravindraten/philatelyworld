@@ -401,7 +401,17 @@ function initEventListeners() {
     }, { passive: true });
 
     backToTopBtn.addEventListener('click', () => {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        // Same iOS fallback as menu.js: smooth first, hard-jump remainder
+        // if WebKit stalls the animation (otherwise the masthead — the
+        // reachable hamburger menu — stays out of reach).
+        try {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        } catch (e) {
+            window.scrollTo(0, 0);
+        }
+        window.setTimeout(() => {
+            if (window.scrollY > 1) window.scrollTo(0, 0);
+        }, 700);
     });
 
     document.getElementById('closeModal').onclick = closeModal;
