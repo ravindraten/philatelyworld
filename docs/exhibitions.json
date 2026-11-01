@@ -1,11 +1,11 @@
 {
-  "generated_at": "2026-10-30T22:15:45.543781Z",
+  "generated_at": "2026-11-01T00:13:47.128252Z",
   "sources": [
     "FEPA News",
     "NAPEX",
     "Queensland Stamp & Coin Show"
   ],
-  "count": 25,
+  "count": 23,
   "items": [
     {
       "title": "Queensland Stamp & Coin Show (QSACS)",
@@ -17,28 +17,6 @@
       "image": "images/news-placeholder.svg",
       "source": "Queensland Stamp & Coin Show",
       "source_url": "https://www.qldstampandcoinshow.com/"
-    },
-    {
-      "title": "STAMPEX 2026",
-      "url": "https://fepanews.com/event/stampex-2026/",
-      "start": "2026-10-28",
-      "end": "2026-10-31",
-      "venue": "Business Design Centre, Islington, 52 Upper Street, London, United Kingdom",
-      "description": "",
-      "image": "images/news-placeholder.svg",
-      "source": "FEPA News",
-      "source_url": "https://fepanews.com/"
-    },
-    {
-      "title": "ÖVEBRIA 2026",
-      "url": "https://fepanews.com/event/ovebria-2026/",
-      "start": "2026-10-29",
-      "end": "2026-10-31",
-      "venue": "St. Polten, , Austria",
-      "description": "",
-      "image": "images/news-placeholder.svg",
-      "source": "FEPA News",
-      "source_url": "https://fepanews.com/"
     },
     {
       "title": "PHILATAIPEI 2026",
