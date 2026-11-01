@@ -35,7 +35,7 @@
         href="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/logo.jpg" fetchpriority="high">
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap">
-    <link rel="stylesheet" href="style.css?v=20261030">
+    <link rel="stylesheet" href="style.css?v=20261101">
 
     <script type="application/ld+json">
     {
@@ -149,7 +149,7 @@
             flex-wrap: wrap;
         }
 
-        .news-nav a {
+        .news-nav > a {
             padding: 8px 13px;
             border-radius: 40px;
             font-size: 0.82rem;
@@ -159,12 +159,12 @@
             transition: background 0.2s ease, color 0.2s ease;
         }
 
-        .news-nav a:hover {
+        .news-nav > a:hover {
             background: #f1f5f9;
             color: var(--primary);
         }
 
-        .news-nav a.active {
+        .news-nav > a.active {
             background: var(--primary);
             color: #ffffff;
         }
@@ -850,11 +850,17 @@
                         alt="Philately World logo" width="70" height="70" fetchpriority="high">
                     <span>
                         <strong>Philately World</strong>
-                        <small>Established 2017 &bull; Premium stamp curation</small>
+                        <small>Premium stamp curation</small>
                     </span>
                 </a>
                 <div class="masthead-right">
-                    <nav class="news-nav" aria-label="Main navigation">
+                    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-nav"
+                        aria-label="Open menu">
+                        <span class="nav-toggle-bar" aria-hidden="true"></span>
+                        <span class="nav-toggle-bar" aria-hidden="true"></span>
+                        <span class="nav-toggle-bar" aria-hidden="true"></span>
+                    </button>
+                    <nav class="news-nav" id="primary-nav" aria-label="Main navigation">
                         <a href="index.html">Catalogue</a>
                         <a href="index.html?tab=blog">Blog</a>
                         <a href="AlbumDesigner/albumeasy.html">Album Designer</a>
@@ -901,10 +907,13 @@
         </div>
     </header>
 
-    <section class="news-hero" aria-labelledby="newsPageTitle">
+    <section class="news-hero mobile-hero" aria-labelledby="newsPageTitle">
         <div class="news-wrap">
             <p class="news-kicker">Philately World &bull; Exhibitions desk</p>
-            <h1 id="newsPageTitle">Stamp exhibitions &amp; shows around the world</h1>
+            <h1 id="newsPageTitle">
+                <span class="hero-title-desktop">Stamp exhibitions &amp; shows around the world</span>
+                <span class="hero-title-mobile">Stamp shows &amp; exhibitions worldwide</span>
+            </h1>
             <p class="news-lede">
                 Current and future stamp exhibitions, fairs and congresses around the world &mdash; gathered from FEPA,
                 the organisers and
@@ -1056,6 +1065,7 @@
 
     <script src="blog.js"></script>
     <script src="exhibitions.js?v=20261031"></script>
+    <script src="menu.js?v=20261101"></script>
 </body>
 
 </html>

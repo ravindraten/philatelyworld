@@ -32,7 +32,7 @@
     <meta name="twitter:image"
         content="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/designer-icon.png">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <link rel="stylesheet" href="../style.css?v=20261031">
+    <link rel="stylesheet" href="../style.css?v=20261101">
     <style>
         :root {
             --bg: #f3f4f6;
@@ -391,11 +391,11 @@
                 font-size: 1.15rem;
             }
 
-        @media (max-width: 800px) {
-            .news-brand strong {
-                font-size: 2rem;
+            @media (max-width: 800px) {
+                .news-brand strong {
+                    font-size: 2rem;
+                }
             }
-        }
 
             #controls {
                 width: clamp(380px, 38vw, 520px);
@@ -434,11 +434,17 @@
                         alt="Philately World logo" width="70" height="70" fetchpriority="high">
                     <span>
                         <strong>Philately World</strong>
-                        <small>Established 2017 • Premium stamp curation</small>
+                        <small>Premium stamp curation</small>
                     </span>
                 </a>
                 <div class="masthead-right">
-                    <nav class="news-nav" aria-label="Main navigation">
+                    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-nav"
+                        aria-label="Open menu">
+                        <span class="nav-toggle-bar" aria-hidden="true"></span>
+                        <span class="nav-toggle-bar" aria-hidden="true"></span>
+                        <span class="nav-toggle-bar" aria-hidden="true"></span>
+                    </button>
+                    <nav class="news-nav" id="primary-nav" aria-label="Main navigation">
                         <a href="../index.html">Catalogue</a>
                         <a href="../index.html?tab=blog">Blog</a>
                         <a class="active" href="albumeasy.html" aria-current="page">Album Designer</a>
@@ -485,10 +491,13 @@
         </div>
     </header>
 
-    <section class="news-hero" aria-labelledby="albumPageTitle">
+    <section class="news-hero mobile-hero" aria-labelledby="albumPageTitle">
         <div class="news-wrap">
             <p class="news-kicker">Philately World &bull; Designer desk</p>
-            <h1 id="albumPageTitle">Build print-ready stamp albums, free in your browser</h1>
+            <h1 id="albumPageTitle">
+                <span class="hero-title-desktop">Build print-ready stamp albums, free in your browser</span>
+                <span class="hero-title-mobile">Build stamp albums, free in your browser</span>
+            </h1>
             <p class="news-lede">
                 Paste an AlbumEasy script, drop in your stamp sheet images and download a print-ready A4
                 album PDF &mdash; nothing leaves your computer. Pair it with 459 free prepared album pages
@@ -978,6 +987,7 @@ PAGE_START
 
         applyScript(SAMPLE);
     </script>
+    <script src="../menu.js?v=20261101"></script>
 </body>
 
 </html>
