@@ -2429,9 +2429,19 @@ header {
         justify-content: center;
     }
 
-    /* Bigger brand wordmark on phones */
-    .news-brand strong {
-        font-size: 2rem;
+    /* Brand wordmark: always one line on phones. The Inter webfont is
+       shared by every page (albumeasy.html now loads it too), and the
+       size follows the width actually left after the logo, the 52px
+       hamburger reserve and the section paddings. */
+    .news-masthead .news-brand strong {
+        font-family: 'Inter', sans-serif;
+        white-space: nowrap;
+        /* natural width ≈ 7.09px per font-size px; 7.4 leaves margin */
+        font-size: max(1.1rem, min(2rem, calc((100vw - 172px) / 7.4)));
+    }
+
+    .news-masthead .news-brand small {
+        font-family: 'Inter', sans-serif;
     }
 }
 
@@ -2505,6 +2515,12 @@ header {
     .news-masthead .news-nav > a {
         padding: 4px 5px;
         font-size: 0.6rem;
+    }
+
+    /* Tagline stays on one line on the narrowest phones. */
+    .news-masthead .news-brand small {
+        font-size: 0.6rem;
+        letter-spacing: 0.05em;
     }
 }
 
