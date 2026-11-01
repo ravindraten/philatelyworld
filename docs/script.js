@@ -384,11 +384,17 @@ function initEventListeners() {
             }
         }
 
-        // 2. Back to Top Button visibility
-        if (window.scrollY > 400) {
-            backToTopBtn.classList.add('visible');
-        } else {
-            backToTopBtn.classList.remove('visible');
+        // 2. Back to Top Button visibility. On phones the FAB next to it is
+        // handled inside menu.js (search button slides left, back-to-top
+        // shows briefly), so only drive it where that FAB is absent.
+        const fabPresent = document.getElementById('mobileSearchToggle') &&
+            window.matchMedia('(max-width: 800px)').matches;
+        if (!fabPresent) {
+            if (window.scrollY > 400) {
+                backToTopBtn.classList.add('visible');
+            } else {
+                backToTopBtn.classList.remove('visible');
+            }
         }
 
         // NOTE: Removed the logic that previously added .scrolled-hidden to the promo card

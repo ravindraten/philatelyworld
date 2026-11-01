@@ -2868,7 +2868,7 @@ header {
 
     .mobile-search-fab {
         position: fixed;
-        right: 77px;
+        right: 20px;
         bottom: 20px;
         z-index: 1001;
         display: inline-flex;
@@ -2882,7 +2882,7 @@ header {
         color: #ffffff;
         cursor: pointer;
         box-shadow: 0 8px 22px rgba(15, 23, 42, 0.24);
-        transition: transform 0.18s ease, background 0.18s ease;
+        transition: transform 0.18s ease, background 0.18s ease, right 0.22s ease;
     }
 
     .mobile-search-fab:hover,
@@ -2894,6 +2894,11 @@ header {
 
     .mobile-search-fab:active {
         transform: translateY(0) scale(0.96);
+    }
+
+    /* Slides left of the corner while the back-to-top hint is showing. */
+    .mobile-search-fab.search-fab-nudged {
+        right: 77px;
     }
 
     .mobile-search-fab svg {

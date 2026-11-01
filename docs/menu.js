@@ -79,4 +79,81 @@
             }
         });
     });
+
+    /* Back to top: every page that ships the shared #backToTop button gets
+     * show/hide + smooth scroll here. The catalogue page's script.js also
+     * runs this behaviour; the dataset flag keeps it bound once. */
+    const backToTop = document.getElementById('backToTop');
+    if (backToTop && !backToTop.dataset.bttBound) {
+        backToTop.dataset.bttBound = 'true';
+
+        const searchFab = document.getElementById('mobileSearchToggle');
+        const mobileMQ = window.matchMedia('(max-width: 800px)');
+        let countdownTimer = null;
+        let expired = false;
+        let lastY = window.scrollY;
+
+        function nudgeFab(on) {
+            if (searchFab) searchFab.classList.toggle('search-fab-nudged', on);
+        }
+
+        function release() {
+            expired = false;
+            if (countdownTimer) {
+                window.clearTimeout(countdownTimer);
+                countdownTimer = null;
+            }
+        }
+
+        function syncVisible() {
+            if (window.scrollY <= 400) {
+                release();
+                backToTop.classList.remove('visible');
+                nudgeFab(false);
+                return;
+            }
+
+            // Without the FAB (desktop, and pages without floating search)
+            // the button stays visible for as long as the user is scrolled.
+            if (!searchFab || !mobileMQ.matches) {
+                release();
+                backToTop.classList.add('visible');
+                return;
+            }
+
+            // Timed hint: once per scroll-down. The FAB slides left of the
+            // corner, back-to-top shows, and after a few idle seconds both
+            // fall back to just the corner FAB. Deliberate scrolling in
+            // either direction (more than 20px since the last scroll event)
+            // re-arms it, so the hint isn't ever a one-shot per visit.
+            if (expired) {
+                if (Math.abs(window.scrollY - lastY) > 20) {
+                    expired = false;
+                } else {
+                    lastY = window.scrollY;
+                    backToTop.classList.remove('visible');
+                    nudgeFab(false);
+                    return;
+                }
+            }
+            lastY = window.scrollY;
+            if (!countdownTimer) {
+                backToTop.classList.add('visible');
+                nudgeFab(true);
+                countdownTimer = window.setTimeout(function () {
+                    countdownTimer = null;
+                    expired = true;
+                    backToTop.classList.remove('visible');
+                    nudgeFab(false);
+                }, 4000);
+            }
+        }
+
+        window.addEventListener('scroll', syncVisible, { passive: true });
+        syncVisible();
+
+        backToTop.addEventListener('click', function () {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    }
 })();
