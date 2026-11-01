@@ -122,7 +122,7 @@
     <noscript>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap">
     </noscript>
-    <link rel="stylesheet" href="style.css?v=20260417">
+    <link rel="stylesheet" href="style.css?v=20261101">
     <style>
         :root {
             --card-bg: #f6f6f6;
@@ -212,7 +212,7 @@
     <script data-goatcounter="https://ravindraten.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </head>
 
-<body>
+<body class="has-mobile-search">
 
     <header>
         <div class="header-top-bar">
@@ -227,11 +227,17 @@
                         alt="Philately World logo" width="70" height="70" fetchpriority="high">
                     <span>
                         <strong>Philately World</strong>
-                        <small>Established 2017 • Premium stamp curation</small>
+                        <small>Premium stamp curation</small>
                     </span>
                 </a>
                 <div class="masthead-right">
-                    <nav class="news-nav" aria-label="Main navigation">
+                    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-nav"
+                        aria-label="Open menu">
+                        <span class="nav-toggle-bar" aria-hidden="true"></span>
+                        <span class="nav-toggle-bar" aria-hidden="true"></span>
+                        <span class="nav-toggle-bar" aria-hidden="true"></span>
+                    </button>
+                    <nav class="news-nav" id="primary-nav" aria-label="Main navigation">
                         <a class="active" href="index.html" aria-current="page">Catalogue</a>
                         <a href="index.html?tab=blog">Blog</a>
                         <a href="AlbumDesigner/albumeasy.html">Album Designer</a>
@@ -240,54 +246,26 @@
                         <a href="philatelic-exhibitions.html">Exhibitions</a>
                         <a href="https://wa.me/31633467712" target="_blank" rel="noopener">Contact</a>
                     </nav>
-                    <div class="nav-social-row">
-                        <a href="https://www.facebook.com/PhilatelyWorld" target="_blank"
-                            class="social-icon facebook-icon" aria-label="Facebook"
-                            data-tooltip="Follow us on Facebook">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                                <path
-                                    d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.469h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.469h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
-                            </svg>
-                        </a>
-                        <a href="https://whatsapp.com/channel/0029VaafwRWAojYq5jzkJJ2u" target="_blank"
-                            class="social-icon whatsapp-icon" aria-label="WhatsApp"
-                            data-tooltip="Join my channel on WhatsApp">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                                <path
-                                    d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" />
-                            </svg>
-                        </a>
-                        <a href="https://www.instagram.com/philatelyworld10" target="_blank"
-                            class="social-icon instagram-icon" aria-label="Instagram"
-                            data-tooltip="Follow us on Instagram">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                                <path
-                                    d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" />
-                            </svg>
-                        </a>
-                        <a href="https://x.com/philately_wrld" target="_blank" rel="noopener"
-                            class="social-icon x-icon" aria-label="X (Twitter)"
-                            data-tooltip="Follow us on X">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                                <path
-                                    d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z" />
-                            </svg>
-                        </a>
-                    </div>
                 </div>
             </div>
         </div>
     </header>
 
-    <section class="news-hero" aria-labelledby="catalogPageTitle">
+    <section class="news-hero mobile-hero" id="catalogHero" aria-labelledby="catalogPageTitle">
         <div class="news-wrap">
             <p class="news-kicker">Philately World &bull; Catalogue</p>
-            <h1 id="catalogPageTitle">A curated stamp collection, one issue at a time</h1>
+            <h1 id="catalogPageTitle">
+                <span class="hero-title-desktop">A curated stamp collection, one issue at a time</span>
+                <span class="hero-title-mobile">Buy Genuine Stamps &amp; Postal History Online</span>
+            </h1>
             <p class="news-lede">
                 Mint stamps, miniature sheets, covers and postcards from postal administrations around the
                 world &mdash; every item photographed, described and shipped globally. Filter by country, theme or
                 availability in the panel beside the collection.
             </p>
+            <!-- <p class="news-lede mobile-hero-lede">
+                Global shipping available &bull; Expertly authenticated
+            </p> -->
             <div class="news-stats">
                 <span class="news-stat">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -321,10 +299,13 @@
         </div>
     </section>
 
-    <section class="news-hero" id="blogHero" aria-labelledby="blogPageTitle" style="display:none;">
+    <section class="news-hero mobile-hero" id="blogHero" aria-labelledby="blogPageTitle" style="display:none;">
         <div class="news-wrap">
             <p class="news-kicker">Philately World &bull; Blog desk</p>
-            <h1 id="blogPageTitle">Stamp stories from the collector's desk</h1>
+            <h1 id="blogPageTitle">
+                <span class="hero-title-desktop">Stamp stories from the collector's desk</span>
+                <span class="hero-title-mobile">Stamp stories &amp; collecting guides</span>
+            </h1>
             <p class="news-lede">
                 New-issue reviews, free album pages, albums of the month and collecting guides &mdash;
                 everything we publish beyond the listings, told as it happens.
@@ -357,9 +338,46 @@
             <img src="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/logo.jpg" alt="Logo"
                 class="sticky-logo" width="40" height="40" loading="lazy" decoding="async">
             <div class="search-container">
-                <input type="search" id="stampSearch" placeholder="Search stamps by theme, country, or year...">
+                <input type="search" id="stampSearch" placeholder="Search the collection..."
+                    aria-label="Search the collection" enterkeyhint="search" autocapitalize="off"
+                    autocorrect="off" spellcheck="false">
+                <button type="button" class="mobile-search-close" id="mobileSearchClose" aria-label="Close search">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+                        stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M18 6 6 18M6 6l12 12"></path>
+                    </svg>
+                </button>
             </div>
         </div>
+    </div>
+
+    <div class="mobile-hero-extras">
+        <div class="mobile-hero-chips" role="group" aria-label="Quick collection filters">
+            <button type="button" class="mobile-chip" data-quick-type="status" data-quick-value="available">Available
+                now</button>
+            <button type="button" class="mobile-chip" data-quick-type="theme" data-quick-value="FDCs">FDCs &amp;
+                covers</button>
+            <button type="button" class="mobile-chip" data-quick-type="theme"
+                data-quick-value="Miniature sheets &amp; sheetlets">Miniature sheets</button>
+        </div>
+        <!-- <div class="mobile-hero-trust">
+            <span class="mobile-trust">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round" aria-hidden="true">
+                    <circle cx="12" cy="12" r="9"></circle>
+                    <path d="M3 12h18M12 3a15 15 0 0 1 0 18M12 3a15 15 0 0 0 0 18"></path>
+                </svg>
+                Global shipping
+            </span>
+            <span class="mobile-trust">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round" aria-hidden="true">
+                    <path d="M12 2 4 5v6c0 5 3.4 9.4 8 11 4.6-1.6 8-6 8-11V5l-8-3Z"></path>
+                    <path d="m9 12 2 2 4-4"></path>
+                </svg>
+                100% authenticated
+            </span>
+        </div> -->
     </div>
 
     <main class="container">
@@ -392,6 +410,39 @@
                         <button onclick="setCurrency('INR')" id="btnINR" class="toggle-btn active">₹ INR</button>
                         <button onclick="setCurrency('EUR')" id="btnEUR" class="toggle-btn">€ EUR</button>
                     </div>
+                    <div class="nav-social-row rail-social-row">
+                        <a href="https://www.facebook.com/PhilatelyWorld" target="_blank"
+                            class="social-icon facebook-icon" aria-label="Facebook"
+                            data-tooltip="Follow us on Facebook">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                <path
+                                    d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.469h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.469h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+                            </svg>
+                        </a>
+                        <a href="https://whatsapp.com/channel/0029VaafwRWAojYq5jzkJJ2u" target="_blank"
+                            class="social-icon whatsapp-icon" aria-label="WhatsApp"
+                            data-tooltip="Join my channel on WhatsApp">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                <path
+                                    d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" />
+                            </svg>
+                        </a>
+                        <a href="https://www.instagram.com/philatelyworld10" target="_blank"
+                            class="social-icon instagram-icon" aria-label="Instagram"
+                            data-tooltip="Follow us on Instagram">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                <path
+                                    d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" />
+                            </svg>
+                        </a>
+                        <a href="https://x.com/philately_wrld" target="_blank" rel="noopener" class="social-icon x-icon"
+                            aria-label="X (Twitter)" data-tooltip="Follow us on X">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                <path
+                                    d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z" />
+                            </svg>
+                        </a>
+                    </div>
                 </aside>
 
                 <aside class="sidebar-promo" id="sidebarPromo" style="position:static;"></aside>
@@ -400,1161 +451,1389 @@
                 <div class="stamp-grid" id="stampGrid">
                     <!-- STAMP_GRID_START -->
 
-                <div class="stamp-card">
-                    <div class="img-container">
-                        <img src="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/D148/1.jpg" alt="8 different postcards from India with cancelled stamps. Puppets of India" loading="lazy" width="300" height="300">
-                        <div class="photo-badge">3 Photos</div>
-                    </div>
-                    <div class="details">
-                        <h3>8 different postcards from India with cancelled stamps. Puppets of India</h3>
-                        <div style="display: flex; gap: 8px; align-items: center;">
-                            <span class="stamp-year">Year: 2026</span>
-                            <small style="color: var(--text-light)">India</small>
+                    <div class="stamp-card">
+                        <div class="img-container">
+                            <img src="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/D148/1.jpg"
+                                alt="8 different postcards from India with cancelled stamps. Puppets of India"
+                                loading="lazy" width="300" height="300">
+                            <div class="photo-badge">3 Photos</div>
                         </div>
-                        <div class="stamp-desc"><b>RN4207: 8 different postcards from India with cancelled stamps. Puppets of India (2026)</b></div>
-                        <div class="price-row">
-                            <div class="price">₹860</div>
-                            <div class="action-buttons">
-                                <a href="https://philatelyworld.in/item/RN4207/" class="buy-btn" style="text-align: center;">View Listing</a>
+                        <div class="details">
+                            <h3>8 different postcards from India with cancelled stamps. Puppets of India</h3>
+                            <div style="display: flex; gap: 8px; align-items: center;">
+                                <span class="stamp-year">Year: 2026</span>
+                                <small style="color: var(--text-light)">India</small>
+                            </div>
+                            <div class="stamp-desc"><b>RN4207: 8 different postcards from India with cancelled stamps.
+                                    Puppets of India (2026)</b></div>
+                            <div class="price-row">
+                                <div class="price">₹860</div>
+                                <div class="action-buttons">
+                                    <a href="https://philatelyworld.in/item/RN4207/" class="buy-btn"
+                                        style="text-align: center;">View Listing</a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="stamp-card">
-                    <div class="img-container">
-                        <img src="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/redCrossMont.jpg" alt="150 Years of Red Cross of Montenegro MS.(3 available)" loading="lazy" width="300" height="300">
-                        <div class="photo-badge">1 Photos</div>
-                    </div>
-                    <div class="details">
-                        <h3>150 Years of Red Cross of Montenegro MS.(3 available)</h3>
-                        <div style="display: flex; gap: 8px; align-items: center;">
-                            <span class="stamp-year">Year: 2025</span>
-                            <small style="color: var(--text-light)">Montenegro</small>
+                    <div class="stamp-card">
+                        <div class="img-container">
+                            <img src="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/redCrossMont.jpg"
+                                alt="150 Years of Red Cross of Montenegro MS.(3 available)" loading="lazy" width="300"
+                                height="300">
+                            <div class="photo-badge">1 Photos</div>
                         </div>
-                        <div class="stamp-desc"><b>RN4206: 150 Years of Red Cross of Montenegro MS.(3 available)</b>. Mint Sheet (MS) of 8 stamps (2025).</div>
-                        <div class="price-row">
-                            <div class="price">₹800</div>
-                            <div class="action-buttons">
-                                <a href="https://philatelyworld.in/item/RN4206/" class="buy-btn" style="text-align: center;">View Listing</a>
+                        <div class="details">
+                            <h3>150 Years of Red Cross of Montenegro MS.(3 available)</h3>
+                            <div style="display: flex; gap: 8px; align-items: center;">
+                                <span class="stamp-year">Year: 2025</span>
+                                <small style="color: var(--text-light)">Montenegro</small>
+                            </div>
+                            <div class="stamp-desc"><b>RN4206: 150 Years of Red Cross of Montenegro MS.(3
+                                    available)</b>. Mint Sheet (MS) of 8 stamps (2025).</div>
+                            <div class="price-row">
+                                <div class="price">₹800</div>
+                                <div class="action-buttons">
+                                    <a href="https://philatelyworld.in/item/RN4206/" class="buy-btn"
+                                        style="text-align: center;">View Listing</a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="stamp-card">
-                    <div class="img-container">
-                        <img src="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/D146/1.jpg" alt="World classic super collection 1840-1900. Ask for Price." loading="lazy" width="300" height="300">
-                        <div class="photo-badge">428 Photos</div>
-                    </div>
-                    <div class="details">
-                        <h3>World classic super collection 1840-1900. Ask for Price.</h3>
-                        <div style="display: flex; gap: 8px; align-items: center;">
-                            <span class="stamp-year">Year: 1840-1900</span>
-                            <small style="color: var(--text-light)">Worldwide</small>
+                    <div class="stamp-card">
+                        <div class="img-container">
+                            <img src="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/D146/1.jpg"
+                                alt="World classic super collection 1840-1900. Ask for Price." loading="lazy"
+                                width="300" height="300">
+                            <div class="photo-badge">428 Photos</div>
                         </div>
-                        <div class="stamp-desc">RN4205: Very well filled, mint hinged and used world collection 1840-1900, including mountains of good stamps, but a lot of tinted material, in a reasonably good quality 8th edition of Universal Briefmarken Album.</div>
-                        <div class="price-row">
-                            <div class="price">₹1</div>
-                            <div class="action-buttons">
-                                <a href="https://philatelyworld.in/item/RN4205/" class="buy-btn" style="text-align: center;">View Listing</a>
+                        <div class="details">
+                            <h3>World classic super collection 1840-1900. Ask for Price.</h3>
+                            <div style="display: flex; gap: 8px; align-items: center;">
+                                <span class="stamp-year">Year: 1840-1900</span>
+                                <small style="color: var(--text-light)">Worldwide</small>
+                            </div>
+                            <div class="stamp-desc">RN4205: Very well filled, mint hinged and used world collection
+                                1840-1900, including mountains of good stamps, but a lot of tinted material, in a
+                                reasonably good quality 8th edition of Universal Briefmarken Album.</div>
+                            <div class="price-row">
+                                <div class="price">₹1</div>
+                                <div class="action-buttons">
+                                    <a href="https://philatelyworld.in/item/RN4205/" class="buy-btn"
+                                        style="text-align: center;">View Listing</a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="stamp-card">
-                    <div class="img-container">
-                        <img src="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/D145/1.jpg" alt="Collection of stamp sheetlets on theme cartoons. Total 15 sheets." loading="lazy" width="300" height="300">
-                        <div class="photo-badge">15 Photos</div>
-                    </div>
-                    <div class="details">
-                        <h3>Collection of stamp sheetlets on theme cartoons. Total 15 sheets.</h3>
-                        <div style="display: flex; gap: 8px; align-items: center;">
-                            <span class="stamp-year">Year: 2022-2026</span>
-                            <small style="color: var(--text-light)">Germany</small>
+                    <div class="stamp-card">
+                        <div class="img-container">
+                            <img src="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/D145/1.jpg"
+                                alt="Collection of stamp sheetlets on theme cartoons. Total 15 sheets." loading="lazy"
+                                width="300" height="300">
+                            <div class="photo-badge">15 Photos</div>
                         </div>
-                        <div class="stamp-desc"><b>RN4204: Collection of stamp sheetlets on theme cartoons. Total 15 sheets.</b>Please check the photos. What you see is what you get.</div>
-                        <div class="price-row">
-                            <div class="price">₹18000</div>
-                            <div class="action-buttons">
-                                <a href="https://philatelyworld.in/item/RN4204/" class="buy-btn" style="text-align: center;">View Listing</a>
+                        <div class="details">
+                            <h3>Collection of stamp sheetlets on theme cartoons. Total 15 sheets.</h3>
+                            <div style="display: flex; gap: 8px; align-items: center;">
+                                <span class="stamp-year">Year: 2022-2026</span>
+                                <small style="color: var(--text-light)">Germany</small>
+                            </div>
+                            <div class="stamp-desc"><b>RN4204: Collection of stamp sheetlets on theme cartoons. Total 15
+                                    sheets.</b>Please check the photos. What you see is what you get.</div>
+                            <div class="price-row">
+                                <div class="price">₹18000</div>
+                                <div class="action-buttons">
+                                    <a href="https://philatelyworld.in/item/RN4204/" class="buy-btn"
+                                        style="text-align: center;">View Listing</a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="stamp-card">
-                    <div class="img-container">
-                        <img src="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/D144/1.jpg" alt="Collection of postal stationery from Indian States 1891-1947" loading="lazy" width="300" height="300">
-                        <div class="photo-badge">84 Photos</div>
-                    </div>
-                    <div class="details">
-                        <h3>Collection of postal stationery from Indian States 1891-1947</h3>
-                        <div style="display: flex; gap: 8px; align-items: center;">
-                            <span class="stamp-year">Year: 1891-1947</span>
-                            <small style="color: var(--text-light)">India</small>
+                    <div class="stamp-card">
+                        <div class="img-container">
+                            <img src="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/D144/1.jpg"
+                                alt="Collection of postal stationery from Indian States 1891-1947" loading="lazy"
+                                width="300" height="300">
+                            <div class="photo-badge">84 Photos</div>
                         </div>
-                        <div class="stamp-desc">RN4203: Collection of postal stationery from Indian States 1891-1947 (mainly Jaipur and Gwalior), in which beautiful postmarks, destinations, additional frankigs, etc. in 2 albums with descriptions.</div>
-                        <div class="price-row">
-                            <div class="price">₹126500</div>
-                            <div class="action-buttons">
-                                <a href="https://philatelyworld.in/item/RN4203/" class="buy-btn" style="text-align: center;">View Listing</a>
+                        <div class="details">
+                            <h3>Collection of postal stationery from Indian States 1891-1947</h3>
+                            <div style="display: flex; gap: 8px; align-items: center;">
+                                <span class="stamp-year">Year: 1891-1947</span>
+                                <small style="color: var(--text-light)">India</small>
+                            </div>
+                            <div class="stamp-desc">RN4203: Collection of postal stationery from Indian States 1891-1947
+                                (mainly Jaipur and Gwalior), in which beautiful postmarks, destinations, additional
+                                frankigs, etc. in 2 albums with descriptions.</div>
+                            <div class="price-row">
+                                <div class="price">₹126500</div>
+                                <div class="action-buttons">
+                                    <a href="https://philatelyworld.in/item/RN4203/" class="buy-btn"
+                                        style="text-align: center;">View Listing</a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="stamp-card">
-                    <div class="img-container">
-                        <img src="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/D143/1.jpg" alt="245 different stamps from Germany Bundespost" loading="lazy" width="300" height="300">
-                        <div class="photo-badge">5 Photos</div>
-                    </div>
-                    <div class="details">
-                        <h3>245 different stamps from Germany Bundespost</h3>
-                        <div style="display: flex; gap: 8px; align-items: center;">
-                            <span class="stamp-year">Year: various</span>
-                            <small style="color: var(--text-light)">Germany Bundespost</small>
+                    <div class="stamp-card">
+                        <div class="img-container">
+                            <img src="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/D143/1.jpg"
+                                alt="245 different stamps from Germany Bundespost" loading="lazy" width="300"
+                                height="300">
+                            <div class="photo-badge">5 Photos</div>
                         </div>
-                        <div class="stamp-desc">RN4202: <b>245 different stamps from Germany Bundespost</b>.Check the photos. What you see is what you get.</div>
-                        <div class="price-row">
-                            <div class="price">₹1250</div>
-                            <div class="action-buttons">
-                                <a href="https://philatelyworld.in/item/RN4202/" class="buy-btn" style="text-align: center;">View Listing</a>
+                        <div class="details">
+                            <h3>245 different stamps from Germany Bundespost</h3>
+                            <div style="display: flex; gap: 8px; align-items: center;">
+                                <span class="stamp-year">Year: various</span>
+                                <small style="color: var(--text-light)">Germany Bundespost</small>
+                            </div>
+                            <div class="stamp-desc">RN4202: <b>245 different stamps from Germany Bundespost</b>.Check
+                                the photos. What you see is what you get.</div>
+                            <div class="price-row">
+                                <div class="price">₹1250</div>
+                                <div class="action-buttons">
+                                    <a href="https://philatelyworld.in/item/RN4202/" class="buy-btn"
+                                        style="text-align: center;">View Listing</a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="stamp-card">
-                    <div class="img-container">
-                        <img src="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/D142/1.jpg" alt="Albania and a.o. North Ingria and Georgia stamp collection in stockbook; CV more than € 5500" loading="lazy" width="300" height="300">
-                        <div class="photo-badge">32 Photos</div>
-                    </div>
-                    <div class="details">
-                        <h3>Albania and a.o. North Ingria and Georgia stamp collection in stockbook; CV more than € 5500</h3>
-                        <div style="display: flex; gap: 8px; align-items: center;">
-                            <span class="stamp-year">Year: various</span>
-                            <small style="color: var(--text-light)">Albania, North Ingria and Georgia</small>
+                    <div class="stamp-card">
+                        <div class="img-container">
+                            <img src="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/D142/1.jpg"
+                                alt="Albania and a.o. North Ingria and Georgia stamp collection in stockbook; CV more than € 5500"
+                                loading="lazy" width="300" height="300">
+                            <div class="photo-badge">32 Photos</div>
                         </div>
-                        <div class="stamp-desc">RN4201: Stockbook with stamp collection Albania and some various. Former ower counted about € 5500 catalogue value.Check the photos.What you see is what you get.</div>
-                        <div class="price-row">
-                            <div class="price">₹69000</div>
-                            <div class="action-buttons">
-                                <a href="https://philatelyworld.in/item/RN4201/" class="buy-btn" style="text-align: center;">View Listing</a>
+                        <div class="details">
+                            <h3>Albania and a.o. North Ingria and Georgia stamp collection in stockbook; CV more than €
+                                5500</h3>
+                            <div style="display: flex; gap: 8px; align-items: center;">
+                                <span class="stamp-year">Year: various</span>
+                                <small style="color: var(--text-light)">Albania, North Ingria and Georgia</small>
+                            </div>
+                            <div class="stamp-desc">RN4201: Stockbook with stamp collection Albania and some various.
+                                Former ower counted about € 5500 catalogue value.Check the photos.What you see is what
+                                you get.</div>
+                            <div class="price-row">
+                                <div class="price">₹69000</div>
+                                <div class="action-buttons">
+                                    <a href="https://philatelyworld.in/item/RN4201/" class="buy-btn"
+                                        style="text-align: center;">View Listing</a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="stamp-card">
-                    <div class="img-container">
-                        <img src="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/D141/1.jpg" alt="2 albums of Russia (1954-1965) & (1965-1976)" loading="lazy" width="300" height="300">
-                        <div class="photo-badge">60 Photos</div>
-                    </div>
-                    <div class="details">
-                        <h3>2 albums of Russia (1954-1965) & (1965-1976)</h3>
-                        <div style="display: flex; gap: 8px; align-items: center;">
-                            <span class="stamp-year">Year: 1954-1976</span>
-                            <small style="color: var(--text-light)">Russia</small>
+                    <div class="stamp-card">
+                        <div class="img-container">
+                            <img src="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/D141/1.jpg"
+                                alt="2 albums of Russia (1954-1965) & (1965-1976)" loading="lazy" width="300"
+                                height="300">
+                            <div class="photo-badge">60 Photos</div>
                         </div>
-                        <div class="stamp-desc">RN4200: <b>Russia 1954-1965 stamp collection in album, Russia 1965-1976 stamp collection in album</b>. Check the photos to see a small part, but there is a lot more than you can see here.2 Album for free.</div>
-                        <div class="price-row">
-                            <div class="price">₹40000</div>
-                            <div class="action-buttons">
-                                <a href="https://philatelyworld.in/item/RN4200/" class="buy-btn" style="text-align: center;">View Listing</a>
+                        <div class="details">
+                            <h3>2 albums of Russia (1954-1965) & (1965-1976)</h3>
+                            <div style="display: flex; gap: 8px; align-items: center;">
+                                <span class="stamp-year">Year: 1954-1976</span>
+                                <small style="color: var(--text-light)">Russia</small>
+                            </div>
+                            <div class="stamp-desc">RN4200: <b>Russia 1954-1965 stamp collection in album, Russia
+                                    1965-1976 stamp collection in album</b>. Check the photos to see a small part, but
+                                there is a lot more than you can see here.2 Album for free.</div>
+                            <div class="price-row">
+                                <div class="price">₹40000</div>
+                                <div class="action-buttons">
+                                    <a href="https://philatelyworld.in/item/RN4200/" class="buy-btn"
+                                        style="text-align: center;">View Listing</a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="stamp-card">
-                    <div class="img-container">
-                        <img src="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/D140/1.jpg" alt="India (part of Commonwealth and old states) stamp collection in album" loading="lazy" width="300" height="300">
-                        <div class="photo-badge">34 Photos</div>
-                    </div>
-                    <div class="details">
-                        <h3>India (part of Commonwealth and old states) stamp collection in album</h3>
-                        <div style="display: flex; gap: 8px; align-items: center;">
-                            <span class="stamp-year">Year: various</span>
-                            <small style="color: var(--text-light)">India</small>
+                    <div class="stamp-card">
+                        <div class="img-container">
+                            <img src="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/D140/1.jpg"
+                                alt="India (part of Commonwealth and old states) stamp collection in album"
+                                loading="lazy" width="300" height="300">
+                            <div class="photo-badge">34 Photos</div>
                         </div>
-                        <div class="stamp-desc">RN4199: <b>India (part of Commonwealth and old states) stamp collection in album</b>. About 550 stamps old India and states. Check the photos to see a small part, but there is a lot more than you can see here. Album for free.</div>
-                        <div class="price-row">
-                            <div class="price">₹27000</div>
-                            <div class="action-buttons">
-                                <a href="https://philatelyworld.in/item/RN4199/" class="buy-btn" style="text-align: center;">View Listing</a>
+                        <div class="details">
+                            <h3>India (part of Commonwealth and old states) stamp collection in album</h3>
+                            <div style="display: flex; gap: 8px; align-items: center;">
+                                <span class="stamp-year">Year: various</span>
+                                <small style="color: var(--text-light)">India</small>
+                            </div>
+                            <div class="stamp-desc">RN4199: <b>India (part of Commonwealth and old states) stamp
+                                    collection in album</b>. About 550 stamps old India and states. Check the photos to
+                                see a small part, but there is a lot more than you can see here. Album for free.</div>
+                            <div class="price-row">
+                                <div class="price">₹27000</div>
+                                <div class="action-buttons">
+                                    <a href="https://philatelyworld.in/item/RN4199/" class="buy-btn"
+                                        style="text-align: center;">View Listing</a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="stamp-card">
-                    <div class="img-container">
-                        <img src="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/D139/1.jpg" alt="French territories large stamp collection in 13 albums" loading="lazy" width="300" height="300">
-                        <div class="photo-badge">69 Photos</div>
-                    </div>
-                    <div class="details">
-                        <h3>French territories large stamp collection in 13 albums</h3>
-                        <div style="display: flex; gap: 8px; align-items: center;">
-                            <span class="stamp-year">Year: various</span>
-                            <small style="color: var(--text-light)">French territories</small>
+                    <div class="stamp-card">
+                        <div class="img-container">
+                            <img src="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/D139/1.jpg"
+                                alt="French territories large stamp collection in 13 albums" loading="lazy" width="300"
+                                height="300">
+                            <div class="photo-badge">69 Photos</div>
                         </div>
-                        <div class="stamp-desc">RN4198: 13 Leuchtturm binders with stamp collection French territories, countries A-Z, a lot of stamps. Check the photos to see a small part, but there is a lot more than you can see here. Shipment in 2 boxes. 13 Albums for free.</div>
-                        <div class="price-row">
-                            <div class="price">₹287000</div>
-                            <div class="action-buttons">
-                                <a href="https://philatelyworld.in/item/RN4198/" class="buy-btn" style="text-align: center;">View Listing</a>
+                        <div class="details">
+                            <h3>French territories large stamp collection in 13 albums</h3>
+                            <div style="display: flex; gap: 8px; align-items: center;">
+                                <span class="stamp-year">Year: various</span>
+                                <small style="color: var(--text-light)">French territories</small>
+                            </div>
+                            <div class="stamp-desc">RN4198: 13 Leuchtturm binders with stamp collection French
+                                territories, countries A-Z, a lot of stamps. Check the photos to see a small part, but
+                                there is a lot more than you can see here. Shipment in 2 boxes. 13 Albums for free.
+                            </div>
+                            <div class="price-row">
+                                <div class="price">₹287000</div>
+                                <div class="action-buttons">
+                                    <a href="https://philatelyworld.in/item/RN4198/" class="buy-btn"
+                                        style="text-align: center;">View Listing</a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="stamp-card">
-                    <div class="img-container">
-                        <img src="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/D138/1.jpg" alt="Ukraine cover and postal item collection in 2 albums" loading="lazy" width="300" height="300">
-                        <div class="photo-badge">42 Photos</div>
-                    </div>
-                    <div class="details">
-                        <h3>Ukraine cover and postal item collection in 2 albums</h3>
-                        <div style="display: flex; gap: 8px; align-items: center;">
-                            <span class="stamp-year">Year: 1992-1994</span>
-                            <small style="color: var(--text-light)">Ukraine</small>
+                    <div class="stamp-card">
+                        <div class="img-container">
+                            <img src="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/D138/1.jpg"
+                                alt="Ukraine cover and postal item collection in 2 albums" loading="lazy" width="300"
+                                height="300">
+                            <div class="photo-badge">42 Photos</div>
                         </div>
-                        <div class="stamp-desc">RN4197: 2 Luxureous and expensive Leuchtturm albums with collection about 280 covers and postal items Ukraine, also from Russia. Period 1992-1994. Check the photos to see a small part, but there is a lot more than you can see here. 2 Albums for free.</div>
-                        <div class="price-row">
-                            <div class="price">₹18500</div>
-                            <div class="action-buttons">
-                                <a href="https://philatelyworld.in/item/RN4197/" class="buy-btn" style="text-align: center;">View Listing</a>
+                        <div class="details">
+                            <h3>Ukraine cover and postal item collection in 2 albums</h3>
+                            <div style="display: flex; gap: 8px; align-items: center;">
+                                <span class="stamp-year">Year: 1992-1994</span>
+                                <small style="color: var(--text-light)">Ukraine</small>
+                            </div>
+                            <div class="stamp-desc">RN4197: 2 Luxureous and expensive Leuchtturm albums with collection
+                                about 280 covers and postal items Ukraine, also from Russia. Period 1992-1994. Check the
+                                photos to see a small part, but there is a lot more than you can see here. 2 Albums for
+                                free.</div>
+                            <div class="price-row">
+                                <div class="price">₹18500</div>
+                                <div class="action-buttons">
+                                    <a href="https://philatelyworld.in/item/RN4197/" class="buy-btn"
+                                        style="text-align: center;">View Listing</a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="stamp-card">
-                    <div class="img-container">
-                        <img src="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/D137/1.jpg" alt="Europa MNH stamp collection in stockbook; Catalogue Value € 1400" loading="lazy" width="300" height="300">
-                        <div class="photo-badge">18 Photos</div>
-                    </div>
-                    <div class="details">
-                        <h3>Europa MNH stamp collection in stockbook; Catalogue Value € 1400</h3>
-                        <div style="display: flex; gap: 8px; align-items: center;">
-                            <span class="stamp-year">Year: 1900-1945</span>
-                            <small style="color: var(--text-light)">Europe</small>
+                    <div class="stamp-card">
+                        <div class="img-container">
+                            <img src="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/D137/1.jpg"
+                                alt="Europa MNH stamp collection in stockbook; Catalogue Value € 1400" loading="lazy"
+                                width="300" height="300">
+                            <div class="photo-badge">18 Photos</div>
                         </div>
-                        <div class="stamp-desc">RN4196: <b>Europa MNH stamp collection in stockbook; Catalogue Value € 1400.</b> Check the photos to see a small part, but there is a lot more than you can see here. Stockbook for free.</div>
-                        <div class="price-row">
-                            <div class="price">₹9999</div>
-                            <div class="action-buttons">
-                                <a href="https://philatelyworld.in/item/RN4196/" class="buy-btn" style="text-align: center;">View Listing</a>
+                        <div class="details">
+                            <h3>Europa MNH stamp collection in stockbook; Catalogue Value € 1400</h3>
+                            <div style="display: flex; gap: 8px; align-items: center;">
+                                <span class="stamp-year">Year: 1900-1945</span>
+                                <small style="color: var(--text-light)">Europe</small>
+                            </div>
+                            <div class="stamp-desc">RN4196: <b>Europa MNH stamp collection in stockbook; Catalogue Value
+                                    € 1400.</b> Check the photos to see a small part, but there is a lot more than you
+                                can see here. Stockbook for free.</div>
+                            <div class="price-row">
+                                <div class="price">₹9999</div>
+                                <div class="action-buttons">
+                                    <a href="https://philatelyworld.in/item/RN4196/" class="buy-btn"
+                                        style="text-align: center;">View Listing</a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="stamp-card">
-                    <div class="img-container">
-                        <img src="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/D136/1.jpg" alt="Germany states, Reich etc. stamp collection in binder" loading="lazy" width="300" height="300">
-                        <div class="photo-badge">47 Photos</div>
-                    </div>
-                    <div class="details">
-                        <h3>Germany states, Reich etc. stamp collection in binder</h3>
-                        <div style="display: flex; gap: 8px; align-items: center;">
-                            <span class="stamp-year">Year: 1900-1945</span>
-                            <small style="color: var(--text-light)">Germany</small>
+                    <div class="stamp-card">
+                        <div class="img-container">
+                            <img src="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/D136/1.jpg"
+                                alt="Germany states, Reich etc. stamp collection in binder" loading="lazy" width="300"
+                                height="300">
+                            <div class="photo-badge">47 Photos</div>
                         </div>
-                        <div class="stamp-desc">RN4195: Binder with stamp collection Germany up to 1945 on about 70 pages. Check the photos to see a small part, but there is a lot more than you can see here. Binder for free. Rs.350 per page</div>
-                        <div class="price-row">
-                            <div class="price">₹24500</div>
-                            <div class="action-buttons">
-                                <a href="https://philatelyworld.in/item/RN4195/" class="buy-btn" style="text-align: center;">View Listing</a>
+                        <div class="details">
+                            <h3>Germany states, Reich etc. stamp collection in binder</h3>
+                            <div style="display: flex; gap: 8px; align-items: center;">
+                                <span class="stamp-year">Year: 1900-1945</span>
+                                <small style="color: var(--text-light)">Germany</small>
+                            </div>
+                            <div class="stamp-desc">RN4195: Binder with stamp collection Germany up to 1945 on about 70
+                                pages. Check the photos to see a small part, but there is a lot more than you can see
+                                here. Binder for free. Rs.350 per page</div>
+                            <div class="price-row">
+                                <div class="price">₹24500</div>
+                                <div class="action-buttons">
+                                    <a href="https://philatelyworld.in/item/RN4195/" class="buy-btn"
+                                        style="text-align: center;">View Listing</a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="stamp-card">
-                    <div class="img-container">
-                        <img src="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/D135/1.jpg" alt="Fundgrube box: Excellent sorting-box stamps, part of chaotic estate" loading="lazy" width="300" height="300">
-                        <div class="photo-badge">4 Photos</div>
-                    </div>
-                    <div class="details">
-                        <h3>Fundgrube box: Excellent sorting-box stamps, part of chaotic estate</h3>
-                        <div style="display: flex; gap: 8px; align-items: center;">
-                            <span class="stamp-year">Year: various</span>
-                            <small style="color: var(--text-light)">worldwide</small>
+                    <div class="stamp-card">
+                        <div class="img-container">
+                            <img src="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/D135/1.jpg"
+                                alt="Fundgrube box: Excellent sorting-box stamps, part of chaotic estate" loading="lazy"
+                                width="300" height="300">
+                            <div class="photo-badge">4 Photos</div>
                         </div>
-                        <div class="stamp-desc">RN4194: This is a mixed estate lot from a collectoror small dealer, split into about a dozen unique Fundgrube (treasure-trove) boxes that were barely examined and priced only as a rough indication of possible value. Each box holds a random mix of sorted and unsorted material, such as stockbooks, booklets, stamps on pages, covers, glassines, and even unopened new purchases, so surprises can turn up anywhere. Only a few photos show a small part of each box's contents, and this particular box weighs about 5 kg</div>
-                        <div class="price-row">
-                            <div class="price">₹25000</div>
-                            <div class="action-buttons">
-                                <a href="https://philatelyworld.in/item/RN4194/" class="buy-btn" style="text-align: center;">View Listing</a>
+                        <div class="details">
+                            <h3>Fundgrube box: Excellent sorting-box stamps, part of chaotic estate</h3>
+                            <div style="display: flex; gap: 8px; align-items: center;">
+                                <span class="stamp-year">Year: various</span>
+                                <small style="color: var(--text-light)">worldwide</small>
+                            </div>
+                            <div class="stamp-desc">RN4194: This is a mixed estate lot from a collectoror small dealer,
+                                split into about a dozen unique Fundgrube (treasure-trove) boxes that were barely
+                                examined and priced only as a rough indication of possible value. Each box holds a
+                                random mix of sorted and unsorted material, such as stockbooks, booklets, stamps on
+                                pages, covers, glassines, and even unopened new purchases, so surprises can turn up
+                                anywhere. Only a few photos show a small part of each box's contents, and this
+                                particular box weighs about 5 kg</div>
+                            <div class="price-row">
+                                <div class="price">₹25000</div>
+                                <div class="action-buttons">
+                                    <a href="https://philatelyworld.in/item/RN4194/" class="buy-btn"
+                                        style="text-align: center;">View Listing</a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="stamp-card">
-                    <div class="img-container">
-                        <img src="https://shop.postnl.nl/_next/image?url=https%3A%2F%2Fshop.postnl.nl%2Fpub%2Fmedia%2Fcatalog%2Fproduct%2F1%2F7%2F1791551777_siervogels-postzegelvel.jpg&w=1920&q=75" alt="Ornamentaal birds stamp sheet from Netherlands." loading="lazy" width="300" height="300">
-                        <div class="photo-badge">1 Photos</div>
-                    </div>
-                    <div class="details">
-                        <h3>Ornamentaal birds stamp sheet from Netherlands.</h3>
-                        <div style="display: flex; gap: 8px; align-items: center;">
-                            <span class="stamp-year">Year: 2026</span>
-                            <small style="color: var(--text-light)">Netherlands</small>
+                    <div class="stamp-card">
+                        <div class="img-container">
+                            <img src="https://shop.postnl.nl/_next/image?url=https%3A%2F%2Fshop.postnl.nl%2Fpub%2Fmedia%2Fcatalog%2Fproduct%2F1%2F7%2F1791551777_siervogels-postzegelvel.jpg&w=1920&q=75"
+                                alt="Ornamentaal birds stamp sheet from Netherlands." loading="lazy" width="300"
+                                height="300">
+                            <div class="photo-badge">1 Photos</div>
                         </div>
-                        <div class="stamp-desc">RN4193: <b>Ornamentaal birds stamp sheet from Netherlands.</b> Check the photos. What you see is what you get.</div>
-                        <div class="price-row">
-                            <div class="price">₹1800</div>
-                            <div class="action-buttons">
-                                <a href="https://philatelyworld.in/item/RN4193/" class="buy-btn" style="text-align: center;">View Listing</a>
+                        <div class="details">
+                            <h3>Ornamentaal birds stamp sheet from Netherlands.</h3>
+                            <div style="display: flex; gap: 8px; align-items: center;">
+                                <span class="stamp-year">Year: 2026</span>
+                                <small style="color: var(--text-light)">Netherlands</small>
+                            </div>
+                            <div class="stamp-desc">RN4193: <b>Ornamentaal birds stamp sheet from Netherlands.</b> Check
+                                the photos. What you see is what you get.</div>
+                            <div class="price-row">
+                                <div class="price">₹1800</div>
+                                <div class="action-buttons">
+                                    <a href="https://philatelyworld.in/item/RN4193/" class="buy-btn"
+                                        style="text-align: center;">View Listing</a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="stamp-card">
-                    <div class="img-container">
-                        <img src="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/D132/1.jpg" alt="Stamps from Iraq(Used and MNH)" loading="lazy" width="300" height="300">
-                        <div class="photo-badge">12 Photos</div>
-                    </div>
-                    <div class="details">
-                        <h3>Stamps from Iraq(Used and MNH)</h3>
-                        <div style="display: flex; gap: 8px; align-items: center;">
-                            <span class="stamp-year">Year: 1920+</span>
-                            <small style="color: var(--text-light)">Iraq</small>
+                    <div class="stamp-card">
+                        <div class="img-container">
+                            <img src="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/D132/1.jpg"
+                                alt="Stamps from Iraq(Used and MNH)" loading="lazy" width="300" height="300">
+                            <div class="photo-badge">12 Photos</div>
                         </div>
-                        <div class="stamp-desc">RN4192: <b>Stamps from Iraq(Used and MNH).</b> Check the photos. What you see is what you get.</div>
-                        <div class="price-row">
-                            <div class="price">₹4500</div>
-                            <div class="action-buttons">
-                                <a href="https://philatelyworld.in/item/RN4192/" class="buy-btn" style="text-align: center;">View Listing</a>
+                        <div class="details">
+                            <h3>Stamps from Iraq(Used and MNH)</h3>
+                            <div style="display: flex; gap: 8px; align-items: center;">
+                                <span class="stamp-year">Year: 1920+</span>
+                                <small style="color: var(--text-light)">Iraq</small>
+                            </div>
+                            <div class="stamp-desc">RN4192: <b>Stamps from Iraq(Used and MNH).</b> Check the photos.
+                                What you see is what you get.</div>
+                            <div class="price-row">
+                                <div class="price">₹4500</div>
+                                <div class="action-buttons">
+                                    <a href="https://philatelyworld.in/item/RN4192/" class="buy-btn"
+                                        style="text-align: center;">View Listing</a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="stamp-card">
-                    <div class="img-container">
-                        <img src="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/worldStamps.jpeg" alt="Used Stamps from around world around 30gms.(500+ stamps" loading="lazy" width="300" height="300">
-                        <div class="photo-badge">1 Photos</div>
-                    </div>
-                    <div class="details">
-                        <h3>Used Stamps from around world around 30gms.(500+ stamps</h3>
-                        <div style="display: flex; gap: 8px; align-items: center;">
-                            <span class="stamp-year">Year: 1920+</span>
-                            <small style="color: var(--text-light)">Various Countries</small>
+                    <div class="stamp-card">
+                        <div class="img-container">
+                            <img src="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/worldStamps.jpeg"
+                                alt="Used Stamps from around world around 30gms.(500+ stamps" loading="lazy" width="300"
+                                height="300">
+                            <div class="photo-badge">1 Photos</div>
                         </div>
-                        <div class="stamp-desc">RN4191: Used Stamps from around world around 30gms.(500+ stamps). Check the photos. What you see is what you get. Small album for free</div>
-                        <div class="price-row">
-                            <div class="price">₹999</div>
-                            <div class="action-buttons">
-                                <a href="https://philatelyworld.in/item/RN4191/" class="buy-btn" style="text-align: center;">View Listing</a>
+                        <div class="details">
+                            <h3>Used Stamps from around world around 30gms.(500+ stamps</h3>
+                            <div style="display: flex; gap: 8px; align-items: center;">
+                                <span class="stamp-year">Year: 1920+</span>
+                                <small style="color: var(--text-light)">Various Countries</small>
+                            </div>
+                            <div class="stamp-desc">RN4191: Used Stamps from around world around 30gms.(500+ stamps).
+                                Check the photos. What you see is what you get. Small album for free</div>
+                            <div class="price-row">
+                                <div class="price">₹999</div>
+                                <div class="action-buttons">
+                                    <a href="https://philatelyworld.in/item/RN4191/" class="buy-btn"
+                                        style="text-align: center;">View Listing</a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="stamp-card">
-                    <div class="img-container">
-                        <img src="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/D131/1.jpg" alt="Minature sheet folder from India. Shri Ram Janambhoomi. Ayodhya" loading="lazy" width="300" height="300">
-                        <div class="photo-badge">3 Photos</div>
-                    </div>
-                    <div class="details">
-                        <h3>Minature sheet folder from India. Shri Ram Janambhoomi. Ayodhya</h3>
-                        <div style="display: flex; gap: 8px; align-items: center;">
-                            <span class="stamp-year">Year: 2024</span>
-                            <small style="color: var(--text-light)">India</small>
+                    <div class="stamp-card">
+                        <div class="img-container">
+                            <img src="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/D131/1.jpg"
+                                alt="Minature sheet folder from India. Shri Ram Janambhoomi. Ayodhya" loading="lazy"
+                                width="300" height="300">
+                            <div class="photo-badge">3 Photos</div>
                         </div>
-                        <div class="stamp-desc">RN4190: Shri Ram Janambhoomi. Ayodhya. MS Folder. This is an olfactory issue (smells of sandalwood). Check the photos. What you see is what you get.<br></div>
-                        <div class="price-row">
-                            <div class="price">₹899</div>
-                            <div class="action-buttons">
-                                <a href="https://philatelyworld.in/item/RN4190/" class="buy-btn" style="text-align: center;">View Listing</a>
+                        <div class="details">
+                            <h3>Minature sheet folder from India. Shri Ram Janambhoomi. Ayodhya</h3>
+                            <div style="display: flex; gap: 8px; align-items: center;">
+                                <span class="stamp-year">Year: 2024</span>
+                                <small style="color: var(--text-light)">India</small>
+                            </div>
+                            <div class="stamp-desc">RN4190: Shri Ram Janambhoomi. Ayodhya. MS Folder. This is an
+                                olfactory issue (smells of sandalwood). Check the photos. What you see is what you
+                                get.<br></div>
+                            <div class="price-row">
+                                <div class="price">₹899</div>
+                                <div class="action-buttons">
+                                    <a href="https://philatelyworld.in/item/RN4190/" class="buy-btn"
+                                        style="text-align: center;">View Listing</a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="stamp-card">
-                    <div class="img-container">
-                        <img src="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/D122/1.jpg" alt="Bundle Crypto Stamp - Heroes of Mythology" loading="lazy" width="300" height="300">
-                        <div class="photo-badge">1 Photos</div>
-                    </div>
-                    <div class="details">
-                        <h3>Bundle Crypto Stamp - Heroes of Mythology</h3>
-                        <div style="display: flex; gap: 8px; align-items: center;">
-                            <span class="stamp-year">Year: 2026</span>
-                            <small style="color: var(--text-light)">Austria, Netherlands, Belgium, Portgual</small>
+                    <div class="stamp-card">
+                        <div class="img-container">
+                            <img src="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/D122/1.jpg"
+                                alt="Bundle Crypto Stamp - Heroes of Mythology" loading="lazy" width="300" height="300">
+                            <div class="photo-badge">1 Photos</div>
                         </div>
-                        <div class="stamp-desc">RN4188: <b>2026 Crypto Stamp: Heroes of Mythology (Austria, Belgium, Netherlands, Portugal)</b><br> Bundle of 5 stamps. All stamps are in Mint Never Used (MNU) condition and come with their original wallets.</div>
-                        <div class="price-row">
-                            <div class="price">₹9999</div>
-                            <div class="action-buttons">
-                                <a href="https://philatelyworld.in/item/RN4188/" class="buy-btn" style="text-align: center;">View Listing</a>
+                        <div class="details">
+                            <h3>Bundle Crypto Stamp - Heroes of Mythology</h3>
+                            <div style="display: flex; gap: 8px; align-items: center;">
+                                <span class="stamp-year">Year: 2026</span>
+                                <small style="color: var(--text-light)">Austria, Netherlands, Belgium, Portgual</small>
+                            </div>
+                            <div class="stamp-desc">RN4188: <b>2026 Crypto Stamp: Heroes of Mythology (Austria, Belgium,
+                                    Netherlands, Portugal)</b><br> Bundle of 5 stamps. All stamps are in Mint Never Used
+                                (MNU) condition and come with their original wallets.</div>
+                            <div class="price-row">
+                                <div class="price">₹9999</div>
+                                <div class="action-buttons">
+                                    <a href="https://philatelyworld.in/item/RN4188/" class="buy-btn"
+                                        style="text-align: center;">View Listing</a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="stamp-card">
-                    <div class="img-container">
-                        <img src="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/D102/1.jpg" alt="Collection of 360 Mint stamps from GB in Stockbook and old stamps." loading="lazy" width="300" height="300">
-                        <div class="photo-badge">24 Photos</div>
-                    </div>
-                    <div class="details">
-                        <h3>Collection of 360 Mint stamps from GB in Stockbook and old stamps.</h3>
-                        <div style="display: flex; gap: 8px; align-items: center;">
-                            <span class="stamp-year">Year: 1900-2000</span>
-                            <small style="color: var(--text-light)">GB</small>
+                    <div class="stamp-card">
+                        <div class="img-container">
+                            <img src="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/D102/1.jpg"
+                                alt="Collection of 360 Mint stamps from GB in Stockbook and old stamps." loading="lazy"
+                                width="300" height="300">
+                            <div class="photo-badge">24 Photos</div>
                         </div>
-                        <div class="stamp-desc">RN4148: Collection of 360 Mint stamps from GB and old stamps.            <b>Rs.40 per stamp.</b>            Stock Album for free and Miniature sheets for free</div>
-                        <div class="price-row">
-                            <div class="price">₹8999 (was ₹14400)</div>
-                            <div class="action-buttons">
-                                <a href="https://philatelyworld.in/item/RN4148/" class="buy-btn" style="text-align: center;">View Listing</a>
+                        <div class="details">
+                            <h3>Collection of 360 Mint stamps from GB in Stockbook and old stamps.</h3>
+                            <div style="display: flex; gap: 8px; align-items: center;">
+                                <span class="stamp-year">Year: 1900-2000</span>
+                                <small style="color: var(--text-light)">GB</small>
+                            </div>
+                            <div class="stamp-desc">RN4148: Collection of 360 Mint stamps from GB and old stamps.
+                                <b>Rs.40 per stamp.</b> Stock Album for free and Miniature sheets for free
+                            </div>
+                            <div class="price-row">
+                                <div class="price">₹8999 (was ₹14400)</div>
+                                <div class="action-buttons">
+                                    <a href="https://philatelyworld.in/item/RN4148/" class="buy-btn"
+                                        style="text-align: center;">View Listing</a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="stamp-card">
-                    <div class="img-container">
-                        <img src="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/D100/1.jpg" alt="9 sets of Stamps from Great Britain (MNH) (38 stamps)" loading="lazy" width="300" height="300">
-                        <div class="photo-badge">1 Photos</div>
-                    </div>
-                    <div class="details">
-                        <h3>9 sets of Stamps from Great Britain (MNH) (38 stamps)</h3>
-                        <div style="display: flex; gap: 8px; align-items: center;">
-                            <span class="stamp-year">Year: 1960+</span>
-                            <small style="color: var(--text-light)">Great Britain</small>
+                    <div class="stamp-card">
+                        <div class="img-container">
+                            <img src="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/D100/1.jpg"
+                                alt="9 sets of Stamps from Great Britain (MNH) (38 stamps)" loading="lazy" width="300"
+                                height="300">
+                            <div class="photo-badge">1 Photos</div>
                         </div>
-                        <div class="stamp-desc">RN4170: 9 sets of Stamps from Great Britain (MNH) (38 stamps). Check the photos. What you see is what you get.</div>
-                        <div class="price-row">
-                            <div class="price">₹949</div>
-                            <div class="action-buttons">
-                                <a href="https://philatelyworld.in/item/RN4170/" class="buy-btn" style="text-align: center;">View Listing</a>
+                        <div class="details">
+                            <h3>9 sets of Stamps from Great Britain (MNH) (38 stamps)</h3>
+                            <div style="display: flex; gap: 8px; align-items: center;">
+                                <span class="stamp-year">Year: 1960+</span>
+                                <small style="color: var(--text-light)">Great Britain</small>
+                            </div>
+                            <div class="stamp-desc">RN4170: 9 sets of Stamps from Great Britain (MNH) (38 stamps). Check
+                                the photos. What you see is what you get.</div>
+                            <div class="price-row">
+                                <div class="price">₹949</div>
+                                <div class="action-buttons">
+                                    <a href="https://philatelyworld.in/item/RN4170/" class="buy-btn"
+                                        style="text-align: center;">View Listing</a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="stamp-card">
-                    <div class="img-container">
-                        <img src="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/D99/1.jpg" alt="11 sets of Stamps from Great Britain (MNH) (46 stamps)" loading="lazy" width="300" height="300">
-                        <div class="photo-badge">2 Photos</div>
-                    </div>
-                    <div class="details">
-                        <h3>11 sets of Stamps from Great Britain (MNH) (46 stamps)</h3>
-                        <div style="display: flex; gap: 8px; align-items: center;">
-                            <span class="stamp-year">Year: 1960+</span>
-                            <small style="color: var(--text-light)">Great Britain</small>
+                    <div class="stamp-card">
+                        <div class="img-container">
+                            <img src="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/D99/1.jpg"
+                                alt="11 sets of Stamps from Great Britain (MNH) (46 stamps)" loading="lazy" width="300"
+                                height="300">
+                            <div class="photo-badge">2 Photos</div>
                         </div>
-                        <div class="stamp-desc">RN4169: 11 sets of Stamps from Great Britain (MNH) (46 stamps). Check the photos. What you see is what you get.</div>
-                        <div class="price-row">
-                            <div class="price">₹1199</div>
-                            <div class="action-buttons">
-                                <a href="https://philatelyworld.in/item/RN4169/" class="buy-btn" style="text-align: center;">View Listing</a>
+                        <div class="details">
+                            <h3>11 sets of Stamps from Great Britain (MNH) (46 stamps)</h3>
+                            <div style="display: flex; gap: 8px; align-items: center;">
+                                <span class="stamp-year">Year: 1960+</span>
+                                <small style="color: var(--text-light)">Great Britain</small>
+                            </div>
+                            <div class="stamp-desc">RN4169: 11 sets of Stamps from Great Britain (MNH) (46 stamps).
+                                Check the photos. What you see is what you get.</div>
+                            <div class="price-row">
+                                <div class="price">₹1199</div>
+                                <div class="action-buttons">
+                                    <a href="https://philatelyworld.in/item/RN4169/" class="buy-btn"
+                                        style="text-align: center;">View Listing</a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="stamp-card">
-                    <div class="img-container">
-                        <img src="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/D98/1.jpg" alt="75 Stamps from around world (MNH) on theme EUROPA CEPT" loading="lazy" width="300" height="300">
-                        <div class="photo-badge">2 Photos</div>
-                    </div>
-                    <div class="details">
-                        <h3>75 Stamps from around world (MNH) on theme EUROPA CEPT</h3>
-                        <div style="display: flex; gap: 8px; align-items: center;">
-                            <span class="stamp-year">Year: 1960+</span>
-                            <small style="color: var(--text-light)">Various Countries</small>
+                    <div class="stamp-card">
+                        <div class="img-container">
+                            <img src="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/D98/1.jpg"
+                                alt="75 Stamps from around world (MNH) on theme EUROPA CEPT" loading="lazy" width="300"
+                                height="300">
+                            <div class="photo-badge">2 Photos</div>
                         </div>
-                        <div class="stamp-desc">RN4168: 75 Stamps from around world (MNH) on theme EUROPA CEPT. Check the photos. What you see is what you get.</div>
-                        <div class="price-row">
-                            <div class="price">₹699</div>
-                            <div class="action-buttons">
-                                <a href="https://philatelyworld.in/item/RN4168/" class="buy-btn" style="text-align: center;">View Listing</a>
+                        <div class="details">
+                            <h3>75 Stamps from around world (MNH) on theme EUROPA CEPT</h3>
+                            <div style="display: flex; gap: 8px; align-items: center;">
+                                <span class="stamp-year">Year: 1960+</span>
+                                <small style="color: var(--text-light)">Various Countries</small>
+                            </div>
+                            <div class="stamp-desc">RN4168: 75 Stamps from around world (MNH) on theme EUROPA CEPT.
+                                Check the photos. What you see is what you get.</div>
+                            <div class="price-row">
+                                <div class="price">₹699</div>
+                                <div class="action-buttons">
+                                    <a href="https://philatelyworld.in/item/RN4168/" class="buy-btn"
+                                        style="text-align: center;">View Listing</a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="stamp-card">
-                    <div class="img-container">
-                        <img src="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/D88/1.jpg" alt="German Empire postcards collection - D88" loading="lazy" width="300" height="300">
-                        <div class="photo-badge">2 Photos</div>
-                    </div>
-                    <div class="details">
-                        <h3>German Empire postcards collection - D88</h3>
-                        <div style="display: flex; gap: 8px; align-items: center;">
-                            <span class="stamp-year">Year: 1900+</span>
-                            <small style="color: var(--text-light)">German Empire</small>
+                    <div class="stamp-card">
+                        <div class="img-container">
+                            <img src="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/D88/1.jpg"
+                                alt="German Empire postcards collection - D88" loading="lazy" width="300" height="300">
+                            <div class="photo-badge">2 Photos</div>
                         </div>
-                        <div class="stamp-desc">RN4158: German Empire time period postcards. Check the photo. What you see is what you get.</div>
-                        <div class="price-row">
-                            <div class="price">₹500</div>
-                            <div class="action-buttons">
-                                <a href="https://philatelyworld.in/item/RN4158/" class="buy-btn" style="text-align: center;">View Listing</a>
+                        <div class="details">
+                            <h3>German Empire postcards collection - D88</h3>
+                            <div style="display: flex; gap: 8px; align-items: center;">
+                                <span class="stamp-year">Year: 1900+</span>
+                                <small style="color: var(--text-light)">German Empire</small>
+                            </div>
+                            <div class="stamp-desc">RN4158: German Empire time period postcards. Check the photo. What
+                                you see is what you get.</div>
+                            <div class="price-row">
+                                <div class="price">₹500</div>
+                                <div class="action-buttons">
+                                    <a href="https://philatelyworld.in/item/RN4158/" class="buy-btn"
+                                        style="text-align: center;">View Listing</a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="stamp-card">
-                    <div class="img-container">
-                        <img src="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/D87/1.jpg" alt="German Empire postcards collection - D87" loading="lazy" width="300" height="300">
-                        <div class="photo-badge">2 Photos</div>
-                    </div>
-                    <div class="details">
-                        <h3>German Empire postcards collection - D87</h3>
-                        <div style="display: flex; gap: 8px; align-items: center;">
-                            <span class="stamp-year">Year: 1900+</span>
-                            <small style="color: var(--text-light)">German Empire</small>
+                    <div class="stamp-card">
+                        <div class="img-container">
+                            <img src="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/D87/1.jpg"
+                                alt="German Empire postcards collection - D87" loading="lazy" width="300" height="300">
+                            <div class="photo-badge">2 Photos</div>
                         </div>
-                        <div class="stamp-desc">RN4157: German Empire time period postcards. Check the photo. What you see is what you get.</div>
-                        <div class="price-row">
-                            <div class="price">₹500</div>
-                            <div class="action-buttons">
-                                <a href="https://philatelyworld.in/item/RN4157/" class="buy-btn" style="text-align: center;">View Listing</a>
+                        <div class="details">
+                            <h3>German Empire postcards collection - D87</h3>
+                            <div style="display: flex; gap: 8px; align-items: center;">
+                                <span class="stamp-year">Year: 1900+</span>
+                                <small style="color: var(--text-light)">German Empire</small>
+                            </div>
+                            <div class="stamp-desc">RN4157: German Empire time period postcards. Check the photo. What
+                                you see is what you get.</div>
+                            <div class="price-row">
+                                <div class="price">₹500</div>
+                                <div class="action-buttons">
+                                    <a href="https://philatelyworld.in/item/RN4157/" class="buy-btn"
+                                        style="text-align: center;">View Listing</a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="stamp-card">
-                    <div class="img-container">
-                        <img src="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/D86/1.jpg" alt="German Empire postcards collection - D86" loading="lazy" width="300" height="300">
-                        <div class="photo-badge">2 Photos</div>
-                    </div>
-                    <div class="details">
-                        <h3>German Empire postcards collection - D86</h3>
-                        <div style="display: flex; gap: 8px; align-items: center;">
-                            <span class="stamp-year">Year: 1900+</span>
-                            <small style="color: var(--text-light)">German Empire</small>
+                    <div class="stamp-card">
+                        <div class="img-container">
+                            <img src="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/D86/1.jpg"
+                                alt="German Empire postcards collection - D86" loading="lazy" width="300" height="300">
+                            <div class="photo-badge">2 Photos</div>
                         </div>
-                        <div class="stamp-desc">RN4156: German Empire time period postcards. Check the photo. What you see is what you get.</div>
-                        <div class="price-row">
-                            <div class="price">₹500</div>
-                            <div class="action-buttons">
-                                <a href="https://philatelyworld.in/item/RN4156/" class="buy-btn" style="text-align: center;">View Listing</a>
+                        <div class="details">
+                            <h3>German Empire postcards collection - D86</h3>
+                            <div style="display: flex; gap: 8px; align-items: center;">
+                                <span class="stamp-year">Year: 1900+</span>
+                                <small style="color: var(--text-light)">German Empire</small>
+                            </div>
+                            <div class="stamp-desc">RN4156: German Empire time period postcards. Check the photo. What
+                                you see is what you get.</div>
+                            <div class="price-row">
+                                <div class="price">₹500</div>
+                                <div class="action-buttons">
+                                    <a href="https://philatelyworld.in/item/RN4156/" class="buy-btn"
+                                        style="text-align: center;">View Listing</a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="stamp-card">
-                    <div class="img-container">
-                        <img src="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/D85/1.jpg" alt="German Empire postcards collection - D85" loading="lazy" width="300" height="300">
-                        <div class="photo-badge">2 Photos</div>
-                    </div>
-                    <div class="details">
-                        <h3>German Empire postcards collection - D85</h3>
-                        <div style="display: flex; gap: 8px; align-items: center;">
-                            <span class="stamp-year">Year: 1900+</span>
-                            <small style="color: var(--text-light)">German Empire</small>
+                    <div class="stamp-card">
+                        <div class="img-container">
+                            <img src="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/D85/1.jpg"
+                                alt="German Empire postcards collection - D85" loading="lazy" width="300" height="300">
+                            <div class="photo-badge">2 Photos</div>
                         </div>
-                        <div class="stamp-desc">RN4155: German Empire time period postcards. Check the photo. What you see is what you get.</div>
-                        <div class="price-row">
-                            <div class="price">₹500</div>
-                            <div class="action-buttons">
-                                <a href="https://philatelyworld.in/item/RN4155/" class="buy-btn" style="text-align: center;">View Listing</a>
+                        <div class="details">
+                            <h3>German Empire postcards collection - D85</h3>
+                            <div style="display: flex; gap: 8px; align-items: center;">
+                                <span class="stamp-year">Year: 1900+</span>
+                                <small style="color: var(--text-light)">German Empire</small>
+                            </div>
+                            <div class="stamp-desc">RN4155: German Empire time period postcards. Check the photo. What
+                                you see is what you get.</div>
+                            <div class="price-row">
+                                <div class="price">₹500</div>
+                                <div class="action-buttons">
+                                    <a href="https://philatelyworld.in/item/RN4155/" class="buy-btn"
+                                        style="text-align: center;">View Listing</a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="stamp-card">
-                    <div class="img-container">
-                        <img src="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/D84/1.jpg" alt="German Empire postcards collection - D84" loading="lazy" width="300" height="300">
-                        <div class="photo-badge">2 Photos</div>
-                    </div>
-                    <div class="details">
-                        <h3>German Empire postcards collection - D84</h3>
-                        <div style="display: flex; gap: 8px; align-items: center;">
-                            <span class="stamp-year">Year: 1900+</span>
-                            <small style="color: var(--text-light)">German Empire</small>
+                    <div class="stamp-card">
+                        <div class="img-container">
+                            <img src="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/D84/1.jpg"
+                                alt="German Empire postcards collection - D84" loading="lazy" width="300" height="300">
+                            <div class="photo-badge">2 Photos</div>
                         </div>
-                        <div class="stamp-desc">RN4154: German Empire time period postcards. Check the photo. What you see is what you get.</div>
-                        <div class="price-row">
-                            <div class="price">₹500</div>
-                            <div class="action-buttons">
-                                <a href="https://philatelyworld.in/item/RN4154/" class="buy-btn" style="text-align: center;">View Listing</a>
+                        <div class="details">
+                            <h3>German Empire postcards collection - D84</h3>
+                            <div style="display: flex; gap: 8px; align-items: center;">
+                                <span class="stamp-year">Year: 1900+</span>
+                                <small style="color: var(--text-light)">German Empire</small>
+                            </div>
+                            <div class="stamp-desc">RN4154: German Empire time period postcards. Check the photo. What
+                                you see is what you get.</div>
+                            <div class="price-row">
+                                <div class="price">₹500</div>
+                                <div class="action-buttons">
+                                    <a href="https://philatelyworld.in/item/RN4154/" class="buy-btn"
+                                        style="text-align: center;">View Listing</a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="stamp-card">
-                    <div class="img-container">
-                        <img src="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/D83/1.jpg" alt="German Empire postcards collection - D83" loading="lazy" width="300" height="300">
-                        <div class="photo-badge">2 Photos</div>
-                    </div>
-                    <div class="details">
-                        <h3>German Empire postcards collection - D83</h3>
-                        <div style="display: flex; gap: 8px; align-items: center;">
-                            <span class="stamp-year">Year: 1900+</span>
-                            <small style="color: var(--text-light)">German Empire</small>
+                    <div class="stamp-card">
+                        <div class="img-container">
+                            <img src="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/D83/1.jpg"
+                                alt="German Empire postcards collection - D83" loading="lazy" width="300" height="300">
+                            <div class="photo-badge">2 Photos</div>
                         </div>
-                        <div class="stamp-desc">RN4153: German Empire time period postcards. Check the photo. What you see is what you get.</div>
-                        <div class="price-row">
-                            <div class="price">₹500</div>
-                            <div class="action-buttons">
-                                <a href="https://philatelyworld.in/item/RN4153/" class="buy-btn" style="text-align: center;">View Listing</a>
+                        <div class="details">
+                            <h3>German Empire postcards collection - D83</h3>
+                            <div style="display: flex; gap: 8px; align-items: center;">
+                                <span class="stamp-year">Year: 1900+</span>
+                                <small style="color: var(--text-light)">German Empire</small>
+                            </div>
+                            <div class="stamp-desc">RN4153: German Empire time period postcards. Check the photo. What
+                                you see is what you get.</div>
+                            <div class="price-row">
+                                <div class="price">₹500</div>
+                                <div class="action-buttons">
+                                    <a href="https://philatelyworld.in/item/RN4153/" class="buy-btn"
+                                        style="text-align: center;">View Listing</a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="stamp-card">
-                    <div class="img-container">
-                        <img src="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/D82/1.jpg" alt="German Empire postcards collection - D82" loading="lazy" width="300" height="300">
-                        <div class="photo-badge">2 Photos</div>
-                    </div>
-                    <div class="details">
-                        <h3>German Empire postcards collection - D82</h3>
-                        <div style="display: flex; gap: 8px; align-items: center;">
-                            <span class="stamp-year">Year: 1900+</span>
-                            <small style="color: var(--text-light)">German Empire</small>
+                    <div class="stamp-card">
+                        <div class="img-container">
+                            <img src="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/D82/1.jpg"
+                                alt="German Empire postcards collection - D82" loading="lazy" width="300" height="300">
+                            <div class="photo-badge">2 Photos</div>
                         </div>
-                        <div class="stamp-desc">RN4160: German Empire time period postcards. Check the photo. What you see is what you get.</div>
-                        <div class="price-row">
-                            <div class="price">₹500</div>
-                            <div class="action-buttons">
-                                <a href="https://philatelyworld.in/item/RN4160/" class="buy-btn" style="text-align: center;">View Listing</a>
+                        <div class="details">
+                            <h3>German Empire postcards collection - D82</h3>
+                            <div style="display: flex; gap: 8px; align-items: center;">
+                                <span class="stamp-year">Year: 1900+</span>
+                                <small style="color: var(--text-light)">German Empire</small>
+                            </div>
+                            <div class="stamp-desc">RN4160: German Empire time period postcards. Check the photo. What
+                                you see is what you get.</div>
+                            <div class="price-row">
+                                <div class="price">₹500</div>
+                                <div class="action-buttons">
+                                    <a href="https://philatelyworld.in/item/RN4160/" class="buy-btn"
+                                        style="text-align: center;">View Listing</a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="stamp-card">
-                    <div class="img-container">
-                        <img src="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/D81/1.jpg" alt="German Reich set of 28 stamps" loading="lazy" width="300" height="300">
-                        <div class="photo-badge">1 Photos</div>
-                    </div>
-                    <div class="details">
-                        <h3>German Reich set of 28 stamps</h3>
-                        <div style="display: flex; gap: 8px; align-items: center;">
-                            <span class="stamp-year">Year:1941-1944</span>
-                            <small style="color: var(--text-light)">German Reich</small>
+                    <div class="stamp-card">
+                        <div class="img-container">
+                            <img src="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/D81/1.jpg"
+                                alt="German Reich set of 28 stamps" loading="lazy" width="300" height="300">
+                            <div class="photo-badge">1 Photos</div>
                         </div>
-                        <div class="stamp-desc">RN4152: German Reich set of 28 stamps            Check the photo. What you see is what you get.. </div>
-                        <div class="price-row">
-                            <div class="price">₹2080 (was ₹3080)</div>
-                            <div class="action-buttons">
-                                <a href="https://philatelyworld.in/item/RN4152/" class="buy-btn" style="text-align: center;">View Listing</a>
+                        <div class="details">
+                            <h3>German Reich set of 28 stamps</h3>
+                            <div style="display: flex; gap: 8px; align-items: center;">
+                                <span class="stamp-year">Year:1941-1944</span>
+                                <small style="color: var(--text-light)">German Reich</small>
+                            </div>
+                            <div class="stamp-desc">RN4152: German Reich set of 28 stamps Check the photo. What you see
+                                is what you get.. </div>
+                            <div class="price-row">
+                                <div class="price">₹2080 (was ₹3080)</div>
+                                <div class="action-buttons">
+                                    <a href="https://philatelyworld.in/item/RN4152/" class="buy-btn"
+                                        style="text-align: center;">View Listing</a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="stamp-card">
-                    <div class="img-container">
-                        <img src="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/D75/1.jpg" alt="Schaubek's Victoria Postage Stamp Album, which was a very popular German-made album during the late 19th" loading="lazy" width="300" height="300">
-                        <div class="photo-badge">63 Photos</div>
-                    </div>
-                    <div class="details">
-                        <h3>Schaubek's Victoria Postage Stamp Album, which was a very popular German-made album during the late 19th</h3>
-                        <div style="display: flex; gap: 8px; align-items: center;">
-                            <span class="stamp-year">Year: 1890s</span>
-                            <small style="color: var(--text-light)">World</small>
+                    <div class="stamp-card">
+                        <div class="img-container">
+                            <img src="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/D75/1.jpg"
+                                alt="Schaubek's Victoria Postage Stamp Album, which was a very popular German-made album during the late 19th"
+                                loading="lazy" width="300" height="300">
+                            <div class="photo-badge">63 Photos</div>
                         </div>
-                        <div class="stamp-desc">RN4146: Schaubek's  Victoria Postage Stamp Album, which was a very popular German-made album during the late 19th century.            Album has around 700 Hinged stamps.            Pictures are taken from all the pages.            <b>Rs.60 per stamp</b>            </div>
-                        <div class="price-row">
-                            <div class="price">₹42000</div>
-                            <div class="action-buttons">
-                                <a href="https://philatelyworld.in/item/RN4146/" class="buy-btn" style="text-align: center;">View Listing</a>
+                        <div class="details">
+                            <h3>Schaubek's Victoria Postage Stamp Album, which was a very popular German-made album
+                                during the late 19th</h3>
+                            <div style="display: flex; gap: 8px; align-items: center;">
+                                <span class="stamp-year">Year: 1890s</span>
+                                <small style="color: var(--text-light)">World</small>
+                            </div>
+                            <div class="stamp-desc">RN4146: Schaubek's Victoria Postage Stamp Album, which was a very
+                                popular German-made album during the late 19th century. Album has around 700 Hinged
+                                stamps. Pictures are taken from all the pages. <b>Rs.60 per stamp</b> </div>
+                            <div class="price-row">
+                                <div class="price">₹42000</div>
+                                <div class="action-buttons">
+                                    <a href="https://philatelyworld.in/item/RN4146/" class="buy-btn"
+                                        style="text-align: center;">View Listing</a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="stamp-card">
-                    <div class="img-container">
-                        <img src="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/D74/1.jpg" alt="Small box with about 350 FDC covers United Nations" loading="lazy" width="300" height="300">
-                        <div class="photo-badge">6 Photos</div>
-                    </div>
-                    <div class="details">
-                        <h3>Small box with about 350 FDC covers United Nations</h3>
-                        <div style="display: flex; gap: 8px; align-items: center;">
-                            <span class="stamp-year">Year: 2026</span>
-                            <small style="color: var(--text-light)">United Nations</small>
+                    <div class="stamp-card">
+                        <div class="img-container">
+                            <img src="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/D74/1.jpg"
+                                alt="Small box with about 350 FDC covers United Nations" loading="lazy" width="300"
+                                height="300">
+                            <div class="photo-badge">6 Photos</div>
                         </div>
-                        <div class="stamp-desc">RN4145: Small box with about 350 FDC covers UN.            I am offering this box as it has arrived and hardly check them.            Check the photos to see a small part, but there is a lot more than you can see here.            <b>Rs.60 per cover</b>            </div>
-                        <div class="price-row">
-                            <div class="price">₹17800 (was ₹21000)</div>
-                            <div class="action-buttons">
-                                <a href="https://philatelyworld.in/item/RN4145/" class="buy-btn" style="text-align: center;">View Listing</a>
+                        <div class="details">
+                            <h3>Small box with about 350 FDC covers United Nations</h3>
+                            <div style="display: flex; gap: 8px; align-items: center;">
+                                <span class="stamp-year">Year: 2026</span>
+                                <small style="color: var(--text-light)">United Nations</small>
+                            </div>
+                            <div class="stamp-desc">RN4145: Small box with about 350 FDC covers UN. I am offering this
+                                box as it has arrived and hardly check them. Check the photos to see a small part, but
+                                there is a lot more than you can see here. <b>Rs.60 per cover</b> </div>
+                            <div class="price-row">
+                                <div class="price">₹17800 (was ₹21000)</div>
+                                <div class="action-buttons">
+                                    <a href="https://philatelyworld.in/item/RN4145/" class="buy-btn"
+                                        style="text-align: center;">View Listing</a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="stamp-card">
-                    <div class="img-container">
-                        <img src="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/D73/1.jpg" alt="Postset Birds Saba" loading="lazy" width="300" height="300">
-                        <div class="photo-badge">4 Photos</div>
-                    </div>
-                    <div class="details">
-                        <h3>Postset Birds Saba</h3>
-                        <div style="display: flex; gap: 8px; align-items: center;">
-                            <span class="stamp-year">Year: 2026</span>
-                            <small style="color: var(--text-light)">Netherlands</small>
+                    <div class="stamp-card">
+                        <div class="img-container">
+                            <img src="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/D73/1.jpg"
+                                alt="Postset Birds Saba" loading="lazy" width="300" height="300">
+                            <div class="photo-badge">4 Photos</div>
                         </div>
-                        <div class="stamp-desc">RN4144: Postset Birds Saba.The rugged, green island of Saba teems with extraordinary birds.            <b>Muliple Sets available</b>            </div>
-                        <div class="price-row">
-                            <div class="price">₹900</div>
-                            <div class="action-buttons">
-                                <a href="https://philatelyworld.in/item/RN4144/" class="buy-btn" style="text-align: center;">View Listing</a>
+                        <div class="details">
+                            <h3>Postset Birds Saba</h3>
+                            <div style="display: flex; gap: 8px; align-items: center;">
+                                <span class="stamp-year">Year: 2026</span>
+                                <small style="color: var(--text-light)">Netherlands</small>
+                            </div>
+                            <div class="stamp-desc">RN4144: Postset Birds Saba.The rugged, green island of Saba teems
+                                with extraordinary birds. <b>Muliple Sets available</b> </div>
+                            <div class="price-row">
+                                <div class="price">₹900</div>
+                                <div class="action-buttons">
+                                    <a href="https://philatelyworld.in/item/RN4144/" class="buy-btn"
+                                        style="text-align: center;">View Listing</a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="stamp-card">
-                    <div class="img-container">
-                        <img src="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/D65/1.jpg" alt="4 Reichspfennig stamp from the definitive series of Nazi Germany" loading="lazy" width="300" height="300">
-                        <div class="photo-badge">3 Photos</div>
-                    </div>
-                    <div class="details">
-                        <h3>4 Reichspfennig stamp from the definitive series of Nazi Germany</h3>
-                        <div style="display: flex; gap: 8px; align-items: center;">
-                            <span class="stamp-year">Year: 1941</span>
-                            <small style="color: var(--text-light)">Germany</small>
+                    <div class="stamp-card">
+                        <div class="img-container">
+                            <img src="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/D65/1.jpg"
+                                alt="4 Reichspfennig stamp from the definitive series of Nazi Germany" loading="lazy"
+                                width="300" height="300">
+                            <div class="photo-badge">3 Photos</div>
                         </div>
-                        <div class="stamp-desc">RN4135: 4 Reichspfennig stamp from the definitive series of Nazi Germany. Sheet of 72 stamps             </div>
-                        <div class="price-row">
-                            <div class="price">₹900</div>
-                            <div class="action-buttons">
-                                <a href="https://philatelyworld.in/item/RN4135/" class="buy-btn" style="text-align: center;">View Listing</a>
+                        <div class="details">
+                            <h3>4 Reichspfennig stamp from the definitive series of Nazi Germany</h3>
+                            <div style="display: flex; gap: 8px; align-items: center;">
+                                <span class="stamp-year">Year: 1941</span>
+                                <small style="color: var(--text-light)">Germany</small>
+                            </div>
+                            <div class="stamp-desc">RN4135: 4 Reichspfennig stamp from the definitive series of Nazi
+                                Germany. Sheet of 72 stamps </div>
+                            <div class="price-row">
+                                <div class="price">₹900</div>
+                                <div class="action-buttons">
+                                    <a href="https://philatelyworld.in/item/RN4135/" class="buy-btn"
+                                        style="text-align: center;">View Listing</a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="stamp-card">
-                    <div class="img-container">
-                        <img src="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/D64/1.jpg" alt="3 Reichspfennig stamp from the definitive series of Nazi Germany" loading="lazy" width="300" height="300">
-                        <div class="photo-badge">3 Photos</div>
-                    </div>
-                    <div class="details">
-                        <h3>3 Reichspfennig stamp from the definitive series of Nazi Germany</h3>
-                        <div style="display: flex; gap: 8px; align-items: center;">
-                            <span class="stamp-year">Year: 1941</span>
-                            <small style="color: var(--text-light)">Germany</small>
+                    <div class="stamp-card">
+                        <div class="img-container">
+                            <img src="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/D64/1.jpg"
+                                alt="3 Reichspfennig stamp from the definitive series of Nazi Germany" loading="lazy"
+                                width="300" height="300">
+                            <div class="photo-badge">3 Photos</div>
                         </div>
-                        <div class="stamp-desc">RN4134: 3 Reichspfennig stamp from the definitive series of Nazi Germany. Sheet of 90 stamps            <b> 5 copies available.</b>             </div>
-                        <div class="price-row">
-                            <div class="price">₹1200</div>
-                            <div class="action-buttons">
-                                <a href="https://philatelyworld.in/item/RN4134/" class="buy-btn" style="text-align: center;">View Listing</a>
+                        <div class="details">
+                            <h3>3 Reichspfennig stamp from the definitive series of Nazi Germany</h3>
+                            <div style="display: flex; gap: 8px; align-items: center;">
+                                <span class="stamp-year">Year: 1941</span>
+                                <small style="color: var(--text-light)">Germany</small>
+                            </div>
+                            <div class="stamp-desc">RN4134: 3 Reichspfennig stamp from the definitive series of Nazi
+                                Germany. Sheet of 90 stamps <b> 5 copies available.</b> </div>
+                            <div class="price-row">
+                                <div class="price">₹1200</div>
+                                <div class="action-buttons">
+                                    <a href="https://philatelyworld.in/item/RN4134/" class="buy-btn"
+                                        style="text-align: center;">View Listing</a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="stamp-card">
-                    <div class="img-container">
-                        <img src="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/D63/1.jpg" alt="The Dutch Water Defence Line" loading="lazy" width="300" height="300">
-                        <div class="photo-badge">1 Photos</div>
-                    </div>
-                    <div class="details">
-                        <h3>The Dutch Water Defence Line</h3>
-                        <div style="display: flex; gap: 8px; align-items: center;">
-                            <span class="stamp-year">Year: 2026</span>
-                            <small style="color: var(--text-light)">Netherlands</small>
+                    <div class="stamp-card">
+                        <div class="img-container">
+                            <img src="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/D63/1.jpg"
+                                alt="The Dutch Water Defence Line" loading="lazy" width="300" height="300">
+                            <div class="photo-badge">1 Photos</div>
                         </div>
-                        <div class="stamp-desc">RN4133: On 30 March 2026, PostNL issued the Dutch Water Defence Line stamp sheetlet, which contains photos and plans of 19th- and early 20th-century             defences in the Netherlands. The Dutch Water Defence Lines is the collective name for the New Dutch Water Line and the Defence Line of Amsterdam.             By flooding land in war situations, these defense lines could protect the west of the Netherlands against the enemy.            <b> muliple copies available.</b>             </div>
-                        <div class="price-row">
-                            <div class="price">₹1750</div>
-                            <div class="action-buttons">
-                                <a href="https://philatelyworld.in/item/RN4133/" class="buy-btn" style="text-align: center;">View Listing</a>
+                        <div class="details">
+                            <h3>The Dutch Water Defence Line</h3>
+                            <div style="display: flex; gap: 8px; align-items: center;">
+                                <span class="stamp-year">Year: 2026</span>
+                                <small style="color: var(--text-light)">Netherlands</small>
+                            </div>
+                            <div class="stamp-desc">RN4133: On 30 March 2026, PostNL issued the Dutch Water Defence Line
+                                stamp sheetlet, which contains photos and plans of 19th- and early 20th-century defences
+                                in the Netherlands. The Dutch Water Defence Lines is the collective name for the New
+                                Dutch Water Line and the Defence Line of Amsterdam. By flooding land in war situations,
+                                these defense lines could protect the west of the Netherlands against the enemy. <b>
+                                    muliple copies available.</b> </div>
+                            <div class="price-row">
+                                <div class="price">₹1750</div>
+                                <div class="action-buttons">
+                                    <a href="https://philatelyworld.in/item/RN4133/" class="buy-btn"
+                                        style="text-align: center;">View Listing</a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="stamp-card">
-                    <div class="img-container">
-                        <img src="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/D62/1.jpg" alt="Experience Nature - Butterflies Saba" loading="lazy" width="300" height="300">
-                        <div class="photo-badge">1 Photos</div>
-                    </div>
-                    <div class="details">
-                        <h3>Experience Nature - Butterflies Saba</h3>
-                        <div style="display: flex; gap: 8px; align-items: center;">
-                            <span class="stamp-year">Year: 2026</span>
-                            <small style="color: var(--text-light)">Netherlands</small>
+                    <div class="stamp-card">
+                        <div class="img-container">
+                            <img src="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/D62/1.jpg"
+                                alt="Experience Nature - Butterflies Saba" loading="lazy" width="300" height="300">
+                            <div class="photo-badge">1 Photos</div>
                         </div>
-                        <div class="stamp-desc">RN4132: On 30 March 2026, PostNL issued Experience Nature - Butterflies Saba, a sheet with 10 stamps in 10 different designs            <b> muliple copies available.</b>             </div>
-                        <div class="price-row">
-                            <div class="price">₹1750</div>
-                            <div class="action-buttons">
-                                <a href="https://philatelyworld.in/item/RN4132/" class="buy-btn" style="text-align: center;">View Listing</a>
+                        <div class="details">
+                            <h3>Experience Nature - Butterflies Saba</h3>
+                            <div style="display: flex; gap: 8px; align-items: center;">
+                                <span class="stamp-year">Year: 2026</span>
+                                <small style="color: var(--text-light)">Netherlands</small>
+                            </div>
+                            <div class="stamp-desc">RN4132: On 30 March 2026, PostNL issued Experience Nature -
+                                Butterflies Saba, a sheet with 10 stamps in 10 different designs <b> muliple copies
+                                    available.</b> </div>
+                            <div class="price-row">
+                                <div class="price">₹1750</div>
+                                <div class="action-buttons">
+                                    <a href="https://philatelyworld.in/item/RN4132/" class="buy-btn"
+                                        style="text-align: center;">View Listing</a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="stamp-card">
-                    <div class="img-container">
-                        <img src="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/Buzin2025/1.jpg" alt="40 Years of André Buzin’s Birds – “From Pen to Brush”" loading="lazy" width="300" height="300">
-                        <div class="photo-badge">1 Photos</div>
-                    </div>
-                    <div class="details">
-                        <h3>40 Years of André Buzin’s Birds – “From Pen to Brush”</h3>
-                        <div style="display: flex; gap: 8px; align-items: center;">
-                            <span class="stamp-year">Year: 2025</span>
-                            <small style="color: var(--text-light)">Belgium</small>
+                    <div class="stamp-card">
+                        <div class="img-container">
+                            <img src="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/Buzin2025/1.jpg"
+                                alt="40 Years of André Buzin’s Birds – “From Pen to Brush”" loading="lazy" width="300"
+                                height="300">
+                            <div class="photo-badge">1 Photos</div>
                         </div>
-                        <div class="stamp-desc">RN4131: 40 Years of André Buzin’s Birds  'From Pen to Brush'            <b> 5 copies available.</b>             </div>
-                        <div class="price-row">
-                            <div class="price">₹1485</div>
-                            <div class="action-buttons">
-                                <a href="https://philatelyworld.in/item/RN4131/" class="buy-btn" style="text-align: center;">View Listing</a>
+                        <div class="details">
+                            <h3>40 Years of André Buzin’s Birds – “From Pen to Brush”</h3>
+                            <div style="display: flex; gap: 8px; align-items: center;">
+                                <span class="stamp-year">Year: 2025</span>
+                                <small style="color: var(--text-light)">Belgium</small>
+                            </div>
+                            <div class="stamp-desc">RN4131: 40 Years of André Buzin’s Birds 'From Pen to Brush' <b> 5
+                                    copies available.</b> </div>
+                            <div class="price-row">
+                                <div class="price">₹1485</div>
+                                <div class="action-buttons">
+                                    <a href="https://philatelyworld.in/item/RN4131/" class="buy-btn"
+                                        style="text-align: center;">View Listing</a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="stamp-card">
-                    <div class="img-container">
-                        <img src="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/D59/1.jpg" alt="MS OF Indian Masks Series 15 APRIL 1974" loading="lazy" width="300" height="300">
-                        <div class="photo-badge">1 Photos</div>
-                    </div>
-                    <div class="details">
-                        <h3>MS OF Indian Masks Series 15 APRIL 1974</h3>
-                        <div style="display: flex; gap: 8px; align-items: center;">
-                            <span class="stamp-year">Year: 1974</span>
-                            <small style="color: var(--text-light)">India</small>
+                    <div class="stamp-card">
+                        <div class="img-container">
+                            <img src="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/D59/1.jpg"
+                                alt="MS OF Indian Masks Series 15 APRIL 1974" loading="lazy" width="300" height="300">
+                            <div class="photo-badge">1 Photos</div>
                         </div>
-                        <div class="stamp-desc">RN4128: MS OF Indian Masks Series 15 APRIL 1974.            <b> 3 copies available.</b>             </div>
-                        <div class="price-row">
-                            <div class="price">₹1300</div>
-                            <div class="action-buttons">
-                                <a href="https://philatelyworld.in/item/RN4128/" class="buy-btn" style="text-align: center;">View Listing</a>
+                        <div class="details">
+                            <h3>MS OF Indian Masks Series 15 APRIL 1974</h3>
+                            <div style="display: flex; gap: 8px; align-items: center;">
+                                <span class="stamp-year">Year: 1974</span>
+                                <small style="color: var(--text-light)">India</small>
+                            </div>
+                            <div class="stamp-desc">RN4128: MS OF Indian Masks Series 15 APRIL 1974. <b> 3 copies
+                                    available.</b> </div>
+                            <div class="price-row">
+                                <div class="price">₹1300</div>
+                                <div class="action-buttons">
+                                    <a href="https://philatelyworld.in/item/RN4128/" class="buy-btn"
+                                        style="text-align: center;">View Listing</a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="stamp-card">
-                    <div class="img-container">
-                        <img src="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/D38/1.jpg" alt="Buzin birds collection from Belgium." loading="lazy" width="300" height="300">
-                        <div class="photo-badge">2 Photos</div>
-                    </div>
-                    <div class="details">
-                        <h3>Buzin birds collection from Belgium.</h3>
-                        <div style="display: flex; gap: 8px; align-items: center;">
-                            <span class="stamp-year">Year: 1980+</span>
-                            <small style="color: var(--text-light)">Belgium</small>
+                    <div class="stamp-card">
+                        <div class="img-container">
+                            <img src="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/D38/1.jpg"
+                                alt="Buzin birds collection from Belgium." loading="lazy" width="300" height="300">
+                            <div class="photo-badge">2 Photos</div>
                         </div>
-                        <div class="stamp-desc">RN4103: MNH stamps from Belgium on theme birds.            Check the photos. What you see is what you get.</div>
-                        <div class="price-row">
-                            <div class="price">₹899</div>
-                            <div class="action-buttons">
-                                <a href="https://philatelyworld.in/item/RN4103/" class="buy-btn" style="text-align: center;">View Listing</a>
+                        <div class="details">
+                            <h3>Buzin birds collection from Belgium.</h3>
+                            <div style="display: flex; gap: 8px; align-items: center;">
+                                <span class="stamp-year">Year: 1980+</span>
+                                <small style="color: var(--text-light)">Belgium</small>
+                            </div>
+                            <div class="stamp-desc">RN4103: MNH stamps from Belgium on theme birds. Check the photos.
+                                What you see is what you get.</div>
+                            <div class="price-row">
+                                <div class="price">₹899</div>
+                                <div class="action-buttons">
+                                    <a href="https://philatelyworld.in/item/RN4103/" class="buy-btn"
+                                        style="text-align: center;">View Listing</a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="stamp-card">
-                    <div class="img-container">
-                        <img src="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/D37/1.jpg" alt="Classic German Reich and DDR used/MH stamp collection." loading="lazy" width="300" height="300">
-                        <div class="photo-badge">48 Photos</div>
-                    </div>
-                    <div class="details">
-                        <h3>Classic German Reich and DDR used/MH stamp collection.</h3>
-                        <div style="display: flex; gap: 8px; align-items: center;">
-                            <span class="stamp-year">Year: 1900+</span>
-                            <small style="color: var(--text-light)">German Reich</small>
+                    <div class="stamp-card">
+                        <div class="img-container">
+                            <img src="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/D37/1.jpg"
+                                alt="Classic German Reich and DDR used/MH stamp collection." loading="lazy" width="300"
+                                height="300">
+                            <div class="photo-badge">48 Photos</div>
                         </div>
-                        <div class="stamp-desc">RN4102: Thick stockbook with classic German Reich and DDR used/MH stamp collection.            Check the photos. What you see is what you get.            <b>Album for free</b></div>
-                        <div class="price-row">
-                            <div class="price">₹12500</div>
-                            <div class="action-buttons">
-                                <a href="https://philatelyworld.in/item/RN4102/" class="buy-btn" style="text-align: center;">View Listing</a>
+                        <div class="details">
+                            <h3>Classic German Reich and DDR used/MH stamp collection.</h3>
+                            <div style="display: flex; gap: 8px; align-items: center;">
+                                <span class="stamp-year">Year: 1900+</span>
+                                <small style="color: var(--text-light)">German Reich</small>
+                            </div>
+                            <div class="stamp-desc">RN4102: Thick stockbook with classic German Reich and DDR used/MH
+                                stamp collection. Check the photos. What you see is what you get. <b>Album for free</b>
+                            </div>
+                            <div class="price-row">
+                                <div class="price">₹12500</div>
+                                <div class="action-buttons">
+                                    <a href="https://philatelyworld.in/item/RN4102/" class="buy-btn"
+                                        style="text-align: center;">View Listing</a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="stamp-card">
-                    <div class="img-container">
-                        <img src="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/D34/1.jpg" alt="Thick stockbook with stamp collection Spain. Old classic high CV." loading="lazy" width="300" height="300">
-                        <div class="photo-badge">29 Photos</div>
-                    </div>
-                    <div class="details">
-                        <h3>Thick stockbook with stamp collection Spain. Old classic high CV.</h3>
-                        <div style="display: flex; gap: 8px; align-items: center;">
-                            <span class="stamp-year">Year: 1900+</span>
-                            <small style="color: var(--text-light)">Spain</small>
+                    <div class="stamp-card">
+                        <div class="img-container">
+                            <img src="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/D34/1.jpg"
+                                alt="Thick stockbook with stamp collection Spain. Old classic high CV." loading="lazy"
+                                width="300" height="300">
+                            <div class="photo-badge">29 Photos</div>
                         </div>
-                        <div class="stamp-desc">RN4099: Thick stockbook with stamp collection Spain.            Check the photos. What you see is what you get.            <b>Album for free</b></div>
-                        <div class="price-row">
-                            <div class="price">₹9999</div>
-                            <div class="action-buttons">
-                                <a href="https://philatelyworld.in/item/RN4099/" class="buy-btn" style="text-align: center;">View Listing</a>
+                        <div class="details">
+                            <h3>Thick stockbook with stamp collection Spain. Old classic high CV.</h3>
+                            <div style="display: flex; gap: 8px; align-items: center;">
+                                <span class="stamp-year">Year: 1900+</span>
+                                <small style="color: var(--text-light)">Spain</small>
+                            </div>
+                            <div class="stamp-desc">RN4099: Thick stockbook with stamp collection Spain. Check the
+                                photos. What you see is what you get. <b>Album for free</b></div>
+                            <div class="price-row">
+                                <div class="price">₹9999</div>
+                                <div class="action-buttons">
+                                    <a href="https://philatelyworld.in/item/RN4099/" class="buy-btn"
+                                        style="text-align: center;">View Listing</a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="stamp-card">
-                    <div class="img-container">
-                        <img src="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/D32/1.jpg" alt="Several different definitive stamp sheets from India." loading="lazy" width="300" height="300">
-                        <div class="photo-badge">5 Photos</div>
-                    </div>
-                    <div class="details">
-                        <h3>Several different definitive stamp sheets from India.</h3>
-                        <div style="display: flex; gap: 8px; align-items: center;">
-                            <span class="stamp-year">Year: 1980+</span>
-                            <small style="color: var(--text-light)">India</small>
+                    <div class="stamp-card">
+                        <div class="img-container">
+                            <img src="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/D32/1.jpg"
+                                alt="Several different definitive stamp sheets from India." loading="lazy" width="300"
+                                height="300">
+                            <div class="photo-badge">5 Photos</div>
                         </div>
-                        <div class="stamp-desc">RN4097: Several different definitive stamp sheets from India.            Check the photos. What you see is what you get.</div>
-                        <div class="price-row">
-                            <div class="price">₹1615</div>
-                            <div class="action-buttons">
-                                <a href="https://philatelyworld.in/item/RN4097/" class="buy-btn" style="text-align: center;">View Listing</a>
+                        <div class="details">
+                            <h3>Several different definitive stamp sheets from India.</h3>
+                            <div style="display: flex; gap: 8px; align-items: center;">
+                                <span class="stamp-year">Year: 1980+</span>
+                                <small style="color: var(--text-light)">India</small>
+                            </div>
+                            <div class="stamp-desc">RN4097: Several different definitive stamp sheets from India. Check
+                                the photos. What you see is what you get.</div>
+                            <div class="price-row">
+                                <div class="price">₹1615</div>
+                                <div class="action-buttons">
+                                    <a href="https://philatelyworld.in/item/RN4097/" class="buy-btn"
+                                        style="text-align: center;">View Listing</a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="stamp-card">
-                    <div class="img-container">
-                        <img src="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/D16/1.jpg" alt="German Reich set of 27 stamps(few repeated)" loading="lazy" width="300" height="300">
-                        <div class="photo-badge">1 Photos</div>
-                    </div>
-                    <div class="details">
-                        <h3>German Reich set of 27 stamps(few repeated)</h3>
-                        <div style="display: flex; gap: 8px; align-items: center;">
-                            <span class="stamp-year">Year:1941-1944</span>
-                            <small style="color: var(--text-light)">German Reich</small>
+                    <div class="stamp-card">
+                        <div class="img-container">
+                            <img src="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/D16/1.jpg"
+                                alt="German Reich set of 27 stamps(few repeated)" loading="lazy" width="300"
+                                height="300">
+                            <div class="photo-badge">1 Photos</div>
                         </div>
-                        <div class="stamp-desc">RN4081: German Reich set of 27 stamps(few repeated)            Check the photo. What you see is what you get.. </div>
-                        <div class="price-row">
-                            <div class="price">₹899</div>
-                            <div class="action-buttons">
-                                <a href="https://philatelyworld.in/item/RN4081/" class="buy-btn" style="text-align: center;">View Listing</a>
+                        <div class="details">
+                            <h3>German Reich set of 27 stamps(few repeated)</h3>
+                            <div style="display: flex; gap: 8px; align-items: center;">
+                                <span class="stamp-year">Year:1941-1944</span>
+                                <small style="color: var(--text-light)">German Reich</small>
+                            </div>
+                            <div class="stamp-desc">RN4081: German Reich set of 27 stamps(few repeated) Check the photo.
+                                What you see is what you get.. </div>
+                            <div class="price-row">
+                                <div class="price">₹899</div>
+                                <div class="action-buttons">
+                                    <a href="https://philatelyworld.in/item/RN4081/" class="buy-btn"
+                                        style="text-align: center;">View Listing</a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="stamp-card">
-                    <div class="img-container">
-                        <img src="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/D8/1.jpg" alt="Around 550 FDC's from Netherlands" loading="lazy" width="300" height="300">
-                        <div class="photo-badge">3 Photos</div>
-                    </div>
-                    <div class="details">
-                        <h3>Around 550 FDC's from Netherlands</h3>
-                        <div style="display: flex; gap: 8px; align-items: center;">
-                            <span class="stamp-year">Year: 1965 - 1999</span>
-                            <small style="color: var(--text-light)">Netherlands</small>
+                    <div class="stamp-card">
+                        <div class="img-container">
+                            <img src="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/D8/1.jpg"
+                                alt="Around 550 FDC's from Netherlands" loading="lazy" width="300" height="300">
+                            <div class="photo-badge">3 Photos</div>
                         </div>
-                        <div class="stamp-desc">RN4073: Around 550 FDCs from Netherlands Each FDC is atleast with 2 stamps on it..             many are with whole miniature sheets.             Price: <b>Rs.40</b> per FDC.             Total will be <b>Rs.22000</b></div>
-                        <div class="price-row">
-                            <div class="price">₹22000</div>
-                            <div class="action-buttons">
-                                <a href="https://philatelyworld.in/item/RN4073/" class="buy-btn" style="text-align: center;">View Listing</a>
+                        <div class="details">
+                            <h3>Around 550 FDC's from Netherlands</h3>
+                            <div style="display: flex; gap: 8px; align-items: center;">
+                                <span class="stamp-year">Year: 1965 - 1999</span>
+                                <small style="color: var(--text-light)">Netherlands</small>
+                            </div>
+                            <div class="stamp-desc">RN4073: Around 550 FDCs from Netherlands Each FDC is atleast with 2
+                                stamps on it.. many are with whole miniature sheets. Price: <b>Rs.40</b> per FDC. Total
+                                will be <b>Rs.22000</b></div>
+                            <div class="price-row">
+                                <div class="price">₹22000</div>
+                                <div class="action-buttons">
+                                    <a href="https://philatelyworld.in/item/RN4073/" class="buy-btn"
+                                        style="text-align: center;">View Listing</a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="stamp-card">
-                    <div class="img-container">
-                        <img src="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/D7/1.jpg" alt="Complete set of 11 MS from India 2025" loading="lazy" width="300" height="300">
-                        <div class="photo-badge">7 Photos</div>
-                    </div>
-                    <div class="details">
-                        <h3>Complete set of 11 MS from India 2025</h3>
-                        <div style="display: flex; gap: 8px; align-items: center;">
-                            <span class="stamp-year">Year: 2025</span>
-                            <small style="color: var(--text-light)">India</small>
+                    <div class="stamp-card">
+                        <div class="img-container">
+                            <img src="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/D7/1.jpg"
+                                alt="Complete set of 11 MS from India 2025" loading="lazy" width="300" height="300">
+                            <div class="photo-badge">7 Photos</div>
                         </div>
-                        <div class="stamp-desc">RN4072: Complete set of MS from India + Free letter post shipping worldwide</div>
-                        <div class="price-row">
-                            <div class="price">₹2150</div>
-                            <div class="action-buttons">
-                                <a href="https://philatelyworld.in/item/RN4072/" class="buy-btn" style="text-align: center;">View Listing</a>
+                        <div class="details">
+                            <h3>Complete set of 11 MS from India 2025</h3>
+                            <div style="display: flex; gap: 8px; align-items: center;">
+                                <span class="stamp-year">Year: 2025</span>
+                                <small style="color: var(--text-light)">India</small>
+                            </div>
+                            <div class="stamp-desc">RN4072: Complete set of MS from India + Free letter post shipping
+                                worldwide</div>
+                            <div class="price-row">
+                                <div class="price">₹2150</div>
+                                <div class="action-buttons">
+                                    <a href="https://philatelyworld.in/item/RN4072/" class="buy-btn"
+                                        style="text-align: center;">View Listing</a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="stamp-card">
-                    <div class="img-container">
-                        <img src="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/D6/1.jpg" alt="Experience Nature - Butterflies of Sint Eustatius" loading="lazy" width="300" height="300">
-                        <div class="photo-badge">1 Photos</div>
-                    </div>
-                    <div class="details">
-                        <h3>Experience Nature - Butterflies of Sint Eustatius</h3>
-                        <div style="display: flex; gap: 8px; align-items: center;">
-                            <span class="stamp-year">Year: 2025</span>
-                            <small style="color: var(--text-light)">Netherlands</small>
+                    <div class="stamp-card">
+                        <div class="img-container">
+                            <img src="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/D6/1.jpg"
+                                alt="Experience Nature - Butterflies of Sint Eustatius" loading="lazy" width="300"
+                                height="300">
+                            <div class="photo-badge">1 Photos</div>
                         </div>
-                        <div class="stamp-desc">RN4071:On March 31, 2025, PostNL will release Experience Nature - Butterflies of Sint Eustatius,             a sheet of 10 stamps in 10 different designs. </div>
-                        <div class="price-row">
-                            <div class="price">₹1640</div>
-                            <div class="action-buttons">
-                                <a href="https://philatelyworld.in/item/RN4071/" class="buy-btn" style="text-align: center;">View Listing</a>
+                        <div class="details">
+                            <h3>Experience Nature - Butterflies of Sint Eustatius</h3>
+                            <div style="display: flex; gap: 8px; align-items: center;">
+                                <span class="stamp-year">Year: 2025</span>
+                                <small style="color: var(--text-light)">Netherlands</small>
+                            </div>
+                            <div class="stamp-desc">RN4071:On March 31, 2025, PostNL will release Experience Nature -
+                                Butterflies of Sint Eustatius, a sheet of 10 stamps in 10 different designs. </div>
+                            <div class="price-row">
+                                <div class="price">₹1640</div>
+                                <div class="action-buttons">
+                                    <a href="https://philatelyworld.in/item/RN4071/" class="buy-btn"
+                                        style="text-align: center;">View Listing</a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="stamp-card">
-                    <div class="img-container">
-                        <img src="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/D5/1.jpg" alt="Experience Nature - Birds Sint Eustatius" loading="lazy" width="300" height="300">
-                        <div class="photo-badge">1 Photos</div>
-                    </div>
-                    <div class="details">
-                        <h3>Experience Nature - Birds Sint Eustatius</h3>
-                        <div style="display: flex; gap: 8px; align-items: center;">
-                            <span class="stamp-year">Year: 2025</span>
-                            <small style="color: var(--text-light)">Netherlands</small>
+                    <div class="stamp-card">
+                        <div class="img-container">
+                            <img src="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/D5/1.jpg"
+                                alt="Experience Nature - Birds Sint Eustatius" loading="lazy" width="300" height="300">
+                            <div class="photo-badge">1 Photos</div>
                         </div>
-                        <div class="stamp-desc">RN4070:On January 2, 2025, PostNL will release Experience Nature - Birds Sint Eustatius,             a sheet of 10 stamps in 10 different designs. </div>
-                        <div class="price-row">
-                            <div class="price">₹1640</div>
-                            <div class="action-buttons">
-                                <a href="https://philatelyworld.in/item/RN4070/" class="buy-btn" style="text-align: center;">View Listing</a>
+                        <div class="details">
+                            <h3>Experience Nature - Birds Sint Eustatius</h3>
+                            <div style="display: flex; gap: 8px; align-items: center;">
+                                <span class="stamp-year">Year: 2025</span>
+                                <small style="color: var(--text-light)">Netherlands</small>
+                            </div>
+                            <div class="stamp-desc">RN4070:On January 2, 2025, PostNL will release Experience Nature -
+                                Birds Sint Eustatius, a sheet of 10 stamps in 10 different designs. </div>
+                            <div class="price-row">
+                                <div class="price">₹1640</div>
+                                <div class="action-buttons">
+                                    <a href="https://philatelyworld.in/item/RN4070/" class="buy-btn"
+                                        style="text-align: center;">View Listing</a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="stamp-card">
-                    <div class="img-container">
-                        <img src="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/D4/1.jpg" alt="Silver stamp – Dutch motorcycle brands – Eysink 1953" loading="lazy" width="300" height="300">
-                        <div class="photo-badge">2 Photos</div>
-                    </div>
-                    <div class="details">
-                        <h3>Silver stamp – Dutch motorcycle brands – Eysink 1953</h3>
-                        <div style="display: flex; gap: 8px; align-items: center;">
-                            <span class="stamp-year">Year: 2025</span>
-                            <small style="color: var(--text-light)">Netherlands</small>
+                    <div class="stamp-card">
+                        <div class="img-container">
+                            <img src="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/D4/1.jpg"
+                                alt="Silver stamp – Dutch motorcycle brands – Eysink 1953" loading="lazy" width="300"
+                                height="300">
+                            <div class="photo-badge">2 Photos</div>
                         </div>
-                        <div class="stamp-desc">RN4069:Designer Frank Janse is commemorating this Dutch motorcycle classic with a silver stamp,             presented in a luxurious mat. </div>
-                        <div class="price-row">
-                            <div class="price">₹2770</div>
-                            <div class="action-buttons">
-                                <a href="https://philatelyworld.in/item/RN4069/" class="buy-btn" style="text-align: center;">View Listing</a>
+                        <div class="details">
+                            <h3>Silver stamp – Dutch motorcycle brands – Eysink 1953</h3>
+                            <div style="display: flex; gap: 8px; align-items: center;">
+                                <span class="stamp-year">Year: 2025</span>
+                                <small style="color: var(--text-light)">Netherlands</small>
+                            </div>
+                            <div class="stamp-desc">RN4069:Designer Frank Janse is commemorating this Dutch motorcycle
+                                classic with a silver stamp, presented in a luxurious mat. </div>
+                            <div class="price-row">
+                                <div class="price">₹2770</div>
+                                <div class="action-buttons">
+                                    <a href="https://philatelyworld.in/item/RN4069/" class="buy-btn"
+                                        style="text-align: center;">View Listing</a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="stamp-card">
-                    <div class="img-container">
-                        <img src="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/D3/1.jpg" alt="The Bull stamp sheet" loading="lazy" width="300" height="300">
-                        <div class="photo-badge">6 Photos</div>
-                    </div>
-                    <div class="details">
-                        <h3>The Bull stamp sheet</h3>
-                        <div style="display: flex; gap: 8px; align-items: center;">
-                            <span class="stamp-year">Year: 2026</span>
-                            <small style="color: var(--text-light)">Netherlands</small>
+                    <div class="stamp-card">
+                        <div class="img-container">
+                            <img src="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/D3/1.jpg"
+                                alt="The Bull stamp sheet" loading="lazy" width="300" height="300">
+                            <div class="photo-badge">6 Photos</div>
                         </div>
-                        <div class="stamp-desc">RN4066: On January 15, 2026, PostNL will issue the The Bull stamp sheet featuring             the eponymous painting by Paulus Potter. </div>
-                        <div class="price-row">
-                            <div class="price">₹770</div>
-                            <div class="action-buttons">
-                                <a href="https://philatelyworld.in/item/RN4066/" class="buy-btn" style="text-align: center;">View Listing</a>
+                        <div class="details">
+                            <h3>The Bull stamp sheet</h3>
+                            <div style="display: flex; gap: 8px; align-items: center;">
+                                <span class="stamp-year">Year: 2026</span>
+                                <small style="color: var(--text-light)">Netherlands</small>
+                            </div>
+                            <div class="stamp-desc">RN4066: On January 15, 2026, PostNL will issue the The Bull stamp
+                                sheet featuring the eponymous painting by Paulus Potter. </div>
+                            <div class="price-row">
+                                <div class="price">₹770</div>
+                                <div class="action-buttons">
+                                    <a href="https://philatelyworld.in/item/RN4066/" class="buy-btn"
+                                        style="text-align: center;">View Listing</a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="stamp-card">
-                    <div class="img-container">
-                        <img src="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/D2/1.jpg" alt="Experience nature - birds Saba" loading="lazy" width="300" height="300">
-                        <div class="photo-badge">1 Photos</div>
-                    </div>
-                    <div class="details">
-                        <h3>Experience nature - birds Saba</h3>
-                        <div style="display: flex; gap: 8px; align-items: center;">
-                            <span class="stamp-year">Year: 2026</span>
-                            <small style="color: var(--text-light)">Netherlands</small>
+                    <div class="stamp-card">
+                        <div class="img-container">
+                            <img src="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/D2/1.jpg"
+                                alt="Experience nature - birds Saba" loading="lazy" width="300" height="300">
+                            <div class="photo-badge">1 Photos</div>
                         </div>
-                        <div class="stamp-desc">RN4067: On January 5, 2026, PostNL will release Experience Nature - Birds of Saba,             a sheet of 10 stamps in 10 different designs. </div>
-                        <div class="price-row">
-                            <div class="price">₹1640</div>
-                            <div class="action-buttons">
-                                <a href="https://philatelyworld.in/item/RN4067/" class="buy-btn" style="text-align: center;">View Listing</a>
+                        <div class="details">
+                            <h3>Experience nature - birds Saba</h3>
+                            <div style="display: flex; gap: 8px; align-items: center;">
+                                <span class="stamp-year">Year: 2026</span>
+                                <small style="color: var(--text-light)">Netherlands</small>
+                            </div>
+                            <div class="stamp-desc">RN4067: On January 5, 2026, PostNL will release Experience Nature -
+                                Birds of Saba, a sheet of 10 stamps in 10 different designs. </div>
+                            <div class="price-row">
+                                <div class="price">₹1640</div>
+                                <div class="action-buttons">
+                                    <a href="https://philatelyworld.in/item/RN4067/" class="buy-btn"
+                                        style="text-align: center;">View Listing</a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="stamp-card">
-                    <div class="img-container">
-                        <img src="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/D1/1.jpg" alt="New Dutch Design – Terugkerende Herinneringen (Returning Memories)" loading="lazy" width="300" height="300">
-                        <div class="photo-badge">3 Photos</div>
-                    </div>
-                    <div class="details">
-                        <h3>New Dutch Design – Terugkerende Herinneringen (Returning Memories)</h3>
-                        <div style="display: flex; gap: 8px; align-items: center;">
-                            <span class="stamp-year">Year: 2026</span>
-                            <small style="color: var(--text-light)">Netherlands</small>
+                    <div class="stamp-card">
+                        <div class="img-container">
+                            <img src="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/D1/1.jpg"
+                                alt="New Dutch Design – Terugkerende Herinneringen (Returning Memories)" loading="lazy"
+                                width="300" height="300">
+                            <div class="photo-badge">3 Photos</div>
                         </div>
-                        <div class="stamp-desc">RN4068: On February 16, 2026, PostNL will issue the New Dutch Design – Terugkerende Herinneringen             (Returning Memories) stamps, the first sheet of this year's New Dutch Design series.</div>
-                        <div class="price-row">
-                            <div class="price">₹990</div>
-                            <div class="action-buttons">
-                                <a href="https://philatelyworld.in/item/RN4068/" class="buy-btn" style="text-align: center;">View Listing</a>
+                        <div class="details">
+                            <h3>New Dutch Design – Terugkerende Herinneringen (Returning Memories)</h3>
+                            <div style="display: flex; gap: 8px; align-items: center;">
+                                <span class="stamp-year">Year: 2026</span>
+                                <small style="color: var(--text-light)">Netherlands</small>
+                            </div>
+                            <div class="stamp-desc">RN4068: On February 16, 2026, PostNL will issue the New Dutch Design
+                                – Terugkerende Herinneringen (Returning Memories) stamps, the first sheet of this year's
+                                New Dutch Design series.</div>
+                            <div class="price-row">
+                                <div class="price">₹990</div>
+                                <div class="action-buttons">
+                                    <a href="https://philatelyworld.in/item/RN4068/" class="buy-btn"
+                                        style="text-align: center;">View Listing</a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="stamp-card">
-                    <div class="img-container">
-                        <img src="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/001/1.jpg" alt="Indipex 73' India International Philatelic Exhibition" loading="lazy" width="300" height="300">
-                        <div class="photo-badge">1 Photos</div>
-                    </div>
-                    <div class="details">
-                        <h3>Indipex 73' India International Philatelic Exhibition</h3>
-                        <div style="display: flex; gap: 8px; align-items: center;">
-                            <span class="stamp-year">Year: 1973</span>
-                            <small style="color: var(--text-light)">India</small>
+                    <div class="stamp-card">
+                        <div class="img-container">
+                            <img src="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/001/1.jpg"
+                                alt="Indipex 73' India International Philatelic Exhibition" loading="lazy" width="300"
+                                height="300">
+                            <div class="photo-badge">1 Photos</div>
                         </div>
-                        <div class="stamp-desc">RN4060: MNH MS from India</div>
-                        <div class="price-row">
-                            <div class="price">₹999</div>
-                            <div class="action-buttons">
-                                <a href="https://philatelyworld.in/item/RN4060/" class="buy-btn" style="text-align: center;">View Listing</a>
+                        <div class="details">
+                            <h3>Indipex 73' India International Philatelic Exhibition</h3>
+                            <div style="display: flex; gap: 8px; align-items: center;">
+                                <span class="stamp-year">Year: 1973</span>
+                                <small style="color: var(--text-light)">India</small>
+                            </div>
+                            <div class="stamp-desc">RN4060: MNH MS from India</div>
+                            <div class="price-row">
+                                <div class="price">₹999</div>
+                                <div class="action-buttons">
+                                    <a href="https://philatelyworld.in/item/RN4060/" class="buy-btn"
+                                        style="text-align: center;">View Listing</a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="stamp-card">
-                    <div class="img-container">
-                        <img src="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/003/1.jpg" alt="UPU Centenary" loading="lazy" width="300" height="300">
-                        <div class="photo-badge">1 Photos</div>
-                    </div>
-                    <div class="details">
-                        <h3>UPU Centenary</h3>
-                        <div style="display: flex; gap: 8px; align-items: center;">
-                            <span class="stamp-year">Year: 1974</span>
-                            <small style="color: var(--text-light)">India</small>
+                    <div class="stamp-card">
+                        <div class="img-container">
+                            <img src="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/003/1.jpg"
+                                alt="UPU Centenary" loading="lazy" width="300" height="300">
+                            <div class="photo-badge">1 Photos</div>
                         </div>
-                        <div class="stamp-desc">RN4062: MNH MS from India</div>
-                        <div class="price-row">
-                            <div class="price">₹1820</div>
-                            <div class="action-buttons">
-                                <a href="https://philatelyworld.in/item/RN4062/" class="buy-btn" style="text-align: center;">View Listing</a>
+                        <div class="details">
+                            <h3>UPU Centenary</h3>
+                            <div style="display: flex; gap: 8px; align-items: center;">
+                                <span class="stamp-year">Year: 1974</span>
+                                <small style="color: var(--text-light)">India</small>
+                            </div>
+                            <div class="stamp-desc">RN4062: MNH MS from India</div>
+                            <div class="price-row">
+                                <div class="price">₹1820</div>
+                                <div class="action-buttons">
+                                    <a href="https://philatelyworld.in/item/RN4062/" class="buy-btn"
+                                        style="text-align: center;">View Listing</a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-<!-- STAMP_GRID_END -->
+                    <!-- STAMP_GRID_END -->
                 </div>
             </div>
         </div>
@@ -1607,6 +1886,16 @@
     </div>
 
     <button id="backToTop" title="Go to top">↑</button>
+
+    <div class="mobile-search-backdrop" id="mobileSearchBackdrop" aria-hidden="true"></div>
+    <button type="button" class="mobile-search-fab" id="mobileSearchToggle" aria-label="Search the collection"
+        aria-expanded="false" aria-controls="stampSearch">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"
+            stroke-linejoin="round" aria-hidden="true">
+            <circle cx="11" cy="11" r="7"></circle>
+            <path d="m20 20-3.5-3.5"></path>
+        </svg>
+    </button>
 
     <footer class="main-footer">
         <p>&copy; 2017-2026 Philately World Gallery</p>
@@ -1712,7 +2001,7 @@
                 const blogTab = document.querySelector('.filter-tab[data-status="blog"]');
                 if (blogTab) blogTab.click();
                 // Blog is the selected section in the shared masthead on /index.html?tab=blog
-                document.querySelectorAll('.news-nav a').forEach(a => {
+                document.querySelectorAll('.news-nav > a').forEach(a => {
                     a.classList.toggle('active', a.getAttribute('href') === 'index.html?tab=blog');
                 });
                 // Show the blog hero instead of the catalogue hero
@@ -1722,9 +2011,11 @@
             });
         }
     </script>
-    <script defer src="script.js?v=20261026"></script>
-    <script defer src="catalog-filters.js?v=20261031"></script>
+    <script defer src="script.js?v=20261101"></script>
+    <script defer src="catalog-filters.js?v=20261101"></script>
     <script defer src="home-news.js?v=20261031"></script>
+    <script defer src="menu.js?v=20261101"></script>
+    <script defer src="mobile-search.js?v=20261101"></script>
 </body>
 
 </html>

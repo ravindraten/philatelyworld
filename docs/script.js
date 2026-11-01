@@ -342,20 +342,25 @@ function initEventListeners() {
         }
     });
 
-    // Reset view when the search bar is selected (tapped/clicked) on mobile only
+    // Reset view when the inline search bar is selected on mobile. Pages with
+    // the floating search sheet skip this, since the sheet is fixed and must
+    // not move the page.
     searchInput.addEventListener('focus', () => {
-        if (window.matchMedia('(max-width: 800px)').matches) {
+        if (window.matchMedia('(max-width: 800px)').matches &&
+            !document.body.classList.contains('has-mobile-search')) {
             // Delay slightly to allow the mobile keyboard to appear first
             setTimeout(() => {
                 scrollToGrid();
             }, 300);
         }
     });
-
     // Handle "Enter" key
     searchInput.addEventListener('keydown', (e) => {
         if (e.key === 'Enter') {
             e.preventDefault();
+            // The floating mobile search sheet closes and jumps to results itself.
+            if (document.body.classList.contains('has-mobile-search') &&
+                window.matchMedia('(max-width: 800px)').matches) return;
             scrollToGrid();
             searchInput.blur();
         }

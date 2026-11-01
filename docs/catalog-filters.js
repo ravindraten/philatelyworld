@@ -41,6 +41,27 @@
 
     if (!els.rail) return;
 
+    /* Mobile hero quick-filter chips (Available now / FDCs / Miniature sheets).
+     * They drive the same rail buttons, so status, country and theme logic stay
+     * in one place. */
+    const quickChips = Array.prototype.slice.call(
+        document.querySelectorAll('.mobile-chip[data-quick-type]')
+    );
+
+    function syncQuickChips() {
+        if (!quickChips.length) return;
+        const status = activeTabStatus();
+        const themeButton = els.theme ? els.theme.querySelector('button[data-theme].is-active') : null;
+        const theme = themeButton ? (themeButton.getAttribute('data-theme') || '') : '';
+        quickChips.forEach(function (chip) {
+            const type = chip.getAttribute('data-quick-type');
+            const value = chip.getAttribute('data-quick-value');
+            const active = type === 'status' ? status === value : theme === value;
+            chip.classList.toggle('is-active', active);
+            chip.setAttribute('aria-pressed', String(active));
+        });
+    }
+
     function esc(value) {
         return String(value == null ? '' : value).replace(/[&<>"']/g, function (c) {
             return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
@@ -307,6 +328,7 @@
             searchInputHandler((document.getElementById('stampSearch') || {}).value || '');
             renderAvailability();
             updateClearButton();
+            syncQuickChips();
             syncRail();
             scrollToGridTop();
         });
@@ -335,8 +357,34 @@
             filterState.theme = button.getAttribute('data-theme') || '';
             renderThemes();
             updateClearButton();
+            syncQuickChips();
             applyFilters();
             scrollToGridTop();
+        });
+    }
+
+    if (quickChips.length) {
+        quickChips.forEach(function (chip) {
+            chip.addEventListener('click', function () {
+                const type = chip.getAttribute('data-quick-type');
+                const value = chip.getAttribute('data-quick-value') || '';
+                let target = null;
+
+                if (type === 'status') {
+                    target = els.availability
+                        ? els.availability.querySelector('button[data-status="' + value + '"]')
+                        : null;
+                } else {
+                    // Tapping the active theme chip clears the theme again.
+                    const nextTheme = chip.classList.contains('is-active') ? '' : value;
+                    target = els.theme
+                        ? els.theme.querySelector('button[data-theme="' + nextTheme + '"]')
+                        : null;
+                }
+
+                if (target) target.click();
+                syncQuickChips();
+            });
         });
     }
 
@@ -345,6 +393,7 @@
             filterState.country = '';
             filterState.theme = '';
             render();
+            syncQuickChips();
             applyFilters();
             scrollToGridTop();
         });
@@ -359,6 +408,7 @@
 
     // First render
     render();
+    syncQuickChips();
 
     // Hero stats (total items, countries, availability) computed once
     function renderHeroStats() {

@@ -1827,7 +1827,7 @@ header {
     flex-wrap: wrap;
 }
 
-.news-nav a {
+.news-nav > a {
     padding: 8px 13px;
     border-radius: 40px;
     font-size: 0.82rem;
@@ -1837,12 +1837,12 @@ header {
     transition: background 0.2s ease, color 0.2s ease;
 }
 
-.news-nav a:hover {
+.news-nav > a:hover {
     background: #f1f5f9;
     color: var(--primary);
 }
 
-.news-nav a.active {
+.news-nav > a.active {
     background: var(--primary);
     color: #ffffff;
 }
@@ -2467,7 +2467,7 @@ header {
         display: block;
     }
 
-    .news-masthead .news-nav a {
+    .news-masthead .news-nav > a {
         padding: 7px 11px;
         font-size: 0.78rem;
     }
@@ -2480,7 +2480,7 @@ header {
         gap: 3px;
     }
 
-    .news-masthead .news-nav a {
+    .news-masthead .news-nav > a {
         padding: 6px 8px;
         font-size: 0.72rem;
     }
@@ -2491,7 +2491,7 @@ header {
         gap: 2px;
     }
 
-    .news-masthead .news-nav a {
+    .news-masthead .news-nav > a {
         padding: 5px 7px;
         font-size: 0.68rem;
     }
@@ -2502,8 +2502,502 @@ header {
         gap: 1px;
     }
 
-    .news-masthead .news-nav a {
+    .news-masthead .news-nav > a {
         padding: 4px 5px;
         font-size: 0.6rem;
+    }
+}
+
+/* ---------- Mobile hamburger navigation (<=800px) ---------- */
+/* Desktop keeps the full pill row; the toggle only exists on phones. */
+.nav-toggle {
+    display: none;
+}
+
+@media (max-width: 800px) {
+    .news-masthead .news-wrap {
+        position: relative;
+    }
+
+    /* Hamburger, top-right of the masthead. 44px square for a comfortable tap. */
+    .news-masthead .nav-toggle {
+        position: absolute;
+        top: 6px;
+        right: 20px;
+        z-index: 3;
+        display: inline-flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 5px;
+        width: 44px;
+        height: 44px;
+        padding: 0;
+        border: 1px solid #e2e8f0;
+        border-radius: 12px;
+        background: #ffffff;
+        color: var(--primary, #1e293b);
+        cursor: pointer;
+        box-shadow: 0 2px 8px rgba(15, 23, 42, 0.08);
+        transition: background 0.18s ease, border-color 0.18s ease;
+    }
+
+    .news-masthead .nav-toggle:hover,
+    .news-masthead .nav-toggle:focus-visible {
+        background: #f1f5f9;
+        border-color: #cbd5e1;
+        outline: none;
+    }
+
+    .nav-toggle-bar {
+        display: block;
+        width: 20px;
+        height: 2px;
+        border-radius: 2px;
+        background: currentColor;
+        transition: transform 0.2s ease, opacity 0.2s ease;
+    }
+
+    /* Bars morph into an X while the menu is open. */
+    .news-masthead.nav-open .nav-toggle-bar:nth-child(1) {
+        transform: translateY(7px) rotate(45deg);
+    }
+
+    .news-masthead.nav-open .nav-toggle-bar:nth-child(2) {
+        opacity: 0;
+    }
+
+    .news-masthead.nav-open .nav-toggle-bar:nth-child(3) {
+        transform: translateY(-7px) rotate(-45deg);
+    }
+
+    /* Full-width column so the opened panel can use the whole row. */
+    .news-masthead .masthead-right {
+        width: 100%;
+    }
+
+    /* Keep the brand's text clear of the toggle. */
+    .news-masthead .news-brand {
+        padding-right: 52px;
+    }
+
+    /* Collapsed by default; the panel drops down below the brand. */
+    .news-masthead .news-nav {
+        display: none;
+    }
+
+    .news-masthead.nav-open .news-nav {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 2px;
+        width: 100%;
+        max-width: 420px;
+        margin: 0 auto;
+        padding: 8px;
+        background: #ffffff;
+        border: 1px solid #e2e8f0;
+        border-radius: 16px;
+        box-shadow: 0 14px 34px rgba(15, 23, 42, 0.14);
+    }
+
+    .news-masthead.nav-open .news-nav .nav-break {
+        display: none;
+    }
+
+    .news-masthead.nav-open .news-nav > a {
+        width: 100%;
+        padding: 12px 14px;
+        border-radius: 10px;
+        font-size: 0.92rem;
+        text-align: left;
+    }
+
+    .news-masthead.nav-open .news-nav > a:hover,
+    .news-masthead.nav-open .news-nav > a:focus-visible {
+        background: #f1f5f9;
+    }
+
+    .news-masthead.nav-open .news-nav > a.active {
+        background: #eef2f7;
+        color: var(--primary, #1e293b);
+    }
+}
+
+/* ---------- Social icons in the catalogue filter rail ---------- */
+.rail-social-row {
+    justify-content: flex-start;
+    margin-top: 12px;
+}
+
+@media (max-width: 800px) {
+    /* menu.js moves the row into the hamburger panel on every page. */
+    .news-masthead .news-nav .nav-social-row {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        margin: 8px 0 0;
+        padding-top: 12px;
+        border-top: 1px solid #e2e8f0;
+    }
+}
+
+/* ---------- Mobile catalogue hero: utility-first, slim band ---------- */
+/* Desktop keeps the full editorial hero; the compact version below is
+   phones only, and swaps the long lede/stats for search + chips + trust.
+   The `mobile-hero` class marks every .news-hero that uses this pattern:
+   catalogue, blog, news, exhibitions and the album designer. Pages that
+   restyle the same elements in their own <style> blocks use two-class
+   selectors here, so the shared compact look wins. */
+.hero-title-mobile,
+.mobile-hero-lede,
+.mobile-hero-extras {
+    display: none;
+}
+
+@media (max-width: 800px) {
+    .news-hero.mobile-hero {
+        /* Same navy-to-slate palette as the desktop hero, with a stamp
+           perforation / postmark mood instead of a stock photo. */
+        background:
+            linear-gradient(180deg, rgba(51, 65, 85, 0) 48%, #334155 90%),
+            radial-gradient(circle at 88% 12%, rgba(217, 119, 6, 0.28), transparent 34%),
+            radial-gradient(circle at 8% 88%, rgba(59, 130, 246, 0.22), transparent 38%),
+            linear-gradient(135deg, #0f172a 0%, #1e293b 55%, #334155 100%);
+    }
+
+    .news-hero.mobile-hero .news-wrap {
+        padding-top: 26px;
+        padding-bottom: 22px;
+    }
+
+    .news-hero.mobile-hero .news-kicker {
+        display: none;
+    }
+
+    .news-hero.mobile-hero h1 {
+        max-width: 100%;
+        font-size: 1.7rem;
+        line-height: 1.14;
+        letter-spacing: -0.028em;
+    }
+
+    .hero-title-desktop {
+        display: none;
+    }
+
+    .hero-title-mobile {
+        display: inline;
+    }
+
+    .news-hero.mobile-hero .news-lede:not(.mobile-hero-lede) {
+        display: none;
+    }
+
+    .mobile-hero-lede {
+        display: block;
+        margin: 10px 0 0;
+        max-width: 100%;
+        color: #cbd5e1;
+        font-size: 0.8rem;
+        line-height: 1.45;
+    }
+
+    .news-hero.mobile-hero .news-stats {
+        display: none;
+    }
+
+    /* Faint postmark rings in the top-right corner. */
+    .news-hero.mobile-hero::before {
+        content: "";
+        position: absolute;
+        top: -48px;
+        right: -52px;
+        width: 206px;
+        height: 206px;
+        border: 1.5px dashed rgba(255, 255, 255, 0.14);
+        border-radius: 50%;
+        box-shadow:
+            0 0 0 9px rgba(255, 255, 255, 0.045),
+            0 0 0 18px rgba(255, 255, 255, 0.03);
+        transform: rotate(-14deg);
+        pointer-events: none;
+    }
+
+    /* Perforation dots. */
+    .news-hero.mobile-hero::after {
+        background-image: radial-gradient(rgba(255, 255, 255, 0.18) 1.1px, transparent 1.3px);
+        background-size: 13px 13px;
+        opacity: 0.22;
+    }
+
+    /* ---------- Mobile search: floating launcher + sheet ---------- */
+    /* The inline bar leaves the flow on phones. A floating button (next to
+       "back to top") opens a focused, floating search sheet so the
+       collection keeps the screen. */
+    body.has-mobile-search .search-sticky-container,
+    body.has-mobile-search .search-sticky-container.is-pinned {
+        position: fixed;
+        top: auto;
+        bottom: var(--search-sheet-bottom, 82px);
+        left: 0;
+        right: 0;
+        z-index: 2100;
+        width: auto;
+        max-width: 520px;
+        margin: 0 auto;
+        padding: 0 16px;
+        background: transparent;
+        border: 0;
+        box-shadow: none;
+        -webkit-backdrop-filter: none;
+        backdrop-filter: none;
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(16px) scale(0.98);
+        /* visibility flips only after the fade-out; on open it must become
+           visible immediately so focus() can raise the keyboard. */
+        transition: opacity 0.22s ease, transform 0.22s ease, visibility 0s linear 0.22s;
+        pointer-events: none;
+    }
+
+    body.has-mobile-search .search-sticky-container.is-open {
+        opacity: 1;
+        visibility: visible;
+        transform: none;
+        pointer-events: auto;
+        transition: opacity 0.22s ease, transform 0.22s ease, visibility 0s;
+    }
+
+    body.has-mobile-search .sticky-wrapper {
+        padding: 0;
+    }
+
+    body.has-mobile-search .sticky-wrapper .search-container {
+        max-width: 100%;
+        padding: 0;
+    }
+
+    body.has-mobile-search .search-sticky-container #stampSearch {
+        height: 56px;
+        padding: 0 54px 0 50px;
+        border: 1px solid rgba(15, 23, 42, 0.1);
+        border-radius: 999px;
+        background-color: #ffffff;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='11' cy='11' r='7'/%3E%3Cpath d='m20 20-3.5-3.5'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: 18px center;
+        background-size: 19px 19px;
+        -webkit-appearance: none;
+        appearance: none;
+        color: #0f172a;
+        caret-color: var(--accent);
+        /* 16px keeps mobile Safari from zooming on focus and matches
+           Android's default search-field sizing. */
+        font-size: 1rem;
+        box-shadow:
+            0 22px 50px rgba(2, 6, 23, 0.28),
+            0 4px 12px rgba(2, 6, 23, 0.12);
+        transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    body.has-mobile-search .search-sticky-container #stampSearch::placeholder {
+        color: #94a3b8;
+    }
+
+    body.has-mobile-search .search-sticky-container #stampSearch::-webkit-search-cancel-button,
+    body.has-mobile-search .search-sticky-container #stampSearch::-webkit-search-decoration {
+        -webkit-appearance: none;
+        display: none;
+    }
+
+    body.has-mobile-search .search-sticky-container #stampSearch:focus {
+        outline: none;
+        border-color: rgba(217, 119, 6, 0.65);
+        box-shadow:
+            0 0 0 3px rgba(251, 191, 36, 0.3),
+            0 22px 50px rgba(2, 6, 23, 0.28),
+            0 4px 12px rgba(2, 6, 23, 0.12);
+    }
+
+    .mobile-search-close {
+        position: absolute;
+        top: 50%;
+        right: 12px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 32px;
+        height: 32px;
+        transform: translateY(-50%);
+        border: 0;
+        border-radius: 50%;
+        background: #f1f5f9;
+        color: #475569;
+        cursor: pointer;
+        transition: background 0.18s ease, color 0.18s ease;
+    }
+
+    .mobile-search-close:hover,
+    .mobile-search-close:focus-visible {
+        background: #e2e8f0;
+        color: #0f172a;
+        outline: none;
+    }
+
+    .mobile-search-close svg {
+        width: 15px;
+        height: 15px;
+    }
+
+    .mobile-search-fab {
+        position: fixed;
+        right: 77px;
+        bottom: 20px;
+        z-index: 1001;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 45px;
+        height: 45px;
+        border: 0;
+        border-radius: 50%;
+        background: var(--primary);
+        color: #ffffff;
+        cursor: pointer;
+        box-shadow: 0 8px 22px rgba(15, 23, 42, 0.24);
+        transition: transform 0.18s ease, background 0.18s ease;
+    }
+
+    .mobile-search-fab:hover,
+    .mobile-search-fab:focus-visible {
+        background: #334155;
+        transform: translateY(-2px);
+        outline: none;
+    }
+
+    .mobile-search-fab:active {
+        transform: translateY(0) scale(0.96);
+    }
+
+    .mobile-search-fab svg {
+        width: 20px;
+        height: 20px;
+    }
+
+    .mobile-search-backdrop {
+        position: fixed;
+        inset: 0;
+        z-index: 2050;
+        display: block;
+        background: rgba(2, 6, 23, 0.42);
+        -webkit-backdrop-filter: blur(3px);
+        backdrop-filter: blur(3px);
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transition: opacity 0.22s ease, visibility 0s linear 0.22s;
+    }
+
+    .mobile-search-backdrop.is-open {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+        transition: opacity 0.22s ease, visibility 0s;
+    }
+
+    body.mobile-search-open {
+        overflow: hidden;
+    }
+
+    .mobile-hero-extras {
+        display: block;
+        background: #334155;
+        padding: 10px 0 14px;
+    }
+
+    .mobile-hero-chips {
+        display: flex;
+        gap: 8px;
+        padding: 0 20px;
+        overflow-x: auto;
+        scrollbar-width: none;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .mobile-hero-chips::-webkit-scrollbar {
+        display: none;
+    }
+
+    .mobile-chip {
+        flex: 0 0 auto;
+        padding: 9px 14px;
+        border: 1px solid rgba(255, 255, 255, 0.26);
+        border-radius: 40px;
+        background: rgba(255, 255, 255, 0.07);
+        color: #e2e8f0;
+        font-family: inherit;
+        font-size: 0.72rem;
+        font-weight: 600;
+        letter-spacing: 0.01em;
+        cursor: pointer;
+        transition: background 0.18s ease, color 0.18s ease, border-color 0.18s ease;
+    }
+
+    .mobile-chip:hover,
+    .mobile-chip:focus-visible {
+        border-color: #fbbf24;
+        color: #fde68a;
+        outline: none;
+    }
+
+    .mobile-chip.is-active {
+        background: #fbbf24;
+        border-color: #fbbf24;
+        color: #0f172a;
+    }
+
+    .mobile-hero-trust {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 6px 18px;
+        padding: 14px 20px 0;
+        color: #94a3b8;
+        font-size: 0.62rem;
+        font-weight: 700;
+        letter-spacing: 0.09em;
+        text-transform: uppercase;
+    }
+
+    .mobile-trust {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+    }
+
+    .mobile-trust svg {
+        width: 13px;
+        height: 13px;
+        flex: 0 0 auto;
+        color: #fbbf24;
+    }
+}
+
+/* On the blog tab the catalogue hero is hidden; quick collection chips
+   would filter the catalogue behind the blog view, so retire just those. */
+@media (max-width: 800px) {
+    #catalogHero[style*="display: none"] ~ .mobile-hero-extras .mobile-hero-chips {
+        display: none;
+    }
+}
+
+/* Mobile-only search launcher + sheet controls; desktop keeps the inline bar. */
+@media (min-width: 801px) {
+    .mobile-search-fab,
+    .mobile-search-backdrop,
+    .mobile-search-close {
+        display: none;
     }
 }
