@@ -99,8 +99,6 @@ SOURCES = [
         "parser": "pib",
         "url": "https://www.pib.gov.in/AllRelease.aspx?reg=48&lang=1",
     },
-    # Philatelicly blog has a standard WordPress RSS feed.
-    {"name": "Philatelicly", "home": "https://www.philatelicly.com/blog/", "url": "https://www.philatelicly.com/feed"},
     # FEPA also renders a "Latest News" widget (server-side) on its Website
     # Links page, listing up to 20 recent posts with thumbnail images. It
     # supplements the FEPA feed: same-site URL collisions are de-duped later.
@@ -110,6 +108,16 @@ SOURCES = [
         "kind": "html",
         "parser": "fepa",
         "url": "https://fepanews.com/website-links/",
+    },
+    # MICHEL-news (briefmarken.de) has a Joomla RSS feed, but it lists only
+    # 5 posts with German text and unreliable pubDates. The English news
+    # listing is server-rendered with ISO dates and summaries instead.
+    {
+        "name": "MICHEL News",
+        "home": "https://www.briefmarken.de/en/briefmarken-sammeln/neuigkeiten",
+        "kind": "html",
+        "parser": "briefmarken",
+        "url": "https://www.briefmarken.de/en/briefmarken-sammeln/neuigkeiten",
     },
 ]
 
@@ -757,6 +765,87 @@ def parse_fepa(source: dict, raw: bytes) -> list[dict]:
     return items
 
 
+# The MICHEL news listing (briefmarken.de, English) renders every lead
+# article in a `itemprop="blogPost"` block: h1 link, ISO <time datetime/>
+# published date and the opening paragraphs before a read-more cut.
+MICHEL_LINK_RE = re.compile(r'<a href="(/en/briefmarken-sammeln/neuigkeiten/\d+-[^"]+)"')
+MICHEL_TITLE_RE = re.compile(r'itemprop="name">\s*<a[^>]*>(.*?)</a>', re.S)
+MICHEL_DATE_RE = re.compile(r'<time datetime="([^"]+)"')
+MICHEL_BODY_RE = re.compile(r"<!--\?xml[^>]*-->(.*?)(?:\n\s*<p class=\"gt-block readmore|</div>)", re.S)
+
+
+def parse_briefmarken(source: dict, raw: bytes) -> list[dict]:
+    page = raw.decode("utf-8", "replace")
+    items: list[dict] = []
+
+    blocks = re.split(r'itemprop="blogPost"', page)
+    for block in blocks[1:]:
+        title_match = MICHEL_TITLE_RE.search(block)
+        link_match = MICHEL_LINK_RE.search(block)
+        if not title_match or not link_match:
+            continue
+        title = clean_text(title_match.group(1))
+        link = "https://www.briefmarken.de" + html.unescape(link_match.group(1))
+        if not title:
+            continue
+
+        date_match = MICHEL_DATE_RE.search(block)
+        # <time datetime> is ISO 8601 with the site's +01:00 offset.
+        published = parse_date(date_match.group(1)) if date_match else None
+
+        body_match = MICHEL_BODY_RE.search(block)
+        description = shorten(body_match.group(1)) if body_match else ""
+
+        items.append(
+            {
+                "title": title,
+                "url": link,
+                "description": description,
+                # The American listing pages don't ship article images; the
+                # site falls back to the shared placeholder card.
+                "image": IMAGE_FALLBACK,
+                "source": source["name"],
+                "source_url": source.get("home", source["url"]),
+                "published": (
+                    published.isoformat().replace("+00:00", "Z") if published else ""
+                ),
+            }
+        )
+
+    return items
+
+
+# The listing shows 5 leads per page; walk the pagination offsets until
+# 50 articles are in hand (start=0, 5, 10, ... 45).
+MICHEL_LIST_BASE = "https://www.briefmarken.de/en/briefmarken-sammeln/neuigkeiten"
+MICHEL_MAX_ITEMS = 50
+MICHEL_PER_PAGE = 5
+
+
+def fetch_briefmarken(source: dict) -> list[dict]:
+    """Collect leads across the paginated listing until MICHEL_MAX_ITEMS."""
+    seen: set[str] = set()
+    items: list[dict] = []
+    for offset in range(0, MICHEL_MAX_ITEMS, MICHEL_PER_PAGE):
+        url = MICHEL_LIST_BASE if offset == 0 else f"{MICHEL_LIST_BASE}?start={offset}"
+        try:
+            page = fetch(url)
+        except Exception as exc:  # noqa: BLE001 - a later page failing is non-fatal
+            print(f"  {source['name']}: page start={offset} failed ({exc})", file=sys.stderr)
+            break
+        page_items = parse_briefmarken(source, page)
+        if not page_items:
+            break
+        for item in page_items:
+            if item["url"] in seen:
+                continue
+            seen.add(item["url"])
+            items.append(item)
+        if len(items) >= MICHEL_MAX_ITEMS:
+            break
+    return items
+
+
 def load_source(source: dict) -> list[dict]:
     kind = source.get("kind", "rss")
     if kind == "linns":
@@ -774,6 +863,8 @@ def load_source(source: dict) -> list[dict]:
             return parse_maltapost(source, fetch(source["url"]))
         if source.get("parser") == "fepa":
             return parse_fepa(source, fetch(source["url"]))
+        if source.get("parser") == "briefmarken":
+            return fetch_briefmarken(source)
         return parse_poczta(source, fetch(source["url"]))
     return parse_feed(source, fetch(source["url"]))
 
