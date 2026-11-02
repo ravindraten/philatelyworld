@@ -119,6 +119,16 @@ SOURCES = [
         "parser": "briefmarken",
         "url": "https://www.briefmarken.de/en/briefmarken-sammeln/neuigkeiten",
     },
+    # POST Luxembourg philately news: server-rendered card grid (image,
+    # title, "Posted the M/D/YYYY" date), ?page=N pagination and detail
+    # pages with the full body text.
+    {
+        "name": "POST Luxembourg Philately",
+        "home": "https://www.postphilately.lu/en-US/ListingNews",
+        "kind": "html",
+        "parser": "postphilately",
+        "url": "https://www.postphilately.lu/en-US/ListingNews",
+    },
 ]
 
 IMAGE_FALLBACK = "images/news-placeholder.svg"
@@ -822,6 +832,85 @@ MICHEL_MAX_ITEMS = 50
 MICHEL_PER_PAGE = 5
 
 
+# POST Luxembourg news listing: card blocks inside the `.lst-news` grid.
+POSTPP_DATE_RE = re.compile(r"Posted the\s*(\d{1,2})/(\d{1,2})/(\d{4})")
+
+
+def parse_postphilately(source: dict, raw: bytes) -> list[dict]:
+    page = raw.decode("utf-8", "replace")
+    items: list[dict] = []
+
+    grid_start = page.find('class="lst-news"')
+    grid = page[grid_start:] if grid_start >= 0 else page
+    grid = re.split(r'class="pagination', grid)[0]  # drop the footer pager
+
+    for block in grid.split('<div class="item">')[1:]:
+        link_match = re.search(
+            r'<a href="(https://www\.postphilately\.lu/en-US/News/[^"]+)"', block
+        )
+        title_match = re.search(r'<h2 class="h2">(.*?)</h2>', block, re.S)
+        if not link_match or not title_match:
+            continue
+        link = html.unescape(link_match.group(1)).strip()
+        title = clean_text(title_match.group(1))
+        if not title or not link.startswith(("http://", "https://")):
+            continue
+
+        date_match = POSTPP_DATE_RE.search(block)
+        published = None
+        if date_match:
+            month, day, year = date_match.groups()
+            try:
+                published = datetime(int(year), int(month), int(day), tzinfo=timezone.utc)
+            except ValueError:
+                published = None
+
+        image_match = re.search(r'<img src="([^"]+)" alt="', block)
+        image = ""
+        if image_match:
+            image = html.unescape(image_match.group(1)).strip()
+            if image.startswith("//"):
+                image = "https:" + image
+            elif image.startswith("/"):
+                image = "https://www.postphilately.lu" + image
+            # The listing serves a 370px thumbnail; the 870px detail
+            # variant lives on the same attachment URL.
+            image = image.replace("maxsidesize=370", "maxsidesize=870")
+            image = normalise_image(image)
+
+        # The grid cards have no excerpt; open the detail page for the
+        # first paragraph of body text (best effort, like MaltaPost).
+        description = ""
+        try:
+            detail = fetch(link)
+            detail_page = detail.decode("utf-8", "replace")
+            body_start = detail_page.find('class="date-md"')
+            body = detail_page[body_start:] if body_start >= 0 else detail_page
+            for paragraph in re.findall(r"<p>(.*?)</p>", body[:8000], re.S):
+                text = shorten(paragraph)
+                if len(text) > 60:  # skip headings re-wrapped as <p>
+                    description = text
+                    break
+        except Exception:
+            pass  # detail fetch is best effort; card data is already good
+
+        items.append(
+            {
+                "title": title,
+                "url": link,
+                "description": description,
+                "image": image or IMAGE_FALLBACK,
+                "source": source["name"],
+                "source_url": source.get("home", source["url"]),
+                "published": (
+                    published.isoformat().replace("+00:00", "Z") if published else ""
+                ),
+            }
+        )
+
+    return items
+
+
 def fetch_briefmarken(source: dict) -> list[dict]:
     """Collect leads across the paginated listing until MICHEL_MAX_ITEMS."""
     seen: set[str] = set()
@@ -865,6 +954,8 @@ def load_source(source: dict) -> list[dict]:
             return parse_fepa(source, fetch(source["url"]))
         if source.get("parser") == "briefmarken":
             return fetch_briefmarken(source)
+        if source.get("parser") == "postphilately":
+            return parse_postphilately(source, fetch(source["url"]))
         return parse_poczta(source, fetch(source["url"]))
     return parse_feed(source, fetch(source["url"]))
 
