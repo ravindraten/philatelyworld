@@ -129,6 +129,16 @@ SOURCES = [
         "parser": "postphilately",
         "url": "https://www.postphilately.lu/en-US/ListingNews",
     },
+    # Romfilatelia press releases: WordPress listing with titles, excerpts
+    # and images but no dates in the cards; detail pages carry the
+    # datePublished string (DD/MM/YYYY). Paginated with /page/2/… URLs.
+    {
+        "name": "Romfilatelia",
+        "home": "https://romfilatelia.ro/en/press-releases/",
+        "kind": "html",
+        "parser": "romfilatelia",
+        "url": "https://romfilatelia.ro/en/press-releases/",
+    },
 ]
 
 IMAGE_FALLBACK = "images/news-placeholder.svg"
@@ -935,6 +945,88 @@ def fetch_briefmarken(source: dict) -> list[dict]:
     return items
 
 
+# Romfilatelia press-release listing: WordPress/Astra cards. The excerpt's
+# "[&hellip;]" tail is trimmed clean_text-side; dates come from the detail
+# page's `datePublished"> DD/MM/YYYY` span.
+ROMFILATELIA_DATE_RE = re.compile(r'datePublished">\s*(\d{1,2})/(\d{1,2})/(\d{4})')
+
+
+def parse_romfilatelia(source: dict, raw: bytes) -> list[dict]:
+    page = raw.decode("utf-8", "replace")
+    items: list[dict] = []
+
+    for block in page.split("<article")[1:]:
+        block = block[: block.find("</article>")] if "</article>" in block else block
+        title_match = re.search(
+            r'<h2 class="entry-title[^>]*>\s*<a href="(https://romfilatelia\.ro/en/[^"]+)"[^>]*>(.*?)</a>',
+            block,
+            re.S,
+        )
+        if not title_match:
+            continue
+        link = html.unescape(title_match.group(1)).strip()
+        title = clean_text(title_match.group(2))
+        if not title or not link.startswith(("http://", "https://")):
+            continue
+
+        excerpt_match = re.search(
+            r'ast-excerpt-container[^>]*>\s*<p>(.*?)</p>', block, re.S
+        )
+        description = shorten(excerpt_match.group(1)) if excerpt_match else ""
+
+        image_match = re.search(r'<img[^>]+src="(https://romfilatelia\.ro/wp-content/[^"]+)"', block)
+        image = normalise_image(image_match.group(1)) if image_match else ""
+
+        # The cards carry no date; probe the detail page for datePublished.
+        published = None
+        try:
+            detail = fetch(link)
+            date_match = ROMFILATELIA_DATE_RE.search(detail.decode("utf-8", "replace"))
+            if date_match:
+                day, month, year = date_match.groups()
+                published = datetime(int(year), int(month), int(day), tzinfo=timezone.utc)
+        except Exception:
+            pass  # detail fetch is best effort; card data is already good
+
+        items.append(
+            {
+                "title": title,
+                "url": link,
+                "description": description,
+                "image": image or IMAGE_FALLBACK,
+                "source": source["name"],
+                "source_url": source.get("home", source["url"]),
+                "published": (
+                    published.isoformat().replace("+00:00", "Z") if published else ""
+                ),
+            }
+        )
+
+    return items
+
+
+def fetch_romfilatelia(source: dict) -> list[dict]:
+    """Two listing pages (10 cards each) is plenty for a 12-item cap."""
+    items: list[dict] = []
+    seen: set[str] = set()
+    for page_no in (1, 2):
+        url = source["url"] if page_no == 1 else f"{source['url'].rstrip('/')}/page/{page_no}/"
+        try:
+            page = fetch(url)
+        except Exception as exc:  # noqa: BLE001 - a later page failing is non-fatal
+            print(f"  {source['name']}: page {page_no} failed ({exc})", file=sys.stderr)
+            break
+        page_items = parse_romfilatelia(source, page)
+        if not page_items:
+            break
+        for item in page_items:
+            if item["url"] in seen:
+                continue
+            seen.add(item["url"])
+            items.append(item)
+    return items
+
+
 def load_source(source: dict) -> list[dict]:
     kind = source.get("kind", "rss")
     if kind == "linns":
@@ -956,6 +1048,8 @@ def load_source(source: dict) -> list[dict]:
             return fetch_briefmarken(source)
         if source.get("parser") == "postphilately":
             return parse_postphilately(source, fetch(source["url"]))
+        if source.get("parser") == "romfilatelia":
+            return fetch_romfilatelia(source)
         return parse_poczta(source, fetch(source["url"]))
     return parse_feed(source, fetch(source["url"]))
 
