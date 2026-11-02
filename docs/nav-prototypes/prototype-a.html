@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prototype A — Global minimal + local subnav · Philately World</title>
+    <meta name="description"
+        content="Navigation prototype A: a global minimal header with an intent-based primary nav, a taxonomy mega-menu and a page-level collection subnav.">
+    <link rel="icon"
+        href="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/logo.jpg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="shared.css">
+</head>
+
+<body data-page="a">
+    <a class="skip-link" href="#catalogResults">Skip to the collection</a>
+
+    <div class="announce">
+        <div class="wrap announce-inner">
+            <span class="announce-dot" aria-hidden="true"></span>
+            <p class="announce-text" id="announceText" role="status">Free tracked shipping on orders over €150</p>
+            <a class="announce-link" id="announceLink" href="#">Shipping details</a>
+            <div class="announce-dots" id="announceDots" aria-label="Announcements"></div>
+        </div>
+    </div>
+
+    <header class="masthead">
+        <div class="wrap masthead-inner">
+            <a class="brand" href="prototype-a.html" aria-label="Philately World home">
+                <img src="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/logo.jpg"
+                    alt="Philately World logo" width="46" height="46" fetchpriority="high">
+                <span class="brand-text">
+                    <strong>Philately World</strong>
+                    <small>Premium stamp curation</small>
+                </span>
+            </a>
+
+            <nav class="primary" id="primaryNav" aria-label="Primary">
+                <button class="nav-link is-current" type="button" id="browseToggle" aria-expanded="false"
+                    aria-controls="mega-browse" aria-current="page">
+                    Catalogue
+                    <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"
+                        stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="m6 9 6 6 6-6"></path>
+                    </svg>
+                </button>
+                <a class="nav-link" href="../index.html?tab=blog">Journal</a>
+                <a class="nav-link" href="../AlbumDesigner/albumeasy.html">Album Designer</a>
+                <a class="nav-link" href="../philatelic-exhibitions.html">Exhibitions</a>
+            </nav>
+
+            <div class="header-tools">
+                <button class="icon-btn" type="button" data-open-search aria-label="Search the collection">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <circle cx="11" cy="11" r="7"></circle>
+                        <path d="m20 20-3.5-3.5"></path>
+                    </svg>
+                </button>
+                <a class="btn btn-primary contact" href="https://wa.me/31633467712" target="_blank" rel="noopener">
+                    Contact
+                </a>
+                <button class="menu-toggle" type="button" id="menuToggle" aria-expanded="false"
+                    aria-controls="primaryNav" aria-label="Open menu">
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                </button>
+            </div>
+        </div>
+
+        <div class="mega" id="mega-browse" hidden>
+            <div class="wrap mega-grid">
+                <div class="mega-col">
+                    <h3>Shop by country</h3>
+                    <div class="country-grid" id="megaCountries"></div>
+                </div>
+                <div class="mega-col">
+                    <h3>Shop by theme</h3>
+                    <div class="theme-list" id="megaThemes"></div>
+                </div>
+                <div class="mega-feature">
+                    <p class="eyebrow">Spotlight</p>
+                    <h4>Autumn 2026 arrivals</h4>
+                    <p>Fresh lots from the Netherlands, Germany and India — photographed and ready to ship.</p>
+                    <a href="#catalogResults">View all 149 lots &rarr;</a>
+                    <span class="stamp-mark" aria-hidden="true"></span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="search-overlay" id="searchOverlay" hidden>
+        <div class="search-card" role="dialog" aria-modal="true" aria-labelledby="searchTitle">
+            <div class="search-card-head">
+                <h2 id="searchTitle">Search the collection</h2>
+                <button class="icon-btn" type="button" data-close-search aria-label="Close search">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+                        stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M18 6 6 18M6 6l12 12"></path>
+                    </svg>
+                </button>
+            </div>
+            <form class="search-field" id="overlaySearchForm" role="search">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <circle cx="11" cy="11" r="7"></circle>
+                    <path d="m20 20-3.5-3.5"></path>
+                </svg>
+                <input type="search" id="overlaySearchInput" placeholder="Country, theme, year…"
+                    aria-label="Search the collection" autocomplete="off">
+            </form>
+            <div class="search-suggest">
+                <h3>Try a collection</h3>
+                <div class="suggest-chips">
+                    <button type="button" class="suggest-chip" data-search-term="India">India</button>
+                    <button type="button" class="suggest-chip" data-search-term="Miniature sheets">Miniature
+                        sheets</button>
+                    <button type="button" class="suggest-chip" data-search-term="FDCs">FDCs</button>
+                    <button type="button" class="suggest-chip" data-search-term="Red Cross">Red Cross</button>
+                    <button type="button" class="suggest-chip" data-search-term="Rarities">Rarities</button>
+                    <button type="button" class="suggest-chip" data-search-term="Birds">Birds</button>
+                </div>
+            </div>
+            <div class="search-suggest">
+                <h3>Or visit</h3>
+                <div class="suggest-chips">
+                    <a class="suggest-chip" href="../philatelic-news.html">Philatelic News</a>
+                    <a class="suggest-chip" href="../philatelic-exhibitions.html">Exhibitions</a>
+                    <a class="suggest-chip" href="../AlbumDesigner/albumeasy.html">Album Designer</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section class="hero">
+        <div class="wrap hero-grid">
+            <div>
+                <p class="eyebrow">Catalogue · Autumn 2026</p>
+                <h1>The collection,<br><em>country by country.</em></h1>
+                <p class="hero-lede">
+                    A curated selection of mint stamps, miniature sheets, covers and postal history from around the
+                    world. Browse by country, theme, era or format — every lot photographed, described and shipped
+                    globally.
+                </p>
+                <div class="hero-stats">
+                    <div class="hero-stat"><strong>149</strong><span>Lots in stock</span></div>
+                    <div class="hero-stat"><strong>40+</strong><span>Countries</span></div>
+                    <div class="hero-stat"><strong>15</strong><span>Themes</span></div>
+                    <div class="hero-stat"><strong>1840</strong><span>Earliest lot</span></div>
+                </div>
+            </div>
+            <a class="hero-feature" href="#catalogResults" aria-label="Featured lot: World classic super collection">
+                <img src="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/D146/1.jpg"
+                    alt="World classic stamp collection 1840–1900" width="480" height="360" fetchpriority="high">
+                <div class="hero-feature-meta">
+                    <div>
+                        <span>Featured lot · Classic</span>
+                        <h2>World classic super collection 1840–1900</h2>
+                    </div>
+                    <div class="hero-feature-price">Ask for price</div>
+                </div>
+            </a>
+        </div>
+    </section>
+
+    <div class="subnav" id="subnav">
+        <div class="wrap subnav-inner">
+            <div class="subnav-links">
+                <button type="button" class="subnav-link is-active" id="allLotsBtn" data-clear-all>All lots</button>
+                <button type="button" class="subnav-link" data-panel="countries" aria-expanded="false"
+                    aria-controls="panel-countries">
+                    Countries
+                    <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"
+                        stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="m6 9 6 6 6-6"></path>
+                    </svg>
+                </button>
+                <button type="button" class="subnav-link" data-panel="themes" aria-expanded="false"
+                    aria-controls="panel-themes">
+                    Themes
+                    <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"
+                        stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="m6 9 6 6 6-6"></path>
+                    </svg>
+                </button>
+                <button type="button" class="subnav-link" data-panel="eras" aria-expanded="false"
+                    aria-controls="panel-eras">
+                    Eras
+                    <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"
+                        stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="m6 9 6 6 6-6"></path>
+                    </svg>
+                </button>
+                <button type="button" class="subnav-link" data-panel="formats" aria-expanded="false"
+                    aria-controls="panel-formats">
+                    Formats
+                    <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"
+                        stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="m6 9 6 6 6-6"></path>
+                    </svg>
+                </button>
+                <button type="button" class="subnav-link" data-theme="Rarities">Rarities</button>
+            </div>
+            <div class="subnav-meta">
+                <span id="resultCount"><strong>12</strong> sample lots</span>
+            </div>
+        </div>
+
+        <div class="subnav-panel" id="panel-countries" hidden>
+            <div class="wrap panel-inner">
+                <div class="panel-head">
+                    <h3>Filter by country</h3>
+                    <button type="button" class="btn-quiet" data-clear-all>Clear</button>
+                </div>
+                <div class="panel-search">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <circle cx="11" cy="11" r="7"></circle>
+                        <path d="m20 20-3.5-3.5"></path>
+                    </svg>
+                    <input type="search" id="countryPanelSearch" placeholder="Find a country…"
+                        aria-label="Find a country" autocomplete="off">
+                </div>
+                <div class="chip-grid" id="countryChips"></div>
+            </div>
+        </div>
+
+        <div class="subnav-panel" id="panel-themes" hidden>
+            <div class="wrap panel-inner">
+                <div class="panel-head">
+                    <h3>Filter by theme</h3>
+                    <button type="button" class="btn-quiet" data-clear-all>Clear</button>
+                </div>
+                <div class="chip-grid" id="themeChips"></div>
+            </div>
+        </div>
+
+        <div class="subnav-panel" id="panel-eras" hidden>
+            <div class="wrap panel-inner">
+                <div class="panel-head">
+                    <h3>Browse by era</h3>
+                    <button type="button" class="btn-quiet" data-clear-all>Clear</button>
+                </div>
+                <div class="era-track" id="eraCards"></div>
+            </div>
+        </div>
+
+        <div class="subnav-panel" id="panel-formats" hidden>
+            <div class="wrap panel-inner">
+                <div class="panel-head">
+                    <h3>Browse by format</h3>
+                    <button type="button" class="btn-quiet" data-clear-all>Clear</button>
+                </div>
+                <div class="chip-grid" id="formatChips"></div>
+            </div>
+        </div>
+    </div>
+
+    <main class="wrap catalog" id="catalogResults">
+        <div class="catalog-head">
+            <div>
+                <p class="eyebrow">Catalogue</p>
+                <h2>Lots ready to ship</h2>
+                <p id="catalogSummary">All sample lots</p>
+            </div>
+            <p class="muted" style="font-size:0.72rem">Prototype data · 12 sample lots from the 149-item catalogue</p>
+        </div>
+        <div class="active-filters" id="activeFiltersA" aria-live="polite"></div>
+        <div class="card-grid" id="lotGrid"></div>
+    </main>
+
+    <footer class="site-footer">
+        <div class="wrap footer-inner">
+            <p>&copy; 2017–2026 Philately World Gallery</p>
+            <div class="footer-links">
+                <a href="../philatelic-news.html">Philatelic News</a>
+                <a href="../philatelic-exhibitions.html">Exhibitions</a>
+                <a href="../AlbumDesigner/albumeasy.html">Album Designer</a>
+                <a href="../index.html#privacy-policy">Privacy</a>
+                <a href="../index.html#security-guarantee">Security &amp; Guarantee</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="shared.js" defer></script>
+</body>
+
+</html>
