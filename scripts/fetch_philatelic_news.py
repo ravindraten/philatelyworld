@@ -101,6 +101,16 @@ SOURCES = [
     },
     # Philatelicly blog has a standard WordPress RSS feed.
     {"name": "Philatelicly", "home": "https://www.philatelicly.com/blog/", "url": "https://www.philatelicly.com/feed"},
+    # FEPA also renders a "Latest News" widget (server-side) on its Website
+    # Links page, listing up to 20 recent posts with thumbnail images. It
+    # supplements the FEPA feed: same-site URL collisions are de-duped later.
+    {
+        "name": "FEPA News (Website)",
+        "home": "https://fepanews.com/website-links/",
+        "kind": "html",
+        "parser": "fepa",
+        "url": "https://fepanews.com/website-links/",
+    },
 ]
 
 IMAGE_FALLBACK = "images/news-placeholder.svg"
@@ -690,6 +700,63 @@ def parse_pib(source: dict, raw: bytes) -> list[dict]:
     return items
 
 
+# FEPA renders its "Latest News" widget server-side on every page
+# (newsbox sidebar): a news-thumb anchor with a widget image, a news-title
+# anchor and a "1.11.2026 - 17:20" news-time span per post.
+FEPA_TIME_RE = re.compile(r"(\d{1,2})\.(\d{1,2})\.(\d{4})\s*-\s*(\d{1,2}):(\d{2})")
+
+
+def parse_fepa(source: dict, raw: bytes) -> list[dict]:
+    page = raw.decode("utf-8", "replace")
+    items: list[dict] = []
+
+    blocks = re.split(r'<li class="news-content', page)
+    for block in blocks[1:]:
+        block = block[: block.find("</li>")] if "</li>" in block else block
+        link_match = re.search(
+            r"class='news-title'[^>]*href=\"([^\"]+)\"[^>]*>(.*?)</a>", block, re.S
+        )
+        if not link_match:
+            continue
+        link = html.unescape(link_match.group(1)).strip()
+        title = clean_text(link_match.group(2))
+        if not title or not link.startswith(("http://", "https://")):
+            continue
+
+        time_match = FEPA_TIME_RE.search(block)
+        published = None
+        if time_match:
+            day, month, year, hour, minute = time_match.groups()
+            published = datetime(
+                int(year), int(month), int(day), int(hour), int(minute),
+                tzinfo=timezone.utc,
+            )
+
+        image_match = re.search(
+            r"<a class='news-thumb[^>]*>\s*<img[^>]+src=\"([^\"]+)\"", block
+        )
+        image = normalise_image(image_match.group(1)) if image_match else ""
+        # Widget thumbs are 36px squares; the "132x132" size is in the same
+        # uploads folder and reads cleanly as a card thumbnail.
+        image = re.sub(r"-\d+x\d+(\.(?:jpe?g|png|gif|webp))$", r"\1", image)
+
+        items.append(
+            {
+                "title": title,
+                "url": link,
+                "description": "",
+                "image": image or IMAGE_FALLBACK,
+                "source": source["name"],
+                "source_url": source.get("home", source["url"]),
+                "published": (
+                    published.isoformat().replace("+00:00", "Z") if published else ""
+                ),
+            }
+        )
+
+    return items
+
+
 def load_source(source: dict) -> list[dict]:
     kind = source.get("kind", "rss")
     if kind == "linns":
@@ -705,6 +772,8 @@ def load_source(source: dict) -> list[dict]:
             return parse_pib(source, fetch_pib(source.get("url", PIB_LIST_URL)))
         if source.get("parser") == "maltapost":
             return parse_maltapost(source, fetch(source["url"]))
+        if source.get("parser") == "fepa":
+            return parse_fepa(source, fetch(source["url"]))
         return parse_poczta(source, fetch(source["url"]))
     return parse_feed(source, fetch(source["url"]))
 
