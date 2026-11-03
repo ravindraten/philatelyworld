@@ -1,6 +1,17 @@
 // 1. STAMP DATABASE
 const stamps = [
     {
+        name: "Travelled Covers of the German Reich",
+        country: "Ceskoslovensko",
+        year: "<b>Year</b>: 1886-1940",
+        priceINR: 14000,
+        isSoldOut: false,
+        freeTrackedShipping: true,
+        freeLetterPostShipping: false,
+        folder: "D117",
+        imageCount: 16,
+        desc: "<b>RN4210: Around 70 travelled covers.</b> <a href=\"https://philatelyworld.in/blog/german-empire-travelled-covers.html\" target=\"_blank\" rel=\"noopener\">Read detailed information here</a>. What you see is what you get. Rs.200 per post card."
+    }, {
         name: "Classic old stamps from Czechoslovakia.",
         country: "Ceskoslovensko",
         year: "<b>Year</b>: 1920-30",

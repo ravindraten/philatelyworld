@@ -940,6 +940,20 @@ header {
     line-height: 1.5;
 }
 
+/* Inline links in a listing description (e.g. "Read detailed information") */
+.stamp-desc a,
+.desc-popout a {
+    color: #b45309;
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+}
+
+.stamp-desc a:hover,
+.desc-popout a:hover {
+    color: #92400e;
+}
+
 /* Popout showing the full description while hovering (injected by
    catalog-filters.js); floats below the card without reflowing the grid. */
 .desc-popout {
