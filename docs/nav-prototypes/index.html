@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nav prototypes — Philately World</title>
+    <meta name="description"
+        content="Two navigation prototypes for Philately World: a taxonomy-led global header and a search-first header with an Explore drawer.">
+    <link rel="icon"
+        href="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/logo.jpg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="shared.css">
+</head>
+
+<body class="index-page">
+    <a class="skip-link" href="#prototypes">Skip to prototypes</a>
+
+    <header class="masthead">
+        <div class="wrap masthead-inner">
+            <a class="brand" href="index.html" aria-label="Philately World home">
+                <img src="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/logo.jpg"
+                    alt="Philately World logo" width="46" height="46" fetchpriority="high">
+                <span class="brand-text">
+                    <strong>Philately World</strong>
+                    <small>Navigation studies</small>
+                </span>
+            </a>
+            <div class="header-tools">
+                <a class="btn btn-ghost" href="prototype-a.html">Prototype A</a>
+                <a class="btn btn-primary" href="prototype-b.html">Prototype B</a>
+            </div>
+        </div>
+    </header>
+
+    <section class="wrap index-hero">
+        <p class="eyebrow">Header study · November 2026</p>
+        <h1>Two ways to rethink <em>the header</em>.</h1>
+        <p>
+            The current masthead puts six links in a row and hides the catalogue's real taxonomy in a sidebar.
+            These prototypes test two different answers: one that reorganises navigation around intent and
+            place, and one that makes search and faceted browsing the primary interface.
+        </p>
+    </section>
+
+    <section class="wrap index-grid" id="prototypes">
+        <article class="proto-card">
+            <div class="proto-preview">
+                <img src="preview-a.png" alt="Screenshot of prototype A header and catalogue subnav" loading="lazy">
+                <span class="proto-label">Prototype A</span>
+            </div>
+            <div class="proto-body">
+                <h2>Global minimal + local subnav</h2>
+                <p>
+                    A calm, intent-based primary nav. The catalogue's countries, themes, eras and formats become a
+                    sticky collection index beneath the hero.
+                </p>
+                <div class="proto-tags">
+                    <span class="proto-tag">Structure</span>
+                    <span class="proto-tag">Taxonomy</span>
+                    <span class="proto-tag">Sticky subnav</span>
+                </div>
+                <ul class="proto-list">
+                    <li>Primary nav: Catalogue · Journal · Album Designer · Exhibitions</li>
+                    <li>Mega-menu with top countries and themes</li>
+                    <li>Page-level collection index: Countries / Themes / Eras / Formats</li>
+                    <li>Filter panels with live sample results</li>
+                    <li>Mobile: hamburger accordion + scrollable subnav</li>
+                </ul>
+                <div class="proto-actions">
+                    <a class="btn btn-primary" href="prototype-a.html">Open prototype A</a>
+                    <a class="btn btn-ghost" href="shared.css">View styles</a>
+                </div>
+            </div>
+        </article>
+
+        <article class="proto-card">
+            <div class="proto-preview">
+                <img src="preview-b.png" alt="Screenshot of prototype B header and search results" loading="lazy">
+                <span class="proto-label">Prototype B</span>
+            </div>
+            <div class="proto-body">
+                <h2>Search-first + Explore drawer</h2>
+                <p>
+                    An omnibox in the header with grouped typeahead, and a faceted slide-over that promotes the
+                    existing filter rail into global navigation.
+                </p>
+                <div class="proto-tags">
+                    <span class="proto-tag">Discovery</span>
+                    <span class="proto-tag">Typeahead</span>
+                    <span class="proto-tag">Faceted drawer</span>
+                </div>
+                <ul class="proto-list">
+                    <li>Header search with grouped suggestions (countries, themes, lots, pages)</li>
+                    <li>⌘K / Ctrl+K focuses search; arrow keys navigate suggestions</li>
+                    <li>Hero search with popular collection chips</li>
+                    <li>Explore drawer: countries, themes, era, format, availability, price</li>
+                    <li>Live result count before applying filters</li>
+                </ul>
+                <div class="proto-actions">
+                    <a class="btn btn-primary" href="prototype-b.html">Open prototype B</a>
+                    <a class="btn btn-ghost" href="shared.js">View behaviour</a>
+                </div>
+            </div>
+        </article>
+    </section>
+
+    <section class="wrap notes">
+        <p class="eyebrow">What to look at</p>
+        <div class="notes-grid">
+            <div class="note">
+                <h3>1. Try the filters</h3>
+                <p>
+                    Both prototypes use the same 12 sample lots and the real catalogue's country and theme counts.
+                    Click a country, theme, era or format and watch the grid and the active-filter chips update.
+                </p>
+            </div>
+            <div class="note">
+                <h3>2. Resize to phone width</h3>
+                <p>
+                    A collapses to a hamburger accordion with a scrollable collection index. B keeps the search field
+                    and turns Explore into a full-screen drawer.
+                </p>
+            </div>
+            <div class="note">
+                <h3>3. Compare the trade-off</h3>
+                <p>
+                    A is better for browsing and for collectors who think in countries and eras. B is better for
+                    returning visitors who know what they want and for a catalogue that keeps growing.
+                </p>
+            </div>
+        </div>
+
+        <div class="notes-grid" style="margin-top:16px">
+            <div class="note">
+                <h3>Shared foundations</h3>
+                <p>
+                    Same tokens as the live site — navy #1e293b, amber #d97706, Inter, 1180px wrap — so either
+                    direction can drop into <code>docs/style.css</code> without a rebrand.
+                </p>
+            </div>
+            <div class="note">
+                <h3>Data is real-ish</h3>
+                <p>
+                    Country and theme counts come from the 149-item catalogue. The grid is a 12-lot sample so the
+                    prototype stays fast; filters that have no sample lots show an honest empty state.
+                </p>
+            </div>
+            <div class="note">
+                <h3>Suggested next step</h3>
+                <p>
+                    Pick one direction, then wire it into the four pages that share the masthead
+                    (<code>index.html</code>, news, exhibitions, album designer) from a single include or JS template.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <footer class="site-footer">
+        <div class="wrap footer-inner">
+            <p>Philately World · navigation prototypes</p>
+            <div class="footer-links">
+                <a href="prototype-a.html">Prototype A</a>
+                <a href="prototype-b.html">Prototype B</a>
+                <a href="../index.html">Live catalogue</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="shared.js" defer></script>
+</body>
+
+</html>

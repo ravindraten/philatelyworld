@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prototype B — Search-first + Explore drawer · Philately World</title>
+    <meta name="description"
+        content="Navigation prototype B: a search-first header with grouped typeahead and a faceted Explore slide-over drawer.">
+    <link rel="icon"
+        href="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/logo.jpg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="shared.css">
+</head>
+
+<body data-page="b">
+    <a class="skip-link" href="#results">Skip to results</a>
+
+    <div class="announce">
+        <div class="wrap announce-inner">
+            <span class="announce-dot" aria-hidden="true"></span>
+            <p class="announce-text" id="announceText" role="status">Free tracked shipping on orders over €150</p>
+            <a class="announce-link" id="announceLink" href="#">Shipping details</a>
+            <div class="announce-dots" id="announceDots" aria-label="Announcements"></div>
+        </div>
+    </div>
+
+    <header class="masthead masthead-b">
+        <div class="wrap masthead-inner">
+            <a class="brand" href="prototype-b.html" aria-label="Philately World home">
+                <img src="https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/logo.jpg"
+                    alt="Philately World logo" width="46" height="46" fetchpriority="high">
+                <span class="brand-text">
+                    <strong>Philately World</strong>
+                    <small>Premium stamp curation</small>
+                </span>
+            </a>
+
+            <div class="omni">
+                <div class="omni-field">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <circle cx="11" cy="11" r="7"></circle>
+                        <path d="m20 20-3.5-3.5"></path>
+                    </svg>
+                    <input type="search" id="omniInput"
+                        placeholder="Search 149 stamps, 40 countries, 15 themes…" aria-label="Search the collection"
+                        autocomplete="off" role="combobox" aria-expanded="false" aria-controls="omniResults">
+                    <kbd class="omni-kbd" aria-hidden="true">⌘K</kbd>
+                </div>
+                <div class="omni-results" id="omniResults" role="listbox" aria-label="Search suggestions" hidden></div>
+            </div>
+
+            <div class="header-tools">
+                <button class="currency-select" type="button" data-currency-toggle
+                    aria-label="Switch currency, currently INR">
+                    <span data-currency-symbol>₹</span> <span data-currency-label>INR</span>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"
+                        stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="m6 9 6 6 6-6"></path>
+                    </svg>
+                </button>
+                <button class="explore-btn" type="button" data-open-explore aria-controls="exploreDrawer"
+                    aria-expanded="false">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M4 6h16M7 12h10M10 18h4"></path>
+                    </svg>
+                    <span>Explore</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero-b">
+        <div class="wrap">
+            <div class="hero-b-card">
+                <p class="eyebrow">The catalogue</p>
+                <h1>Find your next <em>stamp</em>.</h1>
+                <p>
+                    Search by country, theme, era or format — or open Explore to browse every facet at once.
+                    Every lot is photographed, described and shipped worldwide.
+                </p>
+                <form class="hero-search" id="heroSearchForm" role="search">
+                    <div class="hero-search-field">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <circle cx="11" cy="11" r="7"></circle>
+                            <path d="m20 20-3.5-3.5"></path>
+                        </svg>
+                        <input type="search" id="heroSearchInput"
+                            placeholder="Try “India”, “FDCs”, “Red Cross” or “1840”" aria-label="Search the collection"
+                            autocomplete="off">
+                    </div>
+                    <button type="submit">Search</button>
+                </form>
+                <div class="hero-suggest">
+                    <span>Popular:</span>
+                    <button type="button" data-hero-term="India">India</button>
+                    <button type="button" data-hero-term="Miniature sheets">Miniature sheets</button>
+                    <button type="button" data-hero-term="FDCs">FDCs</button>
+                    <button type="button" data-hero-term="Red Cross">Red Cross</button>
+                    <button type="button" data-hero-term="Rarities">Rarities</button>
+                    <button type="button" data-hero-term="Birds">Birds</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <main class="wrap results" id="results">
+        <div class="results-bar">
+            <div>
+                <p class="eyebrow">Results</p>
+                <h2>Lots ready to ship</h2>
+                <p id="resultsSummary">All sample lots</p>
+            </div>
+            <div class="results-actions">
+                <button class="btn btn-ghost filter-trigger" type="button" data-open-explore
+                    aria-controls="exploreDrawer" aria-expanded="false">
+                    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M4 6h16M7 12h10M10 18h4"></path>
+                    </svg>
+                    Filters
+                </button>
+                <label class="sr-only" for="sortSelect">Sort by</label>
+                <select class="sort-select" id="sortSelect">
+                    <option value="newest">Newest first</option>
+                    <option value="price-asc">Price: low to high</option>
+                    <option value="price-desc">Price: high to low</option>
+                    <option value="country">Country A–Z</option>
+                </select>
+            </div>
+        </div>
+        <p class="muted" style="font-size:0.74rem;margin-bottom:12px">
+            Showing <span id="resultCount"><strong>12</strong> sample lots</span> · prototype data from the 149-item
+            catalogue
+        </p>
+        <div class="active-filters" id="activeFiltersB" aria-live="polite"></div>
+        <div class="card-grid" id="lotGrid"></div>
+    </main>
+
+    <div class="drawer-backdrop" id="drawerBackdrop" hidden></div>
+
+    <aside class="explore-drawer" id="exploreDrawer" role="dialog" aria-modal="true" aria-labelledby="exploreTitle"
+        aria-hidden="true">
+        <div class="drawer-head">
+            <div>
+                <p class="eyebrow">Browse</p>
+                <h2 id="exploreTitle">Explore the collection</h2>
+            </div>
+            <button class="icon-btn" type="button" data-close-explore aria-label="Close filters">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+                    stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M18 6 6 18M6 6l12 12"></path>
+                </svg>
+            </button>
+        </div>
+
+        <div class="drawer-body">
+            <section class="drawer-section">
+                <h3>Country <span>Select one or more</span></h3>
+                <div class="drawer-search">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <circle cx="11" cy="11" r="7"></circle>
+                        <path d="m20 20-3.5-3.5"></path>
+                    </svg>
+                    <input type="search" id="drawerCountrySearch" placeholder="Find a country…"
+                        aria-label="Find a country" autocomplete="off">
+                </div>
+                <div class="country-checks" id="drawerCountryList"></div>
+            </section>
+
+            <section class="drawer-section">
+                <h3>Theme</h3>
+                <div class="chip-grid" id="drawerThemes"></div>
+            </section>
+
+            <section class="drawer-section">
+                <h3>Era</h3>
+                <div class="chip-grid" id="drawerEras"></div>
+            </section>
+
+            <section class="drawer-section">
+                <h3>Format</h3>
+                <div class="chip-grid" id="drawerFormats"></div>
+            </section>
+
+            <section class="drawer-section">
+                <h3>Availability</h3>
+                <div class="chip-grid" id="drawerAvailability"></div>
+            </section>
+
+            <section class="drawer-section">
+                <h3>Maximum price <span>in current currency</span></h3>
+                <div class="price-range">
+                    <input type="range" id="priceRange" min="0" max="150000" step="500" value="0"
+                        aria-label="Maximum price">
+                    <output id="priceOutput" for="priceRange">Any</output>
+                </div>
+            </section>
+
+            <section class="drawer-section">
+                <h3>Pages</h3>
+                <div class="chip-grid">
+                    <a class="filter-chip" href="../index.html?tab=blog">Journal</a>
+                    <a class="filter-chip" href="../philatelic-news.html">Philatelic News</a>
+                    <a class="filter-chip" href="../philatelic-exhibitions.html">Exhibitions</a>
+                    <a class="filter-chip" href="../AlbumDesigner/albumeasy.html">Album Designer</a>
+                </div>
+            </section>
+        </div>
+
+        <div class="drawer-foot">
+            <button class="btn btn-ghost" type="button" id="clearDrawer">Clear all</button>
+            <button class="btn btn-amber" type="button" id="applyDrawer">
+                Show <span id="drawerCount">12</span> lots
+            </button>
+        </div>
+    </aside>
+
+    <footer class="site-footer">
+        <div class="wrap footer-inner">
+            <p>&copy; 2017–2026 Philately World Gallery</p>
+            <div class="footer-links">
+                <a href="../philatelic-news.html">Philatelic News</a>
+                <a href="../philatelic-exhibitions.html">Exhibitions</a>
+                <a href="../AlbumDesigner/albumeasy.html">Album Designer</a>
+                <a href="../index.html#privacy-policy">Privacy</a>
+                <a href="../index.html#security-guarantee">Security &amp; Guarantee</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="shared.js" defer></script>
+</body>
+
+</html>
