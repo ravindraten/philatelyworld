@@ -7,7 +7,7 @@
     const toggle = document.getElementById('mobileSearchToggle');
     const sheet = document.querySelector('.search-sticky-container');
     const backdrop = document.getElementById('mobileSearchBackdrop');
-    const closeButton = document.getElementById('mobileSearchClose');
+    const clearButton = document.getElementById('mobileSearchClose');
     const input = document.getElementById('stampSearch');
     if (!toggle || !sheet || !backdrop || !input) return;
 
@@ -110,11 +110,31 @@
         setOpen(!isOpen());
     });
 
-    if (closeButton) {
-        closeButton.addEventListener('click', function () {
-            setOpen(false);
-            toggle.focus();
-        });
+    if (clearButton) {
+        let lastClearAt = 0;
+        const clearSearch = function (event) {
+            if (event) {
+                event.preventDefault();
+                event.stopPropagation();
+            }
+            // pointerdown + click can both fire for one tap; act once.
+            const now = Date.now();
+            if (now - lastClearAt < 400) return;
+            lastClearAt = now;
+
+            if (!input.value) return;
+            input.value = '';
+            // The input listener in script.js resets the results and the ?q=
+            // parameter. Keep the sheet open and the caret in the field.
+            input.dispatchEvent(new Event('input', { bubbles: true }));
+            input.focus({ preventScroll: true });
+        };
+        // pointerdown fires before the input blurs and the keyboard starts
+        // closing. Acting on pointerup/click is unreliable on phones because
+        // the sheet moves as the keyboard dismisses, so the release can land
+        // where the button used to be.
+        clearButton.addEventListener('pointerdown', clearSearch);
+        clearButton.addEventListener('click', clearSearch);
     }
 
     backdrop.addEventListener('click', function () {

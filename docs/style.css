@@ -1001,23 +1001,6 @@ header {
     gap: 8px;
 }
 
-.share-icon-btn {
-    background: #cbd5e1;
-    border: 1px solid #94a3b8;
-    border-radius: 8px;
-    width: 38px;
-    height: 38px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    color: var(--text-main);
-    transition: all 0.2s ease;
-    padding: 0;
-    top: 12px;
-    right: 6px;
-}
-
 .share-icon-btn-promo {
     background: #475569;
     border: 1px solid #64748b;
@@ -1036,9 +1019,92 @@ header {
     position: absolute;
 }
 
-.share-icon-btn:hover {
-    background: #e2e8f0;
-    color: var(--primary);
+/* ---------- Right-click / long-press share menu ---------- */
+.share-menu {
+    position: fixed;
+    z-index: 4000;
+    min-width: 184px;
+    padding: 6px;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    box-shadow: 0 18px 44px rgba(15, 23, 42, 0.18);
+    display: grid;
+    gap: 2px;
+    font-family: 'Inter', sans-serif;
+}
+
+.share-menu[hidden] {
+    display: none;
+}
+
+.share-menu button {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    width: 100%;
+    padding: 9px 11px;
+    border: 0;
+    border-radius: 8px;
+    background: transparent;
+    color: #334155;
+    font-family: inherit;
+    font-size: 0.82rem;
+    font-weight: 600;
+    text-align: left;
+    cursor: pointer;
+}
+
+.share-menu button[hidden] {
+    display: none;
+}
+
+.share-menu button:hover,
+.share-menu button:focus-visible {
+    background: #f1f5f9;
+    color: #0f172a;
+    outline: none;
+}
+
+.share-menu button svg {
+    width: 15px;
+    height: 15px;
+    flex: 0 0 auto;
+    color: #64748b;
+}
+
+.share-toast {
+    position: fixed;
+    left: 50%;
+    bottom: 26px;
+    z-index: 4100;
+    padding: 9px 16px;
+    border-radius: 999px;
+    background: #0f172a;
+    color: #ffffff;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 600;
+    line-height: 1.4;
+    opacity: 0;
+    transform: translateX(-50%) translateY(10px);
+    pointer-events: none;
+    transition: opacity 0.18s ease, transform 0.18s ease;
+}
+
+.share-toast.visible {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
+
+/* Long-press should open our menu, not the native image/text callout */
+@media (hover: none) and (pointer: coarse) {
+    .stamp-card,
+    .stamp-card * {
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        user-select: none;
+    }
 }
 
 .price {
@@ -2830,7 +2896,7 @@ header {
 
     body.has-mobile-search .search-sticky-container #stampSearch {
         height: 56px;
-        padding: 0 54px 0 50px;
+        padding: 0 62px 0 50px;
         border: 1px solid rgba(15, 23, 42, 0.1);
         border-radius: 999px;
         background-color: #ffffff;
@@ -2873,12 +2939,13 @@ header {
     .mobile-search-close {
         position: absolute;
         top: 50%;
-        right: 12px;
+        right: 8px;
+        z-index: 2;
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        width: 32px;
-        height: 32px;
+        width: 40px;
+        height: 40px;
         transform: translateY(-50%);
         border: 0;
         border-radius: 50%;
@@ -2898,6 +2965,7 @@ header {
     .mobile-search-close svg {
         width: 15px;
         height: 15px;
+        pointer-events: none;
     }
 
     .mobile-search-fab {

@@ -248,31 +248,43 @@ def test_qr_modal_copy(driver):
 
 
 def test_stamp_card_share_link(driver):
-    """Stamp-card share button copies the share link (native share sheet is
-    unavailable in headless mode, so it must fall back to copying)."""
+    """Right-clicking a stamp card opens the share menu and Copy link copies
+    the listing URL, with a toast confirming the action."""
     driver.get(URL)
     wait = WebDriverWait(driver, 10)
 
-    share_btn = wait.until(
+    card = wait.until(
+        EC.presence_of_element_located(
+            (By.CSS_SELECTOR, "#stampGrid .stamp-card[data-share-url]")
+        )
+    )
+
+    # Open the share menu with a context-menu event on the card.
+    driver.execute_script(
+        """
+        const card = arguments[0];
+        const rect = card.getBoundingClientRect();
+        card.dispatchEvent(new MouseEvent('contextmenu', {
+            bubbles: true,
+            cancelable: true,
+            clientX: rect.left + 24,
+            clientY: rect.top + 24,
+            button: 2
+        }));
+        """,
+        card,
+    )
+
+    copy_btn = wait.until(
         EC.element_to_be_clickable(
-            (By.CSS_SELECTOR, "#stampGrid .stamp-card .share-icon-btn")
+            (By.CSS_SELECTOR, "#cardShareMenu [data-action='copy']")
         )
     )
+    copy_btn.click()
 
-    # A sticky overlay can intercept a WebDriver click; dispatch the click via
-    # JavaScript (the convention used across this suite).
-    driver.execute_script("arguments[0].click();", share_btn)
-
-    # The button flashes a 'COPIED' indicator when the native share sheet is
-    # unavailable (headless) and the fallback clipboard path runs.
-    wait.until(
-        EC.text_to_be_present_in_element(
-            (By.CSS_SELECTOR, "#stampGrid .stamp-card .share-icon-btn"), "COPIED"
-        )
-    )
-    assert "COPIED" in driver.find_element(
-        By.CSS_SELECTOR, "#stampGrid .stamp-card .share-icon-btn"
-    ).get_attribute("innerHTML")
+    # The menu copies the listing link and confirms it with a toast.
+    wait.until(EC.text_to_be_present_in_element((By.ID, "shareToast"), "Link copied"))
+    assert "Link copied" in driver.find_element(By.ID, "shareToast").text
 
 
 # --- 4. Deep Linking Scenario ---

@@ -761,7 +761,7 @@ function renderGallery(data) {
         const photoLabel = `${photoCount} Photo${photoCount === 1 ? '' : 's'}`;
 
         return `
-            <div class="stamp-card ${stamp.isSoldOut ? 'sold-out' : ''}${stamp.freeTrackedShipping || stamp.freeLetterPostShipping ? ' has-service-strip' : ''}">
+            <div class="stamp-card ${stamp.isSoldOut ? 'sold-out' : ''}${stamp.freeTrackedShipping || stamp.freeLetterPostShipping ? ' has-service-strip' : ''}" data-share-url="${shareUrl}">
                 ${stamp.isSoldOut ? '<div class="sold-out-badge">Sold Out</div>' : ''}
                 ${stamp.onSale ? '<div class="on-sale-badge">On Sale</div>' : ''}
                 <div class="img-container">
@@ -798,10 +798,6 @@ function renderGallery(data) {
                     <div class="price-row">
                         <div class="price ${stamp.onSale ? 'sale' : ''}">${stamp.onSale ? `${displaySalePrice}<br><span class="old-price">${displayOldPrice}</span>` : displayPrice}</div>
                         <div class="action-buttons">
-                            <button class="share-icon-btn" onclick="copyShareLink('${shareUrl}', this)" title="Copy Share Link">
-                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path><polyline points="16 6 12 2 8 6"></polyline><line x1="12" y1="2" x2="12" y2="15"></line></svg>
-                            </button>
-                            
                             ${stamp.isSoldOut
                 ? `<button class="buy-btn disabled" disabled>Sold Out</button>`
                 : (() => {
@@ -981,71 +977,239 @@ function copyUPI() {
 }
 window.copyUPI = copyUPI;
 
-// Add this helper function at the bottom of script.js
-async function copyShareLink(url, btn) {
-    // Prefer the native share sheet so the user can pick any app (WhatsApp,
-    // Messenger, email, etc.) to send the link. Fall back to copying the URL.
-    const showCopied = (originalHTML) => {
-        try {
-            btn.innerHTML = `<span style="font-size:10px; color:#059669; font-weight:bold;">COPIED</span>`;
-        } catch (e) { /* DOM unavailable */ }
-        setTimeout(() => {
-            try { btn.innerHTML = originalHTML; } catch (e) { /* noop */ }
-        }, 2000);
-    };
-    const legacyCopy = (text) => {
-        try {
-            const ta = document.createElement('textarea');
-            ta.value = text;
-            ta.setAttribute('readonly', '');
-            ta.style.position = 'fixed';
-            ta.style.opacity = '0';
-            document.body.appendChild(ta);
-            ta.select();
-            document.execCommand('copy');
-            document.body.removeChild(ta);
-            return true;
-        } catch (e) {
-            return false;
-        }
-    };
-    if (navigator.share) {
-        const originalSVG = btn.innerHTML;
-        try {
-            await navigator.share({
-                title: document.title,
-                text: 'Check out this stamp at Philately World:',
-                url: url
-            });
-            return;
-        } catch (err) {
-            // AbortError = user cancelled the share sheet; nothing to do.
-            if (err && err.name === 'AbortError') return;
-            // Fall through to clipboard fallback with optimistic feedback.
-            showCopied(originalSVG);
-            try {
-                if (navigator.clipboard && navigator.clipboard.writeText) {
-                    await navigator.clipboard.writeText(url);
-                } else {
-                    legacyCopy(url);
-                }
-            } catch (e) { /* feedback already shown */ }
-            return;
-        }
+// Copy a listing link. Uses the async clipboard where available and a
+// temporary textarea fallback for older browsers / insecure contexts.
+function legacyCopyText(text) {
+    try {
+        const ta = document.createElement('textarea');
+        ta.value = text;
+        ta.setAttribute('readonly', '');
+        ta.style.position = 'fixed';
+        ta.style.opacity = '0';
+        document.body.appendChild(ta);
+        ta.select();
+        const ok = document.execCommand('copy');
+        document.body.removeChild(ta);
+        return ok;
+    } catch (e) {
+        return false;
     }
-    // No native share (e.g. headless CI): show feedback synchronously so the
-    // UI never depends on clipboard permissions, then copy best-effort.
-    const originalSVG = btn.innerHTML;
-    showCopied(originalSVG);
+}
+
+async function copyShareUrl(url) {
     try {
         if (navigator.clipboard && navigator.clipboard.writeText) {
             await navigator.clipboard.writeText(url);
-        } else {
-            legacyCopy(url);
+            return true;
         }
-    } catch (e) { /* feedback already shown; clipboard best-effort only */ }
+    } catch (e) { /* fall through to the legacy path */ }
+    return legacyCopyText(url);
 }
-window.copyShareLink = copyShareLink;
+window.copyShareUrl = copyShareUrl;
+
+/* Right-click / long-press share menu for stamp cards.
+ * Each card carries its listing URL in data-share-url. The menu offers
+ * "Copy link" and, where supported, the native share sheet. */
+(function initCardShareMenu() {
+    let menu = null;
+    let toastTimer = null;
+    let activeCard = null;
+    let pressTimer = null;
+    let pressStart = null;
+    let suppressNextClick = false;
+
+    function buildMenu() {
+        if (menu || !document.body) return;
+
+        menu = document.createElement('div');
+        menu.id = 'cardShareMenu';
+        menu.className = 'share-menu';
+        menu.hidden = true;
+        menu.setAttribute('role', 'menu');
+        menu.setAttribute('aria-label', 'Share listing');
+        menu.innerHTML = `
+            <button type="button" role="menuitem" data-action="copy">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
+                Copy link
+            </button>
+            <button type="button" role="menuitem" data-action="share">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>
+                Share&hellip;
+            </button>`;
+        document.body.appendChild(menu);
+
+        if (!navigator.share) {
+            menu.querySelector('[data-action="share"]').hidden = true;
+        }
+
+        menu.addEventListener('click', function (event) {
+            const actionBtn = event.target.closest('[data-action]');
+            if (!actionBtn || !activeCard) return;
+
+            const card = activeCard;
+            const action = actionBtn.getAttribute('data-action');
+            closeMenu();
+
+            if (action === 'copy') {
+                const url = card.getAttribute('data-share-url');
+                if (!url) {
+                    showToast('Could not copy link');
+                    return;
+                }
+                // Confirm immediately, as clipboard writes can stay pending
+                // while the browser waits on a permission prompt.
+                showToast('Link copied');
+                copyShareUrl(url);
+            } else if (action === 'share') {
+                shareCard(card);
+            }
+        });
+    }
+
+    function showToast(message) {
+        let toast = document.getElementById('shareToast');
+        if (!toast) {
+            toast = document.createElement('div');
+            toast.id = 'shareToast';
+            toast.className = 'share-toast';
+            toast.setAttribute('role', 'status');
+            toast.setAttribute('aria-live', 'polite');
+            document.body.appendChild(toast);
+        }
+        toast.textContent = message;
+        toast.classList.add('visible');
+        window.clearTimeout(toastTimer);
+        toastTimer = window.setTimeout(function () {
+            toast.classList.remove('visible');
+        }, 2200);
+    }
+
+    function closeMenu() {
+        if (menu && !menu.hidden) menu.hidden = true;
+        if (menu && menu.contains(document.activeElement)) document.activeElement.blur();
+        activeCard = null;
+    }
+
+    function openMenu(card, x, y) {
+        buildMenu();
+        if (!menu) return;
+
+        activeCard = card;
+        menu.hidden = false;
+
+        if (!x && !y) {
+            const cardRect = card.getBoundingClientRect();
+            x = cardRect.left + cardRect.width / 2;
+            y = cardRect.top + cardRect.height / 2;
+        }
+
+        const rect = menu.getBoundingClientRect();
+        const pad = 10;
+        const left = Math.max(pad, Math.min(x, window.innerWidth - rect.width - pad));
+        const top = Math.max(pad, Math.min(y, window.innerHeight - rect.height - pad));
+        menu.style.left = left + 'px';
+        menu.style.top = top + 'px';
+
+        const firstItem = menu.querySelector('[data-action="copy"]');
+        if (firstItem) firstItem.focus({ preventScroll: true });
+    }
+
+    async function shareCard(card) {
+        const url = card.getAttribute('data-share-url');
+        if (!url) return;
+        const titleEl = card.querySelector('.details h3');
+        const title = titleEl ? titleEl.textContent.trim() : document.title;
+
+        if (navigator.share) {
+            try {
+                await navigator.share({
+                    title: title,
+                    text: 'Check out this stamp at Philately World:',
+                    url: url
+                });
+                return;
+            } catch (err) {
+                if (err && err.name === 'AbortError') return;
+            }
+        }
+
+        const ok = await copyShareUrl(url);
+        showToast(ok ? 'Link copied' : 'Could not copy link');
+    }
+
+    document.addEventListener('contextmenu', function (event) {
+        if (menu && !menu.hidden && !menu.contains(event.target)) closeMenu();
+
+        const card = event.target.closest && event.target.closest('.stamp-card[data-share-url]');
+        if (!card) return;
+        if (event.target.closest('a, button, input, textarea, .desc-popout')) return;
+
+        event.preventDefault();
+        openMenu(card, event.clientX, event.clientY);
+    });
+
+    document.addEventListener('click', function (event) {
+        if (suppressNextClick) {
+            suppressNextClick = false;
+            // Swallow the synthetic click that follows a long press, but
+            // never the tap that picks an item from the menu.
+            if (!event.target.closest('#cardShareMenu')) {
+                event.preventDefault();
+                event.stopPropagation();
+                return;
+            }
+        }
+        if (menu && !menu.hidden && !menu.contains(event.target)) closeMenu();
+    }, true);
+
+    document.addEventListener('keydown', function (event) {
+        if (event.key === 'Escape' && menu && !menu.hidden) closeMenu();
+    });
+
+    window.addEventListener('scroll', closeMenu, { passive: true, capture: true });
+    window.addEventListener('resize', closeMenu);
+
+    // Long press on touch devices: hold a card for ~550 ms.
+    document.addEventListener('touchstart', function (event) {
+        if (event.touches.length !== 1) return;
+        const card = event.target.closest && event.target.closest('.stamp-card[data-share-url]');
+        if (!card || (event.target.closest && event.target.closest('a, button, input, textarea'))) return;
+
+        const touch = event.touches[0];
+        pressStart = { x: touch.clientX, y: touch.clientY };
+        window.clearTimeout(pressTimer);
+        pressTimer = window.setTimeout(function () {
+            pressTimer = null;
+            suppressNextClick = true;
+            if (navigator.vibrate) {
+                try { navigator.vibrate(12); } catch (e) { /* noop */ }
+            }
+            openMenu(card, pressStart.x, pressStart.y);
+        }, 550);
+    }, { passive: true });
+
+    document.addEventListener('touchmove', function (event) {
+        if (!pressTimer || !pressStart || !event.touches.length) return;
+        const touch = event.touches[0];
+        if (Math.abs(touch.clientX - pressStart.x) > 10 || Math.abs(touch.clientY - pressStart.y) > 10) {
+            window.clearTimeout(pressTimer);
+            pressTimer = null;
+        }
+    }, { passive: true });
+
+    function cancelPress() {
+        window.clearTimeout(pressTimer);
+        pressTimer = null;
+    }
+    document.addEventListener('touchend', cancelPress);
+    document.addEventListener('touchcancel', cancelPress);
+
+    if (document.body) {
+        buildMenu();
+    } else {
+        document.addEventListener('DOMContentLoaded', buildMenu);
+    }
+})();
 
 function updateMetaTags(stamp, id) {
     let title, desc, imgUrl;
