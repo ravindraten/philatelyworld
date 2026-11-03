@@ -1,6 +1,17 @@
 // 1. STAMP DATABASE
 const stamps = [
     {
+        name: "Classic old stamps from Czechoslovakia.",
+        country: "Ceskoslovensko",
+        year: "<b>Year</b>: 1920-30",
+        priceINR: 1350,
+        isSoldOut: false,
+        freeTrackedShipping: false,
+        freeLetterPostShipping: true,
+        folder: "D149",
+        imageCount: 6,
+        desc: "<b>RN4209: Classic old stamps from Czechoslovakia.</b> What you see is what you get."
+    }, {
         name: "Stamps from German Reich period",
         country: "German Reich",
         year: "<b>Year</b>: 1940-44",
