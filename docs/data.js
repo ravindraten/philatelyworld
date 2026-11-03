@@ -2,7 +2,18 @@
 const stamps = [
     {
         name: "Travelled Covers of the German Reich",
-        country: "Ceskoslovensko",
+        country: "German Empire",
+        year: "<b>Year</b>:1927-1945",
+        priceINR: 5800,
+        isSoldOut: false,
+        freeTrackedShipping: true,
+        freeLetterPostShipping: false,
+        folder: "D119",
+        imageCount: 9,
+        desc: "<b>RN4211: Around 29 travelled covers.What you see is what you get. </b> <a href='https://philatelyworld.in/blog/weimar-to-third-reich-covers.html' target='_blank' rel='noopener'>Read detailed information here</a>. Rs.200 per cover"
+    }, {
+        name: "Travelled Covers of the German Reich",
+        country: "German Empire",
         year: "<b>Year</b>: 1886-1940",
         priceINR: 14000,
         isSoldOut: false,
@@ -10,7 +21,7 @@ const stamps = [
         freeLetterPostShipping: false,
         folder: "D117",
         imageCount: 16,
-        desc: "<b>RN4210: Around 70 travelled covers.</b> <a href=\"https://philatelyworld.in/blog/german-empire-travelled-covers.html\" target=\"_blank\" rel=\"noopener\">Read detailed information here</a>. What you see is what you get. Rs.200 per post card."
+        desc: "<b>RN4210: Around 70 travelled covers. What you see is what you get. </b> <a href='http://127.0.0.1:3000/docs/blog/weimar-to-third-reich-covers.html' target='_blank' rel='noopener'>Read detailed information here</a> Rs.200 per cover"
     }, {
         name: "Classic old stamps from Czechoslovakia.",
         country: "Ceskoslovensko",
