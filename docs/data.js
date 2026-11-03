@@ -1,6 +1,18 @@
 // 1. STAMP DATABASE
 const stamps = [
     {
+        name: "Stamps from German Reich period",
+        country: "German Reich",
+        year: "<b>Year</b>: 1940-44",
+        priceINR: 950,
+        isSoldOut: false,
+        freeTrackedShipping: false,
+        freeLetterPostShipping: true,
+        //folder: "D146",
+        //imageCount: 428,
+        images: "https://filedn.eu/lbu0dswNxxUBjQKg0kNdmLu/philatelyworld-images/images/germanReich.jpg",
+        desc: "<b>RN4208: Stamps from German Reich period</b>. What you see is what you get."
+    }, {
         name: "8 different postcards from India with cancelled stamps. Puppets of India",
         country: "India",
         year: "<b>Year</b>: 2026",
