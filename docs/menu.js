@@ -157,18 +157,39 @@
         });
 
         /* iOS (WebKit, incl. iOS Chrome) intermittently ignores or aborts
-         * smooth window.scrollTo, leaving the user mid-page where the
-         * masthead — and with it the hamburger menu — is out of reach.
-         * Smooth-scroll first; shortly after, if WebKit stalled the
-         * animation, hard-jump the remainder so top is always reached. */
-        function toTop() {
+         * smooth window.scrollTo when its toolbar collapses, leaving the
+         * masthead above the viewport. On phones jump instantly instead, and
+         * repeat after the toolbar has settled. Jumping must temporarily
+         * disable the CSS `scroll-behavior: smooth`, otherwise the fallback
+         * is animated too. */
+        function jumpToPageTop() {
+            const root = document.documentElement;
+            root.style.scrollBehavior = 'auto';
             try {
-                window.scrollTo({ top: 0, behavior: 'smooth' });
+                window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
             } catch (e) {
                 window.scrollTo(0, 0);
             }
+            root.scrollTop = 0;
+            if (document.body) document.body.scrollTop = 0;
+            // Drop the inline override so the stylesheet's smooth behaviour
+            // is restored for every other scroll on the page.
+            root.style.removeProperty('scroll-behavior');
+        }
+
+        function toTop() {
+            if (window.matchMedia('(max-width: 800px)').matches) {
+                jumpToPageTop();
+                window.setTimeout(jumpToPageTop, 300);
+                return;
+            }
+            try {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            } catch (e) {
+                jumpToPageTop();
+            }
             window.setTimeout(function () {
-                if (window.scrollY > 1) window.scrollTo(0, 0);
+                if (window.scrollY > 1) jumpToPageTop();
             }, 700);
         }
     }

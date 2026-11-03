@@ -400,17 +400,41 @@ function initEventListeners() {
         // NOTE: Removed the logic that previously added .scrolled-hidden to the promo card
     }, { passive: true });
 
-    backToTopBtn.addEventListener('click', () => {
-        // Same iOS fallback as menu.js: smooth first, hard-jump remainder
-        // if WebKit stalls the animation (otherwise the masthead — the
-        // reachable hamburger menu — stays out of reach).
+    /* A real jump to the very top. CSS sets `scroll-behavior: smooth` on
+     * <html>, so even scrollTo(0, 0) can be animated and then interrupted by
+     * iOS Chrome when its toolbar collapses. Temporarily disable smooth
+     * scrolling and set scrollTop directly. */
+    function jumpToPageTop() {
+        const root = document.documentElement;
+        root.style.scrollBehavior = 'auto';
         try {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+            window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
         } catch (e) {
             window.scrollTo(0, 0);
         }
+        root.scrollTop = 0;
+        if (document.body) document.body.scrollTop = 0;
+        // Drop the inline override so the stylesheet's smooth behaviour is
+        // restored for every other scroll on the page.
+        root.style.removeProperty('scroll-behavior');
+    }
+
+    backToTopBtn.addEventListener('click', () => {
+        // On phones the smooth animation can be aborted by the collapsing
+        // toolbar, leaving the masthead above the viewport. Jump instantly,
+        // then repeat once the toolbar has settled.
+        if (window.matchMedia('(max-width: 800px)').matches) {
+            jumpToPageTop();
+            window.setTimeout(jumpToPageTop, 300);
+            return;
+        }
+        try {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        } catch (e) {
+            jumpToPageTop();
+        }
         window.setTimeout(() => {
-            if (window.scrollY > 1) window.scrollTo(0, 0);
+            if (window.scrollY > 1) jumpToPageTop();
         }, 700);
     });
 
