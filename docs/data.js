@@ -1,7 +1,7 @@
 // 1. STAMP DATABASE
 const stamps = [
     {
-        name: "From Weimar to the Third Reich travelled covers",
+        name: "29 covers From Weimar to the Third Reich travelled covers",
         country: "German Empire",
         year: "<b>Year</b>:1927-1945",
         priceINR: 5800,
@@ -12,7 +12,7 @@ const stamps = [
         imageCount: 9,
         desc: "<b>RN4211: Around 29 travelled covers.What you see is what you get. </b> <a href='https://philatelyworld.in/blog/weimar-to-third-reich-covers.html' target='_blank' rel='noopener'>Read detailed information here</a>. Rs.200 per cover"
     }, {
-        name: "Travelled Covers of the German Reich",
+        name: "70 Travelled Covers of the German Reich",
         country: "German Empire",
         year: "<b>Year</b>: 1886-1940",
         priceINR: 14000,
@@ -106,7 +106,7 @@ const stamps = [
         country: "Germany Bundespost",
         year: "<b>Year</b>: various",
         priceINR: 1250,
-        isSoldOut: false,
+        isSoldOut: true,
         freeTrackedShipping: false,
         freeLetterPostShipping: true,
         folder: "D143",
