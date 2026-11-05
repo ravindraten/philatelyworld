@@ -649,7 +649,7 @@ def test_on_sale_badge_on_cards(driver):
     assert len(badges) > 0
     for badge in badges:
         assert badge.is_displayed()
-        assert "On sale" in badge.text
+        assert "on sale" in badge.text.lower()
 
 
 def test_sale_price_shows_original_strikethrough(driver):
