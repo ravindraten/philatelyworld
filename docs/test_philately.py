@@ -628,7 +628,7 @@ def test_sale_bell_presence(driver):
     click_availability_tab(driver, wait, 'all')
 
     # Verify count matches actual on-sale badges on the page
-    badges = wait.until(EC.presence_of_all_elements_located((By.CLASS_NAME, "on-sale-badge")))
+    badges = wait.until(EC.presence_of_all_elements_located((By.CLASS_NAME, "sale-chip")))
     assert len(badges) == sale_count
 
 
@@ -641,15 +641,15 @@ def test_on_sale_badge_on_cards(driver):
 
     badges = wait.until(
         lambda d: (
-            d.find_elements(By.CLASS_NAME, "on-sale-badge")
-            if len(d.find_elements(By.CLASS_NAME, "on-sale-badge")) > 0
+            d.find_elements(By.CLASS_NAME, "sale-chip")
+            if len(d.find_elements(By.CLASS_NAME, "sale-chip")) > 0
             else False
         )
     )
     assert len(badges) > 0
     for badge in badges:
         assert badge.is_displayed()
-        assert "ON SALE" in badge.text
+        assert "On sale" in badge.text
 
 
 def test_sale_price_shows_original_strikethrough(driver):
@@ -666,11 +666,15 @@ def test_sale_price_shows_original_strikethrough(driver):
 
     price_text = sale_price.text
     assert "₹" in price_text
-    assert "\n" in price_text
 
-    old_price = sale_price.find_element(By.CLASS_NAME, "old-price")
+    old_price = driver.find_element(By.CLASS_NAME, "old-price")
     assert old_price.is_displayed()
     assert "₹" in old_price.text
+    decoration = driver.execute_script(
+        "return getComputedStyle(arguments[0]).textDecorationLine",
+        old_price,
+    )
+    assert "line-through" in decoration
 
 
 @pytest.mark.skip(reason="Sale bell removed from header in the news-desk redesign")
@@ -688,11 +692,11 @@ def test_sale_filter_shows_only_sale_items(driver):
     driver.execute_script("arguments[0].click();", sale_bell)
 
     wait.until(
-        lambda d: len(d.find_elements(By.CLASS_NAME, "on-sale-badge")) == sale_count
+        lambda d: len(d.find_elements(By.CLASS_NAME, "sale-chip")) == sale_count
     )
 
     cards = driver.find_elements(By.CSS_SELECTOR, "#stampGrid .stamp-card")
-    badges = driver.find_elements(By.CLASS_NAME, "on-sale-badge")
+    badges = driver.find_elements(By.CLASS_NAME, "sale-chip")
 
     assert len(cards) > 0
     assert len(badges) == len(cards)
@@ -715,7 +719,7 @@ def test_sale_filter_toggle_off(driver):
     wait.until(lambda d: "active" not in sale_bell.get_attribute("class"))
 
     cards = driver.find_elements(By.CSS_SELECTOR, "#stampGrid .stamp-card")
-    badges = driver.find_elements(By.CLASS_NAME, "on-sale-badge")
+    badges = driver.find_elements(By.CLASS_NAME, "sale-chip")
     assert len(badges) < len(cards)
 
 
@@ -735,7 +739,7 @@ def test_sale_filter_deactivates_on_tab_click(driver):
 
     assert "active" not in sale_bell.get_attribute("class")
 
-    badges = driver.find_elements(By.CLASS_NAME, "on-sale-badge")
+    badges = driver.find_elements(By.CLASS_NAME, "sale-chip")
     cards = driver.find_elements(By.CSS_SELECTOR, "#stampGrid .stamp-card")
     assert len(badges) < len(cards)
 
@@ -747,13 +751,13 @@ def test_sale_deep_link_via_tab_param(driver):
     wait = WebDriverWait(driver, 10)
 
     wait.until(
-        lambda d: len(d.find_elements(By.CLASS_NAME, "on-sale-badge")) > 0
+        lambda d: len(d.find_elements(By.CLASS_NAME, "sale-chip")) > 0
     )
 
     cards = wait.until(
         lambda d: d.find_elements(By.CSS_SELECTOR, "#stampGrid .stamp-card")
     )
-    badges = driver.find_elements(By.CLASS_NAME, "on-sale-badge")
+    badges = driver.find_elements(By.CLASS_NAME, "sale-chip")
     assert len(cards) > 0
     assert len(badges) == len(cards)
 
@@ -774,9 +778,15 @@ def test_sale_price_currency_eur(driver):
     assert len(sale_prices) > 0
 
     for sale_price in sale_prices:
-        text = sale_price.text
-        assert "€" in text
-        old_price = sale_price.find_element(By.CLASS_NAME, "old-price")
+        assert "€" in sale_price.text
+
+    sale_chips = driver.find_elements(By.CLASS_NAME, "now")
+    old_prices = driver.find_elements(By.CLASS_NAME, "old-price")
+    assert len(sale_chips) > 0
+    assert len(old_prices) > 0
+    for sale_chip in sale_chips:
+        assert "€" in sale_chip.text
+    for old_price in old_prices:
         assert "€" in old_price.text
 
 

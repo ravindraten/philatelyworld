@@ -743,9 +743,9 @@ function renderGallery(data) {
                         <a href="${stamp.url || '#'}" style="text-decoration: none; color: inherit;">
                             <h3 style="cursor: pointer;">${stamp.name}</h3>
                         </a>
-                        <div style="display: flex; gap: 8px; align-items: center;">
+                    <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
                             <span class="stamp-year">${stamp.year}</span>
-                            <small style="color: var(--text-light)">${stamp.country}</small>
+                            <small style="color: var(--text-light)">${canonicalCountry(stamp.country)}</small>
                         </div>
                         <div class="stamp-desc">${stamp.desc}</div>
                         <div class="price-row" style="justify-content: flex-end;">
@@ -781,13 +781,27 @@ function renderGallery(data) {
             }
         }
 
+        const saleSavings = stamp.onSale
+            ? Math.max(0, stamp.priceINR - stamp.salePriceINR)
+            : 0;
+        const saleDiscount = stamp.onSale && stamp.priceINR > 0
+            ? Math.round((saleSavings / stamp.priceINR) * 100)
+            : 0;
+        const displaySavings = stamp.onSale
+            ? (state.currency === 'EUR'
+                ? `€${(saleSavings * CONFIG.eurRate).toFixed(2)}`
+                : `₹${saleSavings}`)
+            : '';
+        const saleSaveText = stamp.onSale
+            ? `You save ${displaySavings} (${saleDiscount}%)`
+            : '';
+
         const photoCount = stampImageCount(stamp);
         const photoLabel = `${photoCount} Photo${photoCount === 1 ? '' : 's'}`;
 
         return `
-            <div class="stamp-card ${stamp.isSoldOut ? 'sold-out' : ''}${stamp.freeTrackedShipping || stamp.freeLetterPostShipping ? ' has-service-strip' : ''}" data-share-url="${shareUrl}">
+            <div class="stamp-card ${stamp.isSoldOut ? 'sold-out' : ''}${stamp.freeTrackedShipping || stamp.freeLetterPostShipping ? ' has-service-strip' : ''}${stamp.onSale ? ' on-sale-accent' : ''}" data-share-url="${shareUrl}">
                 ${stamp.isSoldOut ? '<div class="sold-out-badge">Sold Out</div>' : ''}
-                ${stamp.onSale ? '<div class="on-sale-badge">On Sale</div>' : ''}
                 <div class="img-container">
                     <img src="${stampImageUrl(stamp, 1)}" 
                         alt="${stamp.name}" 
@@ -812,15 +826,18 @@ function renderGallery(data) {
                 </div>
                 <div class="details">
                     <h3>${stamp.name}</h3>
-                    <div style="display: flex; gap: 8px; align-items: center;">
+                    <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
                         <span class="stamp-year">${stamp.year}</span>
-                        <small style="color: var(--text-light)">${stamp.country}</small>
+                        <small style="color: var(--text-light)">${canonicalCountry(stamp.country)}</small>
+                        ${stamp.onSale ? '<span class="sale-chip">On sale</span>' : ''}
                     </div>
 
                     <div class="stamp-desc">${stamp.desc}</div>
                     
                     <div class="price-row">
-                        <div class="price ${stamp.onSale ? 'sale' : ''}">${stamp.onSale ? `${displaySalePrice}<br><span class="old-price">${displayOldPrice}</span>` : displayPrice}</div>
+                        <div class="price ${stamp.onSale ? 'sale' : ''}">${stamp.onSale
+                ? `<span class="now">${displaySalePrice}</span><span class="old-price">${displayOldPrice}</span><span class="save-line">${saleSaveText}</span>`
+                : displayPrice}</div>
                         <div class="action-buttons">
                             ${stamp.isSoldOut
                 ? `<button class="buy-btn disabled" disabled>Sold Out</button>`
@@ -876,6 +893,7 @@ function filterStamps(query) {
         const textMatch = !term || (
             item.name.toLowerCase().includes(term) ||
             item.country.toLowerCase().includes(term) ||
+            canonicalCountry(item.country).toLowerCase().includes(term) ||
             (item.desc && item.desc.toLowerCase().includes(term))
         );
 
@@ -1245,8 +1263,8 @@ function updateMetaTags(stamp, id) {
         title = `Philately World: ${stamp.name}`;
         const cleanYear = stamp.year.replace(/<\/?[^>]+(>|$)/g, "");
         desc = stamp.onSale
-            ? `${stamp.country} | ${cleanYear} | ON SALE: ₹${stamp.salePriceINR} (was ₹${stamp.priceINR})`
-            : `${stamp.country} | ${cleanYear} | Price: ₹${stamp.priceINR}`;
+            ? `${canonicalCountry(stamp.country)} | ${cleanYear} | ON SALE: ₹${stamp.salePriceINR} (was ₹${stamp.priceINR})`
+            : `${canonicalCountry(stamp.country)} | ${cleanYear} | Price: ₹${stamp.priceINR}`;
         imgUrl = stampImageUrl(stamp, 1);
     }
     // // 1. Clean up the title and description
