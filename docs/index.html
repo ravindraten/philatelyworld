@@ -122,7 +122,7 @@
     <noscript>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap">
     </noscript>
-    <link rel="stylesheet" href="style.css?v=20261103d">
+    <link rel="stylesheet" href="style.css?v=20261105b">
     <style>
         :root {
             --card-bg: #f6f6f6;
@@ -355,6 +355,7 @@
         <div class="mobile-hero-chips" role="group" aria-label="Quick collection filters">
             <button type="button" class="mobile-chip" data-quick-type="status" data-quick-value="available">Available
                 now</button>
+            <button type="button" class="mobile-chip" data-quick-type="status" data-quick-value="sale">On sale</button>
             <button type="button" class="mobile-chip" data-quick-type="theme" data-quick-value="FDCs">FDCs &amp;
                 covers</button>
             <button type="button" class="mobile-chip" data-quick-type="theme"
@@ -384,26 +385,60 @@
         <div class="layout-wrapper">
 
             <div class="left-rail">
-                <aside class="aside-card" id="catalogFilters">
+                <aside class="aside-card filter-panel" id="catalogFilters">
                     <div class="filters-head">
                         <h2>Filters</h2>
                         <button type="button" class="catalog-clear" id="catalogClearFilters" disabled>Clear</button>
                     </div>
 
-                    <div class="catalog-card-search">
-                        <input type="search" id="countryFilterSearch" placeholder="Find a country&hellip;"
-                            aria-label="Find a country">
-                    </div>
+                    <div class="fp-seg" id="availabilityList" role="group" aria-label="Availability"></div>
 
-                    <div class="source-list" id="availabilityList" role="listbox" aria-label="Availability"></div>
+                    <details class="fp-acc" open>
+                        <summary>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <circle cx="12" cy="12" r="9"></circle>
+                                <path d="M3 12h18M12 3a15 15 0 0 1 0 18M12 3a15 15 0 0 0 0 18"></path>
+                            </svg>
+                            Country
+                            <span class="acc-meta" id="countryAccMeta"></span>
+                            <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <path d="m6 9 6 6 6-6"></path>
+                            </svg>
+                        </summary>
+                        <div class="catalog-card-search fp-search">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <circle cx="11" cy="11" r="7"></circle>
+                                <path d="m20 20-3.5-3.5"></path>
+                            </svg>
+                            <input type="search" id="countryFilterSearch" placeholder="Find a country&hellip;"
+                                aria-label="Find a country">
+                        </div>
+                        <div class="chip-wrap scroll" id="countryFilterList" role="listbox"
+                            aria-label="Filter by country"></div>
+                    </details>
 
-                    <h2 style="margin-top:14px;">Country</h2>
-                    <div class="source-list catalog-list" id="countryFilterList" role="listbox"
-                        aria-label="Filter by country"></div>
-
-                    <h2 style="margin-top:14px;">Themes</h2>
-                    <div class="source-list catalog-list" id="themeList" role="listbox" aria-label="Filter by theme">
-                    </div>
+                    <details class="fp-acc" open>
+                        <summary>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <circle cx="12" cy="12" r="9"></circle>
+                                <circle cx="8.5" cy="10" r="1.2"></circle>
+                                <circle cx="12" cy="7.5" r="1.2"></circle>
+                                <circle cx="15.5" cy="10" r="1.2"></circle>
+                                <path d="M12 21a3 3 0 0 0 0-6"></path>
+                            </svg>
+                            Themes
+                            <span class="acc-meta" id="themeAccMeta"></span>
+                            <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <path d="m6 9 6 6 6-6"></path>
+                            </svg>
+                        </summary>
+                        <div class="chip-wrap scroll" id="themeList" role="listbox" aria-label="Filter by theme"></div>
+                    </details>
 
                     <h2 style="margin-top:14px;">Currency</h2>
                     <div class="rail-currency" role="group" aria-label="Currency">
@@ -1828,7 +1863,7 @@
             </div>
         </div>
     </div>
-    <script defer src="data.js?v=20260415"></script>
+    <script defer src="data.js?v=20261105b"></script>
     <script defer src="blog.js?v=20260415"></script>
     <script>
         if (new URLSearchParams(window.location.search).get('tab') === 'blog') {
@@ -1846,8 +1881,8 @@
             });
         }
     </script>
-    <script defer src="script.js?v=20261103e"></script>
-    <script defer src="catalog-filters.js?v=20261101"></script>
+    <script defer src="script.js?v=20261105b"></script>
+    <script defer src="catalog-filters.js?v=20261105b"></script>
     <script defer src="home-news.js?v=20261031"></script>
     <script defer src="menu.js?v=20261103e"></script>
     <script defer src="mobile-search.js?v=20261103d"></script>

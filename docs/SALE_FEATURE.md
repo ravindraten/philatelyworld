@@ -17,17 +17,20 @@ In `data.js`, add two fields to the stamp object:
 
 | Field | Type | Description |
 |---|---|---|
-| `onSale` | boolean | Set to `true` to show the "On Sale" badge and sale pricing |
+| `onSale` | boolean | Set to `true` to show sale pricing |
 | `salePriceINR` | number | The discounted price in INR |
 
 Only available stamps (`isSoldOut: false`) should be marked as on sale.
 
 ## What it does
 
-- A red "On Sale" badge appears on the stamp image (with pulse animation)
-- The sale price is shown above the original price (which is striked out)
-- Currency conversion (INR/EUR) applies to both sale and original prices
-- Social sharing previews show `ON SALE: ₹{salePrice} (was ₹{originalPrice})`
+- Keeps the photograph clean: no overlay chip on the image.
+- A red top edge on the card marks the lot as on sale.
+- An "On sale" chip appears in the meta row below the image.
+- The price block shows the sale price, the original price struck through,
+  and an explicit "You save … (%)" line.
+- Currency conversion (INR/EUR) applies to sale price, original price and savings.
+- Social sharing previews show `ON SALE: ₹{salePrice} (was ₹{originalPrice})`.
 
 ## Sale icon (filtering)
 
@@ -41,3 +44,9 @@ A price-tag icon sits in the header between the announcement bell and blog bell.
 
 ### On other pages (`all_announcements.html`, `blog/`)
 - Clicking the sale icon navigates to `index.html` with the sale filter pre-activated
+
+## Prototypes
+
+`onsale-prototypes/` holds the design study that led to the card accent
+treatment. Open `onsale-prototypes/index.html` to compare all seven studies;
+study 05 is the card accent now live on the catalogue.

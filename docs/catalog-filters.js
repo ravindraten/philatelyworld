@@ -85,8 +85,12 @@
 
     function countryCounts() {
         const counts = new Map();
+        const canonical = typeof canonicalCountry === 'function'
+            ? canonicalCountry
+            : function (name) { return name; };
         stampsData().forEach(function (stamp) {
-            counts.set(stamp.country, (counts.get(stamp.country) || 0) + 1);
+            const name = canonical(stamp.country);
+            counts.set(name, (counts.get(name) || 0) + 1);
         });
         return counts;
     }
@@ -113,14 +117,18 @@
         return {
             all: data.length,
             available: data.filter(function (s) { return !s.isSoldOut; }).length,
-            sold: data.filter(function (s) { return s.isSoldOut; }).length
+            sold: data.filter(function (s) { return s.isSoldOut; }).length,
+            sale: data.filter(function (s) { return s.onSale === true; }).length
         };
     }
 
     function activeTabStatus() {
         // The sticky tab bar was removed; active status now comes from
         // script.js's state directly (synced by the availability card).
-        if (typeof state !== 'undefined' && state && state.statusFilter) return state.statusFilter;
+        if (typeof state !== 'undefined' && state) {
+            if (state.saleActive) return 'sale';
+            if (state.statusFilter) return state.statusFilter;
+        }
         return 'all';
     }
 
@@ -154,14 +162,15 @@
         const rows = [
             { value: 'all', label: 'All items', count: counts.all },
             { value: 'available', label: 'Available', count: counts.available },
-            { value: 'sold', label: 'Sold out', count: counts.sold }
+            { value: 'sold', label: 'Sold out', count: counts.sold },
+            { value: 'sale', label: 'On sale', count: counts.sale }
         ];
         els.availability.innerHTML = rows.map(function (row) {
             const isActive = current === row.value;
-            return '<li><button type="button" data-status="' + row.value + '" class="' +
-                (isActive ? 'is-active' : '') + '">' +
-                '<span>' + esc(row.label) + '</span><span class="source-count">' + row.count + '</span>' +
-                '</button></li>';
+            return '<button type="button" data-status="' + row.value + '" class="seg' +
+                (isActive ? ' is-active' : '') + '" aria-pressed="' + isActive + '">' +
+                '<span>' + esc(row.label) + '</span><b class="seg-count">' + row.count + '</b>' +
+                '</button>';
         }).join('');
     }
 
@@ -175,20 +184,21 @@
             ? counts.filter(function (entry) { return entry[0].toLowerCase().indexOf(term) !== -1; })
             : counts;
 
-        const buttons = [
-            '<li><button type="button" data-country="" class="' + (filterState.country === '' ? 'is-active' : '') + '">',
-            '<span>All countries</span><span class="source-count">' + stampsData().length + '</span>',
-            '</button></li>'
+        const chips = [
+            '<button type="button" data-country="" class="chip' + (filterState.country === '' ? ' is-active' : '') + '">' +
+            'All countries<em>' + stampsData().length + '</em></button>'
         ];
         visible.forEach(function (entry) {
-            buttons.push(
-                '<li><button type="button" data-country="' + esc(entry[0]) + '" class="' +
-                (filterState.country === entry[0] ? 'is-active' : '') + '">' +
-                '<span>' + esc(entry[0]) + '</span><span class="source-count">' + entry[1] + '</span>' +
-                '</button></li>'
+            chips.push(
+                '<button type="button" data-country="' + esc(entry[0]) + '" class="chip' +
+                (filterState.country === entry[0] ? ' is-active' : '') + '">' +
+                esc(entry[0]) + '<em>' + entry[1] + '</em></button>'
             );
         });
-        els.country.innerHTML = buttons.join('');
+        els.country.innerHTML = chips.join('');
+
+        const meta = document.getElementById('countryAccMeta');
+        if (meta) meta.textContent = counts.length;
     }
 
     function renderThemes() {
@@ -196,20 +206,21 @@
         const counts = Array.from(themeCounts().entries())
             .filter(function (entry) { return entry[1] > 0; })
             .sort(function (a, b) { return b[1] - a[1] || a[0].localeCompare(b[0]); });
-        const buttons = [
-            '<li><button type="button" data-theme="" class="' + (filterState.theme === '' ? 'is-active' : '') + '">',
-            '<span>All themes</span><span class="source-count">' + stampsData().length + '</span>',
-            '</button></li>'
+        const chips = [
+            '<button type="button" data-theme="" class="chip' + (filterState.theme === '' ? ' is-active' : '') + '">' +
+            'All themes<em>' + stampsData().length + '</em></button>'
         ];
         counts.forEach(function (entry) {
-            buttons.push(
-                '<li><button type="button" data-theme="' + esc(entry[0]) + '" class="' +
-                (filterState.theme === entry[0] ? 'is-active' : '') + '">' +
-                '<span>' + esc(entry[0]) + '</span><span class="source-count">' + entry[1] + '</span>' +
-                '</button></li>'
+            chips.push(
+                '<button type="button" data-theme="' + esc(entry[0]) + '" class="chip' +
+                (filterState.theme === entry[0] ? ' is-active' : '') + '">' +
+                esc(entry[0]) + '<em>' + entry[1] + '</em></button>'
             );
         });
-        els.theme.innerHTML = buttons.join('');
+        els.theme.innerHTML = chips.join('');
+
+        const meta = document.getElementById('themeAccMeta');
+        if (meta) meta.textContent = counts.length;
     }
 
     function render() {
@@ -256,7 +267,11 @@
             if (saleActive) statusMatch = statusMatch && item.onSale === true;
 
             // 4. Country filter
-            const countryMatch = !filterState.country || item.country === filterState.country;
+            const canonical = typeof canonicalCountry === 'function'
+                ? canonicalCountry
+                : function (name) { return name; };
+            const countryMatch = !filterState.country ||
+                canonical(item.country) === filterState.country;
 
             // 5. Theme filter
             const hay = String(item.name || '') + ' ' + (item.desc || '');
@@ -317,12 +332,17 @@
             // (status + sale reset + session storage) so deep links and
             // back-button behaviour survive the tab bar's removal.
             if (typeof state !== 'undefined' && state) {
-                state.statusFilter = value;
-                state.saleActive = false;
+                if (value === 'sale') {
+                    state.statusFilter = 'all';
+                    state.saleActive = true;
+                } else {
+                    state.statusFilter = value;
+                    state.saleActive = false;
+                }
                 sessionStorage.setItem('activeTab', value);
             }
             const saleBell = document.getElementById('saleBell');
-            if (saleBell) saleBell.classList.remove('active');
+            if (saleBell) saleBell.classList.toggle('active', value === 'sale');
 
             if (typeof resetSaleFlag === 'function') resetSaleFlag(); // no-op if absent
             searchInputHandler((document.getElementById('stampSearch') || {}).value || '');
@@ -338,7 +358,9 @@
         els.country.addEventListener('click', function (event) {
             const button = event.target.closest('button[data-country]');
             if (!button) return;
-            filterState.country = button.getAttribute('data-country') || '';
+            const value = button.getAttribute('data-country') || '';
+            // Tapping the active chip clears the country again.
+            filterState.country = (value && value === filterState.country) ? '' : value;
             renderCountries();
             updateClearButton();
             applyFilters();
@@ -354,7 +376,9 @@
         els.theme.addEventListener('click', function (event) {
             const button = event.target.closest('button[data-theme]');
             if (!button) return;
-            filterState.theme = button.getAttribute('data-theme') || '';
+            const value = button.getAttribute('data-theme') || '';
+            // Tapping the active chip clears the theme again.
+            filterState.theme = (value && value === filterState.theme) ? '' : value;
             renderThemes();
             updateClearButton();
             syncQuickChips();
@@ -451,6 +475,15 @@
     // and the rail visibility is restored for the default (promo off) case.
     applyFilters();
     syncRail();
+
+    // script.js applies ?tab=sale / localStorage deep-links inside its own
+    // DOMContentLoaded handler (registered before this script), so re-sync the
+    // segmented availability + quick chips once the final state is known.
+    document.addEventListener('DOMContentLoaded', function () {
+        renderAvailability();
+        syncQuickChips();
+        updateClearButton();
+    });
 })();
 
 /* ------------------------------------------------------------------

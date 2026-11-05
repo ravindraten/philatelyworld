@@ -8,9 +8,12 @@ const stamps = [
         isSoldOut: false,
         freeTrackedShipping: true,
         freeLetterPostShipping: false,
+        onSale: true,
+        salePriceINR: 4500,
         folder: "D119",
         imageCount: 9,
-        desc: "<b>RN4211: Around 29 travelled covers.What you see is what you get. </b> <a href='https://philatelyworld.in/blog/weimar-to-third-reich-covers.html' target='_blank' rel='noopener'>Read detailed information here</a>. Rs.200 per cover"
+        blogUrl: "/blog/weimar-to-third-reich-covers.html",
+        desc: "RN4211: Around 29 travelled covers.What you see is what you get. Rs.200 per cover"
     }, {
         name: "70 Travelled Covers of the German Reich",
         country: "German Empire",
@@ -21,7 +24,8 @@ const stamps = [
         freeLetterPostShipping: false,
         folder: "D117",
         imageCount: 16,
-        desc: "<b>RN4210: Around 70 travelled covers. What you see is what you get. </b> <a href='https://philatelyworld.in/blog/german-empire-travelled-covers.html' target='_blank' rel='noopener'>Read detailed information here</a> Rs.200 per cover"
+        blogUrl: "/blog/german-empire-travelled-covers.html",
+        desc: "RN4210: Around 70 travelled covers. What you see is what you get. Rs.200 per cover"
     }, {
         name: "Classic old stamps from Czechoslovakia.",
         country: "Ceskoslovensko",
@@ -1974,3 +1978,73 @@ const stamps = [
         desc: "RN4065: MNH MS from India"
     }
 ];
+
+// Collapse historical variants and multi-country labels into one canonical
+// country so the filter rail lists each country once and filters group them.
+const COUNTRY_ALIASES = {
+    'albania, north ingria and georgia': 'Albania',
+    'australia': 'Australia',
+    'australia, papa new guinea': 'Australia',
+    'austria, netherlands, belgium, portgual': 'Austria',
+    'belgian congo': 'Belgium',
+    'belgium': 'Belgium',
+    'bhutan, kazakhstan': 'Bhutan',
+    'ceskoslovensko': 'Czechoslovakia',
+    'commonwealth': 'Commonwealth',
+    'czechoslovakia': 'Czechoslovakia',
+    'different countries': 'Worldwide',
+    'dutch antiles and aruba': 'Netherlands Antilles',
+    'dutch antilles and suriname': 'Netherlands Antilles',
+    'europa': 'Europe',
+    'europe': 'Europe',
+    'france': 'France',
+    'french territories': 'France',
+    'gb': 'Great Britain',
+    'gb and others': 'Great Britain',
+    'german empire': 'Germany',
+    'german reich': 'Germany',
+    'germany': 'Germany',
+    'germany bayern': 'Germany',
+    'germany bundespost': 'Germany',
+    'germany and berlin': 'Germany',
+    'germany, german empire, indonesia, poland, austria': 'Germany',
+    'germany, sweden': 'Germany',
+    'great britain': 'Great Britain',
+    'great britain, ireland': 'Great Britain',
+    'great britian': 'Great Britain',
+    'hungary': 'Hungary',
+    'iceland': 'Iceland',
+    'india': 'India',
+    'indonesia, japan and china': 'Indonesia',
+    'international': 'Worldwide',
+    'iraq': 'Iraq',
+    'israel': 'Israel',
+    'italy': 'Italy',
+    'jugoslavia,romania,bulgaria,poland, russia': 'Yugoslavia',
+    'lao pdr & india': 'Laos',
+    'liechtenstein': 'Liechtenstein',
+    'mocambique, tanzania, guinea-bissau, zaire, southafrica, rwanda, egypt,cameroon, algeria, kenya': 'Mozambique',
+    'montenegro': 'Montenegro',
+    'netherlands': 'Netherlands',
+    'portugal, austria, luxembourg, belgium, netherlands': 'Portugal',
+    'romania': 'Romania',
+    'russia': 'Russia',
+    'spain': 'Spain',
+    'suriname': 'Suriname',
+    'suriname, spain, pakistan, portugal': 'Suriname',
+    'sweden': 'Sweden',
+    'switzerland': 'Switzerland',
+    'tunisia': 'Tunisia',
+    'ukraine': 'Ukraine',
+    'united nations': 'United Nations',
+    'various countries': 'Worldwide',
+    'west germany': 'Germany',
+    'world': 'Worldwide',
+    'worldwide': 'Worldwide'
+};
+
+function canonicalCountry(name) {
+    if (!name) return '';
+    const raw = String(name).trim();
+    return COUNTRY_ALIASES[raw.toLowerCase()] || raw;
+}
