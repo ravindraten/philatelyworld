@@ -119,6 +119,7 @@
     function filteredItems() {
         const query = state.query.trim().toLowerCase();
         return state.items.filter(function (item) {
+            if (state.source !== 'all' && item.source !== state.source) return false;
             if (!query) return true;
             const haystack = [item.title, item.venue, item.description, item.source].join(' ').toLowerCase();
             return haystack.indexOf(query) !== -1;

@@ -2,7 +2,9 @@
 """Collect upcoming philatelic exhibitions and stamp shows into docs/exhibitions.json.
 
 Scraped from each organiser's event page:
+- ABPS Forthcoming Exhibitions (UK national and international shows)
 - FEPA events calendar (Europe-wide, years ahead)
+- APS international shows (worldwide, from the American Philatelic Society)
 - NAPEX (Washington D.C. area, USA)
 - Queensland Stamp & Coin Show (Brisbane, Australia)
 
@@ -12,6 +14,7 @@ Run ``python3 scripts/fetch_philatelic_exhibitions.py`` to refresh.
 
 from __future__ import annotations
 
+import calendar
 import gzip
 import html
 import http.cookiejar
@@ -35,9 +38,19 @@ SSL_CONTEXT = ssl.create_default_context()
 
 SOURCES = [
     {
+        "name": "ABPS",
+        "home": "https://www.abps.org.uk/",
+        "url": "https://www.abps.org.uk/forthcoming-exhibitions/",
+    },
+    {
         "name": "FEPA News",
         "home": "https://fepanews.com/",
         "url": "https://fepanews.com/events/",
+    },
+    {
+        "name": "APS",
+        "home": "https://stamps.org/",
+        "url": "https://stamps.org/events/international-shows",
     },
     {"name": "NAPEX", "home": "https://www.napex.org", "url": "https://www.napex.org/"},
     {
@@ -66,6 +79,38 @@ FEPA_VENUE_RE = re.compile(
 FEPA_DESCRIPTION_RE = re.compile(
     r'class="tribe-events-calendar-list__event-summary[^"]*"[^>]*>(.*?)</', re.S
 )
+
+# ABPS Forthcoming Exhibitions page: prose broken into <h3>/<p> blocks. Each
+# exhibition opens with a short title block ending in a parenthesised date,
+# e.g. "PRAGA 2028 (22-26 March 2028)".
+ABPS_BLOCK_RE = re.compile(r"<(h3|p)[^>]*>(.*?)</\1>", re.S)
+ABPS_TITLE_DATE_RE = re.compile(r"\(([^)]*\d{4})\)\s*$")
+ABPS_RANGE_RE = re.compile(
+    r"(\d{1,2})\s*[\u2013\u2014-]\s*(\d{1,2})\s+([A-Z][a-z]+)\s+(\d{4})"
+)
+ABPS_DAY_RE = re.compile(r"(\d{1,2})\s+([A-Z][a-z]+)\s+(\d{4})")
+ABPS_MONTH_RE = re.compile(r"([A-Z][a-z]+)\s+(\d{4})")
+ABPS_LOCATION_RE = re.compile(r"\(to be held at ([^)]+)\)", re.I)
+ABPS_LINK_RE = re.compile(r'href="([^"]+)"')
+ABPS_SKIP_DETAIL_RE = re.compile(
+    r"^(?:fip patronage|full details|uk commissioner|entry deadline|"
+    r"now closed|applications|please refer|any queries|the deadline|"
+    r"postponed|to register|if you would|extract from)",
+    re.I,
+)
+
+# APS international shows page: each event is an <h4> heading with the date
+# range and title, followed by a table of Location / Website / Note rows.
+APS_H4_RE = re.compile(r"<h4[^>]*>(.*?)</h4>", re.S)
+APS_ROW_RE = re.compile(r"<tr[^>]*>(.*?)</tr>", re.S)
+APS_CELL_RE = re.compile(r"<td[^>]*>(.*?)</td>", re.S)
+APS_CROSS_RANGE_RE = re.compile(
+    r"^([A-Z][a-z]+)\s+(\d{1,2})\s*[\u2013\u2014-]\s*([A-Z][a-z]+)\s+(\d{1,2}),?\s+(\d{4})"
+)
+APS_DAY_RANGE_RE = re.compile(
+    r"^([A-Z][a-z]+)\s+(\d{1,2})\s*[\u2013\u2014-]\s*(\d{1,2}),?\s+(\d{4})"
+)
+APS_MONTH_YEAR_RE = re.compile(r"^([A-Z][a-z]+)\s+(\d{4})")
 
 # NAPEX homepage: "NAPEX 2027 will be held June 4-6, 2027."
 NAPEX_RANGE_RE = re.compile(
@@ -198,6 +243,213 @@ def fepa_events(source: dict) -> list[dict]:
     return items
 
 
+def abps_date_range(text: str) -> tuple[str, str] | None:
+    """Turn an ABPS parenthesised date into ISO (start, end) date strings."""
+    match = ABPS_RANGE_RE.search(text)
+    if match and match.group(3) in MONTHS:
+        day1, day2, month, year = match.groups()
+        return (
+            f"{int(year):04d}-{MONTHS[month]:02d}-{int(day1):02d}",
+            f"{int(year):04d}-{MONTHS[month]:02d}-{int(day2):02d}",
+        )
+    match = ABPS_DAY_RE.search(text)
+    if match and match.group(2) in MONTHS:
+        day, month, year = match.groups()
+        value = f"{int(year):04d}-{MONTHS[month]:02d}-{int(day):02d}"
+        return value, value
+    match = ABPS_MONTH_RE.search(text)
+    if match and match.group(1) in MONTHS:
+        month, year = match.groups()
+        month_number = MONTHS[month]
+        last_day = calendar.monthrange(int(year), month_number)[1]
+        return (
+            f"{int(year):04d}-{month_number:02d}-01",
+            f"{int(year):04d}-{month_number:02d}-{last_day:02d}",
+        )
+    return None
+
+
+def abps_events(source: dict) -> list[dict]:
+    raw = fetch(source["url"]).decode("utf-8", "replace")
+    start = raw.find("Forthcoming National Exhibitions")
+    if start == -1:
+        return []
+    end = raw.find("UK handling charges", start)
+    segment = raw[start:end] if end != -1 else raw[start:]
+
+    items: list[dict] = []
+    current: dict | None = None
+    details: list[str] = []
+    links: list[str] = []
+
+    def flush() -> None:
+        nonlocal current
+        if not current:
+            return
+        description = ""
+        postponed = any(line.lower().startswith("postponed") for line in details)
+        if not postponed:
+            useful = [
+                line for line in details
+                if not ABPS_SKIP_DETAIL_RE.match(line)
+            ]
+            description = " ".join(useful)[:320].strip()
+            web_links = [link for link in links if link.startswith("http")]
+            current["url"] = web_links[0] if web_links else source["url"]
+            current["description"] = description
+            items.append(current)
+        current = None
+        details.clear()
+        links.clear()
+
+    for tag, block in ABPS_BLOCK_RE.findall(segment):
+        text = re.sub(r"<[^>]+>", " ", block)
+        text = SPACE_RE.sub(" ", html.unescape(text)).strip()
+        text = text.replace("G eneral", "General")
+        # The page splits some years across spans, giving "June 20 27)".
+        text = re.sub(r"(\d{2})\s+(\d{2})\s*\)", r"\1\2)", text)
+        if not text:
+            continue
+
+        date_match = ABPS_TITLE_DATE_RE.search(text) if tag == "h3" or len(text) < 180 else None
+        dates = abps_date_range(date_match.group(1)) if date_match else None
+
+        if date_match and dates:
+            flush()
+            title = text[:date_match.start()].strip()
+            venue = ""
+            location = ABPS_LOCATION_RE.search(title)
+            if location:
+                venue = location.group(1).strip()
+                title = title[:location.start()].strip()
+            elif "," in title:
+                title, venue = re.split(r"\s*,\s*", title, maxsplit=1)
+            title = title.replace("PHILATAPEI", "PHILATAIPEI").replace("Slovfilex", "Slovphilex")
+            venue = venue.replace("Tapei", "Taipei")
+            if title.isupper() and len(title) > 30:
+                title = title.title()
+            current = {
+                "title": title.strip(),
+                "url": source["url"],
+                "start": dates[0],
+                "end": dates[1],
+                "venue": venue.strip(),
+                "description": "",
+                "image": IMAGE_FALLBACK,
+                "source": source["name"],
+                "source_url": source["home"],
+            }
+            links.extend(ABPS_LINK_RE.findall(block))
+            continue
+
+        if tag == "h3":
+            flush()
+            continue
+
+        if current:
+            details.append(text)
+            links.extend(ABPS_LINK_RE.findall(block))
+
+    flush()
+    return items
+
+
+def aps_date_and_title(text: str) -> tuple[str, str, str] | None:
+    """Split an APS heading such as "June 30 - July 4, 2027 - Slovphilex 2027"."""
+    match = APS_CROSS_RANGE_RE.match(text)
+    if match and match.group(1) in MONTHS and match.group(3) in MONTHS:
+        month1, day1, month2, day2, year = match.groups()
+        start = f"{int(year):04d}-{MONTHS[month1]:02d}-{int(day1):02d}"
+        end = f"{int(year):04d}-{MONTHS[month2]:02d}-{int(day2):02d}"
+        title = text[match.end():].lstrip(" \u2013\u2014-")
+        return start, end, title
+
+    match = APS_DAY_RANGE_RE.match(text)
+    if match and match.group(1) in MONTHS:
+        month, day1, day2, year = match.groups()
+        start = f"{int(year):04d}-{MONTHS[month]:02d}-{int(day1):02d}"
+        end = f"{int(year):04d}-{MONTHS[month]:02d}-{int(day2):02d}"
+        title = text[match.end():].lstrip(" \u2013\u2014-")
+        return start, end, title
+
+    match = APS_MONTH_YEAR_RE.match(text)
+    if match and match.group(1) in MONTHS:
+        month, year = match.groups()
+        month_number = MONTHS[month]
+        last_day = calendar.monthrange(int(year), month_number)[1]
+        start = f"{int(year):04d}-{month_number:02d}-01"
+        end = f"{int(year):04d}-{month_number:02d}-{last_day:02d}"
+        title = text[match.end():].lstrip(" \u2013\u2014-")
+        return start, end, title
+
+    return None
+
+
+def aps_events(source: dict) -> list[dict]:
+    raw = fetch(source["url"]).decode("utf-8", "replace")
+    start = raw.find("Below is a list of International Exhibitions")
+    if start == -1:
+        return []
+    end = raw.find("Further information on the International Federation", start)
+    segment = raw[start:end] if end != -1 else raw[start:]
+
+    items: list[dict] = []
+    for part in re.split(r"<hr\s*/?>", segment, flags=re.I):
+        heading = APS_H4_RE.search(part)
+        if not heading:
+            continue
+        heading_text = clean_text(heading.group(1))
+        parsed = aps_date_and_title(heading_text)
+        if not parsed:
+            continue
+        start_date, end_date, title = parsed
+
+        venue = ""
+        description = ""
+        url = source["url"]
+        for row in APS_ROW_RE.findall(part):
+            cells = APS_CELL_RE.findall(row)
+            if len(cells) < 2:
+                continue
+            label = clean_text(cells[0]).rstrip(":").strip().lower()
+            if label.startswith("location"):
+                venue = clean_text(cells[1])
+            elif label.startswith("website"):
+                anchors = re.findall(r'<a[^>]*href="([^"]+)"[^>]*>(.*?)</a>', cells[1], re.S)
+                for href, text in anchors:
+                    text = clean_text(text)
+                    if text.startswith("http"):
+                        url = text
+                        break
+                else:
+                    for href, _ in anchors:
+                        href = html.unescape(href)
+                        if href.startswith("http"):
+                            url = href
+                            break
+            elif label.startswith("note"):
+                for line in re.split(r"<br\s*/?>", cells[1], flags=re.I):
+                    line = clean_text(line)
+                    if line:
+                        description = line[:320]
+                        break
+
+        items.append(
+            {
+                "title": title,
+                "url": url,
+                "start": start_date,
+                "end": end_date,
+                "venue": venue,
+                "description": description,
+                "image": IMAGE_FALLBACK,
+                "source": source["name"],
+                "source_url": source["home"],
+            }
+        )
+    return items
+
+
 def napex_events(source: dict) -> list[dict]:
     raw = fetch(source["url"]).decode("utf-8", "replace")
     text = clean_text(raw)
@@ -253,10 +505,51 @@ def qld_events(source: dict) -> list[dict]:
 
 
 PARSERS = {
+    "ABPS": abps_events,
     "FEPA News": fepa_events,
+    "APS": aps_events,
     "NAPEX": napex_events,
     "Queensland Stamp & Coin Show": qld_events,
 }
+
+
+GENERIC_TITLE_WORDS = re.compile(
+    r"\b(?:world|international|national|stamp|stamps|philatelic|"
+    r"exhibition|exhibitions|show|competitive)\b"
+)
+
+
+def event_key(title: str) -> str:
+    text = re.sub(r"\b(?:19|20)\d{2}\b", " ", title.lower())
+    text = GENERIC_TITLE_WORDS.sub(" ", text)
+    return re.sub(r"[^a-z0-9]+", "", text)
+
+
+def dedupe(items: list[dict]) -> list[dict]:
+    """Keep one entry per event, preferring the source listed first and
+    borrowing any missing details from later duplicates."""
+    seen: dict[str, dict] = {}
+    unique: list[dict] = []
+    for item in items:
+        key = event_key(item["title"])
+        if key in seen:
+            existing = seen[key]
+            for field in ("venue", "description", "url"):
+                if not existing.get(field) and item.get(field):
+                    existing[field] = item[field]
+            # A month-only range (e.g. "June 2027") is less useful than the
+            # exact dates another source may publish for the same show.
+            month_only = existing["start"].endswith("-01") and existing["end"].endswith(
+                str(calendar.monthrange(
+                    int(existing["end"][:4]), int(existing["end"][5:7])
+                )[1]).zfill(2)
+            )
+            if month_only and (item["start"], item["end"]) != (existing["start"], existing["end"]):
+                existing["start"], existing["end"] = item["start"], item["end"]
+            continue
+        seen[key] = item
+        unique.append(item)
+    return unique
 
 
 def main() -> int:
@@ -272,10 +565,14 @@ def main() -> int:
         except Exception as error:  # noqa: BLE001
             failures.append(f"  - {source['name']}: {error}")
 
+    for failure in failures:
+        print(f"Failed source {failure}", file=sys.stderr)
+
     if not items:
         print("No exhibitions collected; refusing to overwrite exhibitions.json.", file=sys.stderr)
         return 1
 
+    items = dedupe(items)
     items.sort(key=lambda item: item["start"])
     payload = {
         "generated_at": datetime.now(timezone.utc).isoformat().replace("+00:00", "Z"),

@@ -1,11 +1,13 @@
 {
-  "generated_at": "2026-11-01T00:13:47.128252Z",
+  "generated_at": "2026-11-05T12:47:41.921940Z",
   "sources": [
+    "ABPS",
     "FEPA News",
+    "APS",
     "NAPEX",
     "Queensland Stamp & Coin Show"
   ],
-  "count": 23,
+  "count": 26,
   "items": [
     {
       "title": "Queensland Stamp & Coin Show (QSACS)",
@@ -20,14 +22,14 @@
     },
     {
       "title": "PHILATAIPEI 2026",
-      "url": "https://fepanews.com/event/philataipei-2026/",
-      "start": "2026-11-20",
-      "end": "2026-11-25",
-      "venue": "Chinese Taipei, , Taiwan",
-      "description": "",
+      "url": "https://taipei2026.post.gov.tw/taipei2026/en/index.jsp?ID=1403690934606",
+      "start": "2026-11-19",
+      "end": "2026-11-24",
+      "venue": "Taipei",
+      "description": "A specialised FIP exhibition. World Stamp Championship.",
       "image": "images/news-placeholder.svg",
-      "source": "FEPA News",
-      "source_url": "https://fepanews.com/"
+      "source": "ABPS",
+      "source_url": "https://www.abps.org.uk/"
     },
     {
       "title": "BEIRUT 2026",
@@ -85,6 +87,17 @@
       "source_url": "https://fepanews.com/"
     },
     {
+      "title": "The Spring 2027 National Competitive Exhibition",
+      "url": "https://exhibitions.abps.org.uk/",
+      "start": "2027-04-02",
+      "end": "2027-04-03",
+      "venue": "The Royal Philatelic Society London",
+      "description": "The 2027 Spring Exhibition will be held in London at the Royal Philatelic Society. All competitive classes will be admitted apart from Astrophilately, Maximaphily and First Day Covers.",
+      "image": "images/news-placeholder.svg",
+      "source": "ABPS",
+      "source_url": "https://www.abps.org.uk/"
+    },
+    {
       "title": "ECTP 2027",
       "url": "https://fepanews.com/event/ectp-2027/",
       "start": "2027-04-15",
@@ -129,15 +142,15 @@
       "source_url": "https://www.napex.org"
     },
     {
-      "title": "SLOVPHILEX 2027",
-      "url": "https://fepanews.com/event/slovphilex-2027/",
+      "title": "Slovphilex 2027",
+      "url": "http://www.slovphilex2027.sk",
       "start": "2027-06-30",
       "end": "2027-07-04",
-      "venue": "Bratislava, Bratislava, Slovakia (Slovak Republic)",
-      "description": "",
+      "venue": "Bratislava",
+      "description": "Specialised FIP Exhibition: Most Classes, no postal stationery",
       "image": "images/news-placeholder.svg",
-      "source": "FEPA News",
-      "source_url": "https://fepanews.com/"
+      "source": "ABPS",
+      "source_url": "https://www.abps.org.uk/"
     },
     {
       "title": "FEPA Congress 2027",
@@ -151,6 +164,17 @@
       "source_url": "https://fepanews.com/"
     },
     {
+      "title": "Fila Tica 2027",
+      "url": "https://filatelia-interamericana.com/filatica-2027-costa-rica-sera-sede-de-la-filatelia-continental/",
+      "start": "2027-09-01",
+      "end": "2027-09-30",
+      "venue": "Costa Rica",
+      "description": "FIAF Sponsored Exhibition",
+      "image": "images/news-placeholder.svg",
+      "source": "APS",
+      "source_url": "https://stamps.org/"
+    },
+    {
       "title": "NORDIA 2027",
       "url": "https://fepanews.com/event/nordia-2027/",
       "start": "2027-09-10",
@@ -160,6 +184,17 @@
       "image": "images/news-placeholder.svg",
       "source": "FEPA News",
       "source_url": "https://fepanews.com/"
+    },
+    {
+      "title": "Palmpex 2027",
+      "url": "https://nzpf.org.nz/exhibitions/palmpex27/",
+      "start": "2027-10-01",
+      "end": "2027-10-03",
+      "venue": "New Zealand",
+      "description": "New Zealand national stamp exhibition organized by the Manawatu Philatelic Society (not FIP or FIAF) . Barber Hall on Waldegrave Street in Palmerston North, New Zealand",
+      "image": "images/news-placeholder.svg",
+      "source": "APS",
+      "source_url": "https://stamps.org/"
     },
     {
       "title": "BELGRADE 2027",
@@ -207,14 +242,14 @@
     },
     {
       "title": "PRAGA 2028",
-      "url": "https://fepanews.com/event/praga-2028/",
+      "url": "http://www.prga20287.cz",
       "start": "2028-03-22",
       "end": "2028-03-26",
       "venue": "Prague, , Czech Republic",
-      "description": "",
+      "description": "Specialised FIP Exhibition: All major classes",
       "image": "images/news-placeholder.svg",
-      "source": "FEPA News",
-      "source_url": "https://fepanews.com/"
+      "source": "ABPS",
+      "source_url": "https://www.abps.org.uk/"
     },
     {
       "title": "PRAGA 2028 EXPO",
@@ -244,21 +279,21 @@
       "start": "2028-09-08",
       "end": "2028-09-10",
       "venue": "Hämeenlinna, , Finland",
-      "description": "",
+      "description": "FIP Patronage World Stamp Exhibition",
       "image": "images/news-placeholder.svg",
       "source": "FEPA News",
       "source_url": "https://fepanews.com/"
     },
     {
       "title": "IBRA 2028",
-      "url": "https://fepanews.com/event/ibra-2028/",
+      "url": "http://www.ibra2028.com",
       "start": "2028-10-26",
       "end": "2028-10-29",
-      "venue": "Messe-Ulm, Ulm, Germany",
-      "description": "",
+      "venue": "Ulm, Germany",
+      "description": "General FIP Exhibition: All classes",
       "image": "images/news-placeholder.svg",
-      "source": "FEPA News",
-      "source_url": "https://fepanews.com/"
+      "source": "ABPS",
+      "source_url": "https://www.abps.org.uk/"
     }
   ]
 }
