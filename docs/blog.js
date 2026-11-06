@@ -1,6 +1,6 @@
 const blogPosts = [
     {
-        name: "Austria 2026 Block Christmas Tree: Embroidered Stamp with Gold Foil",
+        name: "Austria 2026 Block Christmas Tree: Embroidered Stamp with Gold Foil.",
         year: "2026",
         country: "Austria",
         desc: "Austrian Post issues the Block Christmas Tree on 5 November 2026 — a world first that combines traditional guipure lace embroidery with gold foil lamination, printed by Hämmerle & Vogel.",
