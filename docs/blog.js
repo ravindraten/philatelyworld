@@ -1,5 +1,14 @@
 const blogPosts = [
     {
+        name: "Austria 2026 Block Christmas Tree: Embroidered Stamp with Gold Foil",
+        year: "2026",
+        country: "Austria",
+        desc: "Austrian Post issues the Block Christmas Tree on 5 November 2026 — a world first that combines traditional guipure lace embroidery with gold foil lamination, printed by Hämmerle & Vogel.",
+        customImage: "https://images.intellishop.cloud/fbab1092640cf1c0/scnEP5sTlNzP023V42iO_Yw4RlT04O-JaiqLJy38UxM/rs:fit:1000:1000:true/ex:true:ce/czM6Ly9pbnRlbGxpc2hvcC1wb3N0YXQtbGl2ZS1wdWJsaWMvYXBwL21lZGlhLWxpYnJhcnkvNmMvOTEvNmM5MWY3YjgxOTFiYzcwZjliMWJlM2MzNjcxOTdlODUxNGRkYWNlZS5qcGc.webp?v=1793629133",
+        imageCount: 1,
+        url: "blog/austria-2026-block-christmas-tree-embroidered-stamp.html",
+        isBlog: true
+    }, {
         name: "459 Free Stamp Album Pages to Download: Every AlbumEasy Album, Sorted by Country",
         year: "2026",
         country: "World",
