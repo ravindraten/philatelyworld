@@ -1,5 +1,14 @@
 const blogPosts = [
     {
+        name: "Decemberzegels 2026: Efteling Animals in Snow Globes – PostNL",
+        year: "2026",
+        country: "Netherlands",
+        desc: "PostNL releases the Decemberzegels 2026 stamp sheet on 9 November 2026 — 20 festive stamps in 10 designs by Efteling designer Jeroen Verheij, with animals in snow globes and hidden attraction silhouettes.",
+        customImage: "https://shop.postnl.nl/_next/image?url=https%3A%2F%2Fshop.postnl.nl%2Fpub%2Fmedia%2Fcatalog%2Fproduct%2F1%2F7%2F1793786387_decemberzegels-2026.jpg&w=1080&q=75",
+        imageCount: 1,
+        url: "blog/decemberzegels-2026-efteling-postnl.html",
+        isBlog: true
+    }, {
         name: "Austria 2026 Block Christmas Tree: Embroidered Stamp with Gold Foil.",
         year: "2026",
         country: "Austria",
