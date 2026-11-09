@@ -1,5 +1,6 @@
 const fs = require('fs');
 const path = require('path');
+const { execSync } = require('child_process');
 
 // 1. Read data.js and extract the stamps array
 const dataJsPath = path.join(__dirname, 'data.js');
@@ -314,12 +315,40 @@ const blogDir = path.join(__dirname, 'blog');
 
 const today = new Date().toISOString().split('T')[0];
 
+const repoRoot = path.join(__dirname, '..');
+const fileDateCache = new Map();
+
+// Prefer the last git commit date for tracked files. Build/checkout operations
+// reset file mtimes, so using mtime would rewrite every sitemap entry on every
+// run. Fall back to the file's mtime for untracked/new files.
 function fileDate(filePath) {
+    if (fileDateCache.has(filePath)) return fileDateCache.get(filePath);
+
+    let date = null;
     try {
-        return fs.statSync(filePath).mtime.toISOString().split('T')[0];
+        const relPath = path.relative(repoRoot, filePath);
+        if (relPath && !relPath.startsWith('..')) {
+            const out = execSync(`git log -1 --format=%cs -- "${relPath}"`, {
+                cwd: repoRoot,
+                encoding: 'utf8',
+                stdio: ['ignore', 'pipe', 'ignore']
+            }).trim();
+            if (out) date = out;
+        }
     } catch {
-        return today;
+        // not a git checkout, or the file is untracked
     }
+
+    if (!date) {
+        try {
+            date = fs.statSync(filePath).mtime.toISOString().split('T')[0];
+        } catch {
+            date = today;
+        }
+    }
+
+    fileDateCache.set(filePath, date);
+    return date;
 }
 
 // Optional per-blog publish dates, shared with the blog tooling.
@@ -399,6 +428,14 @@ const albumToolUrls = ['albumeasy.html', 'auto-album.html']
     <priority>0.7</priority>
   </url>`).join('');
 
+const trackUrl = fs.existsSync(path.join(__dirname, 'track.html')) ? `
+  <url>
+    <loc>${baseUrl}/track.html</loc>
+    <lastmod>${fileDate(path.join(__dirname, 'track.html'))}</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>` : '';
+
 const announcementsIndexUrl = fs.existsSync(path.join(__dirname, 'all_announcements.html')) ? `
   <url>
     <loc>${baseUrl}/all_announcements.html</loc>
@@ -437,7 +474,7 @@ const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
     <lastmod>${fileDate(path.join(__dirname, 'index.html'))}</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
-  </url>${giveawayUrl}${announcementsIndexUrl}${newsUrl}${exhibitionsUrl}${albumToolUrls}${itemUrls}${blogUrls}${announcementUrls}
+  </url>${giveawayUrl}${trackUrl}${announcementsIndexUrl}${newsUrl}${exhibitionsUrl}${albumToolUrls}${itemUrls}${blogUrls}${announcementUrls}
 </urlset>`;
 
 fs.writeFileSync(path.join(__dirname, 'sitemap.xml'), sitemap);
