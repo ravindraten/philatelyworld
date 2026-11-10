@@ -26,7 +26,7 @@
   </url>
   <url>
     <loc>https://philatelyworld.in/philatelic-news.html</loc>
-    <lastmod>2026-11-09</lastmod>
+    <lastmod>2026-11-10</lastmod>
     <changefreq>hourly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -1411,8 +1411,20 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://philatelyworld.in/blog/postnl-gold-silver-stamps-2026.html</loc>
+    <lastmod>2026-11-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://philatelyworld.in/blog/postnl-postzegelcode.html</loc>
     <lastmod>2026-10-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://philatelyworld.in/blog/postset-flora-saba.html</loc>
+    <lastmod>2026-11-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -1429,14 +1441,32 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://philatelyworld.in/blog/pz-met-zilver-ned-schepen-noord-hinder.html</loc>
+    <lastmod>2026-11-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://philatelyworld.in/blog/pzv-felicitatie-momenten.html</loc>
     <lastmod>2026-06-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://philatelyworld.in/blog/pzv-oldtimer-vrachtwagens.html</loc>
+    <lastmod>2026-11-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://philatelyworld.in/blog/pzv-stoomlocomotieven-steam-locomotives.html</loc>
     <lastmod>2026-09-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://philatelyworld.in/blog/pzvel-paard-en-geit.html</loc>
+    <lastmod>2026-11-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>

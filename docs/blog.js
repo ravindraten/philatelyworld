@@ -1,5 +1,50 @@
 const blogPosts = [
     {
+        name: "Jaar van het Paard / de Geit: PostNL Chinese Zodiac Frame Stamp Sheet 2026",
+        year: "2026",
+        country: "Netherlands",
+        desc: "PostNL issues the Jaar van het Paard / de Geit frame stamp sheet on 10 November 2026, celebrating the handover from the Year of the Horse to the Year of the Goat in the Chinese zodiac.",
+        customImage: "https://shop.postnl.nl/_next/image?url=https%3A%2F%2Fshop.postnl.nl%2Fpub%2Fmedia%2Fcatalog%2Fproduct%2F1%2F7%2F1793977661_postnl-postzegelvel-jaar-van-de-geit-2027.jpg&w=1080&q=75",
+        imageCount: 1,
+        url: "blog/pzvel-paard-en-geit.html",
+        isBlog: true
+    }, {
+        name: "Oldtimer Vrachtwagens: PostNL Vintage Trucks Frame Stamp Sheet 2026",
+        year: "2026",
+        country: "Netherlands",
+        desc: "PostNL releases the Oldtimer Vrachtwagens frame stamp sheet on 10 November 2026, with five stamps honouring Dutch vintage trucks by Studio026.",
+        customImage: "https://shop.postnl.nl/_next/image?url=https%3A%2F%2Fshop.postnl.nl%2Fpub%2Fmedia%2Fcatalog%2Fproduct%2F1%2F7%2F1793977164_postzegelvel-oldtimers-vrachtwagens.jpg&w=1080&q=75",
+        imageCount: 1,
+        url: "blog/pzv-oldtimer-vrachtwagens.html",
+        isBlog: true
+    }, {
+        name: "Noord Hinder: PostNL Silver Dutch Ships Stamp 2026",
+        year: "2026",
+        country: "Netherlands",
+        desc: "The Noord Hinder closes PostNL's 2026 four-part silver stamp series on Dutch ships — a limited silver stamp honouring the last Dutch lightship, now a museum ship in Hellevoetsluis.",
+        customImage: "https://shop.postnl.nl/_next/image?url=https%3A%2F%2Fshop.postnl.nl%2Fpub%2Fmedia%2Fcatalog%2Fproduct%2F1%2F7%2F1793871548_nederlandse-schepen-noord-hinder-postzegel-500x500.jpg&w=1080&q=75",
+        imageCount: 1,
+        url: "blog/pz-met-zilver-ned-schepen-noord-hinder.html",
+        isBlog: true
+    }, {
+        name: "Postset Flora Saba: PostNL Experience Nature Stamp Set 2026",
+        year: "2026",
+        country: "Netherlands",
+        desc: "PostNL's Postset Flora Saba pairs an uncancelled stamp sheet of 3 frame stamps with 3 matching postcards, illustrated by Medy Oberendorff for the Beleef de natuur series.",
+        customImage: "https://shop.postnl.nl/_next/image?url=https%3A%2F%2Fshop.postnl.nl%2Fpub%2Fmedia%2Fcatalog%2Fproduct%2F1%2F7%2F1793976591_flora-saba-postzegelvel-set.jpg&w=1080&q=75",
+        imageCount: 1,
+        url: "blog/postset-flora-saba.html",
+        isBlog: true
+    }, {
+        name: "PostNL Gold and Silver Stamps 2026: The Complete Collect Club Guide",
+        year: "2026",
+        country: "Netherlands",
+        desc: "A guide to PostNL's 2026 gold and silver stamps, from the Garfield and Het Puttertje gold stamps to the silver Dutch Ships series and the nijntje silver sheet.",
+        customImage: "https://shop.postnl.nl/_next/image?url=https%3A%2F%2Fshop.postnl.nl%2Fpub%2Fmedia%2Fcatalog%2Fproduct%2F1%2F7%2F1790578273_delfts-blauw-gouden-postzegel.jpg&w=1080&q=75",
+        imageCount: 1,
+        url: "blog/postnl-gold-silver-stamps-2026.html",
+        isBlog: true
+    }, {
         name: "Decemberzegels 2026: Efteling Animals in Snow Globes – PostNL",
         year: "2026",
         country: "Netherlands",
@@ -423,7 +468,7 @@ const blogPosts = [
         name: "Postzegelvel met zilver – nijntje en nina op vakantie (Silver Stamp Sheet) 2026",
         year: "2026",
         country: "Netherlands",
-        desc: "PostNL issues a limited silver stamp sheet featuring nijntje and nina on holiday on 14 July 2026 — the first PostNL stamp sheet with two silver stamps, in a luxury presentation with certificate of authenticity.",
+        desc: "PostNL issues a limited silver stamp sheet featuring nijntje and nina on holiday on 12 August 2026 — the first PostNL stamp sheet with two silver stamps, in a luxury presentation with certificate of authenticity.",
         folder: "nijntje",
         customImage: "https://shop.postnl.nl/_next/image?url=https%3A%2F%2Fshop.postnl.nl%2Fpub%2Fmedia%2Fcatalog%2Fproduct%2Fcache%2F64387f8ec73f5c21c187496764f579a6%2F1%2F7%2F1786533220_nijntje-postzegelvel.jpg&w=1080&q=75",
         imageCount: 1,
