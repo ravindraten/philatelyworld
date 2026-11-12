@@ -26,7 +26,7 @@
   </url>
   <url>
     <loc>https://philatelyworld.in/philatelic-news.html</loc>
-    <lastmod>2026-11-10</lastmod>
+    <lastmod>2026-11-11</lastmod>
     <changefreq>hourly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -1503,6 +1503,12 @@
   <url>
     <loc>https://philatelyworld.in/blog/siervogels-netherlands-2026.html</loc>
     <lastmod>2026-10-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://philatelyworld.in/blog/spain-2026-ebanista-cabinetmaker.html</loc>
+    <lastmod>2026-11-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>

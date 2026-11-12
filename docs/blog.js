@@ -1,5 +1,14 @@
 const blogPosts = [
     {
+        name: "Spain 2026 'Ancient Trades: Cabinetmaker' Stamp: Correos Celebrates the Art of Woodwork",
+        year: "2026",
+        country: "Spain",
+        desc: "Correos issues 'Oficios antiguos. Ebanista.' on 15 October 2026, a 3-euro stamp honouring the cabinetmaker's craft — offset printing with a wood-paper premium sheet and a laser-drawn design.",
+        customImage: "https://www.correos.es/content/dam/filatelia/imagenes/sellos/espana/2026/ebanista.jpg",
+        imageCount: 1,
+        url: "blog/spain-2026-ebanista-cabinetmaker.html",
+        isBlog: true
+    }, {
         name: "Jaar van het Paard / de Geit: PostNL Chinese Zodiac Frame Stamp Sheet 2026",
         year: "2026",
         country: "Netherlands",
