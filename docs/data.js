@@ -235,7 +235,7 @@ const stamps = [
         country: "Various Countries",
         year: "<b>Year</b>: 1920+",
         priceINR: 999,
-        isSoldOut: false,
+        isSoldOut: true,
         freeTrackedShipping: false,
         freeLetterPostShipping: true,
         //folder: "D132",
