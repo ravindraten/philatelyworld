@@ -1,6 +1,18 @@
 // 1. STAMP DATABASE
 const stamps = [
     {
+        name: "Europe various, MNH stamp sheet collection. Rs.99 per sheet.",
+        country: "Europe",
+        year: "<b>Year</b>: various",
+        priceINR: 11880,
+        isSoldOut: false,
+        freeTrackedShipping: true,
+        freeLetterPostShipping: false,
+        folder: "D151",
+        imageCount: 39,
+        //blogUrl: "/blog/german-empire-travelled-covers.html",
+        desc: "RN4213: collection about 120 MNH stamp blocks various European countries incl. blackprints, etc.Check the photos to see a small part, but there is a lot more than you can see here."
+    }, {
         name: "Jugoslavia mostly MNH stamp collection in stockbook; € 350+",
         country: "Jugoslavia",
         year: "<b>Year</b>: various",
