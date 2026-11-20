@@ -1,6 +1,18 @@
 // 1. STAMP DATABASE
 const stamps = [
     {
+        name: "Jugoslavia mostly MNH stamp collection in stockbook; € 350+",
+        country: "Jugoslavia",
+        year: "<b>Year</b>: various",
+        priceINR: 7475,
+        isSoldOut: false,
+        freeTrackedShipping: true,
+        freeLetterPostShipping: false,
+        folder: "D150",
+        imageCount: 16,
+        //blogUrl: "/blog/german-empire-travelled-covers.html",
+        desc: "RN4212: Stockbook with stamp collection Jugoslavia. Former owner counted over € 350 catalogue value.Check the photos. What you see is what you get. Album for free"
+    }, {
         name: "29 covers From Weimar to the Third Reich travelled covers",
         country: "German Empire",
         year: "<b>Year</b>:1927-1945",
