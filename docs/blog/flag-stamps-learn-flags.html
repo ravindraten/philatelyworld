@@ -511,7 +511,9 @@ sb|Solomon Islands|Oceania|The capital city is Honiara.|4
 to|Tonga|Oceania|The capital city is Nukuʻalofa.|4
 tv|Tuvalu|Oceania|The capital city is Funafuti.|4
 vu|Vanuatu|Oceania|The capital city is Port Vila.|4`;
-        const C=RAW.split("\n").map(l=>{const [c,n,k,f,v]=l.split("|");return{c,n,k,f,v:+v}});
+        // Capitals for the famous flags (levels 1-3); the rest are read from the fun fact.
+        const CAP={us:"Washington, D.C.",gb:"London",in:"New Delhi",cn:"Beijing",jp:"Tokyo",br:"Brasília",ca:"Ottawa",au:"Canberra",fr:"Paris",de:"Berlin",it:"Rome",es:"Madrid",mx:"Mexico City",eg:"Cairo",za:"Pretoria",ru:"Moscow",kr:"Seoul",tr:"Ankara",sa:"Riyadh",ar:"Buenos Aires",nz:"Wellington",se:"Stockholm",no:"Oslo",ch:"Bern",nl:"Amsterdam",gr:"Athens",pt:"Lisbon",ng:"Abuja",ke:"Nairobi",id:"Jakarta",th:"Bangkok",pk:"Islamabad",np:"Kathmandu",lk:"Sri Jayawardenepura Kotte",bd:"Dhaka",ie:"Dublin",dk:"Copenhagen",fi:"Helsinki",pl:"Warsaw",ua:"Kyiv",cu:"Havana",pe:"Lima",cl:"Santiago",co:"Bogotá",ma:"Rabat",et:"Addis Ababa",ph:"Manila",vn:"Hanoi",ae:"Abu Dhabi",bt:"Thimphu"};
+        const C=RAW.split("\n").map(l=>{const [c,n,k,f,v]=l.split("|");const cap=(f.match(/capital(?: cit(?:y|ies))? is (.+)\.\s*$/i)||[])[1]||CAP[c]||"";return{c,n,k,f,v:+v,cap}});
         const CONTS=["All",...new Set(C.map(x=>x.k))];
         const $=s=>document.querySelector(s), app=$("#app");
         let mode="learn",cont="All",idx=null,Q=null,speakOn=true,best={};
@@ -530,24 +532,26 @@ vu|Vanuatu|Oceania|The capital city is Port Vila.|4`;
           const list=C.filter(x=>cont=="All"||x.k==cont).sort((a,b)=>a.n.localeCompare(b.n));
           if(idx!==null){
             const x=C[idx],pos=list.findIndex(y=>y===x);
+            const capFact=/^(The capital city is|One of its capital cities is|The capital is) /i.test(x.f);
             app.innerHTML=`<div class="big">
               <button class="btn sm" id="back">Back to all flags</button>
               <div class="stamp pop">${flag(x,640)}<span class="n">${x.n}</span></div>
-              <div class="fact">${x.f}</div>
+              ${x.cap?`<div class="center">Capital: <b>${x.cap}</b></div>`:""}
+              ${capFact?"":`<div class="fact">${x.f}</div>`}
               <div class="center">Continent: <b>${x.k}</b></div>
               <div class="row"><button class="btn" id="hear">Hear it</button>
               <button class="btn" id="prev" ${pos<1?"disabled":""}>Previous</button>
               <button class="btn" id="next" ${pos>=list.length-1?"disabled":""}>Next</button></div></div>`;
             $("#back").onclick=()=>{idx=null;learn()};
-            $("#hear").onclick=()=>say(x.n+". "+x.f);
-            $("#prev").onclick=()=>{idx=C.indexOf(list[pos-1]);learn();say(C[idx].n)};
-            $("#next").onclick=()=>{idx=C.indexOf(list[pos+1]);learn();say(C[idx].n)};
+            $("#hear").onclick=()=>say(x.n+". The capital is "+x.cap+". "+(capFact?"":x.f));
+            $("#prev").onclick=()=>{idx=C.indexOf(list[pos-1]);learn();say(C[idx].n+". The capital is "+C[idx].cap)};
+            $("#next").onclick=()=>{idx=C.indexOf(list[pos+1]);learn();say(C[idx].n+". The capital is "+C[idx].cap)};
             return;
           }
           app.innerHTML=`<div class="chips" role="group" aria-label="Continent">${CONTS.map(k=>`<button class="chip" aria-pressed="${k==cont}" data-k="${k}">${k}</button>`).join("")}</div>
           <div class="grid">${list.map(x=>`<button class="stamp" data-i="${C.indexOf(x)}" aria-label="${x.n}">${flag(x,160)}<span class="n">${x.n}</span></button>`).join("")}</div>`;
           app.querySelectorAll(".chip").forEach(b=>b.onclick=()=>{cont=b.dataset.k;learn()});
-          app.querySelectorAll(".grid .stamp").forEach(b=>b.onclick=()=>{idx=+b.dataset.i;learn();say(C[idx].n)});
+          app.querySelectorAll(".grid .stamp").forEach(b=>b.onclick=()=>{idx=+b.dataset.i;learn();say(C[idx].n+". The capital is "+C[idx].cap)});
         }
 
         function quiz(){
