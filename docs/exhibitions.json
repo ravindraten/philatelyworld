@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-05T12:47:41.921940Z",
+  "generated_at": "2026-11-23T01:52:29.574266Z",
   "sources": [
     "ABPS",
     "FEPA News",
@@ -7,7 +7,7 @@
     "NAPEX",
     "Queensland Stamp & Coin Show"
   ],
-  "count": 26,
+  "count": 25,
   "items": [
     {
       "title": "Queensland Stamp & Coin Show (QSACS)",
@@ -30,17 +30,6 @@
       "image": "images/news-placeholder.svg",
       "source": "ABPS",
       "source_url": "https://www.abps.org.uk/"
-    },
-    {
-      "title": "BEIRUT 2026",
-      "url": "https://fepanews.com/event/beirut-2026/",
-      "start": "2026-11-21",
-      "end": "2026-11-22",
-      "venue": "Beirut, , Lebanon",
-      "description": "",
-      "image": "images/news-placeholder.svg",
-      "source": "FEPA News",
-      "source_url": "https://fepanews.com/"
     },
     {
       "title": "MONACOPHIL 2026",
