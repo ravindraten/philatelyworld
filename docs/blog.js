@@ -1,5 +1,14 @@
 const blogPosts = [
     {
+        name: "Hungary 2026 Saint Barbara Stamp: Glow-in-the-Dark UV Souvenir Sheet",
+        year: "2026",
+        country: "Hungary",
+        desc: "Magyar Posta issued a special self-adhesive souvenir sheet for Saint Barbara on 4 November 2026, with glow-in-the-dark printing under UV and movable parts — the chalice appears under UV and the saint is revealed beneath the peeled stamp.",
+        customImage: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh2nnpfHlJe4jdhdbQZz2SjzGHDMzTftTyOfpmO7dFb2kXmI0Sr434czFkWyrawr4yjXUPI7IZoWQE5Ylc_j-149e1ZoheB9w0AvdH4EIVJTGkAdS2ay-vIFw4N9Y84SOShqvX3qHiqXot0wCt3ejQ2YTwckgrEQzQHiC76yw5TzINWZDl1efMpJbVnQjOX/w640-h622/IMG_9134.jpeg",
+        imageCount: 4,
+        url: "blog/hungary-2026-saint-barbara-glow-in-the-dark-stamp.html",
+        isBlog: true
+    }, {
         name: "Spain 2026 'Ancient Trades: Cabinetmaker' Stamp: Correos Celebrates the Art of Woodwork",
         year: "2026",
         country: "Spain",
