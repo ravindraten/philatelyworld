@@ -1,5 +1,14 @@
 const blogPosts = [
     {
+        name: "Hungary 2025 Rubik's Cube 50th Anniversary Stamps: A Stamp Set You Can Fold into a Cube",
+        year: "2025",
+        country: "Hungary",
+        desc: "Magyar Posta celebrated 50 years since Ernő Rubik filed the Cube's patent with a numbered souvenir sheet, a foldable cube-shaped stamp set and a Retro Cube first day cover, issued on 30 January 2025.",
+        customImage: "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgxsqvSM6CxRXej3udMS9j6nvfVJPB07e6VCPklksMNQzyw0ek9hErs2oNy2vzDZOyFOL8cdZLBlqmEV72f187Z9xGhlpR3XCwHbANk0elwAxeXHiLuTg26nsZf0arwXBduvKTiwOHJKVs0r6GYFnaYMrbswSZD1h2ba5yTXP2MIkHeYjWKYHRDBlFtmpYR/w640-h616/IMG_1162.jpeg",
+        imageCount: 2,
+        url: "blog/hungary-2025-rubiks-cube-50th-anniversary-stamps.html",
+        isBlog: true
+    }, {
         name: "Hungary 2026 Saint Barbara Stamp: Glow-in-the-Dark UV Souvenir Sheet",
         year: "2026",
         country: "Hungary",
