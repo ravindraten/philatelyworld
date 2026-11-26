@@ -364,10 +364,21 @@ const itemIds = fs.readdirSync(itemDir)
     .filter(f => fs.statSync(path.join(itemDir, f)).isDirectory())
     .sort();
 
-// Collect all blog files
+// Collect all blog files (skip pages that canonicalise to another URL)
 const blogIds = fs.existsSync(blogDir)
     ? fs.readdirSync(blogDir)
-        .filter(f => f.endsWith('.html') && !f.startsWith('_'))
+        .filter(f => {
+            if (!f.endsWith('.html') || f.startsWith('_')) return false;
+            try {
+                const html = fs.readFileSync(path.join(blogDir, f), 'utf8');
+                const m = html.match(/<link\s+rel=["']canonical["']\s+href=["']([^"']+)["']/i);
+                if (m) {
+                    const canonical = m[1].replace(/\/$/, '');
+                    return canonical.endsWith('/' + f);
+                }
+            } catch { }
+            return true;
+        })
         .sort()
     : [];
 

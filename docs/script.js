@@ -1280,11 +1280,14 @@ function updateMetaTags(stamp, id) {
     document.title = title;
 
     // 4. Update Open Graph tags and Twitter Cards for social media previews
+    const canonicalItemUrl = id && /^RN\d+$/i.test(id)
+        ? `${window.location.origin}/item/${id}/`
+        : window.location.href;
     const tags = {
         'og-title': title,
         'og-desc': desc,
         'og-image': imgUrl,
-        'og-url': window.location.href,
+        'og-url': canonicalItemUrl,
         'twitter-image': imgUrl
     };
 

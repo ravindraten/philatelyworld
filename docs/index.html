@@ -35,6 +35,27 @@
     <link rel="alternate" hreflang="en" href="https://philatelyworld.in/" />
     <link rel="alternate" hreflang="en-IN" href="https://philatelyworld.in/" />
     <link rel="alternate" hreflang="x-default" href="https://philatelyworld.in/" />
+    <script>
+        // Deep-linked listings (?item=RN####) are alternates of their static
+        // /item/RN####/ page, not of the homepage. Point their canonical and
+        // social URL at the matching static item page so Google consolidates
+        // the right pair instead of treating them as homepage duplicates.
+        (function () {
+            try {
+                var id = new URLSearchParams(window.location.search).get('item');
+                if (id && /^RN\d+$/i.test(id)) {
+                    var itemUrl = 'https://philatelyworld.in/item/' + id + '/';
+                    var canonical = document.querySelector('link[rel="canonical"]');
+                    if (canonical) canonical.setAttribute('href', itemUrl);
+                    var ogUrl = document.getElementById('og-url');
+                    if (ogUrl) ogUrl.setAttribute('content', itemUrl);
+                    document.querySelectorAll('link[rel="alternate"][hreflang]').forEach(function (link) {
+                        link.setAttribute('href', itemUrl);
+                    });
+                }
+            } catch (e) { }
+        })();
+    </script>
 
     <!-- Structured Data -->
     <script type="application/ld+json">
